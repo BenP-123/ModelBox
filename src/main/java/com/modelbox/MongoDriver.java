@@ -8,20 +8,18 @@
 
 
 import com.mongodb.*;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoCursor;
-import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 
 import java.util.ArrayList;
 import java.util.logging.*;
-import  java.util.Scanner;
+import java.util.Scanner;
 
 public class MongoDriver {
-    public static MongoClient mongoClient;
-    public static MongoDatabase database;
+    
+        public static MongoClient mongoClient;
+        public static MongoDatabase database;
 
-    public static void main(String[] args) {
+        public static void main(String[] args) {
 
 
         String username;
