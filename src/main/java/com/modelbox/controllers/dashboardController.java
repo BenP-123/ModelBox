@@ -1,6 +1,5 @@
 package com.modelbox.controllers;
 
-import com.interactivemesh.jfx.importer.ImportException;
 import javafx.event.Event;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -13,46 +12,50 @@ import javafx.scene.shape.MeshView;
 import javafx.scene.shape.TriangleMesh;
 import javafx.stage.FileChooser;
 import javafx.fxml.FXML;
-import java.io.File;
+import java.io.*;
 import java.net.URL;
+import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.List;
 import com.interactivemesh.jfx.importer.stl.StlMeshImporter;
 
 
 public class dashboardController {
+    private List<File> myModelsList = new ArrayList<>();
+    private List<File> uploadModelsList = new ArrayList<>();
+    private StlMeshImporter stlImporter = new StlMeshImporter();
+
     @FXML private Pane navMenuPanel;
     @FXML private Pane accountMenuPanel;
     @FXML private AnchorPane myModelsView;
     @FXML private AnchorPane uploadModelView;
     @FXML private AnchorPane verifyUploadsView;
+    @FXML private FlowPane myModelsFlowPanel;
     @FXML private FlowPane verifyUploadsFlowPanel;
     @FXML private AnchorPane dashboardRootNode;
 
     @FXML
     private void navMenuBtnClicked(Event e){
-        if (navMenuPanel.visibleProperty().get()) {
-            navMenuPanel.setVisible(false);
-        } else {
-            navMenuPanel.setVisible(true);
-        }
+        navMenuPanel.setVisible(!navMenuPanel.visibleProperty().get());
     }
 
     @FXML
     private void accountMenuBtnClicked(Event e){
-        if (accountMenuPanel.visibleProperty().get()) {
-            accountMenuPanel.setVisible(false);
-        } else {
-            accountMenuPanel.setVisible(true);
-        }
+        accountMenuPanel.setVisible(!accountMenuPanel.visibleProperty().get());
     }
 
     @FXML
     private void myModelsViewBtnClicked(Event e){
         verifyUploadsView.setVisible(false);
         uploadModelView.setVisible(false);
+        myModelsFlowPanel.getChildren().clear();
+
+        for (File model : myModelsList) {
+            addMyModelsPreviewCard(model);
+        }
+
         myModelsView.setVisible(true);
         navMenuPanel.setVisible(false);
-
     }
 
     @FXML
@@ -67,30 +70,34 @@ public class dashboardController {
     private void uploadBtnClicked(Event e){
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("3D Files","*.stl"));
+                new FileChooser.ExtensionFilter("STL Files","*.stl"));
         fileChooser.setTitle("Open 3D Model");
 
-        // FIXME: Store the models in a class-wide available list for use in other private methods
-        // FIXME: (i.e. delete a model on the upload verification view)
-        List<File> modelList = fileChooser.showOpenMultipleDialog(dashboardRootNode.getScene().getWindow());
+        // Clear old list to make room for new
+        if (uploadModelsList != null) {
+            for (int i = 0; i < uploadModelsList.size(); i++) {
+                uploadModelsList.remove(i);
+            }
+        }
 
-        if (modelList != null) {
+        uploadModelsList.addAll(fileChooser.showOpenMultipleDialog(dashboardRootNode.getScene().getWindow()));
+
+        if (uploadModelsList != null) {
             uploadModelView.setVisible(false);
-            verifyUploadsView.setVisible(true);
-            for (File model : modelList) {
+            verifyUploadsFlowPanel.getChildren().clear();
+            for (File model : uploadModelsList) {
                 addVerifyModelCard(model);
             }
+            verifyUploadsView.setVisible(true);
         }
     }
 
     private void addVerifyModelCard(File modelFile){
-        // FIXME: Add a preview card to the uploadPreviewView for each file before being "uploaded".
-        StlMeshImporter stlImporter = new StlMeshImporter();
         try {
             URL modelUrl = new URL("file:///" + modelFile.getAbsolutePath());
             stlImporter.read(modelUrl);
         }
-        catch (Exception e) {
+        catch (Exception loadException) {
             // Handle exceptions
         }
 
@@ -107,28 +114,93 @@ public class dashboardController {
         cancelUploadBtn.setGraphic(cancelUploadIcon);
         cancelUploadBtn.setStyle("-fx-background-color: none;");
         cancelUploadBtn.setOnAction(e -> {
-            ((Button) e.getSource()).getParent().setVisible(false);
+            StackPane currentModel = (StackPane) ((Button) e.getSource()).getParent();
+            verifyUploadsFlowPanel.getChildren().remove(currentModel);
+            uploadModelsList.remove(uploadModelsList.get(getModelIndexByName(uploadModelsList, currentModel.getId())));
         });
 
         // Manipulate the features of the model card and the arrangement of its internals
         StackPane modelMeshPane = new StackPane(modelMeshView, cancelUploadBtn);
-        modelMeshPane.setId("uploadCard-" + modelFile.getName());
+        modelMeshPane.setId(modelFile.getName());
         modelMeshPane.setStyle("-fx-background-color: #eeeeee; -fx-background-radius: 8 8 8 8");
         modelMeshPane.setMinWidth(150);
         modelMeshPane.setMinHeight(250);
         modelMeshPane.setMaxWidth(150);
         modelMeshPane.setMaxHeight(250);
-        modelMeshPane.setAlignment(modelMeshView, Pos.CENTER);
-        modelMeshPane.setAlignment(cancelUploadBtn, Pos.TOP_RIGHT);
+        StackPane.setAlignment(modelMeshView, Pos.CENTER);
+        StackPane.setAlignment(cancelUploadBtn, Pos.TOP_RIGHT);
         verifyUploadsFlowPanel.getChildren().add(modelMeshPane);
+    }
+
+    private int getModelIndexByName(List<File> modelList, String modelFileName) {
+        int index = 0;
+        for (int i = 0; i < modelList.size(); i++) {
+            if (modelFileName.equals((modelList.get(i)).getName())) {
+                index = i;
+            }
+        }
+        return index;
     }
 
     @FXML
     private void uploadModelsBtnClicked(Event e){
         verifyUploadsView.setVisible(false);
         // FIXME: Execute database upload operations asynchronously
+        // FIXME: For now files are just being loaded via a List containing all absolute paths
+        myModelsList.addAll(uploadModelsList);
+        myModelsFlowPanel.getChildren().clear();
 
-
+        for (File model : myModelsList) {
+            addMyModelsPreviewCard(model);
+        }
         myModelsView.setVisible(true);
+    }
+
+    private void addMyModelsPreviewCard(File modelFile){
+        try {
+            URL modelUrl = new URL("file:///" + modelFile.getAbsolutePath());
+            stlImporter.read(modelUrl);
+        }
+        catch (Exception loadException) {
+            // Handle exceptions
+        }
+
+        // Create the models so that it can go in each model card that's generated
+        TriangleMesh modelMesh = stlImporter.getImport();
+        MeshView modelMeshView = new MeshView(modelMesh);
+
+        // Create a download btn for each model card generated
+        ImageView downloadModelIcon = new ImageView("/images/download-btn.png");
+        downloadModelIcon.setFitHeight(25);
+        downloadModelIcon.setFitWidth(25);
+        Button downloadModelBtn = new Button();
+        downloadModelBtn.setGraphic(downloadModelIcon);
+        downloadModelBtn.setStyle("-fx-background-color: none;");
+        downloadModelBtn.setOnAction(e -> {
+            StackPane currentModel = (StackPane) ((Button) e.getSource()).getParent();
+            FileChooser fileSaver = new FileChooser();
+            fileSaver.getExtensionFilters().addAll(
+                    new FileChooser.ExtensionFilter("STL File","*.stl"));
+            fileSaver.setTitle("Save 3D Model");
+
+            // Just copy the file to its new destination for now. We'll download from MongoDB later
+            try {
+                Files.copy(myModelsList.get(getModelIndexByName(myModelsList, currentModel.getId())).toPath(), (fileSaver.showSaveDialog(dashboardRootNode.getScene().getWindow())).toPath());
+            } catch (Exception saveException) {
+                // Handle exceptions
+            }
+        });
+
+        // Manipulate the features of the model card and the arrangement of its internals
+        StackPane modelMeshPane = new StackPane(modelMeshView, downloadModelBtn);
+        modelMeshPane.setId(modelFile.getName());
+        modelMeshPane.setStyle("-fx-background-color: #eeeeee; -fx-background-radius: 8 8 8 8");
+        modelMeshPane.setMinWidth(150);
+        modelMeshPane.setMinHeight(250);
+        modelMeshPane.setMaxWidth(150);
+        modelMeshPane.setMaxHeight(250);
+        StackPane.setAlignment(modelMeshView, Pos.CENTER);
+        StackPane.setAlignment(downloadModelBtn, Pos.BOTTOM_RIGHT);
+        myModelsFlowPanel.getChildren().add(modelMeshPane);
     }
 }

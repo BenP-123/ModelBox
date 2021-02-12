@@ -41,6 +41,7 @@
                   <Font size="30.0" />
                </font>
             </Text>
+            <FlowPane id="verifyUploadsFlowPanel" fx:id="myModelsFlowPanel" columnHalignment="CENTER" hgap="25.0" prefHeight="200.0" prefWidth="200.0" vgap="25.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="100.0" />
          </children>
       </AnchorPane>
       <AnchorPane id="uploadModelView" fx:id="uploadModelView" layoutX="10.0" layoutY="50.0" prefHeight="200.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
