@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="backgroundContainer" fx:id="dashboardRootNode" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.modelbox.controllers.dashboardController">
+   <children>
+      <AnchorPane id="topBar" prefHeight="40.0" prefWidth="1000.0" style="-fx-background-color: #262626;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Button id="navMenuBtn" fx:id="navMenuBtn" mnemonicParsing="false" onAction="#navMenuBtnClicked" prefHeight="40.0" prefWidth="60.0" style="-fx-background-color: none;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <graphic>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/menu-bars.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button id="accountMenuBtn" fx:id="accountMenuBtn" mnemonicParsing="false" onAction="#accountMenuBtnClicked" prefHeight="40.0" prefWidth="60.0" style="-fx-background-color: none;" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <graphic>
+                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/user-account.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </AnchorPane>
+      <AnchorPane id="myModelsView" fx:id="myModelsView" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
+         <children>
+            <Text layoutX="95.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="My Models" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="30.0">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+      <AnchorPane id="uploadModelView" fx:id="uploadModelView" layoutX="10.0" layoutY="50.0" prefHeight="200.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
+         <children>
+            <Text layoutX="95.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Upload Models" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="30.0">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Text>
+            <Button fx:id="uploadBtn" alignment="CENTER" contentDisplay="TOP" graphicTextGap="20.0" layoutX="328.0" layoutY="240.0" mnemonicParsing="false" onAction="#uploadBtnClicked" style="-fx-background-color: none; -fx-border-radius: 15 15 15 15; -fx-border-style: dashed; -fx-border-width: 2; -fx-border-color: #c4c4c4;" text="Browse for 3D models. Supports .stl" textAlignment="CENTER" textFill="#868686" AnchorPane.bottomAnchor="75.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="100.0">
+               <graphic>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/plus-circle.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+      <AnchorPane id="uploadModelView" fx:id="verifyUploadsView" layoutX="10.0" layoutY="50.0" prefHeight="200.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
+         <children>
+            <Text layoutX="95.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Upload Verification" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="30.0">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Text>
+            <Button id="verifyUploadBtn" fx:id="verifyUploadBtn" alignment="CENTER" mnemonicParsing="false" onAction="#uploadModelsBtnClicked" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: #2d7dbb; -fx-background-radius: 8 8 8 8;" text="Upload Models" textFill="WHITE" AnchorPane.bottomAnchor="45.0" AnchorPane.rightAnchor="60.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <FlowPane id="verifyUploadsFlowPanel" fx:id="verifyUploadsFlowPanel" columnHalignment="CENTER" hgap="25.0" layoutX="123.0" layoutY="143.0" prefHeight="200.0" prefWidth="200.0" vgap="25.0" AnchorPane.bottomAnchor="110.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="100.0" />
+         </children>
+      </AnchorPane>
+      <Pane id="navMenuPanel" fx:id="navMenuPanel" layoutX="-15.0" layoutY="38.0" prefHeight="175.0" prefWidth="300.0" style="-fx-background-color: #262626; -fx-background-radius: 0 0 25 0;" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="40.0">
+         <children>
+            <Text id="appTitle" fill="WHITE" layoutX="25.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ModelBox">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+            <Text id="appSlogan" fill="#bababa" layoutX="25.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="An intuitive approach to 3D model management.">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Text>
+            <Line id="navMenuIndicator" endX="60.0" stroke="WHITE" strokeWidth="1.25" />
+            <Line id="navMenuDivider1" endX="275.0" endY="1.52587890625E-5" layoutX="25.0" layoutY="100.0" stroke="WHITE" strokeWidth="1.25" />
+            <Line id="navMenuDivider2" endX="275.0" endY="1.52587890625E-5" layoutX="27.0" layoutY="140.0" stroke="WHITE" strokeWidth="1.25" />
+            <Button id="myModelsBtn" alignment="BASELINE_LEFT" graphicTextGap="20.0" layoutX="25.0" layoutY="71.0" mnemonicParsing="false" onAction="#myModelsViewBtnClicked" prefHeight="25.0" prefWidth="275.0" style="-fx-background-color: none;" text="My Models" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/my-models.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button id="uploadModelBtn" alignment="BASELINE_LEFT" graphicTextGap="20.0" layoutX="25.0" layoutY="110.0" mnemonicParsing="false" onAction="#uploadModelViewBtnClicked" prefHeight="25.0" prefWidth="275.0" style="-fx-background-color: none;" text="Upload Models" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/upload-model.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </Pane>
+      <Pane id="accountMenuPanel" fx:id="accountMenuPanel" layoutX="754.0" layoutY="51.0" prefHeight="80.0" prefWidth="300.0" style="-fx-background-color: #262626; -fx-background-radius: 0 0 0 25;" visible="false" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
+         <children>
+            <Line id="accountMenuIndicator" endX="60.0" layoutX="240.0" stroke="WHITE" strokeWidth="1.25" />
+            <Text id="accountUserName" fill="WHITE" layoutX="25.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Maverick Coryell">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+            <Text id="accountUserEmail" fill="#bababa" layoutX="25.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="coryelm@sunypoly.edu">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Text>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
