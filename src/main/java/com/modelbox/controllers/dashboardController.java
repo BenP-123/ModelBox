@@ -129,6 +129,8 @@ public class dashboardController {
         modelMeshPane.setMaxHeight(250);
         StackPane.setAlignment(modelMeshView, Pos.CENTER);
         StackPane.setAlignment(cancelUploadBtn, Pos.TOP_RIGHT);
+
+        //Add the model card to the view
         verifyUploadsFlowPanel.getChildren().add(modelMeshPane);
     }
 
