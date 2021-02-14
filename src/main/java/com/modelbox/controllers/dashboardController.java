@@ -30,6 +30,7 @@ public class dashboardController {
     @FXML private AnchorPane myModelsView;
     @FXML private AnchorPane uploadModelView;
     @FXML private AnchorPane verifyUploadsView;
+    @FXML private AnchorPane NoModelsView;
     @FXML private FlowPane myModelsFlowPanel;
     @FXML private FlowPane verifyUploadsFlowPanel;
     @FXML private AnchorPane dashboardRootNode;
@@ -53,13 +54,27 @@ public class dashboardController {
         for (File model : myModelsList) {
             addMyModelsPreviewCard(model);
         }
-
-        myModelsView.setVisible(true);
+        if(myModelsList.isEmpty()){
+            NoModelsView.setVisible(true);
+        }
+        else {
+            myModelsView.setVisible(true);
+        }
         navMenuPanel.setVisible(false);
     }
 
     @FXML
     private void uploadModelViewBtnClicked(Event e){
+        verifyUploadsView.setVisible(false);
+        myModelsView.setVisible(false);
+        NoModelsView.setVisible(false);
+        uploadModelView.setVisible(true);
+        navMenuPanel.setVisible(false);
+    }
+
+    @FXML
+    private void NoModelsBtnClicked(Event e){
+        NoModelsView.setVisible(false);
         verifyUploadsView.setVisible(false);
         myModelsView.setVisible(false);
         uploadModelView.setVisible(true);

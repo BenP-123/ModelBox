@@ -35,7 +35,7 @@
             </Button>
          </children>
       </AnchorPane>
-      <AnchorPane id="myModelsView" fx:id="myModelsView" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
+      <AnchorPane id="myModelsView" fx:id="myModelsView" prefHeight="200.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
          <children>
             <Text layoutX="95.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="My Models" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="30.0">
                <font>
@@ -47,6 +47,27 @@
                   <FlowPane id="myModelsFlowPanel" fx:id="myModelsFlowPanel" columnHalignment="CENTER" hgap="25.0" maxHeight="-Infinity" maxWidth="Infinity" minHeight="-Infinity" prefWidth="880.0" vgap="25.0" />
                </content>
             </ScrollPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane id="myModelsView" fx:id="NoModelsView" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
+         <children>
+            <Text layoutX="95.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="My Models" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="30.0">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Text>
+            <Button fx:id="NoModelsBtn" alignment="CENTER" contentDisplay="TOP" graphicTextGap="20.0" layoutX="328.0" layoutY="240.0" mnemonicParsing="false" onAction="#NoModelsBtnClicked" style="-fx-background-color: none; -fx-border-radius: 15 15 15 15; -fx-border-style: dashed; -fx-border-width: 2; -fx-border-color: #c4c4c4;" text="No 3D models uploaded. Click here to get started." textAlignment="CENTER" textFill="#868686" AnchorPane.bottomAnchor="75.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="100.0">
+               <graphic>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/Logo.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
       <AnchorPane id="uploadModelView" fx:id="uploadModelView" layoutX="10.0" layoutY="50.0" prefHeight="200.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
