@@ -25,11 +25,10 @@ dependencies {
     testCompile group: 'org.testng', name: 'testng', version: '7.1.0'
     compile group: 'org.mongodb', name: 'mongodb-driver', version: '3.12.7'
     compile name: 'jimStlMeshImporterJFX'
-
 }
 
 test {
     useTestNG()
 }
 
-mainClassName = "com.modelbox.ModelBox"
+mainClassName = "com.modelbox.LaunchApp"
