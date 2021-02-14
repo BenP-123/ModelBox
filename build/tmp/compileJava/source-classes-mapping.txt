@@ -1,4 +1,6 @@
 com/modelbox/controllers/dashboardController.java
  com.modelbox.controllers.dashboardController
+com/modelbox/LaunchApp.java
+ com.modelbox.LaunchApp
 com/modelbox/ModelBox.java
  com.modelbox.ModelBox

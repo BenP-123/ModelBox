@@ -19,8 +19,4 @@ public class ModelBox extends Application {
         stage.setMinHeight(650);
         stage.show();
     }
-
-    public static void main(String [] args) {
-        launch(args);
-    }
 }
