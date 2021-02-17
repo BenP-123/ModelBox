@@ -67,11 +67,11 @@ goto fail
 :execute
 @rem Setup the command line
 
-set CLASSPATH=%APP_HOME%\lib\ModelBox-1.0.jar;%APP_HOME%\lib\mongodb-driver-3.12.7.jar;%APP_HOME%\lib\jimStlMeshImporterJFX.jar;%APP_HOME%\lib\javafx-fxml-15.0.1-mac.jar;%APP_HOME%\lib\javafx-controls-15.0.1-mac.jar;%APP_HOME%\lib\javafx-controls-15.0.1.jar;%APP_HOME%\lib\javafx-graphics-15.0.1-mac.jar;%APP_HOME%\lib\javafx-graphics-15.0.1.jar;%APP_HOME%\lib\javafx-base-15.0.1-mac.jar;%APP_HOME%\lib\javafx-base-15.0.1.jar;%APP_HOME%\lib\mongodb-driver-core-3.12.7.jar;%APP_HOME%\lib\bson-3.12.7.jar
+set CLASSPATH=%APP_HOME%\lib\ModelBox-1.0.jar;%APP_HOME%\lib\mongodb-driver-3.12.7.jar;%APP_HOME%\lib\jimStlMeshImporterJFX.jar;%APP_HOME%\lib\javafx-fxml-15.0.1-win.jar;%APP_HOME%\lib\javafx-controls-15.0.1-win.jar;%APP_HOME%\lib\javafx-controls-15.0.1.jar;%APP_HOME%\lib\javafx-graphics-15.0.1-win.jar;%APP_HOME%\lib\javafx-graphics-15.0.1.jar;%APP_HOME%\lib\javafx-base-15.0.1-win.jar;%APP_HOME%\lib\javafx-base-15.0.1.jar;%APP_HOME%\lib\mongodb-driver-core-3.12.7.jar;%APP_HOME%\lib\bson-3.12.7.jar
 
 
 @rem Execute ModelBox
-"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %MODEL_BOX_OPTS%  -classpath "%CLASSPATH%" com.modelbox.ModelBox %*
+"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %MODEL_BOX_OPTS%  -classpath "%CLASSPATH%" com.modelbox.LaunchApp %*
 
 :end
 @rem End local scope for the variables with windows NT shell
