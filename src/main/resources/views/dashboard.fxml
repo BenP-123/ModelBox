@@ -167,7 +167,7 @@
             </Text>
          </children>
       </Pane>
-      <AnchorPane fx:id="settingsView" prefHeight="650.0" prefWidth="1000.0">
+      <AnchorPane fx:id="settingsView" prefHeight="650.0" prefWidth="1000.0" visible="false">
          <children>
             <Line endX="491.946044921875" layoutX="339.0" layoutY="313.0" startX="-100.0" />
             <Label layoutX="28.0" layoutY="62.0" text="Settings">
@@ -196,36 +196,6 @@
                </font>
             </Label>
             <Line endX="483.13671875" endY="-1.52587890625E-5" layoutX="346.0" layoutY="234.0" startX="-107.48312377929688" startY="-1.52587890625E-5" />
-            <ImageView fitHeight="28.0" fitWidth="200.0" layoutX="577.0" layoutY="482.0">
-               <image>
-                  <Image url="@../../../../../Downloads/Rectangle%2019.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="28.0" fitWidth="200.0" layoutX="575.0" layoutY="391.0">
-               <image>
-                  <Image url="@../../../../../Downloads/Rectangle%2019.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="28.0" fitWidth="200.0" layoutX="236.0" layoutY="481.0">
-               <image>
-                  <Image url="@../../../../../Downloads/Rectangle%2019.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="28.0" fitWidth="200.0" layoutX="237.0" layoutY="391.0">
-               <image>
-                  <Image url="@../../../../../Downloads/Rectangle%2019.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="19.0" fitWidth="338.0" layoutX="465.0" layoutY="266.0">
-               <image>
-                  <Image url="@../../../../../Downloads/Rectangle%2023.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="35.0" fitWidth="37.0" layoutX="187.0" layoutY="175.0">
-               <image>
-                  <Image url="@../../../../../Downloads/21-212686_transparent-moon-clipart-outline-moon-crescent-moon-graphic%201.png" />
-               </image>
-            </ImageView>
             <Label layoutX="235.0" layoutY="369.0" text="Existing Password">
                <font>
                   <Font size="20.0" />
@@ -236,6 +206,55 @@
                   <Font size="20.0" />
                </font>
             </Label>
+            <ImageView fitHeight="42.0" fitWidth="45.0" layoutX="186.0" layoutY="172.0">
+               <image>
+                  <Image url="@../images/darkMode.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="20.0" fitWidth="303.0" layoutX="512.0" layoutY="265.0">
+               <image>
+                  <Image url="@../images/storageBox.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="28.0" fitWidth="200.0" layoutX="226.0" layoutY="392.0">
+               <image>
+                  <Image url="@../images/textBox.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="28.0" fitWidth="200.0" layoutX="562.0" layoutY="396.0">
+               <image>
+                  <Image url="@../images/textBox.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="28.0" fitWidth="200.0" layoutX="221.0" layoutY="477.0">
+               <image>
+                  <Image url="@../images/textBox.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="28.0" fitWidth="200.0" layoutX="557.0" layoutY="477.0">
+               <image>
+                  <Image url="@../images/textBox.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="profileView" prefHeight="651.0" prefWidth="1000.0" visible="false">
+         <children>
+            <Label layoutX="328.0" layoutY="437.0" text="Created February 10, 2021">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Label>
+            <Label layoutX="438.0" layoutY="70.0" text="Profile">
+               <font>
+                  <Font size="45.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="192.0" fitWidth="200.0" layoutX="399.0" layoutY="167.0">
+               <image>
+                  <Image url="@../images/joshProfile.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
    </children>

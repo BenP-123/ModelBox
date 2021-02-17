@@ -71,7 +71,7 @@ set CLASSPATH=%APP_HOME%\lib\ModelBox-1.0.jar;%APP_HOME%\lib\mongodb-driver-3.12
 
 
 @rem Execute ModelBox
-"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %MODEL_BOX_OPTS%  -classpath "%CLASSPATH%" com.modelbox.ModelBox %*
+"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %MODEL_BOX_OPTS%  -classpath "%CLASSPATH%" com.modelbox.LaunchApp %*
 
 :end
 @rem End local scope for the variables with windows NT shell
