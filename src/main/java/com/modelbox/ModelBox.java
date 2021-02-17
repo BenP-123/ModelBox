@@ -1,5 +1,6 @@
 package com.modelbox;
 
+import com.modelbox.controllers.createAccountController;
 import com.modelbox.controllers.dashboardController;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -10,15 +11,27 @@ import javafx.fxml.FXMLLoader;
 public class ModelBox extends Application {
     public void start(Stage stage) throws Exception {
         dashboardController dashController = new dashboardController();
-        FXMLLoader dashboardLoader = new FXMLLoader();
-        dashboardLoader.setController(dashController);
+        createAccountController createController = new createAccountController();
 
-        Parent root = dashboardLoader.load(getClass().getResource("/views/dashboard.fxml"));
-        stage.setScene(new Scene(root, 1000, 650));
-        stage.setMinWidth(1000);
-        stage.setMinHeight(650);
-        stage.show();
+        Boolean loggedIn = false;
 
+        if (loggedIn) {
+            FXMLLoader dashboardLoader = new FXMLLoader();
+            dashboardLoader.setController(dashController);
+            Parent root = dashboardLoader.load(getClass().getResource("/views/dashboard.fxml"));
+            stage.setScene(new Scene(root, 1000, 650));
+            stage.setMinWidth(1000);
+            stage.setMinHeight(650);
+            stage.show();
+        } else {
+            FXMLLoader createAccountLoader = new FXMLLoader();
+            createAccountLoader.setController(createController);
+            Parent root = createAccountLoader.load(getClass().getResource("/views/createAccount.fxml"));
+            stage.setScene(new Scene(root, 1000, 650));
+            stage.setMinWidth(1000);
+            stage.setMinHeight(650);
+            stage.show();
+        }
 
     }
 }
