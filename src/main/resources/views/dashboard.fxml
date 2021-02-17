@@ -264,23 +264,38 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <AnchorPane id="profileView" fx:id="profileView" layoutY="40.0" prefHeight="610.0" prefWidth="1000.0" visible="false">
+      <AnchorPane id="profileView" fx:id="profileView" layoutY="40.0" prefHeight="610.0" prefWidth="1000.0">
          <children>
-            <Label layoutX="328.0" layoutY="437.0" text="Created February 10, 2021">
+            <Label alignment="CENTER" layoutX="312.0" layoutY="474.0" text="User since February 10, 2021">
                <font>
                   <Font size="30.0" />
                </font>
             </Label>
-            <Label layoutX="438.0" layoutY="70.0" text="Profile">
+            <Label alignment="CENTER" layoutX="437.0" layoutY="14.0" text="Profile">
                <font>
                   <Font size="45.0" />
                </font>
             </Label>
-            <ImageView fitHeight="192.0" fitWidth="200.0" layoutX="399.0" layoutY="167.0">
+            <ImageView fitHeight="192.0" fitWidth="200.0" layoutX="400.0" layoutY="80.0">
                <image>
                   <Image url="@../images/joshProfile.png" />
                </image>
             </ImageView>
+            <Label alignment="CENTER" layoutX="382.0" layoutY="340.0" text="Maverick Coryell" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="30.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="377.0" layoutY="396.0" text="corylem@sunypoly.edu" textAlignment="CENTER">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Button alignment="CENTER" layoutX="455.0" layoutY="280.0" mnemonicParsing="false" text="Choose Photo" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
    </children>
