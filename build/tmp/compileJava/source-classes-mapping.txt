@@ -1,10 +1,10 @@
-com/modelbox/ModelBox.java
- com.modelbox.ModelBox
 com/modelbox/controllers/dashboardController.java
  com.modelbox.controllers.dashboardController
 com/modelbox/LaunchApp.java
  com.modelbox.LaunchApp
 com/modelbox/MongoDriver/MongoDriver.java
  com.modelbox.MongoDriver.MongoDriver
+com/modelbox/ModelBox.java
+ com.modelbox.ModelBox
 com/modelbox/MongoDriver/CreateUser.java
  com.modelbox.MongoDriver.CreateUser

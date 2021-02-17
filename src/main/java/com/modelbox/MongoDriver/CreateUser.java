@@ -50,7 +50,7 @@ public class CreateUser extends MongoDriver {
                 System.out.flush();
 
         }
-        catch (MongoCommandException e){
+        catch (Exception e){
             e.printStackTrace();
         }
     }
