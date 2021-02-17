@@ -34,6 +34,8 @@ public class dashboardController {
     @FXML private FlowPane myModelsFlowPanel;
     @FXML private FlowPane verifyUploadsFlowPanel;
     @FXML private AnchorPane dashboardRootNode;
+    @FXML private AnchorPane settingsView;
+    @FXML private AnchorPane profileView;
 
     @FXML
     private void navMenuBtnClicked(Event e){
@@ -219,5 +221,25 @@ public class dashboardController {
         StackPane.setAlignment(modelMeshView, Pos.CENTER);
         StackPane.setAlignment(downloadModelBtn, Pos.BOTTOM_RIGHT);
         myModelsFlowPanel.getChildren().add(modelMeshPane);
+    }
+
+    private void settingsBtnClicked(Event e){
+        NoModelsView.setVisible(false);
+        verifyUploadsView.setVisible(false);
+        myModelsView.setVisible(false);
+        uploadModelView.setVisible(false);
+        navMenuPanel.setVisible(false);
+        settingsView.setVisible(true);
+
+    }
+
+    private void profileBtnClicked(Event e){
+        NoModelsView.setVisible(false);
+        verifyUploadsView.setVisible(false);
+        myModelsView.setVisible(false);
+        uploadModelView.setVisible(false);
+        navMenuPanel.setVisible(false);
+        profileView.setVisible(true);
+
     }
 }
