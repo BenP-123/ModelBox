@@ -233,7 +233,7 @@ public class dashboardController {
 
     }
 
-    private void profileBtnClicked(Event e){
+    /*private void profileBtnClicked(Event e){
         NoModelsView.setVisible(false);
         verifyUploadsView.setVisible(false);
         myModelsView.setVisible(false);
@@ -241,5 +241,5 @@ public class dashboardController {
         navMenuPanel.setVisible(false);
         profileView.setVisible(true);
 
-    }
+    }*/
 }
