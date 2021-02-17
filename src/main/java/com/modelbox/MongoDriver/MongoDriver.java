@@ -1,10 +1,12 @@
-package com.modelbox;
+package com.modelbox.MongoDriver;
 
 import com.mongodb.ConnectionString;
 import com.mongodb.client.*;
 import com.mongodb.MongoClientSettings;
 import org.bson.Document;
 import com.mongodb.client.MongoCollection;
+
+import java.util.logging.Level;
 
 
 public class MongoDriver
@@ -24,13 +26,17 @@ public class MongoDriver
 */
     public void connect_database()
     {
+        //Sets a level to the JULLogger, lots of visible text in red on console.
+        java.util.logging.Logger.getLogger("org.mongodb.driver").setLevel(Level.SEVERE);
+
         try
         {
 
             //TestUser is hardcoded logging on for testing purposes.
             //Permissions are read only collections in TestDB
+            //**Using Localhost until approval for Student Pack**//
             ConnectionString conn_string = new ConnectionString(
-                    "mongodb+srv://TestUser:TestUser123@modelbox.hjap7.mongodb.net/TestDB?retryWrites=true&w=majority");
+                    "mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&ssl=false");
 
             /* Future possible implementation
             //Create a connection string
@@ -51,8 +57,8 @@ public class MongoDriver
             try
             {
                 //Access particular database
-                database = mongo_client.getDatabase("TestDB");
-                MongoCollection<Document> collection = database.getCollection("Test");
+                database = mongo_client.getDatabase("ModelBox");
+                MongoCollection<Document> collection = database.getCollection("ModelBox");
 
                 //Retrieving the documents
                 FindIterable<Document> iterDoc = collection.find();
