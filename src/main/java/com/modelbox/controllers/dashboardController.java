@@ -34,6 +34,8 @@ public class dashboardController {
     @FXML private FlowPane myModelsFlowPanel;
     @FXML private FlowPane verifyUploadsFlowPanel;
     @FXML private AnchorPane dashboardRootNode;
+    @FXML private AnchorPane settingsView;
+    @FXML private AnchorPane profileView;
 
     @FXML
     private void navMenuBtnClicked(Event e){
@@ -47,8 +49,7 @@ public class dashboardController {
 
     @FXML
     private void myModelsViewBtnClicked(Event e){
-        verifyUploadsView.setVisible(false);
-        uploadModelView.setVisible(false);
+        setVisible(myModelsView);
         myModelsFlowPanel.getChildren().clear();
 
         for (File model : myModelsList) {
@@ -65,20 +66,12 @@ public class dashboardController {
 
     @FXML
     private void uploadModelViewBtnClicked(Event e){
-        verifyUploadsView.setVisible(false);
-        myModelsView.setVisible(false);
-        NoModelsView.setVisible(false);
-        uploadModelView.setVisible(true);
-        navMenuPanel.setVisible(false);
+        setVisible(uploadModelView);
     }
 
     @FXML
     private void NoModelsBtnClicked(Event e){
-        NoModelsView.setVisible(false);
-        verifyUploadsView.setVisible(false);
-        myModelsView.setVisible(false);
-        uploadModelView.setVisible(true);
-        navMenuPanel.setVisible(false);
+        setVisible(uploadModelView);
     }
 
     @FXML
@@ -219,5 +212,43 @@ public class dashboardController {
         StackPane.setAlignment(modelMeshView, Pos.CENTER);
         StackPane.setAlignment(downloadModelBtn, Pos.BOTTOM_RIGHT);
         myModelsFlowPanel.getChildren().add(modelMeshPane);
+    }
+
+    @FXML
+    private void settingsBtnClicked(Event e){
+        setVisible(settingsView);
+    }
+
+    @FXML
+    private void profileBtnClicked(Event e){
+        setVisible(profileView);
+    }
+
+    private void setVisible(AnchorPane ap){
+        navMenuPanel.setVisible(false);
+        NoModelsView.setVisible(false);
+        verifyUploadsView.setVisible(false);
+        myModelsView.setVisible(false);
+        uploadModelView.setVisible(false);
+
+        accountMenuPanel.setVisible(false);
+        profileView.setVisible(false);
+        settingsView.setVisible(false);
+
+        ap.setVisible(true);
+    }
+
+    private void setVisible(Pane p){
+        navMenuPanel.setVisible(false);
+        NoModelsView.setVisible(false);
+        verifyUploadsView.setVisible(false);
+        myModelsView.setVisible(false);
+        uploadModelView.setVisible(false);
+
+        accountMenuPanel.setVisible(false);
+        profileView.setVisible(false);
+        settingsView.setVisible(false);
+
+        p.setVisible(true);
     }
 }
