@@ -1,9 +1,10 @@
-package com.modelbox.MongoDriver;
+package com.modelbox;
 
 import java.util.Date;
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.modelbox.User;
 
 //Class that defines how a model is represented in our database and outside of it.
 public class Model extends User {

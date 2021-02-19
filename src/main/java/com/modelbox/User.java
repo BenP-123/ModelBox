@@ -1,4 +1,4 @@
-package com.modelbox.MongoDriver;
+package com.modelbox;
 
 import java.util.Date;
 import java.util.List;
