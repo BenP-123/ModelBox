@@ -21,6 +21,8 @@ import com.interactivemesh.jfx.importer.stl.StlMeshImporter;
 
 
 public class dashboardController {
+
+    @FXML private ImageView profilePicture;
     private List<File> myModelsList = new ArrayList<>();
     private List<File> uploadModelsList = new ArrayList<>();
     private StlMeshImporter stlImporter = new StlMeshImporter();
@@ -250,5 +252,15 @@ public class dashboardController {
         settingsView.setVisible(false);
 
         p.setVisible(true);
+    }
+
+    @FXML
+    private void addProfilePictureBtn(Event e){
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image","*.png"));
+        fileChooser.setTitle("Select Profile Picture");
+
+       // profilePicture.setImage(fileChooser.showOpenDialog(dashboardRootNode.getScene().getWindow()));
     }
 }

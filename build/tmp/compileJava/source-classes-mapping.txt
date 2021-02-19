@@ -1,15 +1,15 @@
-com/modelbox/database/user.java
- com.modelbox.database.user
 com/modelbox/controllers/dashboardController.java
  com.modelbox.controllers.dashboardController
+com/modelbox/databaseIO/model.java
+ com.modelbox.databaseIO.model
 com/modelbox/initialStagePrep.java
  com.modelbox.initialStagePrep
 com/modelbox/auth/dbConnection.java
  com.modelbox.auth.dbConnection
 com/modelbox/controllers/createAccountController.java
  com.modelbox.controllers.createAccountController
-com/modelbox/database/model.java
- com.modelbox.database.model
+com/modelbox/databaseIO/user.java
+ com.modelbox.databaseIO.user
 com/modelbox/modelboxApp.java
  com.modelbox.modelboxApp
 com/modelbox/auth/createUser.java
