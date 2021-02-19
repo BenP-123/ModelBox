@@ -9,9 +9,9 @@ public class LaunchApp {
     public static void main(String[] args) {
         Application.launch(ModelBox.class, "String arg");
 
-        // Create a new DataBase user
+        /* test db connection using hardcoded login
         MongoDriver mongoDriver = new MongoDriver();
         mongoDriver.connect_database();
-
+        */
     }
 }

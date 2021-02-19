@@ -34,7 +34,6 @@ public class MongoDriver
 
             //TestUser is hardcoded logging on for testing purposes.
             //Permissions are read only collections in TestDB
-            //**Using Localhost until approval for Student Pack**//
             ConnectionString conn_string = new ConnectionString(
                     "mongodb+srv://TestUser:TestUser@modelbox-production.hjap7.mongodb.net/TestDB?retryWrites=true&w=majority");
 
