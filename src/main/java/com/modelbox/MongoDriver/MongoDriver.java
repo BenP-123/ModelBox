@@ -36,7 +36,7 @@ public class MongoDriver
             //Permissions are read only collections in TestDB
             //**Using Localhost until approval for Student Pack**//
             ConnectionString conn_string = new ConnectionString(
-                    "mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&ssl=false");
+                    "mongodb+srv://TestUser:TestUser@modelbox-production.hjap7.mongodb.net/TestDB?retryWrites=true&w=majority");
 
             /* Future possible implementation
             //Create a connection string
@@ -57,8 +57,8 @@ public class MongoDriver
             try
             {
                 //Access particular database
-                database = mongo_client.getDatabase("ModelBox");
-                MongoCollection<Document> collection = database.getCollection("ModelBox");
+                database = mongo_client.getDatabase("TestDB");
+                MongoCollection<Document> collection = database.getCollection("TestDB");
 
                 //Retrieving the documents
                 FindIterable<Document> iterDoc = collection.find();
