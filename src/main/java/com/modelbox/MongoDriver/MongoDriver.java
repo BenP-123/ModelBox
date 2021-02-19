@@ -60,6 +60,7 @@ public class MongoDriver
                 MongoCollection<Document> collection = database.getCollection("TestDB");
 
                 //Retrieving the documents
+                System.out.println("Displaying entire collection in 'TestDB'");
                 FindIterable<Document> iterDoc = collection.find();
                 for (Document document : iterDoc) {
                     System.out.println(document);
