@@ -13,7 +13,7 @@ public class ModelBox extends Application {
         dashboardController dashController = new dashboardController();
         createAccountController createController = new createAccountController();
 
-        Boolean loggedIn = true;
+        Boolean loggedIn = false;
 
         if (loggedIn) {
             FXMLLoader dashboardLoader = new FXMLLoader();

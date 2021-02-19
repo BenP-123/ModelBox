@@ -40,7 +40,7 @@
          <padding>
             <Insets left="40.0" />
          </padding></TextField>
-      <Button alignment="CENTER" layoutX="531.0" layoutY="380.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="373.0" style="-fx-background-color: #2D7DDB; -fx-text-fill: #ffffff; -fx-background-radius: 8 8 8 8;" text="Sign In" AnchorPane.leftAnchor="531.0" AnchorPane.rightAnchor="96.0" AnchorPane.topAnchor="380.0">
+      <Button fx:id="loginBtn" onAction="#loginBtnClicked" alignment="CENTER" layoutX="531.0" layoutY="380.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="373.0" style="-fx-background-color: #2D7DDB; -fx-text-fill: #ffffff; -fx-background-radius: 8 8 8 8;" text="Login" AnchorPane.leftAnchor="531.0" AnchorPane.rightAnchor="96.0" AnchorPane.topAnchor="380.0">
          <font>
             <Font size="20.0" />
          </font></Button>
@@ -52,11 +52,11 @@
          <font>
             <Font size="20.0" />
          </font></Text>
-      <Button fx:id="dontHaveanAccount" alignment="CENTER" layoutX="515.0" layoutY="422.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="406.0" style="-fx-background-color: transparent;" text="Don’t have an account? Create an account" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="515.0" AnchorPane.rightAnchor="79.0" AnchorPane.topAnchor="422.0">
+      <Button fx:id="dontHaveanAccount" onAction="#dontHaveanAccount" alignment="CENTER" layoutX="515.0" layoutY="422.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="406.0" style="-fx-background-color: transparent;" text="Don’t have an account? Create an account" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="515.0" AnchorPane.rightAnchor="79.0" AnchorPane.topAnchor="422.0">
          <font>
             <Font size="20.0" />
          </font></Button>
-      <Button fx:id="forgotPassword" alignment="CENTER" layoutX="531.0" layoutY="448.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="373.0" style="-fx-background-color: transparent;" text="Forgot password?" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="531.0" AnchorPane.rightAnchor="98.0" AnchorPane.topAnchor="448.0">
+      <Button fx:id="forgotPassword" onAction="#forgotPassword" alignment="CENTER" layoutX="531.0" layoutY="448.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="373.0" style="-fx-background-color: transparent;" text="Forgot password?" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="531.0" AnchorPane.rightAnchor="98.0" AnchorPane.topAnchor="448.0">
          <font>
             <Font size="20.0" />
          </font>
