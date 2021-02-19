@@ -34,4 +34,4 @@ test {
     useTestNG()
 }
 
-mainClassName = "com.modelbox.LaunchApp"
+mainClassName = "com.modelbox.modelboxApp"

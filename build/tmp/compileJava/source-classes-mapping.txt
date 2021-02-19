@@ -1,18 +1,18 @@
-com/modelbox/controllers/loginController.java
- com.modelbox.controllers.loginController
+com/modelbox/database/user.java
+ com.modelbox.database.user
 com/modelbox/controllers/dashboardController.java
  com.modelbox.controllers.dashboardController
+com/modelbox/initialStagePrep.java
+ com.modelbox.initialStagePrep
+com/modelbox/auth/dbConnection.java
+ com.modelbox.auth.dbConnection
 com/modelbox/controllers/createAccountController.java
  com.modelbox.controllers.createAccountController
-com/modelbox/ModelBox.java
- com.modelbox.ModelBox
-com/modelbox/Model.java
- com.modelbox.Model
-com/modelbox/User.java
- com.modelbox.User
-com/modelbox/LaunchApp.java
- com.modelbox.LaunchApp
-com/modelbox/MongoDriver/MongoDriver.java
- com.modelbox.MongoDriver.MongoDriver
-com/modelbox/MongoDriver/CreateUser.java
- com.modelbox.MongoDriver.CreateUser
+com/modelbox/database/model.java
+ com.modelbox.database.model
+com/modelbox/modelboxApp.java
+ com.modelbox.modelboxApp
+com/modelbox/auth/createUser.java
+ com.modelbox.auth.createUser
+com/modelbox/controllers/loginController.java
+ com.modelbox.controllers.loginController
