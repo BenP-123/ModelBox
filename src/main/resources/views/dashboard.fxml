@@ -2,7 +2,11 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -12,9 +16,6 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<?import javafx.scene.control.ProgressBar?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.ToggleButton?>
 <AnchorPane id="backgroundContainer" fx:id="dashboardRootNode" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.modelbox.controllers.dashboardController">
    <children>
       <AnchorPane id="topBar" prefHeight="40.0" prefWidth="1000.0" style="-fx-background-color: #262626;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -53,7 +54,7 @@
             </ScrollPane>
          </children>
       </AnchorPane>
-      <AnchorPane id="myModelsView" fx:id="NoModelsView" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
+      <AnchorPane id="myModelsView" fx:id="NoModelsView" prefHeight="200.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
          <children>
             <Text layoutX="95.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="My Models" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="30.0">
                <font>
@@ -114,7 +115,7 @@
             </ScrollPane>
          </children>
       </AnchorPane>
-      <AnchorPane id="settingsView" fx:id="settingsView" layoutY="40.0" prefHeight="610.0" prefWidth="1000.0">
+      <AnchorPane id="settingsView" fx:id="settingsView" layoutY="40.0" prefHeight="610.0" prefWidth="1000.0" visible="false">
          <children>
             <Label alignment="CENTER" layoutX="204.0" layoutY="26.0" prefHeight="87.0" prefWidth="214.0" text="Settings" AnchorPane.leftAnchor="204.0" AnchorPane.rightAnchor="204.0">
                <font>
@@ -177,34 +178,44 @@
             <ToggleButton layoutX="764.0" layoutY="165.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="62.0" text="Off" AnchorPane.leftAnchor="736.0" />
          </children>
       </AnchorPane>
-      <AnchorPane id="profileView" fx:id="profileView" layoutY="40.0" prefHeight="610.0" prefWidth="1000.0" visible="false">
+      <AnchorPane id="profileView" fx:id="profileView" layoutY="40.0" prefHeight="610.0" prefWidth="1000.0">
          <children>
-            <Label alignment="CENTER" layoutX="312.0" layoutY="474.0" text="User since February 10, 2021">
-               <font>
-                  <Font size="30.0" />
-               </font>
-            </Label>
-            <Label alignment="CENTER" layoutX="437.0" layoutY="14.0" text="Profile">
-               <font>
-                  <Font size="45.0" />
-               </font>
-            </Label>
-            <ImageView fx:id="profilePicture" fitHeight="192.0" fitWidth="200.0" layoutX="400.0" layoutY="80.0" />
-            <Label alignment="CENTER" layoutX="382.0" layoutY="340.0" text="Maverick Coryell" textAlignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="30.0" />
-               </font>
-            </Label>
-            <Label alignment="CENTER" layoutX="377.0" layoutY="396.0" text="corylem@sunypoly.edu" textAlignment="CENTER">
+            <Label alignment="CENTER" layoutX="352.0" layoutY="561.0" text="User since February 10, 2021">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <Button alignment="CENTER" layoutX="455.0" layoutY="280.0" mnemonicParsing="false" onAction="#addProfilePictureBtn" text="Choose Photo" textAlignment="CENTER">
+            <Label alignment="CENTER" layoutX="446.0" layoutY="14.0" prefHeight="35.0" prefWidth="114.0" text="Profile">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="23.0" layoutY="236.0" text="Kermit the Frog" textAlignment="CENTER">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="3.0" layoutY="288.0" text="corylem@sunypoly.edu" textAlignment="CENTER">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Button alignment="CENTER" layoutX="79.0" layoutY="194.0" mnemonicParsing="false" onAction="#addProfilePictureBtn" text="Choose Photo" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
+            <ImageView fx:id="profilePicture" fitHeight="155.0" fitWidth="181.0" layoutX="36.0" layoutY="32.0" AnchorPane.rightAnchor="783.0">
+               <image>
+                  <Image url="@../images/kermit-the-frog.png" />
+               </image>
+            </ImageView>
+            <Label alignment="CENTER" layoutX="443.0" layoutY="75.0" prefHeight="35.0" prefWidth="114.0" text="Bio">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <TextArea layoutX="362.0" layoutY="119.0" prefHeight="175.0" prefWidth="277.0" />
          </children>
       </AnchorPane>
       <Pane id="navMenuPanel" fx:id="navMenuPanel" layoutX="-15.0" layoutY="38.0" prefHeight="175.0" prefWidth="300.0" style="-fx-background-color: #262626; -fx-background-radius: 0 0 25 0;" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="40.0">

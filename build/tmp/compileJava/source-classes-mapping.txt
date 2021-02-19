@@ -2,17 +2,17 @@ com/modelbox/controllers/dashboardController.java
  com.modelbox.controllers.dashboardController
 com/modelbox/databaseIO/model.java
  com.modelbox.databaseIO.model
-com/modelbox/initialStagePrep.java
- com.modelbox.initialStagePrep
+com/modelbox/controllers/loginController.java
+ com.modelbox.controllers.loginController
 com/modelbox/auth/dbConnection.java
  com.modelbox.auth.dbConnection
 com/modelbox/controllers/createAccountController.java
  com.modelbox.controllers.createAccountController
 com/modelbox/databaseIO/user.java
  com.modelbox.databaseIO.user
-com/modelbox/modelboxApp.java
- com.modelbox.modelboxApp
 com/modelbox/auth/createUser.java
  com.modelbox.auth.createUser
-com/modelbox/controllers/loginController.java
- com.modelbox.controllers.loginController
+com/modelbox/initialStagePrep.java
+ com.modelbox.initialStagePrep
+com/modelbox/modelboxApp.java
+ com.modelbox.modelboxApp
