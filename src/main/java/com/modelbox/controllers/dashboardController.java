@@ -3,6 +3,7 @@ package com.modelbox.controllers;
 import javafx.event.Event;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
@@ -37,6 +38,20 @@ public class dashboardController {
     @FXML private AnchorPane dashboardRootNode;
     @FXML private AnchorPane settingsView;
     @FXML private AnchorPane profileView;
+    @FXML private ScrollPane myModelsScrollPane;
+    @FXML private Button noModelsBtn;
+
+    private void setVisible(AnchorPane ap){
+        navMenuPanel.setVisible(false);
+        verifyUploadsView.setVisible(false);
+        myModelsView.setVisible(false);
+        uploadModelView.setVisible(false);
+        accountMenuPanel.setVisible(false);
+        profileView.setVisible(false);
+        settingsView.setVisible(false);
+
+        ap.setVisible(true);
+    }
 
     @FXML
     private void navMenuBtnClicked(Event e){
@@ -44,33 +59,48 @@ public class dashboardController {
     }
 
     @FXML
-    private void accountMenuBtnClicked(Event e){
-        accountMenuPanel.setVisible(!accountMenuPanel.visibleProperty().get());
-    }
+    private void accountMenuBtnClicked(Event e){ accountMenuPanel.setVisible(!accountMenuPanel.visibleProperty().get()); }
 
     @FXML
-    private void myModelsViewBtnClicked(Event e){
-        setVisible(myModelsView);
-        myModelsFlowPanel.getChildren().clear();
-
-        for (File model : myModelsList) {
-            addMyModelsPreviewCard(model);
-        }
-
-        if(myModelsList.isEmpty()){
-            // Add an upload btn prompt
-        }
-        else {
-            myModelsView.setVisible(true);
-        }
-
-        navMenuPanel.setVisible(false);
-    }
+    private void noModelsBtnClicked(Event e){ setVisible(uploadModelView); }
 
     @FXML
     private void uploadModelViewBtnClicked(Event e){
         setVisible(uploadModelView);
     }
+
+    @FXML
+    private void settingsBtnClicked(Event e){
+        setVisible(settingsView);
+    }
+
+    @FXML
+    private void profileBtnClicked(Event e){
+        setVisible(profileView);
+    }
+
+    @FXML
+    private void myModelsViewBtnClicked(Event e){
+        if(myModelsList.isEmpty()){
+            myModelsScrollPane.setVisible(false);
+            noModelsBtn.setVisible(true);
+        }
+        else {
+            myModelsFlowPanel.getChildren().clear();
+
+            for (File model : myModelsList) {
+                addMyModelsPreviewCard(model);
+            }
+
+            noModelsBtn.setVisible(false);
+            myModelsScrollPane.setVisible(true);
+        }
+
+        setVisible(myModelsView);
+        navMenuPanel.setVisible(false);
+    }
+
+
 
     @FXML
     private void uploadBtnClicked(Event e){
@@ -156,12 +186,23 @@ public class dashboardController {
         // FIXME: Execute database upload operations asynchronously
         // FIXME: For now files are just being loaded via a List containing all absolute paths
         myModelsList.addAll(uploadModelsList);
-        myModelsFlowPanel.getChildren().clear();
 
-        for (File model : myModelsList) {
-            addMyModelsPreviewCard(model);
+        if(myModelsList.isEmpty()){
+            myModelsScrollPane.setVisible(false);
+            noModelsBtn.setVisible(true);
         }
-        myModelsView.setVisible(true);
+        else {
+            myModelsFlowPanel.getChildren().clear();
+
+            for (File model : myModelsList) {
+                addMyModelsPreviewCard(model);
+            }
+
+            noModelsBtn.setVisible(false);
+            myModelsScrollPane.setVisible(true);
+        }
+
+        setVisible(myModelsView);
     }
 
     private void addMyModelsPreviewCard(File modelFile){
@@ -213,40 +254,6 @@ public class dashboardController {
     }
 
     @FXML
-    private void settingsBtnClicked(Event e){
-        setVisible(settingsView);
-    }
-
-    @FXML
-    private void profileBtnClicked(Event e){
-        setVisible(profileView);
-    }
-
-    private void setVisible(AnchorPane ap){
-        navMenuPanel.setVisible(false);
-        verifyUploadsView.setVisible(false);
-        myModelsView.setVisible(false);
-        uploadModelView.setVisible(false);
-        accountMenuPanel.setVisible(false);
-        profileView.setVisible(false);
-        settingsView.setVisible(false);
-
-        ap.setVisible(true);
-    }
-
-    private void setVisible(Pane p){
-        navMenuPanel.setVisible(false);
-        verifyUploadsView.setVisible(false);
-        myModelsView.setVisible(false);
-        uploadModelView.setVisible(false);
-        accountMenuPanel.setVisible(false);
-        profileView.setVisible(false);
-        settingsView.setVisible(false);
-
-        p.setVisible(true);
-    }
-
-    @FXML
     private void addProfilePictureBtn(Event e){
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(
@@ -255,4 +262,5 @@ public class dashboardController {
 
        // profilePicture.setImage(fileChooser.showOpenDialog(dashboardRootNode.getScene().getWindow()));
     }
+
 }

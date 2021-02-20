@@ -39,8 +39,6 @@ public class createAccountController {
 
         try {
             Parent root = dashboardLoader.load(getClass().getResource("/views/dashboard.fxml"));
-            ((Stage) createAccountBtn.getParent().getScene().getWindow()).setMaxWidth(USE_COMPUTED_SIZE);
-            ((Stage) createAccountBtn.getParent().getScene().getWindow()).setMaxHeight(USE_COMPUTED_SIZE);
             createAccountBtn.getParent().getScene().setRoot(root);
         } catch (Exception fxmlLoadException){
             // Handle exception if fxml document fails to load and show properly
@@ -63,8 +61,6 @@ public class createAccountController {
 
         try {
             Parent root = loginLoader.load(getClass().getResource("/views/login.fxml"));
-            ((Stage) loginBtn.getParent().getScene().getWindow()).setMaxWidth(USE_COMPUTED_SIZE);
-            ((Stage) loginBtn.getParent().getScene().getWindow()).setMaxHeight(USE_COMPUTED_SIZE);
             loginBtn.getParent().getScene().setRoot(root);
         } catch (Exception fxmlLoadException){
             // Handle exception if fxml document fails to load and show properly

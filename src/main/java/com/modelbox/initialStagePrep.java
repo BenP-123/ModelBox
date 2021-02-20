@@ -14,13 +14,13 @@ public class initialStagePrep extends Application {
         dashboardController dashController = new dashboardController();
         createAccountController createController = new createAccountController();
 
-        Boolean loggedIn = true;
+        Boolean loggedIn = false;
 
         if (loggedIn) {
             FXMLLoader dashboardLoader = new FXMLLoader();
             dashboardLoader.setController(dashController);
             Parent root = dashboardLoader.load(getClass().getResource("/views/dashboard.fxml"));
-            stage.getIcons().add(new Image(initialStagePrep.class.getResourceAsStream("/images/Logo.png")));
+            stage.getIcons().add(new Image(initialStagePrep.class.getResourceAsStream("/images/modelboxLogo.png")));
             stage.setScene(new Scene(root, 1000, 650));
             stage.setMinWidth(1000);
             stage.setMinHeight(650);
@@ -29,7 +29,7 @@ public class initialStagePrep extends Application {
             FXMLLoader createAccountLoader = new FXMLLoader();
             createAccountLoader.setController(createController);
             Parent root = createAccountLoader.load(getClass().getResource("/views/createAccount.fxml"));
-            stage.getIcons().add(new Image(initialStagePrep.class.getResourceAsStream("/images/Logo.png")));
+            stage.getIcons().add(new Image(initialStagePrep.class.getResourceAsStream("/images/modelboxLogo.png")));
             stage.setScene(new Scene(root, 1000, 650));
             stage.setMinWidth(1000);
             stage.setMinHeight(650);
