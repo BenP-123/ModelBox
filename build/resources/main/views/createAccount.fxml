@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -9,85 +10,110 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="createAccountPane" fx:id="createAccountPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1000.0" style="-fx-background-color: #262626;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.modelbox.controllers.createAccountController">
+<AnchorPane id="createAccountPane" fx:id="createAccountPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1002.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.modelbox.controllers.createAccountController">
     <children>
-        <ImageView fitHeight="225.0" fitWidth="275.0" layoutX="137.0" layoutY="234.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="137.0" AnchorPane.topAnchor="234.0">
-            <image>
-                <Image url="@../images/Logo.png" />
-            </image>
-        </ImageView>
-        <Text fill="WHITE" layoutX="99.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ModelBox" AnchorPane.leftAnchor="99.0" AnchorPane.topAnchor="120.9375">
-            <font>
-                <Font name="System Bold" size="64.0" />
-            </font>
-        </Text>
-        <Text fill="WHITE" layoutX="566.0" layoutY="90.84765625" strokeType="OUTSIDE" strokeWidth="0.0" text="Create an account" textAlignment="CENTER" wrappingWidth="373.0" AnchorPane.leftAnchor="531.0" AnchorPane.rightAnchor="96.0" AnchorPane.topAnchor="52.0">
-            <font>
-                <Font name="System Bold" size="36.0" />
-            </font>
-        </Text>
-      <TextField layoutX="531.0" layoutY="218.0" prefHeight="45.0" prefWidth="373.0" promptText="Type your first name" style="-fx-text-fill: #262626; -fx-background-radius: 8 8 8 8;" AnchorPane.leftAnchor="531.0" AnchorPane.rightAnchor="96.0" AnchorPane.topAnchor="141.0">
-         <font>
-            <Font size="20.0" />
-         </font>
-         <padding>
-            <Insets left="10.0" />
-         </padding></TextField>
-      <TextField layoutX="531.0" layoutY="141.0" prefHeight="45.0" prefWidth="373.0" promptText="Type your last name" style="-fx-text-fill: #262626; -fx-background-radius: 8 8 8 8;" AnchorPane.leftAnchor="531.0" AnchorPane.rightAnchor="96.0" AnchorPane.topAnchor="218.0">
-         <font>
-            <Font size="20.0" />
-         </font>
-         <padding>
-            <Insets left="10.0" />
-         </padding></TextField>
-      <TextField layoutX="531.0" layoutY="293.0" prefHeight="45.0" prefWidth="373.0" promptText="Type your email" style="-fx-text-fill: #262626; -fx-background-radius: 8 8 8 8;" AnchorPane.leftAnchor="531.0" AnchorPane.rightAnchor="96.0" AnchorPane.topAnchor="293.0">
-         <font>
-            <Font size="20.0" />
-         </font>
-         <padding>
-            <Insets left="40.0" />
-         </padding></TextField>
-      <TextField layoutX="531.0" layoutY="364.0" prefHeight="45.0" prefWidth="373.0" promptText="Type your password" style="-fx-text-fill: #262626; -fx-background-radius: 8 8 8 8;" AnchorPane.leftAnchor="531.0" AnchorPane.rightAnchor="96.0" AnchorPane.topAnchor="364.0">
-         <font>
-            <Font size="20.0" />
-         </font>
-         <padding>
-            <Insets left="40.0" />
-         </padding></TextField>
-      <TextField layoutX="532.0" layoutY="437.0" prefHeight="45.0" prefWidth="373.0" promptText="Retype your password" style="-fx-text-fill: #262626; -fx-background-radius: 8 8 8 8;" AnchorPane.leftAnchor="531.0" AnchorPane.rightAnchor="96.0" AnchorPane.topAnchor="437.0">
-         <font>
-            <Font size="20.0" />
-         </font>
-         <padding>
-            <Insets left="40.0" />
-         </padding></TextField>
-      <Button fx:id="signIn" onAction="#signInBtnClicked" alignment="CENTER" layoutX="531.0" layoutY="510.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="373.0" style="-fx-background-color: #2D7DDB; -fx-text-fill: #ffffff; -fx-background-radius: 8 8 8 8;" text="Sign In" AnchorPane.leftAnchor="531.0" AnchorPane.rightAnchor="96.0" AnchorPane.topAnchor="510.0">
-         <font>
-            <Font size="20.0" />
-         </font></Button>
-      <Text layoutX="531.0" layoutY="136.58203125" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #ffffff;" text="First name" wrappingWidth="373.0" AnchorPane.leftAnchor="531.0" AnchorPane.rightAnchor="96.0" AnchorPane.topAnchor="115.0">
-         <font>
-            <Font size="20.0" />
-         </font></Text>
-      <Text layoutX="531.0" layoutY="214.58203125" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #ffffff;" text="Last name" wrappingWidth="373.0" AnchorPane.leftAnchor="531.0" AnchorPane.rightAnchor="96.0" AnchorPane.topAnchor="193.0">
-         <font>
-            <Font size="20.0" />
-         </font></Text>
-      <Text layoutX="531.0" layoutY="289.58203125" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #ffffff;" text="Email" wrappingWidth="373.0" AnchorPane.leftAnchor="531.0" AnchorPane.rightAnchor="96.0" AnchorPane.topAnchor="268.0">
-         <font>
-            <Font size="20.0" />
-         </font></Text>
-      <Text layoutX="531.0" layoutY="360.58203125" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #ffffff;" text="Password" wrappingWidth="373.0" AnchorPane.leftAnchor="531.0" AnchorPane.rightAnchor="96.0" AnchorPane.topAnchor="339.0">
-         <font>
-            <Font size="20.0" />
-         </font></Text>
-      <Text layoutX="531.0" layoutY="433.58203125" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #ffffff;" text="Confirm Password" wrappingWidth="373.0" AnchorPane.leftAnchor="531.0" AnchorPane.rightAnchor="96.0" AnchorPane.topAnchor="412.0">
-         <font>
-            <Font size="20.0" />
-         </font></Text>
-      <Button fx:id="alreadyHaveanAccount" onAction="#alreadyHaveanAccount" alignment="CENTER" layoutX="578.0" layoutY="551.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="373.0" style="-fx-background-color: transparent;" text="Already have an account? Login" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="531.0" AnchorPane.rightAnchor="96.0" AnchorPane.topAnchor="551.0">
-         <font>
-            <Font size="20.0" />
-         </font></Button>
+      <AnchorPane prefWidth="450.0" style="-fx-background-color: #17181a#17181a;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+              <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="129.0" layoutY="207.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="125.0" AnchorPane.topAnchor="200.0">
+                  <image>
+                      <Image url="@../images/modelboxLogo.png" />
+                  </image>
+              </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane prefWidth="550.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="450.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+              <Text fill="#17181a" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to ModelBox" wrappingWidth="500.0" AnchorPane.bottomAnchor="528.71875" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="90.0">
+               <font>
+                  <Font name="Arial" size="28.0" />
+               </font>
+              </Text>
+            <Text fill="#757575" strokeType="OUTSIDE" strokeWidth="0.0" text="See how ModelBox can help you efficiently manage your 3D models and give you more time to bring your 3D creations to life." wrappingWidth="400.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="135.0">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+            </Text>
+            <TextField fx:id="firstNameField" layoutX="30.0" layoutY="199.0" prefHeight="25.0" prefWidth="215.0" promptText="First name" style="-fx-padding: 8px; -fx-faint-focus-color: transparent; -fx-focus-color: #C4C4C4; -fx-background-color: #ffffff; -fx-border-color: #C4C4C4; -fx-border-radius: 4px;" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="225.0">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </TextField>
+            <TextField fx:id="lastNameField" layoutX="60.0" layoutY="210.0" prefHeight="25.0" prefWidth="215.0" promptText="Last name" style="-fx-padding: 8px; -fx-faint-focus-color: transparent; -fx-focus-color: #C4C4C4; -fx-background-color: #ffffff; -fx-border-color: #C4C4C4; -fx-border-radius: 4px;" AnchorPane.leftAnchor="285.0" AnchorPane.topAnchor="225.0">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </TextField>
+            <Text fill="#17181a" layoutX="30.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First name" wrappingWidth="215.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="200.0">
+               <font>
+                  <Font name="Arial" size="15.0" />
+               </font>
+            </Text>
+            <Text fill="#17181a" layoutX="60.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last name" wrappingWidth="215.0" AnchorPane.leftAnchor="285.0" AnchorPane.topAnchor="200.0">
+               <font>
+                  <Font name="Arial" size="15.0" />
+               </font>
+            </Text>
+            <Text fill="#17181a" layoutX="60.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email address" wrappingWidth="200.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="285.0">
+               <font>
+                  <Font name="Arial" size="15.0" />
+               </font>
+            </Text>
+            <TextField fx:id="emailField" layoutX="62.0" layoutY="274.0" prefHeight="25.0" prefWidth="450.0" promptText="Email address" style="-fx-padding: 8px; -fx-faint-focus-color: transparent; -fx-focus-color: #C4C4C4; -fx-background-color: #ffffff; -fx-border-color: #C4C4C4; -fx-border-radius: 4px;" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="310.0">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </TextField>
+            <PasswordField fx:id="passField" layoutX="73.0" layoutY="352.0" prefHeight="25.0" prefWidth="215.0" promptText="Password" style="-fx-padding: 8px; -fx-faint-focus-color: transparent; -fx-focus-color: #C4C4C4; -fx-background-color: #ffffff; -fx-border-color: #C4C4C4; -fx-border-radius: 4px;" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="395.0">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </PasswordField>
+            <PasswordField fx:id="confirmPassField" layoutX="323.0" layoutY="352.0" prefHeight="25.0" prefWidth="215.0" promptText="Confirm password" style="-fx-padding: 8px; -fx-faint-focus-color: transparent; -fx-focus-color: #C4C4C4; -fx-background-color: #ffffff; -fx-border-color: #C4C4C4; -fx-border-radius: 4px;" AnchorPane.leftAnchor="285.0" AnchorPane.topAnchor="395.0">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </PasswordField>
+            <Text fill="#17181a" layoutX="73.0" layoutY="343.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" wrappingWidth="215.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="370.0">
+               <font>
+                  <Font name="Arial" size="15.0" />
+               </font>
+            </Text>
+            <Text fill="#17181a" layoutX="323.0" layoutY="343.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Confirm Password" wrappingWidth="215.0" AnchorPane.leftAnchor="285.0" AnchorPane.topAnchor="370.0">
+               <font>
+                  <Font name="Arial" size="15.0" />
+               </font>
+            </Text>
+            <Text fill="#757575" strokeType="OUTSIDE" strokeWidth="0.0" text="Already have an account?" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="520.0">
+               <font>
+                  <Font name="Arial" size="13.0" />
+               </font>
+            </Text>
+            <Button fx:id="createAccountBtn" layoutX="53.0" layoutY="465.0" mnemonicParsing="false" onAction="#createAccountBtnClicked" prefHeight="40.0" prefWidth="235.0" style="-fx-background-color: #007be8#007be8; -fx-background-radius: 4px;" text="Create Account" textFill="WHITE" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="460.0">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="loginBtn" layoutX="218.0" layoutY="514.0" mnemonicParsing="false" onAction="#loginBtnClicked" style="-fx-background-color: transparent; -fx-padding: 0;" text="Login" textFill="#007be8" AnchorPane.leftAnchor="205.0" AnchorPane.topAnchor="519.0">
+               <font>
+                  <Font name="Arial" size="13.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
     </children>
 </AnchorPane>

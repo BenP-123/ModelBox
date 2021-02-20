@@ -8,7 +8,7 @@ public class modelboxApp {
     public static void main(String[] args) {
         Application.launch(initialStagePrep.class, "String arg");
 
-        // test db connection using hardcoded login
+        // Test db connection using hardcoded login
         dbConnection dbConnection = new dbConnection();
         dbConnection.connect_database();
 
