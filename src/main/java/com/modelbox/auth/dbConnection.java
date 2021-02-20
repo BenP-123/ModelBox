@@ -61,9 +61,9 @@ public class dbConnection
 
                 //Retrieving the documents
                 System.out.println("Displaying entire collection in 'TestDB'");
+                System.out.println("Testing out querying your own document vs others");
                 FindIterable<Document> iterDoc = collection.find();
                 for (Document document : iterDoc) {
-                    System.out.println("1");
                     System.out.println(document);
                 }
             }
