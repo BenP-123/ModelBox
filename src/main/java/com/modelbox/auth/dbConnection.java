@@ -6,6 +6,9 @@ import com.mongodb.MongoClientSettings;
 import org.bson.Document;
 import com.mongodb.client.MongoCollection;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.logging.Level;
 
 
@@ -32,17 +35,14 @@ public class dbConnection
         try
         {
 
+            String username = "ado@ado.com";
+            String encodeUsername = encodeValue(username);
+
             //TestUser is hardcoded logging on for testing purposes.
             //Permissions are read only collections in TestDB
             ConnectionString conn_string = new ConnectionString(
-                    "mongodb+srv://TestUser:TestUser@modelbox-production.hjap7.mongodb.net/TestDB?retryWrites=true&w=majority");
+                    "mongodb://" + encodeUsername + ":mongodb2021@realm.mongodb.com:27020/?authMechanism=PLAIN&authSource=%24external&ssl=true&appName=modelbox-vqzyc:Model-Box:local-userpass");
 
-            /* Future possible implementation
-            //Create a connection string
-            ConnectionString conn_string = new ConnectionString(
-                    "mongodb+srv://" + this.get_username() + ":" + this.get_password() +
-                            "@modelbox.hjap7.mongodb.net/" + this.get_dbname() + "?retryWrites=true&w=majority");
-            */
 
             //Set the settings for the connection
             MongoClientSettings settings = MongoClientSettings.builder()
@@ -61,6 +61,7 @@ public class dbConnection
 
                 //Retrieving the documents
                 System.out.println("Displaying entire collection in 'TestDB'");
+                System.out.println("Testing out querying your own document vs others");
                 FindIterable<Document> iterDoc = collection.find();
                 for (Document document : iterDoc) {
                     System.out.println(document);
@@ -69,12 +70,14 @@ public class dbConnection
             catch(IllegalArgumentException e)
             {
                 System.out.println("Not a proper Database!");
+                e.printStackTrace();
             }
 
         }
         catch(Exception e)
         {
             System.out.println("Did not connect to Database properly");
+            e.printStackTrace();
         }
 
     }
@@ -86,6 +89,15 @@ public class dbConnection
     Revision Number: 1
     Description: Terminate a connection to MongoDB
 */
+
+    //Uses URLEncoder for email and password login.
+    private static String encodeValue(String value) {
+        try {
+            return URLEncoder.encode(value, StandardCharsets.UTF_8.toString());
+        } catch (UnsupportedEncodingException ex) {
+            throw new RuntimeException(ex.getCause());
+        }
+    }
 
     public static void disconnect_database()
     {
