@@ -2,9 +2,11 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -112,18 +114,133 @@
                   <Font name="Arial" size="30.0" />
                </font>
             </Text>
-            <Button fx:id="accountSettingsBtn" contentDisplay="TEXT_ONLY" graphicTextGap="0.0" layoutX="60.0" layoutY="125.0" mnemonicParsing="false" onAction="#accountSettingsBtnClicked" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: none; -fx-border-color: #868686; -fx-border-radius: 5 5 0 0;" text="Account" textFill="#757575" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="125.0">
+            <Button fx:id="accountSettingsBtn" contentDisplay="TEXT_ONLY" graphicTextGap="0.0" layoutX="60.0" layoutY="125.0" mnemonicParsing="false" onAction="#accountSettingsBtnClicked" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: none; -fx-border-color: #868686; -fx-border-radius: 5 5 0 0;" text="Account" textFill="#757575" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="175.0">
                <font>
                   <Font name="Arial" size="14.0" />
                </font>
             </Button>
-            <Button fx:id="accountSecurityBtn" layoutX="60.0" layoutY="160.0" mnemonicParsing="false" onAction="#accountSecurityBtnClicked" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: none; -fx-border-color: #868686; -fx-border-radius: 0 0 5 5;" text="Account security" textFill="#757575" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="159.0">
+            <Button fx:id="accountSecurityBtn" layoutX="60.0" layoutY="160.0" mnemonicParsing="false" onAction="#accountSecurityBtnClicked" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: none; -fx-border-color: #868686; -fx-border-radius: 0 0 5 5;" text="Account security" textFill="#757575" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="209.0">
                <font>
                   <Font name="Arial" size="14.0" />
                </font>
             </Button>
-            <AnchorPane fx:id="accountSettingsAnchorPane" layoutX="324.0" layoutY="125.0" prefHeight="400.0" prefWidth="582.0" style="-fx-background-color: #ffffff;" AnchorPane.bottomAnchor="85.0" AnchorPane.leftAnchor="320.0" AnchorPane.rightAnchor="98.0" AnchorPane.topAnchor="125.0" />
-            <AnchorPane fx:id="accountSecurityAnchorPane" layoutX="330.0" layoutY="135.0" prefHeight="400.0" prefWidth="582.0" style="-fx-background-color: #ffffff;" visible="false" AnchorPane.bottomAnchor="85.0" AnchorPane.leftAnchor="320.0" AnchorPane.rightAnchor="98.0" AnchorPane.topAnchor="125.0" />
+            <AnchorPane fx:id="accountSettingsAnchorPane" layoutX="324.0" layoutY="125.0" prefHeight="400.0" prefWidth="582.0" style="-fx-background-color: #ffffff;" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="390.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="125.0">
+               <children>
+                  <Text layoutX="10.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Delete account" wrappingWidth="151.81364365729615" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="15.0">
+                     <font>
+                        <Font name="Arial" size="22.0" />
+                     </font>
+                  </Text>
+                  <Button fx:id="deleteAccountBtn" contentDisplay="TEXT_ONLY" graphicTextGap="0.0" layoutX="10.0" layoutY="188.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: red; -fx-border-radius: 5 5 5 5;" text="Delete account" textFill="WHITE" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="250.0">
+                     <font>
+                        <Font name="Arial" size="14.0" />
+                     </font>
+                  </Button>
+                  <Text fill="#17181a" layoutX="25.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Once you delete your account, there is no going back. Please be certain." AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="55.0">
+                     <font>
+                        <Font name="Arial" size="14.0" />
+                     </font>
+                  </Text>
+                  <PasswordField fx:id="deletePassField" layoutX="10.0" layoutY="131.0" prefHeight="25.0" prefWidth="300.0" promptText="Password" style="-fx-padding: 8px; -fx-faint-focus-color: transparent; -fx-focus-color: #C4C4C4; -fx-background-color: #ffffff; -fx-border-color: #C4C4C4; -fx-border-radius: 4px;" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="115.0">
+                     <font>
+                        <Font name="Arial" size="14.0" />
+                     </font>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </PasswordField>
+                  <PasswordField fx:id="deleteConfirmPassField" layoutX="294.0" layoutY="131.0" prefHeight="25.0" prefWidth="300.0" promptText="Confirm password" style="-fx-padding: 8px; -fx-faint-focus-color: transparent; -fx-focus-color: #C4C4C4; -fx-background-color: #ffffff; -fx-border-color: #C4C4C4; -fx-border-radius: 4px;" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="190.0">
+                     <font>
+                        <Font name="Arial" size="14.0" />
+                     </font>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </PasswordField>
+                  <Text fill="#17181a" layoutX="10.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" wrappingWidth="225.0" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="90.0">
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                  </Text>
+                  <Text fill="#17181a" layoutX="272.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Confirm password" wrappingWidth="225.0" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="165.0">
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                  </Text>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="accountSecurityAnchorPane" layoutX="330.0" layoutY="135.0" prefHeight="400.0" prefWidth="582.0" style="-fx-background-color: #ffffff;" visible="false" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="390.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="125.0">
+               <children>
+                  <Text fill="#17181a" strokeType="OUTSIDE" strokeWidth="0.0" text="Change password" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="15.0">
+                     <font>
+                        <Font name="Arial" size="22.0" />
+                     </font>
+                  </Text>
+                  <PasswordField fx:id="changeOldPassField" layoutX="25.0" layoutY="86.0" prefHeight="25.0" prefWidth="300.0" promptText="Old password" style="-fx-padding: 8px; -fx-faint-focus-color: transparent; -fx-focus-color: #C4C4C4; -fx-background-color: #ffffff; -fx-border-color: #C4C4C4; -fx-border-radius: 4px;" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="80.0">
+                     <font>
+                        <Font name="Arial" size="14.0" />
+                     </font>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </PasswordField>
+                  <PasswordField fx:id="changeNewPassField" layoutX="261.0" layoutY="109.0" prefHeight="25.0" prefWidth="300.0" promptText="New password" style="-fx-padding: 8px; -fx-faint-focus-color: transparent; -fx-focus-color: #C4C4C4; -fx-background-color: #ffffff; -fx-border-color: #C4C4C4; -fx-border-radius: 4px;" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="155.0">
+                     <font>
+                        <Font name="Arial" size="14.0" />
+                     </font>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </PasswordField>
+                  <Text fill="#17181a" layoutX="25.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Old password" wrappingWidth="215.0" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="55.0">
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                  </Text>
+                  <Text fill="#17181a" layoutX="261.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="New password" wrappingWidth="215.0" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="130.0">
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                  </Text>
+                  <PasswordField fx:id="changeConfirmPassField" layoutX="25.0" layoutY="230.0" prefHeight="25.0" prefWidth="300.0" promptText="Confirm password" style="-fx-padding: 8px; -fx-faint-focus-color: transparent; -fx-focus-color: #C4C4C4; -fx-background-color: #ffffff; -fx-border-color: #C4C4C4; -fx-border-radius: 4px;" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="230.0">
+                     <font>
+                        <Font name="Arial" size="14.0" />
+                     </font>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </PasswordField>
+                  <Text fill="#17181a" layoutX="25.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Confirm password" wrappingWidth="215.0" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="205.0">
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                  </Text>
+                  <Button fx:id="updatePasswordBtn" layoutX="25.0" layoutY="285.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: green; -fx-background-radius: 5 5 5 5;" text="Update password" textFill="WHITE" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="290.0">
+                     <font>
+                        <Font name="Arial" size="14.0" />
+                     </font>
+                  </Button>
+               </children></AnchorPane>
+            <Text fill="#17181a" layoutX="60.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kermit the Frog" AnchorPane.leftAnchor="125.0" AnchorPane.topAnchor="95.0">
+               <font>
+                  <Font name="Arial" size="16.0" />
+               </font>
+            </Text>
+            <Text fill="#17181a" layoutX="100.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your personal account" AnchorPane.leftAnchor="125.0" AnchorPane.topAnchor="115.0">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+            </Text>
+            <Circle fill="#17181a" radius="26.0" stroke="#17181a" strokeType="INSIDE" strokeWidth="5.0" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="90.0" />
+            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="61.0" AnchorPane.topAnchor="91.0">
+               <image>
+                  <Image url="@../images/kermit-the-frog.jpg" />
+               </image>
+            </ImageView>
+            <Line endX="-10.8839111328125" endY="461.0" layoutX="309.0" layoutY="150.0" startX="-10.8839111328125" startY="-82.5" stroke="#17181a" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="320.0" AnchorPane.topAnchor="30.0">
+               <effect>
+                  <DropShadow blurType="GAUSSIAN" radius="7.0" width="9.0" />
+               </effect></Line>
          </children>
       </AnchorPane>
       <AnchorPane id="profileView" fx:id="profileView" layoutY="40.0" prefHeight="610.0" prefWidth="1000.0" style="-fx-background-color: #ffffff;" visible="false">
@@ -139,7 +256,7 @@
                   <Image url="@../images/kermit-the-frog.jpg" />
                </image>
             </ImageView>
-            <Button fx:id="editProfileBtn" alignment="CENTER" layoutX="81.0" layoutY="329.0" mnemonicParsing="false" onAction="#editProfileBtnClicked" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #007be8; -fx-background-radius: 5 5 5 5;" text="Edit profile" textFill="WHITE" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="350.0">
+            <Button fx:id="editProfileBtn" alignment="CENTER" layoutX="81.0" layoutY="329.0" mnemonicParsing="false" onAction="#editProfileBtnClicked" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: #007be8; -fx-background-radius: 5 5 5 5;" text="Edit profile" textFill="WHITE" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="350.0">
                <font>
                   <Font name="Arial" size="14.0" />
                </font>
