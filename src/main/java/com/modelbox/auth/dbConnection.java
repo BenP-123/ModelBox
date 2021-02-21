@@ -93,8 +93,11 @@ public class dbConnection
     //Uses URLEncoder for email and password login.
     private static String encodeValue(String value) {
         try {
+
             return URLEncoder.encode(value, StandardCharsets.UTF_8.toString());
+
         } catch (UnsupportedEncodingException ex) {
+
             throw new RuntimeException(ex.getCause());
         }
     }
