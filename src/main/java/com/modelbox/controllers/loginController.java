@@ -50,7 +50,8 @@ public class loginController {
         }
     }
 
-    @FXML private void passwordEntered(KeyEvent event) {
+    @FXML
+    private void passwordEntered(KeyEvent event) {
         try {
             if (event.getCode().equals(KeyCode.ENTER)) {
                 if(passField.getText().isEmpty())

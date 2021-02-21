@@ -114,15 +114,21 @@
                   <Font name="Arial" size="30.0" />
                </font>
             </Text>
-            <Button fx:id="accountSettingsBtn" contentDisplay="TEXT_ONLY" graphicTextGap="0.0" layoutX="60.0" layoutY="125.0" mnemonicParsing="false" onAction="#accountSettingsBtnClicked" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: none; -fx-border-color: #868686; -fx-border-radius: 5 5 0 0;" text="Account" textFill="#757575" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="175.0">
+            <Button fx:id="accountSettingsBtn" contentDisplay="TEXT_ONLY" graphicTextGap="0.0" layoutX="60.0" layoutY="125.0" mnemonicParsing="false" onAction="#accountSettingsBtnClicked" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: none; -fx-border-color: #868686; -fx-border-radius: 5 5 0 0; -fx-alignment: center-left;" text="Account" textFill="#757575" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="175.0">
                <font>
                   <Font name="Arial" size="14.0" />
                </font>
+               <padding>
+                  <Insets left="15.0" />
+               </padding>
             </Button>
-            <Button fx:id="accountSecurityBtn" layoutX="60.0" layoutY="160.0" mnemonicParsing="false" onAction="#accountSecurityBtnClicked" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: none; -fx-border-color: #868686; -fx-border-radius: 0 0 5 5;" text="Account security" textFill="#757575" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="209.0">
+            <Button fx:id="accountSecurityBtn" contentDisplay="TEXT_ONLY" graphicTextGap="0.0" layoutX="60.0" layoutY="160.0" mnemonicParsing="false" onAction="#accountSecurityBtnClicked" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: none; -fx-border-color: #868686; -fx-border-radius: 0 0 5 5; -fx-alignment: center-left;" text="Account security" textFill="#757575" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="209.0">
                <font>
                   <Font name="Arial" size="14.0" />
                </font>
+               <padding>
+                  <Insets left="15.0" />
+               </padding>
             </Button>
             <AnchorPane fx:id="accountSettingsAnchorPane" layoutX="324.0" layoutY="125.0" prefHeight="400.0" prefWidth="582.0" style="-fx-background-color: #ffffff;" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="390.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="125.0">
                <children>
@@ -131,7 +137,7 @@
                         <Font name="Arial" size="22.0" />
                      </font>
                   </Text>
-                  <Button fx:id="deleteAccountBtn" contentDisplay="TEXT_ONLY" graphicTextGap="0.0" layoutX="10.0" layoutY="188.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: red; -fx-border-radius: 5 5 5 5;" text="Delete account" textFill="WHITE" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="250.0">
+                  <Button fx:id="deleteAccountBtn" contentDisplay="TEXT_ONLY" graphicTextGap="0.0" layoutX="10.0" layoutY="188.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: red; -fx-background-radius: 5 5 5 5;" text="Delete account" textFill="WHITE" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="250.0">
                      <font>
                         <Font name="Arial" size="14.0" />
                      </font>
