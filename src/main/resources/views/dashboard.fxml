@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -161,42 +164,84 @@
       </AnchorPane>
       <AnchorPane id="profileView" fx:id="profileView" layoutY="40.0" prefHeight="610.0" prefWidth="1000.0" style="-fx-background-color: #ffffff;" visible="false">
          <children>
-            <Label alignment="CENTER" layoutX="352.0" layoutY="561.0" text="User since February 10, 2021">
+            <Text fill="#17181a" layoutX="77.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Profile" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="30.0">
                <font>
-                  <Font size="24.0" />
+                  <Font name="Arial" size="30.0" />
                </font>
-            </Label>
-            <Label alignment="CENTER" layoutX="446.0" layoutY="14.0" prefHeight="35.0" prefWidth="114.0" text="Profile">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
-            <Label alignment="CENTER" layoutX="23.0" layoutY="236.0" text="Kermit the Frog" textAlignment="CENTER">
-               <font>
-                  <Font size="30.0" />
-               </font>
-            </Label>
-            <Label alignment="CENTER" layoutX="3.0" layoutY="288.0" text="kermit@sesamestreet.com" textAlignment="CENTER">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
-            <Button alignment="CENTER" layoutX="79.0" layoutY="194.0" mnemonicParsing="false" onAction="#addProfilePictureBtn" text="Choose Photo" textAlignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Button>
-            <ImageView fx:id="profilePicture" fitHeight="155.0" fitWidth="181.0" layoutX="36.0" layoutY="32.0" AnchorPane.rightAnchor="783.0">
+            </Text>
+            <Circle fill="#17181a" layoutX="160.0" layoutY="190.0" radius="102.0" stroke="#17181a" strokeType="INSIDE" strokeWidth="5.0" AnchorPane.topAnchor="113.0" />
+            <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="60.0" layoutY="115.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="115.0">
                <image>
                   <Image url="@../images/kermit-the-frog.jpg" />
                </image>
             </ImageView>
-            <Label alignment="CENTER" layoutX="443.0" layoutY="75.0" prefHeight="35.0" prefWidth="114.0" text="Bio">
+            <Button fx:id="editProfileBtn" alignment="CENTER" layoutX="81.0" layoutY="329.0" mnemonicParsing="false" onAction="#editProfileBtnClicked" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #007be8; -fx-background-radius: 5 5 5 5;" text="Edit profile" textFill="WHITE" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="350.0">
                <font>
-                  <Font name="System Bold" size="14.0" />
+                  <Font name="Arial" size="14.0" />
                </font>
-            </Label>
-            <TextArea layoutX="362.0" layoutY="119.0" prefHeight="175.0" prefWidth="277.0" />
+            </Button>
+            <TextField fx:id="firstNameField" editable="false" layoutX="350.0" layoutY="215.0" prefHeight="25.0" prefWidth="235.0" promptText="First name" style="-fx-padding: 8px; -fx-faint-focus-color: transparent; -fx-focus-color: #C4C4C4; -fx-background-color: #ffffff; -fx-border-color: #C4C4C4; -fx-border-radius: 4px;" text="Kermit" AnchorPane.leftAnchor="350.0" AnchorPane.topAnchor="220.0">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </TextField>
+            <TextField fx:id="lastNameField" editable="false" layoutX="615.0" layoutY="215.0" prefHeight="25.0" prefWidth="235.0" promptText="Last name" style="-fx-padding: 8px; -fx-faint-focus-color: transparent; -fx-focus-color: #C4C4C4; -fx-background-color: #ffffff; -fx-border-color: #C4C4C4; -fx-border-radius: 4px;" text="the Frog" AnchorPane.leftAnchor="615.0" AnchorPane.topAnchor="220.0">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </TextField>
+            <Text fill="#17181a" layoutX="384.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First name" wrappingWidth="235.0" AnchorPane.leftAnchor="350.0" AnchorPane.topAnchor="195.0">
+               <font>
+                  <Font name="Arial" size="15.0" />
+               </font>
+            </Text>
+            <Text fill="#17181a" layoutX="414.0" layoutY="193.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last name" wrappingWidth="235.0" AnchorPane.leftAnchor="615.0" AnchorPane.topAnchor="195.0">
+               <font>
+                  <Font name="Arial" size="15.0" />
+               </font>
+            </Text>
+            <Text fill="#17181a" layoutX="414.0" layoutY="193.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email address" wrappingWidth="500.0" AnchorPane.leftAnchor="350.0" AnchorPane.topAnchor="280.0">
+               <font>
+                  <Font name="Arial" size="15.0" />
+               </font>
+            </Text>
+            <TextField fx:id="emailField" editable="false" layoutX="416.0" layoutY="266.0" prefHeight="25.0" prefWidth="500.0" promptText="Email address" style="-fx-padding: 8px; -fx-faint-focus-color: transparent; -fx-focus-color: #C4C4C4; -fx-background-color: #ffffff; -fx-border-color: #C4C4C4; -fx-border-radius: 4px;" text="kermit@sesamestreet.com" AnchorPane.leftAnchor="350.0" AnchorPane.topAnchor="305.0">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </TextField>
+            <Text fill="#17181a" layoutX="350.0" layoutY="364.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bio" wrappingWidth="500.0" AnchorPane.leftAnchor="350.0" AnchorPane.topAnchor="365.0">
+               <font>
+                  <Font name="Arial" size="15.0" />
+               </font>
+            </Text>
+            <TextArea fx:id="bioField" editable="false" layoutX="350.0" layoutY="375.0" prefHeight="80.0" prefWidth="500.0" promptText="Add a bio" style="-fx-faint-focus-color: transparent; -fx-focus-color: transparent; -fx-background-color: #ffffff; -fx-border-color: #C4C4C4; -fx-border-radius: 4px; -fx-padding: 8px;" AnchorPane.leftAnchor="350.0" AnchorPane.topAnchor="390.0">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+            </TextArea>
+            <Text fill="#17181a" layoutX="350.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Display name" wrappingWidth="500.0" AnchorPane.leftAnchor="350.0" AnchorPane.topAnchor="115.0">
+               <font>
+                  <Font name="Arial" size="15.0" />
+               </font>
+            </Text>
+            <TextField fx:id="displayNameField" editable="false" layoutX="350.0" layoutY="81.0" prefHeight="25.0" prefWidth="500.0" promptText="Display name" style="-fx-padding: 8px; -fx-faint-focus-color: transparent; -fx-focus-color: #C4C4C4; -fx-background-color: #ffffff; -fx-border-color: #C4C4C4; -fx-border-radius: 4px;" text="Kermit the Frog" AnchorPane.leftAnchor="350.0" AnchorPane.topAnchor="140.0">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </TextField>
          </children>
       </AnchorPane>
       <Pane id="navMenuPanel" fx:id="navMenuPanel" layoutX="-15.0" layoutY="38.0" prefHeight="175.0" prefWidth="300.0" style="-fx-background-color: #17181a; -fx-background-radius: 0 0 25 0;" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="40.0">

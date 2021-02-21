@@ -4,6 +4,8 @@ import javafx.event.Event;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
@@ -22,8 +24,6 @@ import com.interactivemesh.jfx.importer.stl.StlMeshImporter;
 
 
 public class dashboardController {
-
-    @FXML private ImageView profilePicture;
     private List<File> myModelsList = new ArrayList<>();
     private List<File> uploadModelsList = new ArrayList<>();
     private StlMeshImporter stlImporter = new StlMeshImporter();
@@ -40,6 +40,12 @@ public class dashboardController {
     @FXML private AnchorPane profileView;
     @FXML private ScrollPane myModelsScrollPane;
     @FXML private Button noModelsBtn;
+    @FXML private Button editProfileBtn;
+    @FXML private TextField displayNameField;
+    @FXML private TextField firstNameField;
+    @FXML private TextField lastNameField;
+    @FXML private TextField emailField;
+    @FXML private TextArea bioField;
 
     private void setVisible(AnchorPane ap){
         navMenuPanel.setVisible(false);
@@ -77,6 +83,28 @@ public class dashboardController {
     @FXML
     private void profileBtnClicked(Event e){
         setVisible(profileView);
+    }
+
+    @FXML
+    private void editProfileBtnClicked(Event e) {
+        if (editProfileBtn.getText().equals("Edit profile")) {
+            editProfileBtn.setText("Update profile");
+            editProfileBtn.setStyle("-fx-background-color: green;");
+            displayNameField.setEditable(true);
+            firstNameField.setEditable(true);
+            lastNameField.setEditable(true);
+            emailField.setEditable(true);
+            bioField.setEditable(true);
+        } else {
+            // FIXME: Implement the logic with the database so that changes are actually saved
+            editProfileBtn.setText("Edit profile");
+            editProfileBtn.setStyle("-fx-background-color: #007be8;");
+            displayNameField.setEditable(false);
+            firstNameField.setEditable(false);
+            lastNameField.setEditable(false);
+            emailField.setEditable(false);
+            bioField.setEditable(false);
+        }
     }
 
     @FXML
