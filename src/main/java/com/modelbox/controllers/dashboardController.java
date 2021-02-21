@@ -1,7 +1,9 @@
 package com.modelbox.controllers;
 
 import javafx.event.Event;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
@@ -46,6 +48,11 @@ public class dashboardController {
     @FXML private TextField lastNameField;
     @FXML private TextField emailField;
     @FXML private TextArea bioField;
+    @FXML private Button logOutBtn;
+    @FXML private Button accountSettingsBtn;
+    @FXML private Button accountSecurityBtn;
+    @FXML private AnchorPane accountSettingsAnchorPane;
+    @FXML private AnchorPane accountSecurityAnchorPane;
 
     private void setVisible(AnchorPane ap){
         navMenuPanel.setVisible(false);
@@ -289,6 +296,34 @@ public class dashboardController {
         fileChooser.setTitle("Select Profile Picture");
 
        // profilePicture.setImage(fileChooser.showOpenDialog(dashboardRootNode.getScene().getWindow()));
+    }
+
+    @FXML
+    private void logOutBtnClicked(Event e){
+        // Load and show the login fxml document
+        // FIXME: Need to actually log out of the database too
+        loginController signInController = new loginController();
+        FXMLLoader loginLoader = new FXMLLoader();
+        loginLoader.setController(signInController);
+
+        try {
+            Parent root = loginLoader.load(getClass().getResource("/views/login.fxml"));
+            logOutBtn.getParent().getScene().setRoot(root);
+        } catch (Exception fxmlLoadException){
+            // Handle exception if fxml document fails to load and show properly
+        }
+    }
+
+    @FXML
+    private void accountSettingsBtnClicked(Event e) {
+        accountSecurityAnchorPane.setVisible(false);
+        accountSettingsAnchorPane.setVisible(true);
+    }
+
+    @FXML
+    private void accountSecurityBtnClicked(Event e) {
+        accountSettingsAnchorPane.setVisible(false);
+        accountSecurityAnchorPane.setVisible(true);
     }
 
 }

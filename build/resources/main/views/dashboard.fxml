@@ -2,13 +2,9 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -109,57 +105,25 @@
             </ScrollPane>
          </children>
       </AnchorPane>
-      <AnchorPane id="settingsView" fx:id="settingsView" layoutY="40.0" prefHeight="610.0" prefWidth="1000.0" style="-fx-background-color: #ffffff;" visible="false">
+      <AnchorPane id="settingsView" fx:id="settingsView" layoutY="40.0" prefHeight="610.0" prefWidth="1000.0" style="-fx-background-color: #ffffff;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
          <children>
-            <Label alignment="CENTER" layoutX="204.0" layoutY="26.0" prefHeight="87.0" prefWidth="214.0" text="Settings" AnchorPane.leftAnchor="204.0" AnchorPane.rightAnchor="204.0">
+            <Text fill="#17181a" layoutX="97.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Settings" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="30.0">
                <font>
-                  <Font name="System Bold" size="60.0" />
+                  <Font name="Arial" size="30.0" />
                </font>
-            </Label>
-            <Label layoutX="232.0" layoutY="158.0" text="Dark Mode" AnchorPane.leftAnchor="204.0">
+            </Text>
+            <Button fx:id="accountSettingsBtn" contentDisplay="TEXT_ONLY" graphicTextGap="0.0" layoutX="60.0" layoutY="125.0" mnemonicParsing="false" onAction="#accountSettingsBtnClicked" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: none; -fx-border-color: #868686; -fx-border-radius: 5 5 0 0;" text="Account" textFill="#757575" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="125.0">
                <font>
-                  <Font size="34.0" />
+                  <Font name="Arial" size="14.0" />
                </font>
-            </Label>
-            <Label layoutX="232.0" layoutY="227.0" text="Available Storage" AnchorPane.leftAnchor="204.0">
+            </Button>
+            <Button fx:id="accountSecurityBtn" layoutX="60.0" layoutY="160.0" mnemonicParsing="false" onAction="#accountSecurityBtnClicked" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: none; -fx-border-color: #868686; -fx-border-radius: 0 0 5 5;" text="Account security" textFill="#757575" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="159.0">
                <font>
-                  <Font size="34.0" />
+                  <Font name="Arial" size="14.0" />
                </font>
-            </Label>
-            <Label layoutX="232.0" layoutY="425.0" text="Account Deletion" AnchorPane.leftAnchor="204.0">
-               <font>
-                  <Font size="34.0" />
-               </font>
-            </Label>
-            <Label layoutX="232.0" layoutY="290.0" text="Change Password" AnchorPane.leftAnchor="200.0">
-               <font>
-                  <Font size="34.0" />
-               </font>
-            </Label>
-            <Line endX="483.13671875" endY="-1.52587890625E-5" layoutX="341.0" layoutY="211.0" startX="-107.48312377929688" startY="-1.52587890625E-5" AnchorPane.leftAnchor="204.0" />
-            <Label layoutX="237.0" layoutY="342.0" text="Existing Password" AnchorPane.leftAnchor="204.0">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
-            <Label layoutX="560.0" layoutY="342.0" text="New Password" AnchorPane.leftAnchor="532.0">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
-            <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="163.0" layoutY="166.0" AnchorPane.leftAnchor="167.0">
-               <image>
-                  <Image url="@../images/darkMode.png" />
-               </image>
-            </ImageView>
-            <Line endX="483.13671875" endY="-1.52587890625E-5" layoutX="341.0" layoutY="286.0" startX="-107.48312377929688" startY="-1.52587890625E-5" AnchorPane.leftAnchor="204.0" />
-            <Line endX="483.13671875" endY="-1.52587890625E-5" layoutX="341.0" layoutY="420.0" startX="-107.48312377929688" startY="-1.52587890625E-5" AnchorPane.leftAnchor="204.0" />
-            <ProgressBar layoutX="507.0" layoutY="236.0" prefHeight="26.0" prefWidth="319.0" progress="0.0" AnchorPane.leftAnchor="479.0" />
-            <PasswordField layoutX="238.0" layoutY="370.0" prefHeight="27.0" prefWidth="200.0" AnchorPane.leftAnchor="204.0" />
-            <PasswordField layoutX="561.0" layoutY="370.0" prefHeight="27.0" prefWidth="200.0" AnchorPane.leftAnchor="532.0" />
-            <PasswordField layoutX="238.0" layoutY="480.0" prefHeight="27.0" prefWidth="200.0" AnchorPane.leftAnchor="532.0" />
-            <PasswordField layoutX="561.0" layoutY="480.0" prefHeight="27.0" prefWidth="200.0" AnchorPane.leftAnchor="204.0" />
-            <ToggleButton layoutX="764.0" layoutY="165.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="62.0" text="Off" AnchorPane.leftAnchor="736.0" />
+            </Button>
+            <AnchorPane fx:id="accountSettingsAnchorPane" layoutX="324.0" layoutY="125.0" prefHeight="400.0" prefWidth="582.0" style="-fx-background-color: #ffffff;" AnchorPane.bottomAnchor="85.0" AnchorPane.leftAnchor="320.0" AnchorPane.rightAnchor="98.0" AnchorPane.topAnchor="125.0" />
+            <AnchorPane fx:id="accountSecurityAnchorPane" layoutX="330.0" layoutY="135.0" prefHeight="400.0" prefWidth="582.0" style="-fx-background-color: #ffffff;" visible="false" AnchorPane.bottomAnchor="85.0" AnchorPane.leftAnchor="320.0" AnchorPane.rightAnchor="98.0" AnchorPane.topAnchor="125.0" />
          </children>
       </AnchorPane>
       <AnchorPane id="profileView" fx:id="profileView" layoutY="40.0" prefHeight="610.0" prefWidth="1000.0" style="-fx-background-color: #ffffff;" visible="false">
@@ -264,7 +228,7 @@
                   <Font name="Arial" size="14.0" />
                </font>
                <graphic>
-                  <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/my-models.png" />
                      </image>
@@ -276,7 +240,7 @@
                   <Font name="Arial" size="14.0" />
                </font>
                <graphic>
-                  <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/upload-model.png" />
                      </image>
@@ -285,7 +249,7 @@
             </Button>
          </children>
       </Pane>
-      <Pane id="accountMenuPanel" fx:id="accountMenuPanel" layoutX="754.0" layoutY="51.0" prefHeight="175.0" prefWidth="300.0" style="-fx-background-color: #17181a; -fx-background-radius: 0 0 0 25;" visible="false" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
+      <Pane id="accountMenuPanel" fx:id="accountMenuPanel" layoutX="754.0" layoutY="51.0" prefHeight="225.0" prefWidth="300.0" style="-fx-background-color: #17181a; -fx-background-radius: 0 0 0 25;" visible="false" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
          <children>
             <Line id="accountMenuIndicator" endX="60.0" layoutX="240.0" stroke="WHITE" strokeWidth="1.25" />
             <Text id="accountUserName" fill="WHITE" layoutX="25.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kermit the Frog">
@@ -298,9 +262,9 @@
                   <Font name="Arial" size="12.0" />
                </font>
             </Text>
-            <Line id="navMenuDivider1" endX="275.0" endY="1.52587890625E-5" layoutX="25.0" layoutY="97.0" stroke="WHITE" strokeWidth="1.25" />
-            <Line id="navMenuDivider2" endX="275.0" endY="1.52587890625E-5" layoutX="25.0" layoutY="137.0" stroke="WHITE" strokeWidth="1.25" />
-            <Button id="profileBtn" alignment="BASELINE_LEFT" graphicTextGap="20.0" layoutX="25.0" layoutY="67.0" mnemonicParsing="false" onAction="#profileBtnClicked" prefHeight="25.0" prefWidth="275.0" style="-fx-background-color: none;" text="Profile" textFill="WHITE">
+            <Line id="navMenuDivider1" endX="275.0" endY="1.52587890625E-5" layoutX="25.0" layoutY="100.0" stroke="WHITE" strokeWidth="1.25" />
+            <Line id="navMenuDivider2" endX="275.0" endY="1.52587890625E-5" layoutX="25.0" layoutY="140.0" stroke="WHITE" strokeWidth="1.25" />
+            <Button id="profileBtn" alignment="BASELINE_LEFT" graphicTextGap="20.0" layoutX="25.0" layoutY="71.0" mnemonicParsing="false" onAction="#profileBtnClicked" prefHeight="25.0" prefWidth="275.0" style="-fx-background-color: none;" text="Profile" textFill="WHITE">
                <font>
                   <Font name="Arial" size="14.0" />
                </font>
@@ -312,7 +276,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button id="settingsBtn" alignment="BASELINE_LEFT" graphicTextGap="20.0" layoutX="25.0" layoutY="107.0" mnemonicParsing="false" onAction="#settingsBtnClicked" prefHeight="25.0" prefWidth="275.0" style="-fx-background-color: none;" text="Settings" textFill="WHITE">
+            <Button id="settingsBtn" alignment="BASELINE_LEFT" graphicTextGap="20.0" layoutX="25.0" layoutY="110.0" mnemonicParsing="false" onAction="#settingsBtnClicked" prefHeight="25.0" prefWidth="275.0" style="-fx-background-color: none;" text="Settings" textFill="WHITE">
                <font>
                   <Font name="Arial" size="14.0" />
                </font>
@@ -323,6 +287,11 @@
                      </image>
                   </ImageView>
                </graphic>
+            </Button>
+            <Button fx:id="logOutBtn" alignment="CENTER" layoutX="25.0" layoutY="165.0" mnemonicParsing="false" onAction="#logOutBtnClicked" prefHeight="35.0" prefWidth="250.0" style="-fx-background-color: none; -fx-background-radius: 5 5 5 5; -fx-border-color: #bababa; -fx-border-radius: 5 5 5 5;" text="Log out" textFill="WHITE">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
             </Button>
          </children>
       </Pane>
