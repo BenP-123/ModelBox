@@ -1,12 +1,17 @@
 package com.modelbox.controllers;
 
+import com.modelbox.auth.dbConnection;
+import com.mongodb.MongoCommandException;
 import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.fxml.FXML;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import static javafx.scene.control.PopupControl.USE_COMPUTED_SIZE;
@@ -42,6 +47,31 @@ public class loginController {
             loginBtn.getParent().getScene().setRoot(root);
         } catch (Exception fxmlLoadException){
             // Handle exception if fxml document fails to load and show properly
+        }
+    }
+
+    @FXML private void passwordEntered(KeyEvent event) {
+        try {
+            if (event.getCode().equals(KeyCode.ENTER)) {
+                if(passField.getText().isEmpty())
+                {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Password is required!");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Your password cannot be left blank.");
+                    alert.showAndWait();
+                }
+                else {
+
+                    dbConnection mongo_driver = new dbConnection();
+                    mongo_driver.set_password(passField.getText());
+                    mongo_driver.set_username(emailField.getText());
+                    mongo_driver.connect_database();
+                }
+            }
+        }catch(MongoCommandException e){
+            System.out.println("Incorrect Password or Username!");
+            e.printStackTrace();
         }
     }
 

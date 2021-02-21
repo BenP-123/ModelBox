@@ -35,13 +35,13 @@ public class dbConnection
         try
         {
 
-            String username = "ado@ado.com";
+            String username = this.get_username();
             String encodeUsername = encodeValue(username);
 
             //TestUser is hardcoded logging on for testing purposes.
             //Permissions are read only collections in TestDB
             ConnectionString conn_string = new ConnectionString(
-                    "mongodb://" + encodeUsername + ":mongodb2021@realm.mongodb.com:27020/?authMechanism=PLAIN&authSource=%24external&ssl=true&appName=modelbox-vqzyc:Model-Box:local-userpass");
+                    "mongodb://" + encodeUsername + ":" + this.get_password() + "@realm.mongodb.com:27020/?authMechanism=PLAIN&authSource=%24external&ssl=true&appName=modelbox-vqzyc:Model-Box:local-userpass");
 
 
             //Set the settings for the connection
@@ -93,8 +93,11 @@ public class dbConnection
     //Uses URLEncoder for email and password login.
     private static String encodeValue(String value) {
         try {
+
             return URLEncoder.encode(value, StandardCharsets.UTF_8.toString());
+
         } catch (UnsupportedEncodingException ex) {
+
             throw new RuntimeException(ex.getCause());
         }
     }
