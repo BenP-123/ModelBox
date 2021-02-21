@@ -46,7 +46,7 @@
                   <Insets left="10.0" />
                </padding>
             </TextField>
-            <PasswordField fx:id="passField" layoutX="73.0" layoutY="352.0" prefHeight="25.0" prefWidth="450.0" promptText="Password" style="-fx-padding: 8px; -fx-faint-focus-color: transparent; -fx-focus-color: #C4C4C4; -fx-background-color: #ffffff; -fx-border-color: #C4C4C4; -fx-border-radius: 4px;" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="345.0">
+            <PasswordField fx:id="passField" layoutX="73.0" layoutY="352.0"  onKeyPressed="#passwordEntered" prefHeight="25.0" prefWidth="450.0" promptText="Password" style="-fx-padding: 8px; -fx-faint-focus-color: transparent; -fx-focus-color: #C4C4C4; -fx-background-color: #ffffff; -fx-border-color: #C4C4C4; -fx-border-radius: 4px;" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="345.0">
                <font>
                   <Font name="Arial" size="14.0" />
                </font>
@@ -54,7 +54,7 @@
                   <Insets left="10.0" />
                </padding>
             </PasswordField>
-            <Text fill="#17181a" layoutX="73.0" layoutY="343.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" wrappingWidth="215.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="320.0">
+            <Text fill="#17181a" layoutX="73.0" layoutY="343.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password"  wrappingWidth="215.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="320.0">
                <font>
                   <Font name="Arial" size="15.0" />
                </font>
