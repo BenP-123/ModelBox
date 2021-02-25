@@ -1,5 +1,6 @@
 package com.modelbox.auth;
 
+import com.modelbox.databaseIO.usersIO;
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.client.*;
@@ -41,10 +42,9 @@ public class logIn {
 
             // Access the application database
             database = mongoClient.getDatabase("modelboxApp");
-            MongoCollection<Document> collection = database.getCollection("users");
 
             // Retrieving the documents
-            FindIterable<Document> iterDoc = collection.find();
+            FindIterable<Document> iterDoc = usersIO.usersCollection.find();
             for (Document document : iterDoc) {
                 System.out.println(document);
             }

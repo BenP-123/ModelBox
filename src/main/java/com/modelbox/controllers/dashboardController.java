@@ -233,7 +233,7 @@ public class dashboardController {
 
             for (File model : myModelsList) {
                 addMyModelsPreviewCard(model);
-                modelsIO.storeModel(model);
+                modelsIO.setModelFile(model);
             }
 
             noModelsBtn.setVisible(false);
