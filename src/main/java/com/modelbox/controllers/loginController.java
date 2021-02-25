@@ -1,6 +1,7 @@
 package com.modelbox.controllers;
 
 import com.modelbox.auth.logIn;
+import com.modelbox.databaseIO.usersIO;
 import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

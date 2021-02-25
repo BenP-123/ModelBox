@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.PasswordField?>
@@ -17,7 +26,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="backgroundContainer" fx:id="dashboardRootNode" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1000.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.modelbox.controllers.dashboardController">
+<AnchorPane id="backgroundContainer" fx:id="dashboardRootNode" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1000.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.modelbox.controllers.dashboardController">
    <children>
       <AnchorPane id="topBar" prefHeight="40.0" prefWidth="1000.0" style="-fx-background-color: #17181a;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -227,11 +236,14 @@
                      </font>
                   </Button>
                </children></AnchorPane>
-            <Text fill="#17181a" layoutX="60.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kermit the Frog" AnchorPane.leftAnchor="125.0" AnchorPane.topAnchor="95.0">
+            <TextField fx:id="usersSettingsDisplayName" editable="false" layoutX="114.0" layoutY="87.0" style="-fx-background-color: #ffffff;" text="Kermit the Frog" AnchorPane.leftAnchor="114.0" AnchorPane.topAnchor="87.0">
                <font>
                   <Font name="Arial" size="16.0" />
                </font>
-            </Text>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </TextField>
             <Text fill="#17181a" layoutX="100.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your personal account" AnchorPane.leftAnchor="125.0" AnchorPane.topAnchor="115.0">
                <font>
                   <Font name="Arial" size="14.0" />
@@ -338,7 +350,7 @@
                   <Font name="Arial" size="20.0" />
                </font>
             </Text>
-            <Text id="appSlogan" fill="#bababa" layoutX="25.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="An intuitive approach to 3D model management.">
+            <Text id="appSlogan" fill="#bababa" layoutX="25.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="An intuitive approach to 3D model management.">
                <font>
                   <Font name="Arial" size="12.0" />
                </font>
@@ -375,16 +387,22 @@
       <Pane id="accountMenuPanel" fx:id="accountMenuPanel" layoutX="754.0" layoutY="51.0" prefHeight="225.0" prefWidth="300.0" style="-fx-background-color: #17181a; -fx-background-radius: 0 0 0 25;" visible="false" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
          <children>
             <Line id="accountMenuIndicator" endX="60.0" layoutX="240.0" stroke="WHITE" strokeWidth="1.25" />
-            <Text id="accountUserName" fill="WHITE" layoutX="25.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kermit the Frog">
+            <TextField fx:id="accountUserName" editable="false" layoutX="8.0" layoutY="7.0" prefHeight="37.0" prefWidth="290.0" style="-fx-background-color: #17181A; -fx-text-inner-color: #ffffff;" text="Kermit the Frog">
                <font>
                   <Font name="Arial" size="20.0" />
                </font>
-            </Text>
-            <Text id="accountUserEmail" fill="#bababa" layoutX="25.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="kermit@sesamestreet.com">
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </TextField>
+            <TextField fx:id="accountUserEmail" editable="false" layoutX="14.0" layoutY="38.0" prefHeight="23.0" prefWidth="277.0" style="-fx-background-color: #17181A; -fx-text-inner-color: #bababa;" text="kermit@sesamestreet.com">
                <font>
                   <Font name="Arial" size="12.0" />
                </font>
-            </Text>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </TextField>
             <Line id="navMenuDivider1" endX="275.0" endY="1.52587890625E-5" layoutX="25.0" layoutY="100.0" stroke="WHITE" strokeWidth="1.25" />
             <Line id="navMenuDivider2" endX="275.0" endY="1.52587890625E-5" layoutX="25.0" layoutY="140.0" stroke="WHITE" strokeWidth="1.25" />
             <Button id="profileBtn" alignment="BASELINE_LEFT" graphicTextGap="20.0" layoutX="25.0" layoutY="71.0" mnemonicParsing="false" onAction="#profileBtnClicked" prefHeight="25.0" prefWidth="275.0" style="-fx-background-color: none;" text="Profile" textFill="WHITE">

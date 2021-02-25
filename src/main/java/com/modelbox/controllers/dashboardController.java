@@ -1,5 +1,6 @@
 package com.modelbox.controllers;
 
+import com.modelbox.databaseIO.usersIO;
 import com.modelbox.auth.logOut;
 import com.modelbox.databaseIO.modelsIO;
 import javafx.event.Event;
@@ -49,6 +50,9 @@ public class dashboardController {
     @FXML private TextField firstNameField;
     @FXML private TextField lastNameField;
     @FXML private TextField emailField;
+    @FXML private TextField usersSettingsDisplayName;
+    @FXML private TextField accountUserName;
+    @FXML private TextField accountUserEmail;
     @FXML private TextArea bioField;
     @FXML private Button logOutBtn;
     @FXML private Button accountSettingsBtn;
@@ -74,7 +78,13 @@ public class dashboardController {
     }
 
     @FXML
-    private void accountMenuBtnClicked(Event e){ accountMenuPanel.setVisible(!accountMenuPanel.visibleProperty().get()); }
+    private void accountMenuBtnClicked(Event e){
+        if(com.modelbox.auth.logIn.database != null) {
+            accountUserName.setText(usersIO.getDisplayName());
+            //accountUserEmail.setText(usersIO.getOwnerID());
+        }
+        accountMenuPanel.setVisible(!accountMenuPanel.visibleProperty().get());
+    }
 
     @FXML
     private void noModelsBtnClicked(Event e){ setVisible(uploadModelView); }
@@ -86,11 +96,21 @@ public class dashboardController {
 
     @FXML
     private void settingsBtnClicked(Event e){
+        if(com.modelbox.auth.logIn.database != null) {
+            usersSettingsDisplayName.setText(usersIO.getDisplayName());
+        }
         setVisible(settingsView);
     }
 
     @FXML
     private void profileBtnClicked(Event e){
+        if(com.modelbox.auth.logIn.database != null) {
+            displayNameField.setText(usersIO.getDisplayName());
+            firstNameField.setText(usersIO.getFirstName());
+            lastNameField.setText(usersIO.getLastName());
+            //emailField.setText(usersIO.getOwnerID());
+            //bioField.setText(usersIO.getProfileBio());
+        }
         setVisible(profileView);
     }
 
