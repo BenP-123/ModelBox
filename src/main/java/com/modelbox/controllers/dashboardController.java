@@ -1,5 +1,7 @@
 package com.modelbox.controllers;
 
+import com.modelbox.auth.logOut;
+import com.modelbox.databaseIO.modelsIO;
 import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -26,8 +28,8 @@ import com.interactivemesh.jfx.importer.stl.StlMeshImporter;
 
 
 public class dashboardController {
-    private List<File> myModelsList = new ArrayList<>();
-    private List<File> uploadModelsList = new ArrayList<>();
+    public static List<File> myModelsList = new ArrayList<>();
+    public static List<File> uploadModelsList = new ArrayList<>();
     private StlMeshImporter stlImporter = new StlMeshImporter();
 
     @FXML private Pane navMenuPanel;
@@ -231,6 +233,7 @@ public class dashboardController {
 
             for (File model : myModelsList) {
                 addMyModelsPreviewCard(model);
+                modelsIO.storeModel(model);
             }
 
             noModelsBtn.setVisible(false);
@@ -300,13 +303,12 @@ public class dashboardController {
 
     @FXML
     private void logOutBtnClicked(Event e){
-        // Load and show the login fxml document
-        // FIXME: Need to actually log out of the database too
         loginController signInController = new loginController();
         FXMLLoader loginLoader = new FXMLLoader();
         loginLoader.setController(signInController);
 
         try {
+            logOut.logUserOut();
             Parent root = loginLoader.load(getClass().getResource("/views/login.fxml"));
             logOutBtn.getParent().getScene().setRoot(root);
         } catch (Exception fxmlLoadException){

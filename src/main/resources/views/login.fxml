@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="loginPane" fx:id="loginPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1002.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.modelbox.controllers.loginController">
+<AnchorPane id="loginPane" fx:id="loginAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1002.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.modelbox.controllers.loginController">
    <children>
       <AnchorPane prefWidth="450.0" style="-fx-background-color: #17181a#17181a;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -49,7 +49,7 @@
                               <Font name="Arial" size="14.0" />
                            </font>
                         </Text>
-                        <Text fill="#17181a" layoutX="60.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email address" wrappingWidth="200.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="240.0">
+                        <Text fill="#17181a" layoutX="60.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email address" wrappingWidth="200.0" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="240.0">
                            <font>
                               <Font name="Arial" size="15.0" />
                            </font>
@@ -62,7 +62,7 @@
                               <Insets left="10.0" />
                            </padding>
                         </TextField>
-                        <PasswordField fx:id="passField" layoutX="73.0" layoutY="352.0" onKeyPressed="#passwordEntered" prefHeight="25.0" prefWidth="450.0" promptText="Password" style="-fx-padding: 8px; -fx-faint-focus-color: transparent; -fx-focus-color: #C4C4C4; -fx-background-color: #ffffff; -fx-border-color: #C4C4C4; -fx-border-radius: 4px;" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="345.0">
+                        <PasswordField fx:id="passField" layoutX="73.0" layoutY="352.0" onKeyPressed="#loginEnterKeyPressed" prefHeight="25.0" prefWidth="450.0" promptText="Password" style="-fx-padding: 8px; -fx-faint-focus-color: transparent; -fx-focus-color: #C4C4C4; -fx-background-color: #ffffff; -fx-border-color: #C4C4C4; -fx-border-radius: 4px;" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="345.0">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>
@@ -70,31 +70,46 @@
                               <Insets left="10.0" />
                            </padding>
                         </PasswordField>
-                        <Text fill="#17181a" layoutX="73.0" layoutY="343.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" wrappingWidth="215.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="320.0">
+                        <Text fill="#17181a" layoutX="73.0" layoutY="343.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" wrappingWidth="215.0" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="320.0">
                            <font>
                               <Font name="Arial" size="15.0" />
                            </font>
                         </Text>
-                        <Button fx:id="loginBtn" layoutX="53.0" layoutY="465.0" mnemonicParsing="false" onAction="#loginBtnClicked" prefHeight="40.0" prefWidth="235.0" style="-fx-background-color: #007be8; -fx-background-radius: 4px;" text="Log in" textFill="WHITE" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="410.0">
+                        <Button fx:id="loginBtn" layoutX="53.0" layoutY="465.0" mnemonicParsing="false" onAction="#loginBtnClicked" prefHeight="40.0" prefWidth="235.0" style="-fx-background-color: #007be8; -fx-background-radius: 4px;" text="Log in" textFill="WHITE" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="425.0">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>
                         </Button>
-                        <Button fx:id="forgotPassBtn" layoutX="218.0" layoutY="514.0" mnemonicParsing="false" onAction="#forgotPassBtnClicked" style="-fx-background-color: transparent; -fx-padding: 0;" text="Forgot password?" textFill="#757575" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="490.0">
+                        <Button fx:id="forgotPassBtn" layoutX="218.0" layoutY="514.0" mnemonicParsing="false" onAction="#forgotPassBtnClicked" style="-fx-background-color: transparent; -fx-padding: 0;" text="Forgot password?" textFill="#757575" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="498.0">
                            <font>
                               <Font name="Arial" size="13.0" />
                            </font>
                         </Button>
-                        <Text fill="#757575" layoutX="61.0" layoutY="511.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Don't have an account?" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="470.0">
+                        <Text fill="#757575" layoutX="61.0" layoutY="511.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Don't have an account?" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="480.0">
                            <font>
                               <Font name="Arial" size="13.0" />
                            </font>
                         </Text>
-                        <Button fx:id="createAccountBtn" layoutX="60.0" layoutY="500.0" mnemonicParsing="false" onAction="#createAccountBtnClicked" style="-fx-background-color: transparent; -fx-padding: 0;" text="Create account" textFill="#007be8" AnchorPane.leftAnchor="190.0" AnchorPane.topAnchor="469.0">
+                        <Button fx:id="createAccountBtn" layoutX="60.0" layoutY="500.0" mnemonicParsing="false" onAction="#createAccountBtnClicked" style="-fx-background-color: transparent; -fx-padding: 0;" text="Create account" textFill="#007be8" AnchorPane.leftAnchor="190.0" AnchorPane.topAnchor="479.0">
                            <font>
                               <Font name="Arial" size="13.0" />
                            </font>
                         </Button>
+                        <Text fill="#757575" strokeType="OUTSIDE" strokeWidth="0.0" text="* = Required" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="395.0">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#757575" strokeType="OUTSIDE" strokeWidth="0.0" text="*" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="320.0">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#757575" layoutX="60.0" layoutY="343.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="240.0">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
                      </children>
                   </AnchorPane>
                </children>

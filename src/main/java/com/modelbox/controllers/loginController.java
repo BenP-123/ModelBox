@@ -1,78 +1,74 @@
 package com.modelbox.controllers;
 
-import com.modelbox.auth.dbConnection;
-import com.mongodb.MongoCommandException;
+import com.modelbox.auth.logIn;
 import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.fxml.FXML;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.stage.Stage;
-
-import static javafx.scene.control.PopupControl.USE_COMPUTED_SIZE;
+import javafx.scene.layout.AnchorPane;
 
 public class loginController {
 
+    public static logIn activeLogin = new logIn();
     @FXML private TextField emailField;
     @FXML private PasswordField passField;
     @FXML private Button loginBtn;
     @FXML private Button forgotPassBtn;
     @FXML private Button createAccountBtn;
+    @FXML private AnchorPane loginAnchorPane;
 
     /**
      * Verifies a ModelBox user using the facilities provided from the auth package and redirects the UI
      * to the dashboard. The dashboard.fxml document is loaded and set as the root node of the current scene.
-     * <p>
-     * Note: The database is not yet connected to the application. Therefore, no actual account verification occurs.
      *
      * @param  e    a JavaFX event with the properties and methods of the element that triggered the event
      * @return      nothing of value is returned
      */
     @FXML
     private void loginBtnClicked(Event e) {
-        // Automatically load dashboard regardless of whether an account was successfully verified or not
-        dashboardController dashController = new dashboardController();
-        FXMLLoader dashboardLoader = new FXMLLoader();
-        dashboardLoader.setController(dashController);
-
         try {
+            activeLogin.setPassword(passField.getText());
+            activeLogin.setEmailAddress(emailField.getText());
+            activeLogin.logUserIn();
+
+            dashboardController dashController = new dashboardController();
+            FXMLLoader dashboardLoader = new FXMLLoader();
+            dashboardLoader.setController(dashController);
             Parent root = dashboardLoader.load(getClass().getResource("/views/dashboard.fxml"));
-            ((Stage) loginBtn.getParent().getScene().getWindow()).setMaxWidth(USE_COMPUTED_SIZE);
-            ((Stage) loginBtn.getParent().getScene().getWindow()).setMaxHeight(USE_COMPUTED_SIZE);
-            loginBtn.getParent().getScene().setRoot(root);
+            loginBtn.getScene().setRoot(root);
         } catch (Exception fxmlLoadException){
             // Handle exception if fxml document fails to load and show properly
         }
     }
 
+    /**
+     * Verifies a ModelBox user using the facilities provided from the auth package and redirects the UI
+     * to the dashboard. The dashboard.fxml document is loaded and set as the root node of the current scene.
+     *
+     * @param  event  a JavaFX event with the properties and methods of the element that triggered the event
+     * @return        nothing of value is returned
+     */
     @FXML
-    private void passwordEntered(KeyEvent event) {
+    private void loginEnterKeyPressed(KeyEvent event) {
         try {
             if (event.getCode().equals(KeyCode.ENTER)) {
-                if(passField.getText().isEmpty())
-                {
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Password is required!");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Your password cannot be left blank.");
-                    alert.showAndWait();
-                }
-                else {
+                activeLogin.setPassword(passField.getText());
+                activeLogin.setEmailAddress(emailField.getText());
+                activeLogin.logUserIn();
 
-                    dbConnection mongo_driver = new dbConnection();
-                    mongo_driver.set_password(passField.getText());
-                    mongo_driver.set_username(emailField.getText());
-                    mongo_driver.connect_database();
-                }
+                dashboardController dashController = new dashboardController();
+                FXMLLoader dashboardLoader = new FXMLLoader();
+                dashboardLoader.setController(dashController);
+                Parent root = dashboardLoader.load(getClass().getResource("/views/dashboard.fxml"));
+                loginBtn.getScene().setRoot(root);
             }
-        }catch(MongoCommandException e){
-            System.out.println("Incorrect Password or Username!");
-            e.printStackTrace();
+        } catch (Exception fxmlLoadException){
+            // Handle exception if fxml document fails to load and show properly
         }
     }
 
@@ -92,7 +88,7 @@ public class loginController {
 
         try {
             Parent root = forgotPassLoader.load(getClass().getResource("/views/forgotPassword.fxml"));
-            forgotPassBtn.getParent().getScene().setRoot(root);
+            forgotPassBtn.getScene().setRoot(root);
         } catch (Exception fxmlLoadException){
             // Handle exception if fxml document fails to load and show properly
         }
@@ -114,7 +110,7 @@ public class loginController {
 
         try {
             Parent root = createAccountLoader.load(getClass().getResource("/views/createAccount.fxml"));
-            createAccountBtn.getParent().getScene().setRoot(root);
+            createAccountBtn.getScene().setRoot(root);
         } catch (Exception fxmlLoadException){
             // Handle exception if fxml document fails to load and show properly
         }
