@@ -56,6 +56,13 @@ public class dashboardController {
     @FXML private AnchorPane accountSettingsAnchorPane;
     @FXML private AnchorPane accountSecurityAnchorPane;
 
+/**
+*	Sets all Panes to not be visible while setting one pane to visible. The one pane is passed
+*	via parameter.
+*
+*	@param ap JavaFX AnchorPane
+*	@return no value returned
+*/
     private void setVisible(AnchorPane ap){
         navMenuPanel.setVisible(false);
         verifyUploadsView.setVisible(false);
@@ -94,6 +101,12 @@ public class dashboardController {
         setVisible(profileView);
     }
 
+    /**
+    *	Sets all fields to be editable in the view profile pane. Upon editing the information the new data is saved.
+    *
+    *   @param  e a JavaFX event with the properties and methods of the element that triggered the event
+    *	@return no value returned
+    */
     @FXML
     private void editProfileBtnClicked(Event e) {
         if (editProfileBtn.getText().equals("Edit profile")) {
