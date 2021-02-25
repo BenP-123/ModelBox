@@ -28,6 +28,8 @@ import java.util.List;
 import com.interactivemesh.jfx.importer.stl.StlMeshImporter;
 
 
+
+
 public class dashboardController {
     public static List<File> myModelsList = new ArrayList<>();
     public static List<File> uploadModelsList = new ArrayList<>();
@@ -60,6 +62,13 @@ public class dashboardController {
     @FXML private AnchorPane accountSettingsAnchorPane;
     @FXML private AnchorPane accountSecurityAnchorPane;
 
+    /**
+     *	Sets all Panes to not be visible while setting one pane to visible. The one pane is passed
+     *	via parameter. All panes are defined in dashboard.fxml.
+     *
+     *	@param ap JavaFX AnchorPane
+     *	@return no value returned
+     */
     private void setVisible(AnchorPane ap){
         navMenuPanel.setVisible(false);
         verifyUploadsView.setVisible(false);
@@ -72,11 +81,23 @@ public class dashboardController {
         ap.setVisible(true);
     }
 
+    /**
+     *	Displays the Navigation Menu. All items are defined in dashboard.fxml
+     *
+     *   @param  e a JavaFX event with the properties and methods of the element that triggered the event
+     *	@return no value returned
+     */
     @FXML
     private void navMenuBtnClicked(Event e){
         navMenuPanel.setVisible(!navMenuPanel.visibleProperty().get());
     }
 
+    /**
+     *	Displays the users Account. All items are defined in dashboard.fxml
+     *
+     *   @param  e a JavaFX event with the properties and methods of the element that triggered the event
+     *	@return no value returned
+     */
     @FXML
     private void accountMenuBtnClicked(Event e){
         if(com.modelbox.auth.logIn.database != null) {
@@ -86,14 +107,36 @@ public class dashboardController {
         accountMenuPanel.setVisible(!accountMenuPanel.visibleProperty().get());
     }
 
+    
+    /**
+     *	If the user does not have any models uploaded and clicks the "my models" on navigation. They are immediately
+     *   forwarded to the Upload Models page. All items are defined in dashboard.fxml.
+     *
+     *   @param  e a JavaFX event with the properties and methods of the element that triggered the event
+     *	@return no value returned
+     */
     @FXML
     private void noModelsBtnClicked(Event e){ setVisible(uploadModelView); }
 
+    
+    /**
+     *	Displays the users uploaded models pane. All items are defined in dashboard.fxml
+     *
+     *   @param  e a JavaFX event with the properties and methods of the element that triggered the event
+     *	@return no value returned
+     */
     @FXML
     private void uploadModelViewBtnClicked(Event e){
         setVisible(uploadModelView);
     }
 
+    
+    /**
+     *	Displays the users Settings. All items are defined in dashboard.fxml
+     *
+     *   @param  e a JavaFX event with the properties and methods of the element that triggered the event
+     *	@return no value returned
+     */
     @FXML
     private void settingsBtnClicked(Event e){
         if(com.modelbox.auth.logIn.database != null) {
@@ -102,6 +145,13 @@ public class dashboardController {
         setVisible(settingsView);
     }
 
+    
+    /**
+     *	Displays the usersProfile. All items are defined in dashboard.fxml
+     *
+     *   @param  e a JavaFX event with the properties and methods of the element that triggered the event
+     *	@return no value returned
+     */
     @FXML
     private void profileBtnClicked(Event e){
         if(com.modelbox.auth.logIn.database != null) {
@@ -114,6 +164,13 @@ public class dashboardController {
         setVisible(profileView);
     }
 
+    /**
+     *	Sets all fields to be editable in the view profile pane. Upon editing the information the new data is saved
+     *  to the database. All items are defined in dashboard.fxml.
+     *
+     *  @param  e a JavaFX event with the properties and methods of the element that triggered the event
+     *	@return no value returned
+     */
     @FXML
     private void editProfileBtnClicked(Event e) {
         if (editProfileBtn.getText().equals("Edit profile")) {
@@ -136,6 +193,13 @@ public class dashboardController {
         }
     }
 
+    /**
+     *	Retrieves all of a users models from the database and displays them. All items are defined in
+     *   dashboard.fxml.
+     *
+     *   @param  e a JavaFX event with the properties and methods of the element that triggered the event
+     *	@return no value returned
+     */
     @FXML
     private void myModelsViewBtnClicked(Event e){
         if(myModelsList.isEmpty()){
@@ -158,7 +222,13 @@ public class dashboardController {
     }
 
 
-
+    /**
+     *   A user selects one or multiple files for upload. The files are then converted into strings of bytes and uploaded to MongoDB
+     *   "models" collection. All models are tied to the user by the "owner_id" JSON field. Items are defined in dashboard.fxml.
+     *
+     *   @param  e a JavaFX event with the properties and methods of the element that triggered the event
+     *	@return no value returned
+     */
     @FXML
     private void uploadBtnClicked(Event e){
         FileChooser fileChooser = new FileChooser();
@@ -185,6 +255,14 @@ public class dashboardController {
         }
     }
 
+    
+    /**
+     *	Upon adding the models to the upload page a user can verify the models they wish to upload.  The models are all displayed
+     *   in a card view. Each model can be removed individually from the list by clicking a cancel button. 
+     *
+     *   @param  modelFile the 3D Model File selected by the user.
+     *	@return no value returned
+     */
     private void addVerifyModelCard(File modelFile){
         try {
             URL modelUrl = new URL("file:///" + modelFile.getAbsolutePath());
@@ -227,6 +305,14 @@ public class dashboardController {
         verifyUploadsFlowPanel.getChildren().add(modelMeshPane);
     }
 
+    /**
+     *	Upon adding the models to the upload page a user can verify the models they wish to upload.  The models are all displayed
+     *   in a card view. Each model can be removed individually from the list by clicking a cancel button. 
+     *
+     *   @param  modelFileName String that represents the model file name.
+     *   @param  modeList a ListArray that contains all the models. 
+     *	 @return index, the index value of the model in a List array is returned.
+     */
     private int getModelIndexByName(List<File> modelList, String modelFileName) {
         int index = 0;
         for (int i = 0; i < modelList.size(); i++) {
@@ -237,6 +323,13 @@ public class dashboardController {
         return index;
     }
 
+    /**
+     *	Upon clicking the upload models button the models are uploaded to MongoDB. The models are converted
+     *   to a String of bytes and stored into the "models" collection in the database.
+     *
+     *   @param  e a JavaFX event with the properties and methods of the element that triggered the event
+     *	 @return no value returned
+     */
     @FXML
     private void uploadModelsBtnClicked(Event e){
         verifyUploadsView.setVisible(false);
@@ -263,6 +356,13 @@ public class dashboardController {
         setVisible(myModelsView);
     }
 
+    /**
+     *   Populates the UI with a users models. The Models are displayed and are downloadable by clicking the download button. 
+     *   All items are defined in dashboard.fxml
+     *
+     *   @param  modelFile a 3D model file
+     *	 @return no value returned
+     */
     private void addMyModelsPreviewCard(File modelFile){
         try {
             URL modelUrl = new URL("file:///" + modelFile.getAbsolutePath());
@@ -311,6 +411,13 @@ public class dashboardController {
         myModelsFlowPanel.getChildren().add(modelMeshPane);
     }
 
+    /**
+     *   Sets the profile picture of a user in the settings page. A user selects an image and it is converted
+     *   into a String of bytes and stored into MongoDB. All items are defined in dashboard.fxml. 
+     *
+     *   @param  e a JavaFX event with the properties and methods of the element that triggered the event
+     *	 @return no value returned
+     */
     @FXML
     private void addProfilePictureBtn(Event e){
         FileChooser fileChooser = new FileChooser();
@@ -321,6 +428,13 @@ public class dashboardController {
        // profilePicture.setImage(fileChooser.showOpenDialog(dashboardRootNode.getScene().getWindow()));
     }
 
+    /**
+     *   Logs a user out of the program. Upon logging out the login pane is displayed if the user
+     *   wisher to login again. All items are defined in dashboard.fxml
+     *
+     *   @param  e a JavaFX event with the properties and methods of the element that triggered the event
+     *	 @return no value returned
+     */
     @FXML
     private void logOutBtnClicked(Event e){
         loginController signInController = new loginController();
@@ -335,13 +449,25 @@ public class dashboardController {
             // Handle exception if fxml document fails to load and show properly
         }
     }
-
+    
+    /**
+     *   Sets the account settings pane as visible. All items are defined in dashboard.fxml
+     *
+     *   @param  e a JavaFX event with the properties and methods of the element that triggered the event
+     *	 @return no value returned
+     */
     @FXML
     private void accountSettingsBtnClicked(Event e) {
         accountSecurityAnchorPane.setVisible(false);
         accountSettingsAnchorPane.setVisible(true);
     }
 
+    /**
+     *   Sets the account security pane as visible. All items are defined in dashboard.fxml
+     *
+     *   @param  e a JavaFX event with the properties and methods of the element that triggered the event
+     *	 @return no value returned
+     */
     @FXML
     private void accountSecurityBtnClicked(Event e) {
         accountSettingsAnchorPane.setVisible(false);
