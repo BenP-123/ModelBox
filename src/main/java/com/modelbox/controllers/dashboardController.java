@@ -102,7 +102,7 @@ public class dashboardController {
     private void accountMenuBtnClicked(Event e){
         if(com.modelbox.auth.logIn.database != null) {
             accountUserName.setText(usersIO.getDisplayName());
-            //accountUserEmail.setText(usersIO.getOwnerID());
+            accountUserEmail.setText(usersIO.getEmailAddress());
         }
         accountMenuPanel.setVisible(!accountMenuPanel.visibleProperty().get());
     }
@@ -158,8 +158,8 @@ public class dashboardController {
             displayNameField.setText(usersIO.getDisplayName());
             firstNameField.setText(usersIO.getFirstName());
             lastNameField.setText(usersIO.getLastName());
-            //emailField.setText(usersIO.getOwnerID());
-            //bioField.setText(usersIO.getProfileBio());
+            emailField.setText(usersIO.getEmailAddress());
+            bioField.setText(usersIO.getProfileBio());
         }
         setVisible(profileView);
     }
