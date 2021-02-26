@@ -23,7 +23,7 @@ public class usersIO {
     }
     
     ///Test this
-        public static String getEmailID() {
+        public static String getEmailAddress() {
         Bson filter = eq("emailAddress", loginController.activeLogin.getEmailAddress());
         return (String) (usersCollection.find(filter).first()).get("emailAddress");
     }
