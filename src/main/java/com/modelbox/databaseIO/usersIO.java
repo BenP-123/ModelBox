@@ -21,6 +21,12 @@ public class usersIO {
         Bson filter = eq("contact.email", loginController.activeLogin.getEmailAddress());
         return (String) (usersCollection.find(filter).first()).get("owner_id");
     }
+    
+    ///Test this
+        public static String getEmailID() {
+        Bson filter = eq("emailAddress", loginController.activeLogin.getEmailAddress());
+        return (String) (usersCollection.find(filter).first()).get("emailAddress");
+    }
 
     /**
      * Using the MongoDB driver, retrieve the displayName of the current logged in user
