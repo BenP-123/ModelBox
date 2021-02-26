@@ -310,7 +310,7 @@ public class dashboardController {
      *   in a card view. Each model can be removed individually from the list by clicking a cancel button. 
      *
      *   @param  modelFileName String that represents the model file name.
-     *   @param  modeList a ListArray that contains all the models. 
+     *   @param  modelList     a ListArray that contains all the models.
      *	 @return index, the index value of the model in a List array is returned.
      */
     private int getModelIndexByName(List<File> modelList, String modelFileName) {
