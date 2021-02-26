@@ -474,4 +474,9 @@ public class dashboardController {
         accountSecurityAnchorPane.setVisible(true);
     }
 
+    @FXML
+    private void previewBtnClicked(Event e) {
+
+    }
+
 }

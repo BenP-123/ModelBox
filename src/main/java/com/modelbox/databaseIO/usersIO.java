@@ -18,12 +18,11 @@ public class usersIO {
      * @return       a string containing the value of the current user's 'owner_id'
      */
     public static String getOwnerID() {
-        Bson filter = eq("contact.email", loginController.activeLogin.getEmailAddress());
+        Bson filter = eq("emailAddress", loginController.activeLogin.getEmailAddress());
         return (String) (usersCollection.find(filter).first()).get("owner_id");
     }
-    
-    ///Test this
-        public static String getEmailAddress() {
+
+    public static String getEmailAddress() {
         Bson filter = eq("emailAddress", loginController.activeLogin.getEmailAddress());
         return (String) (usersCollection.find(filter).first()).get("emailAddress");
     }
