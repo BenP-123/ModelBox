@@ -114,24 +114,6 @@ public class dashboardController {
         } catch (Exception loadException){
             // Handle exception if fxml document fails to load and show properly
         }
-
-        if(editProfileBtn.getText().equals("Edit profile")) {
-            if(!(displayNameField.getText().equals(usersIO.getDisplayName()))){
-                usersIO.updateDisplayName(displayNameField.getText());
-            }
-            if(!(firstNameField.getText().equals(usersIO.getFirstName()))){
-                usersIO.updateFirstName(firstNameField.getText());
-            }
-            if(!(lastNameField.getText().equals(usersIO.getLastName()))){
-                usersIO.updateLastName(lastNameField.getText());
-            }
-            if(!(emailField.getText().equals(usersIO.getEmailAddress()))){
-                usersIO.updateEmailName(emailField.getText());
-            }
-            if(!(bioField.getText().equals(usersIO.getProfileBio()))) {
-                usersIO.updateBioName(bioField.getText());
-            }
-        }
     }
     
     /**
