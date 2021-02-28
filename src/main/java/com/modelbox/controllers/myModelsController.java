@@ -142,7 +142,7 @@ public class myModelsController {
             MeshView currentModelMeshView = new MeshView(currentModelMesh);
 
             // Set the id of the previewModelSubScene to be equal to the modelName
-            loginController.dashboard.previewPopUpView.previewModelSubScene.setId(currentModel.getId());
+            loginController.dashboard.previewPopUpView.previewModelAnchorPane.setId(currentModel.getId());
 
             // Set the modelNameText and modelTypeText labels
             loginController.dashboard.previewPopUpView.modelNameText.setText(FilenameUtils.removeExtension(currentModel.getId()));
