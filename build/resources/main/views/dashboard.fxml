@@ -1,30 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="backgroundContainer" fx:id="dashboardRootNode" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1000.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.modelbox.controllers.dashboardController">
+<AnchorPane id="dashboardAnchorPane" fx:id="dashboardAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1000.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.modelbox.controllers.dashboardController">
    <children>
-      <AnchorPane id="topBar" prefHeight="40.0" prefWidth="1000.0" style="-fx-background-color: #17181a;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane id="menuBarAnchorPane" fx:id="menuBarAnchorPane" prefHeight="40.0" prefWidth="1000.0" style="-fx-background-color: #17181a;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Button id="navMenuBtn" fx:id="navMenuBtn" mnemonicParsing="false" onAction="#navMenuBtnClicked" prefHeight="40.0" prefWidth="60.0" style="-fx-background-color: none;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Button id="navigationMenuBtn" fx:id="navigationMenuBtn" mnemonicParsing="false" onAction="#navigationMenuBtnClicked" prefHeight="40.0" prefWidth="60.0" style="-fx-background-color: none;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <graphic>
-                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView id="navigationMenuBtnIcon" fx:id="navigationMenuBtnIcon" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/menu-bars.png" />
                      </image>
@@ -33,7 +26,7 @@
             </Button>
             <Button id="accountMenuBtn" fx:id="accountMenuBtn" mnemonicParsing="false" onAction="#accountMenuBtnClicked" prefHeight="40.0" prefWidth="60.0" style="-fx-background-color: none;" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <graphic>
-                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView id="accountMenuBtnIcon" fx:id="accountMenuBtnIcon" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/user-account.png" />
                      </image>
@@ -42,307 +35,15 @@
             </Button>
          </children>
       </AnchorPane>
-      <AnchorPane id="myModelsView" fx:id="myModelsView" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #ffffff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
+      <AnchorPane id="dashViewsAnchorPane" fx:id="dashViewsAnchorPane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #ffffff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />
+      <Pane id="navigationMenuPane" fx:id="navigationMenuPane" layoutX="-15.0" layoutY="38.0" prefHeight="175.0" prefWidth="300.0" style="-fx-background-color: #17181a; -fx-background-radius: 0 0 25 0;" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="40.0">
          <children>
-            <Text layoutX="95.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="My Models" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="30.0">
-               <font>
-                  <Font name="Arial" size="30.0" />
-               </font>
-            </Text>
-            <ScrollPane id="myModelsScrollPane" fx:id="myModelsScrollPane" fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: #ffffff;" vbarPolicy="NEVER" visible="false" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="100.0">
-               <content>
-                  <FlowPane id="myModelsFlowPanel" fx:id="myModelsFlowPanel" columnHalignment="CENTER" hgap="25.0" maxHeight="-Infinity" maxWidth="Infinity" minHeight="-Infinity" prefHeight="450.0" prefWidth="880.0" style="-fx-background-color: #ffffff;" vgap="25.0" />
-               </content>
-            </ScrollPane>
-            <Button fx:id="noModelsBtn" alignment="CENTER" contentDisplay="TOP" graphicTextGap="20.0" mnemonicParsing="false" onAction="#noModelsBtnClicked" style="-fx-background-color: none; -fx-border-radius: 15 15 15 15; -fx-border-style: dashed; -fx-border-width: 2; -fx-border-color: #c4c4c4;" text="No 3D models uploaded. To get started, click the arrow above." textAlignment="CENTER" textFill="#868686" AnchorPane.bottomAnchor="75.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="100.0">
-               <graphic>
-                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/arrow-right.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <font>
-                  <Font name="Arial" size="14.0" />
-               </font>
-            </Button>
-         </children>
-      </AnchorPane>
-      <AnchorPane id="uploadModelView" fx:id="uploadModelView" layoutX="10.0" layoutY="50.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #ffffff;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
-         <children>
-            <Text layoutX="95.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Upload Models" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="30.0">
-               <font>
-                  <Font name="Arial" size="30.0" />
-               </font>
-            </Text>
-            <Button fx:id="uploadBtn" alignment="CENTER" contentDisplay="TOP" graphicTextGap="20.0" layoutX="328.0" layoutY="240.0" mnemonicParsing="false" onAction="#uploadBtnClicked" style="-fx-background-color: none; -fx-border-radius: 15 15 15 15; -fx-border-style: dashed; -fx-border-width: 2; -fx-border-color: #c4c4c4;" text="Browse for 3D models. Supports .stl" textAlignment="CENTER" textFill="#868686" AnchorPane.bottomAnchor="75.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="100.0">
-               <graphic>
-                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/plus-circle.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <font>
-                  <Font name="Arial" size="14.0" />
-               </font>
-            </Button>
-         </children>
-      </AnchorPane>
-      <AnchorPane id="uploadModelView" fx:id="verifyUploadsView" layoutX="10.0" layoutY="50.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #ffffff;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
-         <children>
-            <Text layoutX="95.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Upload Verification" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="30.0">
-               <font>
-                  <Font name="Arial" size="30.0" />
-               </font>
-            </Text>
-            <Button id="verifyUploadBtn" fx:id="verifyUploadBtn" alignment="CENTER" mnemonicParsing="false" onAction="#uploadModelsBtnClicked" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: #007be8; -fx-background-radius: 5 5 5 5;" text="Upload Models" textFill="WHITE" AnchorPane.bottomAnchor="45.0" AnchorPane.rightAnchor="60.0">
-               <font>
-                  <Font name="Arial" size="14.0" />
-               </font>
-            </Button>
-            <ScrollPane id="verifyUploadsScrollPane" fx:id="verifyUploadsScrollPane" fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: #ffffff;" vbarPolicy="NEVER" AnchorPane.bottomAnchor="110.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="100.0">
-               <content>
-                  <FlowPane id="verifyUploadsFlowPanel" fx:id="verifyUploadsFlowPanel" columnHalignment="CENTER" hgap="25.0" maxHeight="-Infinity" maxWidth="Infinity" minHeight="-Infinity" prefHeight="400.0" prefWidth="880.0" style="-fx-background-color: #ffffff;" vgap="25.0" />
-               </content>
-            </ScrollPane>
-         </children>
-      </AnchorPane>
-      <AnchorPane id="settingsView" fx:id="settingsView" layoutY="40.0" prefHeight="610.0" prefWidth="1000.0" style="-fx-background-color: #ffffff;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
-         <children>
-            <Text fill="#17181a" layoutX="97.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Settings" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="30.0">
-               <font>
-                  <Font name="Arial" size="30.0" />
-               </font>
-            </Text>
-            <Button fx:id="accountSettingsBtn" contentDisplay="TEXT_ONLY" graphicTextGap="0.0" layoutX="60.0" layoutY="125.0" mnemonicParsing="false" onAction="#accountSettingsBtnClicked" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: none; -fx-border-color: #868686; -fx-border-radius: 5 5 0 0; -fx-alignment: center-left;" text="Account" textFill="#757575" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="175.0">
-               <font>
-                  <Font name="Arial" size="14.0" />
-               </font>
-               <padding>
-                  <Insets left="15.0" />
-               </padding>
-            </Button>
-            <Button fx:id="accountSecurityBtn" contentDisplay="TEXT_ONLY" graphicTextGap="0.0" layoutX="60.0" layoutY="160.0" mnemonicParsing="false" onAction="#accountSecurityBtnClicked" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: none; -fx-border-color: #868686; -fx-border-radius: 0 0 5 5; -fx-alignment: center-left;" text="Account security" textFill="#757575" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="209.0">
-               <font>
-                  <Font name="Arial" size="14.0" />
-               </font>
-               <padding>
-                  <Insets left="15.0" />
-               </padding>
-            </Button>
-            <AnchorPane fx:id="accountSettingsAnchorPane" layoutX="324.0" layoutY="125.0" prefHeight="400.0" prefWidth="582.0" style="-fx-background-color: #ffffff;" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="390.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="125.0">
-               <children>
-                  <Text layoutX="10.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Delete account" wrappingWidth="151.81364365729615" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="15.0">
-                     <font>
-                        <Font name="Arial" size="22.0" />
-                     </font>
-                  </Text>
-                  <Button fx:id="deleteAccountBtn" contentDisplay="TEXT_ONLY" graphicTextGap="0.0" layoutX="10.0" layoutY="188.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: red; -fx-background-radius: 5 5 5 5;" text="Delete account" textFill="WHITE" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="250.0">
-                     <font>
-                        <Font name="Arial" size="14.0" />
-                     </font>
-                  </Button>
-                  <Text fill="#17181a" layoutX="25.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Once you delete your account, there is no going back. Please be certain." AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="55.0">
-                     <font>
-                        <Font name="Arial" size="14.0" />
-                     </font>
-                  </Text>
-                  <PasswordField fx:id="deletePassField" layoutX="10.0" layoutY="131.0" prefHeight="25.0" prefWidth="300.0" promptText="Password" style="-fx-padding: 8px; -fx-faint-focus-color: transparent; -fx-focus-color: #C4C4C4; -fx-background-color: #ffffff; -fx-border-color: #C4C4C4; -fx-border-radius: 4px;" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="115.0">
-                     <font>
-                        <Font name="Arial" size="14.0" />
-                     </font>
-                     <padding>
-                        <Insets left="10.0" />
-                     </padding>
-                  </PasswordField>
-                  <PasswordField fx:id="deleteConfirmPassField" layoutX="294.0" layoutY="131.0" prefHeight="25.0" prefWidth="300.0" promptText="Confirm password" style="-fx-padding: 8px; -fx-faint-focus-color: transparent; -fx-focus-color: #C4C4C4; -fx-background-color: #ffffff; -fx-border-color: #C4C4C4; -fx-border-radius: 4px;" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="190.0">
-                     <font>
-                        <Font name="Arial" size="14.0" />
-                     </font>
-                     <padding>
-                        <Insets left="10.0" />
-                     </padding>
-                  </PasswordField>
-                  <Text fill="#17181a" layoutX="10.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" wrappingWidth="225.0" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="90.0">
-                     <font>
-                        <Font name="Arial" size="15.0" />
-                     </font>
-                  </Text>
-                  <Text fill="#17181a" layoutX="272.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Confirm password" wrappingWidth="225.0" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="165.0">
-                     <font>
-                        <Font name="Arial" size="15.0" />
-                     </font>
-                  </Text>
-               </children>
-            </AnchorPane>
-            <AnchorPane fx:id="accountSecurityAnchorPane" layoutX="330.0" layoutY="135.0" prefHeight="400.0" prefWidth="582.0" style="-fx-background-color: #ffffff;" visible="false" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="390.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="125.0">
-               <children>
-                  <Text fill="#17181a" strokeType="OUTSIDE" strokeWidth="0.0" text="Change password" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="15.0">
-                     <font>
-                        <Font name="Arial" size="22.0" />
-                     </font>
-                  </Text>
-                  <PasswordField fx:id="changeOldPassField" layoutX="25.0" layoutY="86.0" prefHeight="25.0" prefWidth="300.0" promptText="Old password" style="-fx-padding: 8px; -fx-faint-focus-color: transparent; -fx-focus-color: #C4C4C4; -fx-background-color: #ffffff; -fx-border-color: #C4C4C4; -fx-border-radius: 4px;" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="80.0">
-                     <font>
-                        <Font name="Arial" size="14.0" />
-                     </font>
-                     <padding>
-                        <Insets left="10.0" />
-                     </padding>
-                  </PasswordField>
-                  <PasswordField fx:id="changeNewPassField" layoutX="261.0" layoutY="109.0" prefHeight="25.0" prefWidth="300.0" promptText="New password" style="-fx-padding: 8px; -fx-faint-focus-color: transparent; -fx-focus-color: #C4C4C4; -fx-background-color: #ffffff; -fx-border-color: #C4C4C4; -fx-border-radius: 4px;" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="155.0">
-                     <font>
-                        <Font name="Arial" size="14.0" />
-                     </font>
-                     <padding>
-                        <Insets left="10.0" />
-                     </padding>
-                  </PasswordField>
-                  <Text fill="#17181a" layoutX="25.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Old password" wrappingWidth="215.0" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="55.0">
-                     <font>
-                        <Font name="Arial" size="15.0" />
-                     </font>
-                  </Text>
-                  <Text fill="#17181a" layoutX="261.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="New password" wrappingWidth="215.0" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="130.0">
-                     <font>
-                        <Font name="Arial" size="15.0" />
-                     </font>
-                  </Text>
-                  <PasswordField fx:id="changeConfirmPassField" layoutX="25.0" layoutY="230.0" prefHeight="25.0" prefWidth="300.0" promptText="Confirm password" style="-fx-padding: 8px; -fx-faint-focus-color: transparent; -fx-focus-color: #C4C4C4; -fx-background-color: #ffffff; -fx-border-color: #C4C4C4; -fx-border-radius: 4px;" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="230.0">
-                     <font>
-                        <Font name="Arial" size="14.0" />
-                     </font>
-                     <padding>
-                        <Insets left="10.0" />
-                     </padding>
-                  </PasswordField>
-                  <Text fill="#17181a" layoutX="25.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Confirm password" wrappingWidth="215.0" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="205.0">
-                     <font>
-                        <Font name="Arial" size="15.0" />
-                     </font>
-                  </Text>
-                  <Button fx:id="updatePasswordBtn" layoutX="25.0" layoutY="285.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: green; -fx-background-radius: 5 5 5 5;" text="Update password" textFill="WHITE" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="290.0">
-                     <font>
-                        <Font name="Arial" size="14.0" />
-                     </font>
-                  </Button>
-               </children></AnchorPane>
-            <TextField fx:id="usersSettingsDisplayName" editable="false" layoutX="114.0" layoutY="87.0" style="-fx-background-color: #ffffff;" text="Kermit the Frog" AnchorPane.leftAnchor="114.0" AnchorPane.topAnchor="87.0">
-               <font>
-                  <Font name="Arial" size="16.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="DEFAULT" />
-               </cursor>
-            </TextField>
-            <Text fill="#17181a" layoutX="100.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your personal account" AnchorPane.leftAnchor="125.0" AnchorPane.topAnchor="115.0">
-               <font>
-                  <Font name="Arial" size="14.0" />
-               </font>
-            </Text>
-            <Circle fill="#17181a" radius="26.0" stroke="#17181a" strokeType="INSIDE" strokeWidth="5.0" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="90.0" />
-            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="61.0" AnchorPane.topAnchor="91.0">
-               <image>
-                  <Image url="@../images/kermit-the-frog.jpg" />
-               </image>
-            </ImageView>
-            <Line endX="-10.8839111328125" endY="461.0" layoutX="309.0" layoutY="150.0" startX="-10.8839111328125" startY="-82.5" stroke="#17181a" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="320.0" AnchorPane.topAnchor="30.0">
-               <effect>
-                  <DropShadow blurType="GAUSSIAN" radius="7.0" width="9.0" />
-               </effect></Line>
-         </children>
-      </AnchorPane>
-      <AnchorPane id="profileView" fx:id="profileView" layoutY="40.0" prefHeight="610.0" prefWidth="1000.0" style="-fx-background-color: #ffffff;">
-         <children>
-            <Text fill="#17181a" layoutX="77.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Profile" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="30.0">
-               <font>
-                  <Font name="Arial" size="30.0" />
-               </font>
-            </Text>
-            <Circle fill="#17181a" layoutX="160.0" layoutY="190.0" radius="102.0" stroke="#17181a" strokeType="INSIDE" strokeWidth="5.0" AnchorPane.topAnchor="113.0" />
-            <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="60.0" layoutY="115.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="115.0">
-               <image>
-                  <Image url="@../images/kermit-the-frog.jpg" />
-               </image>
-            </ImageView>
-            <Button fx:id="editProfileBtn" alignment="CENTER" layoutX="81.0" layoutY="329.0" mnemonicParsing="false" onAction="#editProfileBtnClicked" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: #007be8; -fx-background-radius: 5 5 5 5;" text="Edit profile" textFill="WHITE" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="350.0">
-               <font>
-                  <Font name="Arial" size="14.0" />
-               </font>
-            </Button>
-            <TextField fx:id="firstNameField" editable="false" layoutX="350.0" layoutY="215.0" prefHeight="25.0" prefWidth="235.0" promptText="First name" style="-fx-padding: 8px; -fx-faint-focus-color: transparent; -fx-focus-color: #C4C4C4; -fx-background-color: #ffffff; -fx-border-color: #C4C4C4; -fx-border-radius: 4px;" text="Kermit" AnchorPane.leftAnchor="350.0" AnchorPane.topAnchor="220.0">
-               <font>
-                  <Font name="Arial" size="14.0" />
-               </font>
-               <padding>
-                  <Insets left="10.0" />
-               </padding>
-            </TextField>
-            <TextField fx:id="lastNameField" editable="false" layoutX="615.0" layoutY="215.0" prefHeight="25.0" prefWidth="235.0" promptText="Last name" style="-fx-padding: 8px; -fx-faint-focus-color: transparent; -fx-focus-color: #C4C4C4; -fx-background-color: #ffffff; -fx-border-color: #C4C4C4; -fx-border-radius: 4px;" text="the Frog" AnchorPane.leftAnchor="615.0" AnchorPane.topAnchor="220.0">
-               <font>
-                  <Font name="Arial" size="14.0" />
-               </font>
-               <padding>
-                  <Insets left="10.0" />
-               </padding>
-            </TextField>
-            <Text fill="#17181a" layoutX="384.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First name" wrappingWidth="235.0" AnchorPane.leftAnchor="350.0" AnchorPane.topAnchor="195.0">
-               <font>
-                  <Font name="Arial" size="15.0" />
-               </font>
-            </Text>
-            <Text fill="#17181a" layoutX="414.0" layoutY="193.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last name" wrappingWidth="235.0" AnchorPane.leftAnchor="615.0" AnchorPane.topAnchor="195.0">
-               <font>
-                  <Font name="Arial" size="15.0" />
-               </font>
-            </Text>
-            <Text fill="#17181a" layoutX="414.0" layoutY="193.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email address" wrappingWidth="500.0" AnchorPane.leftAnchor="350.0" AnchorPane.topAnchor="280.0">
-               <font>
-                  <Font name="Arial" size="15.0" />
-               </font>
-            </Text>
-            <TextField fx:id="emailField" editable="false" layoutX="416.0" layoutY="266.0" prefHeight="25.0" prefWidth="500.0" promptText="Email address" style="-fx-padding: 8px; -fx-faint-focus-color: transparent; -fx-focus-color: #C4C4C4; -fx-background-color: #ffffff; -fx-border-color: #C4C4C4; -fx-border-radius: 4px;" text="kermit@sesamestreet.com" AnchorPane.leftAnchor="350.0" AnchorPane.topAnchor="305.0">
-               <font>
-                  <Font name="Arial" size="14.0" />
-               </font>
-               <padding>
-                  <Insets left="10.0" />
-               </padding>
-            </TextField>
-            <Text fill="#17181a" layoutX="350.0" layoutY="364.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bio" wrappingWidth="500.0" AnchorPane.leftAnchor="350.0" AnchorPane.topAnchor="365.0">
-               <font>
-                  <Font name="Arial" size="15.0" />
-               </font>
-            </Text>
-            <TextArea fx:id="bioField" editable="false" layoutX="350.0" layoutY="375.0" prefHeight="80.0" prefWidth="500.0" promptText="Add a bio" style="-fx-faint-focus-color: transparent; -fx-focus-color: transparent; -fx-background-color: #ffffff; -fx-border-color: #C4C4C4; -fx-border-radius: 4px; -fx-padding: 8px;" AnchorPane.leftAnchor="350.0" AnchorPane.topAnchor="390.0">
-               <font>
-                  <Font name="Arial" size="14.0" />
-               </font>
-            </TextArea>
-            <Text fill="#17181a" layoutX="350.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Display name" wrappingWidth="500.0" AnchorPane.leftAnchor="350.0" AnchorPane.topAnchor="115.0">
-               <font>
-                  <Font name="Arial" size="15.0" />
-               </font>
-            </Text>
-            <TextField fx:id="displayNameField" editable="false" layoutX="350.0" layoutY="81.0" prefHeight="25.0" prefWidth="500.0" promptText="Display name" style="-fx-padding: 8px; -fx-faint-focus-color: transparent; -fx-focus-color: #C4C4C4; -fx-background-color: #ffffff; -fx-border-color: #C4C4C4; -fx-border-radius: 4px;" text="Kermit the Frog" AnchorPane.leftAnchor="350.0" AnchorPane.topAnchor="140.0">
-               <font>
-                  <Font name="Arial" size="14.0" />
-               </font>
-               <padding>
-                  <Insets left="10.0" />
-               </padding>
-            </TextField>
-         </children>
-      </AnchorPane>
-      <Pane id="navMenuPanel" fx:id="navMenuPanel" layoutX="-15.0" layoutY="38.0" prefHeight="175.0" prefWidth="300.0" style="-fx-background-color: #17181a; -fx-background-radius: 0 0 25 0;" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="40.0">
-         <children>
-            <Text id="appTitle" fill="WHITE" layoutX="25.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ModelBox">
+            <Text id="navigationMenuTextHeading" fx:id="navigationMenuTextHeading" fill="WHITE" layoutX="25.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ModelBox">
                <font>
                   <Font name="Arial" size="20.0" />
                </font>
             </Text>
-            <Text id="appSlogan" fill="#bababa" layoutX="25.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="An intuitive approach to 3D model management.">
+            <Text id="navigationMenuTextSubheading" fx:id="navigationMenuTextSubheading" fill="#bababa" layoutX="25.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="An intuitive approach to 3D model management.">
                <font>
                   <Font name="Arial" size="12.0" />
                </font>
@@ -350,24 +51,24 @@
             <Line id="navMenuIndicator" endX="60.0" stroke="WHITE" strokeWidth="1.25" />
             <Line id="navMenuDivider1" endX="275.0" endY="1.52587890625E-5" layoutX="25.0" layoutY="100.0" stroke="WHITE" strokeWidth="1.25" />
             <Line id="navMenuDivider2" endX="275.0" endY="1.52587890625E-5" layoutX="27.0" layoutY="140.0" stroke="WHITE" strokeWidth="1.25" />
-            <Button id="myModelsBtn" alignment="BASELINE_LEFT" graphicTextGap="20.0" layoutX="25.0" layoutY="71.0" mnemonicParsing="false" onAction="#myModelsViewBtnClicked" prefHeight="25.0" prefWidth="275.0" style="-fx-background-color: none;" text="My Models" textFill="WHITE">
+            <Button id="myModelsBtn" fx:id="myModelsBtn" alignment="BASELINE_LEFT" graphicTextGap="20.0" layoutX="25.0" layoutY="71.0" mnemonicParsing="false" onAction="#myModelsBtnClicked" prefHeight="25.0" prefWidth="275.0" style="-fx-background-color: none;" text="My Models" textFill="WHITE">
                <font>
                   <Font name="Arial" size="14.0" />
                </font>
                <graphic>
-                  <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView id="myModelsBtnIcon" fx:id="myModelsBtnIcon" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/my-models.png" />
                      </image>
                   </ImageView>
                </graphic>
             </Button>
-            <Button id="uploadModelBtn" alignment="BASELINE_LEFT" graphicTextGap="20.0" layoutX="25.0" layoutY="110.0" mnemonicParsing="false" onAction="#uploadModelViewBtnClicked" prefHeight="25.0" prefWidth="275.0" style="-fx-background-color: none;" text="Upload Models" textFill="WHITE">
+            <Button id="uploadModelsBtn" fx:id="uploadModelsBtn" alignment="BASELINE_LEFT" graphicTextGap="20.0" layoutX="25.0" layoutY="110.0" mnemonicParsing="false" onAction="#uploadModelsBtnClicked" prefHeight="25.0" prefWidth="275.0" style="-fx-background-color: none;" text="Upload Models" textFill="WHITE">
                <font>
                   <Font name="Arial" size="14.0" />
                </font>
                <graphic>
-                  <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView id="uploadModelsBtnIcon" fx:id="uploadModelsBtnIcon" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/upload-model.png" />
                      </image>
@@ -376,10 +77,10 @@
             </Button>
          </children>
       </Pane>
-      <Pane id="accountMenuPanel" fx:id="accountMenuPanel" layoutX="754.0" layoutY="51.0" prefHeight="225.0" prefWidth="300.0" style="-fx-background-color: #17181a; -fx-background-radius: 0 0 0 25;" visible="false" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
+      <Pane id="accountMenuPane" fx:id="accountMenuPane" layoutX="754.0" layoutY="51.0" prefHeight="225.0" prefWidth="300.0" style="-fx-background-color: #17181a; -fx-background-radius: 0 0 0 25;" visible="false" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
          <children>
             <Line id="accountMenuIndicator" endX="60.0" layoutX="240.0" stroke="WHITE" strokeWidth="1.25" />
-            <TextField fx:id="accountUserName" editable="false" layoutX="8.0" layoutY="7.0" prefHeight="37.0" prefWidth="290.0" style="-fx-background-color: #17181A; -fx-text-inner-color: #ffffff;" text="Kermit the Frog">
+            <TextField id="displayNameTextField" fx:id="displayNameTextField" editable="false" layoutX="8.0" layoutY="7.0" prefHeight="37.0" prefWidth="290.0" style="-fx-background-color: #17181A; -fx-text-inner-color: #ffffff;" text="Kermit the Frog">
                <font>
                   <Font name="Arial" size="20.0" />
                </font>
@@ -387,7 +88,7 @@
                   <Cursor fx:constant="DEFAULT" />
                </cursor>
             </TextField>
-            <TextField fx:id="accountUserEmail" editable="false" layoutX="14.0" layoutY="38.0" prefHeight="23.0" prefWidth="277.0" style="-fx-background-color: #17181A; -fx-text-inner-color: #bababa;" text="kermit@sesamestreet.com">
+            <TextField id="emailAddressTextField" fx:id="emailAddressTextField" editable="false" layoutX="14.0" layoutY="38.0" prefHeight="23.0" prefWidth="277.0" style="-fx-background-color: #17181A; -fx-text-inner-color: #bababa;" text="kermit@sesamestreet.com">
                <font>
                   <Font name="Arial" size="12.0" />
                </font>
@@ -397,31 +98,31 @@
             </TextField>
             <Line id="navMenuDivider1" endX="275.0" endY="1.52587890625E-5" layoutX="25.0" layoutY="100.0" stroke="WHITE" strokeWidth="1.25" />
             <Line id="navMenuDivider2" endX="275.0" endY="1.52587890625E-5" layoutX="25.0" layoutY="140.0" stroke="WHITE" strokeWidth="1.25" />
-            <Button id="profileBtn" alignment="BASELINE_LEFT" graphicTextGap="20.0" layoutX="25.0" layoutY="71.0" mnemonicParsing="false" onAction="#profileBtnClicked" prefHeight="25.0" prefWidth="275.0" style="-fx-background-color: none;" text="Profile" textFill="WHITE">
+            <Button id="accountProfileBtn" fx:id="accountProfileBtn" alignment="BASELINE_LEFT" graphicTextGap="20.0" layoutX="25.0" layoutY="71.0" mnemonicParsing="false" onAction="#accountProfileBtnClicked" prefHeight="25.0" prefWidth="275.0" style="-fx-background-color: none;" text="Profile" textFill="WHITE">
                <font>
                   <Font name="Arial" size="14.0" />
                </font>
                <graphic>
-                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView id="accountProfileBtnIcon" fx:id="accountProfileBtnIcon" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/user-account.png" />
                      </image>
                   </ImageView>
                </graphic>
             </Button>
-            <Button id="settingsBtn" alignment="BASELINE_LEFT" graphicTextGap="20.0" layoutX="25.0" layoutY="110.0" mnemonicParsing="false" onAction="#settingsBtnClicked" prefHeight="25.0" prefWidth="275.0" style="-fx-background-color: none;" text="Settings" textFill="WHITE">
+            <Button id="accountSettingsBtn" fx:id="accountSettingsBtn" alignment="BASELINE_LEFT" graphicTextGap="20.0" layoutX="25.0" layoutY="110.0" mnemonicParsing="false" onAction="#accountSettingsBtnClicked" prefHeight="25.0" prefWidth="275.0" style="-fx-background-color: none;" text="Settings" textFill="WHITE">
                <font>
                   <Font name="Arial" size="14.0" />
                </font>
                <graphic>
-                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView id="accountSettingsBtnIcon" fx:id="accountSettingsBtnIcon" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/Gear-Icon.png" />
+                        <Image url="@../images/gear-icon.png" />
                      </image>
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="logOutBtn" alignment="CENTER" layoutX="25.0" layoutY="165.0" mnemonicParsing="false" onAction="#logOutBtnClicked" prefHeight="35.0" prefWidth="250.0" style="-fx-background-color: none; -fx-background-radius: 5 5 5 5; -fx-border-color: #bababa; -fx-border-radius: 5 5 5 5;" text="Log out" textFill="WHITE">
+            <Button id="logOutBtn" fx:id="logOutBtn" alignment="CENTER" layoutX="25.0" layoutY="165.0" mnemonicParsing="false" onAction="#logOutBtnClicked" prefHeight="35.0" prefWidth="250.0" style="-fx-background-color: none; -fx-background-radius: 5 5 5 5; -fx-border-color: #bababa; -fx-border-radius: 5 5 5 5;" text="Log out" textFill="WHITE">
                <font>
                   <Font name="Arial" size="14.0" />
                </font>

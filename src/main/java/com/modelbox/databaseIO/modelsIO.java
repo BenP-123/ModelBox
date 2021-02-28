@@ -11,6 +11,7 @@ import org.bson.BsonBinary;
 import org.bson.Document;
 import com.modelbox.auth.logIn;
 import org.bson.conversions.Bson;
+import org.bson.types.Binary;
 import org.bson.types.ObjectId;
 
 import static com.mongodb.client.model.Filters.and;
@@ -32,6 +33,7 @@ public class modelsIO {
             modelDoc.append("owner_id", usersIO.getOwnerID());
 
             // Add 3D model file to document
+            modelDoc.append("modelName", model.getName());
             byte[] data = Files.readAllBytes(model.toPath());
             modelDoc.append("modelFile", new BsonBinary(data));
 
@@ -45,23 +47,32 @@ public class modelsIO {
     }
 
     /**
-     * Using the MongoDB driver, get the 3D model with the specified name
+     * Using the MongoDB driver, get the 3D model with the specified name and save the file locally to the path specified
      *
-     * @return       returns the 3D model stored in the database as a string for future import
+     * @return       no value returned
      */
-    public static void downloadModelFile(String modelName) {
+    public static void downloadModelFile(String modelName, Path savePath) {
 
         // Query gets a model from only my stored models, given a specified modelName
         Bson filter = and(eq("modelName", modelName), eq("owner_id", usersIO.getOwnerID()));
-        BsonBinary modelData = (BsonBinary) (modelsCollection.find(filter).first()).get("modelFile");
+        Binary modelData = (modelsCollection.find(filter).first()).get("modelFile", org.bson.types.Binary.class);
 
-        Path path = Paths.get("/path/file");
         try {
-            Files.write(path, modelData.getData());
+            Files.write(savePath, modelData.getData());
         } catch (Exception e) {
             // Handle error
         }
 
     }
 
+    /**
+     * Using the MongoDB driver, delete the 3D model with the specified name and all its properties from the database
+     *
+     * @return       no value returned
+     */
+    public static void deleteModelDocument(String modelName) {
+        Bson filter = and(eq("modelName", modelName), eq("owner_id", usersIO.getOwnerID()));
+        Document found = modelsCollection.find(filter).first();
+        modelsCollection.deleteOne(found);
+    }
 }

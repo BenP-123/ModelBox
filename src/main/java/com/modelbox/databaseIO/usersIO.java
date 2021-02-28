@@ -77,4 +77,68 @@ public class usersIO {
 
         return "FIXME";
     }
+
+    public static void setDisplayName(String displayNameField){
+        Document found = usersCollection.find(new Document("displayName", getDisplayName())).first();
+
+        if(found != null){
+            Bson updatedValue = new Document("displayName", displayNameField);
+            Bson updatedOperation = new Document("$set", updatedValue);
+            usersCollection.updateOne(found, updatedOperation);
+
+            System.out.println("User's display name updated");
+        }
+    }
+
+    public static void setFirstName(String firstNameField){
+        Document found = usersCollection.find(new Document("firstName", getFirstName())).first();
+
+        if(found != null){
+            Bson updatedValue = new Document("firstName", firstNameField);
+            Bson updatedOperation = new Document("$set", updatedValue);
+            usersCollection.updateOne(found, updatedOperation);
+
+            System.out.println("User's first name updated");
+        }
+    }
+
+    public static void setLastName(String lastNameField){
+        Document found = usersCollection.find(new Document("lastName", getLastName())).first();
+
+        if(found != null){
+            Bson updatedValue = new Document("lastName", lastNameField);
+            Bson updatedOperation = new Document("$set", updatedValue);
+            usersCollection.updateOne(found, updatedOperation);
+
+            System.out.println("User's last name updated");
+        }
+    }
+
+    public static void setEmailAddress(String emailField){
+        Document found = usersCollection.find(new Document("emailAddress", getEmailAddress())).first();
+
+        if(found != null){
+            Bson updatedValue = new Document("emailAddress", emailField);
+            Bson updatedOperation = new Document("$set", updatedValue);
+            usersCollection.updateOne(found, updatedOperation);
+
+            System.out.println("User's email address updated");
+        }
+    }
+
+    public static void setProfileBio(String bioField){
+        Document found = usersCollection.find(new Document("profileBio", getProfileBio())).first();
+
+        if(found != null){
+            Bson updatedValue = new Document("profileBio", bioField);
+            Bson updatedOperation = new Document("$set", updatedValue);
+            usersCollection.updateOne(found, updatedOperation);
+
+            System.out.println("User's bio updated");
+        }
+    }
+
+    public static void setProfilePicture(String profilePic) {
+        // Need to implement
+    }
 }

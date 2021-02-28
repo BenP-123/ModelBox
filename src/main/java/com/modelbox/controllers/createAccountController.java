@@ -7,9 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
-import static javafx.scene.control.PopupControl.USE_COMPUTED_SIZE;
 
 public class createAccountController {
 
@@ -32,14 +30,14 @@ public class createAccountController {
      */
     @FXML
     private void createAccountBtnClicked(Event e) {
-        // Automatically load dashboard regardless of whether an account was successfully created or not
-        dashboardController dashController = new dashboardController();
-        FXMLLoader dashboardLoader = new FXMLLoader();
-        dashboardLoader.setController(dashController);
+        // Load and show the login fxml document if the user already has an account
+        loginController signInController = new loginController();
+        FXMLLoader loginLoader = new FXMLLoader();
+        loginLoader.setController(signInController);
 
         try {
-            Parent root = dashboardLoader.load(getClass().getResource("/views/dashboard.fxml"));
-            createAccountBtn.getParent().getScene().setRoot(root);
+            Parent root = loginLoader.load(getClass().getResource("/views/login.fxml"));
+            loginBtn.getScene().setRoot(root);
         } catch (Exception fxmlLoadException){
             // Handle exception if fxml document fails to load and show properly
         }
@@ -61,7 +59,7 @@ public class createAccountController {
 
         try {
             Parent root = loginLoader.load(getClass().getResource("/views/login.fxml"));
-            loginBtn.getParent().getScene().setRoot(root);
+            loginBtn.getScene().setRoot(root);
         } catch (Exception fxmlLoadException){
             // Handle exception if fxml document fails to load and show properly
         }

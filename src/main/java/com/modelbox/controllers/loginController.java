@@ -1,7 +1,6 @@
 package com.modelbox.controllers;
 
 import com.modelbox.auth.logIn;
-import com.modelbox.databaseIO.usersIO;
 import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,9 +12,13 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 
+import java.io.File;
+
 public class loginController {
 
+    public static dashboardController dashboard;
     public static logIn activeLogin = new logIn();
+    private FXMLLoader dashboardLoader;
     @FXML private TextField emailField;
     @FXML private PasswordField passField;
     @FXML private Button loginBtn;
@@ -37,13 +40,33 @@ public class loginController {
             activeLogin.setEmailAddress(emailField.getText());
             activeLogin.logUserIn();
 
-            dashboardController dashController = new dashboardController();
-            FXMLLoader dashboardLoader = new FXMLLoader();
-            dashboardLoader.setController(dashController);
-            Parent root = dashboardLoader.load(getClass().getResource("/views/dashboard.fxml"));
+            dashboardLoader = new FXMLLoader(getClass().getResource("/views/dashboard.fxml"));
+            Parent root = (Parent) dashboardLoader.load();
+            dashboard = dashboardLoader.getController();
             loginBtn.getScene().setRoot(root);
-        } catch (Exception fxmlLoadException){
+
+            dashboard.dashboardViewLoader = new FXMLLoader(getClass().getResource("/views/myModels.fxml"));
+            Parent myModelsRoot = (Parent) dashboard.dashboardViewLoader.load();
+            dashboard.myModelsView = dashboard.dashboardViewLoader.getController();
+            dashboard.dashViewsAnchorPane.getChildren().setAll(myModelsRoot);
+        } catch (Exception loadException){
             // Handle exception if fxml document fails to load and show properly
+        }
+
+        // Modify UI accordingly
+        if(dashboard.myModelsList.isEmpty()){
+            dashboard.myModelsView.myModelsScrollPane.setVisible(false);
+            dashboard.myModelsView.noModelsBtn.setVisible(true);
+        }
+        else {
+            dashboard.myModelsView.myModelsFlowPane.getChildren().clear();
+
+            for (File model : dashboard.myModelsList) {
+                dashboard.myModelsView.addMyModelsPreviewCard(model);
+            }
+
+            dashboard.myModelsView.noModelsBtn.setVisible(false);
+            dashboard.myModelsView.myModelsScrollPane.setVisible(true);
         }
     }
 
@@ -62,13 +85,33 @@ public class loginController {
                 activeLogin.setEmailAddress(emailField.getText());
                 activeLogin.logUserIn();
 
-                dashboardController dashController = new dashboardController();
-                FXMLLoader dashboardLoader = new FXMLLoader();
-                dashboardLoader.setController(dashController);
-                Parent root = dashboardLoader.load(getClass().getResource("/views/dashboard.fxml"));
+                dashboardLoader = new FXMLLoader(getClass().getResource("/views/dashboard.fxml"));
+                Parent root = (Parent) dashboardLoader.load();
+                dashboard = dashboardLoader.getController();
                 loginBtn.getScene().setRoot(root);
+
+                dashboard.dashboardViewLoader = new FXMLLoader(getClass().getResource("/views/myModels.fxml"));
+                Parent myModelsRoot = (Parent) dashboard.dashboardViewLoader.load();
+                dashboard.myModelsView = dashboard.dashboardViewLoader.getController();
+                dashboard.dashViewsAnchorPane.getChildren().setAll(myModelsRoot);
+
+                // Modify UI accordingly
+                if(dashboard.myModelsList.isEmpty()){
+                    dashboard.myModelsView.myModelsScrollPane.setVisible(false);
+                    dashboard.myModelsView.noModelsBtn.setVisible(true);
+                }
+                else {
+                    dashboard.myModelsView.myModelsFlowPane.getChildren().clear();
+
+                    for (File model : dashboard.myModelsList) {
+                        dashboard.myModelsView.addMyModelsPreviewCard(model);
+                    }
+
+                    dashboard.myModelsView.noModelsBtn.setVisible(false);
+                    dashboard.myModelsView.myModelsScrollPane.setVisible(true);
+                }
             }
-        } catch (Exception fxmlLoadException){
+        } catch (Exception loadException){
             // Handle exception if fxml document fails to load and show properly
         }
     }
@@ -90,7 +133,7 @@ public class loginController {
         try {
             Parent root = forgotPassLoader.load(getClass().getResource("/views/forgotPassword.fxml"));
             forgotPassBtn.getScene().setRoot(root);
-        } catch (Exception fxmlLoadException){
+        } catch (Exception loadException){
             // Handle exception if fxml document fails to load and show properly
         }
     }
@@ -112,7 +155,7 @@ public class loginController {
         try {
             Parent root = createAccountLoader.load(getClass().getResource("/views/createAccount.fxml"));
             createAccountBtn.getScene().setRoot(root);
-        } catch (Exception fxmlLoadException){
+        } catch (Exception loadException){
             // Handle exception if fxml document fails to load and show properly
         }
     }

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="myModelsAnchorPane" fx:id="myModelsAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="610.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.modelbox.controllers.myModelsController">
+   <children>
+      <Text id="myModelsTextHeading" fx:id="myModelsTextHeading" strokeType="OUTSIDE" strokeWidth="0.0" text="My Models" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="30.0">
+         <font>
+            <Font name="Arial" size="30.0" />
+         </font>
+      </Text>
+      <ScrollPane id="myModelsScrollPane" fx:id="myModelsScrollPane" fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: #ffffff;" vbarPolicy="NEVER" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="100.0">
+         <content>
+            <FlowPane id="myModelsFlowPane" fx:id="myModelsFlowPane" columnHalignment="CENTER" hgap="25.0" maxHeight="-Infinity" maxWidth="Infinity" minHeight="-Infinity" prefHeight="5000.0" prefWidth="880.0" style="-fx-background-color: #ffffff;" vgap="25.0" />
+         </content>
+      </ScrollPane>
+      <Button fx:id="noModelsBtn" alignment="CENTER" contentDisplay="TOP" graphicTextGap="20.0" mnemonicParsing="false" onAction="#noModelsBtnClicked" style="-fx-background-color: none; -fx-border-radius: 15 15 15 15; -fx-border-style: dashed; -fx-border-width: 2; -fx-border-color: #c4c4c4;" text="No 3D models uploaded. To get started, click the arrow above." textAlignment="CENTER" textFill="#868686" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="100.0">
+         <graphic>
+            <ImageView id="noModelsBtnIcon" fx:id="noModelsBtnIcon" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/arrow-right-btn.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <font>
+            <Font name="Arial" size="14.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

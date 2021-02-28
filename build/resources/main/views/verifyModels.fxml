@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane id="verifyModelsAnchorPane" fx:id="verifyModelsAnchorPane" prefHeight="610.0" prefWidth="1000.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.modelbox.controllers.verifyModelsController" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+   <children>
+      <Text id="verifyModelsTextHeading" fx:id="verifyModelsTextHeading" strokeType="OUTSIDE" strokeWidth="0.0" text="Upload Verification" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="30.0">
+         <font>
+            <Font name="Arial" size="30.0" />
+         </font>
+      </Text>
+      <Button id="uploadModelsBtn" fx:id="uploadModelsBtn" alignment="CENTER" mnemonicParsing="false" onAction="#uploadModelsBtnClicked" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: #007be8; -fx-background-radius: 5 5 5 5;" text="Upload Models" textFill="WHITE" AnchorPane.bottomAnchor="45.0" AnchorPane.rightAnchor="60.0">
+         <font>
+            <Font name="Arial" size="14.0" />
+         </font>
+      </Button>
+      <ScrollPane id="verifyModelsScrollPane" fx:id="verifyModelsScrollPane" fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: #ffffff;" vbarPolicy="NEVER" AnchorPane.bottomAnchor="110.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="100.0">
+         <content>
+            <FlowPane id="verifyModelsFlowPane" fx:id="verifyModelsFlowPane" columnHalignment="CENTER" hgap="25.0" maxHeight="-Infinity" maxWidth="Infinity" minHeight="-Infinity" prefHeight="400.0" prefWidth="880.0" style="-fx-background-color: #ffffff;" vgap="25.0" />
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>
