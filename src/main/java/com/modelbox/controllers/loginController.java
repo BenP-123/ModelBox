@@ -38,53 +38,10 @@ public class loginController {
         try {
             activeLogin.setPassword(passField.getText());
             activeLogin.setEmailAddress(emailField.getText());
-            activeLogin.logUserIn();
 
-            dashboardLoader = new FXMLLoader(getClass().getResource("/views/dashboard.fxml"));
-            Parent root = (Parent) dashboardLoader.load();
-            dashboard = dashboardLoader.getController();
-            loginBtn.getScene().setRoot(root);
+            int handleLogin = activeLogin.logUserIn();
 
-            dashboard.dashboardViewLoader = new FXMLLoader(getClass().getResource("/views/myModels.fxml"));
-            Parent myModelsRoot = (Parent) dashboard.dashboardViewLoader.load();
-            dashboard.myModelsView = dashboard.dashboardViewLoader.getController();
-            dashboard.dashViewsAnchorPane.getChildren().setAll(myModelsRoot);
-        } catch (Exception loadException){
-            // Handle exception if fxml document fails to load and show properly
-        }
-
-        // Modify UI accordingly
-        if(dashboard.myModelsList.isEmpty()){
-            dashboard.myModelsView.myModelsScrollPane.setVisible(false);
-            dashboard.myModelsView.noModelsBtn.setVisible(true);
-        }
-        else {
-            dashboard.myModelsView.myModelsFlowPane.getChildren().clear();
-
-            for (File model : dashboard.myModelsList) {
-                dashboard.myModelsView.addMyModelsPreviewCard(model);
-            }
-
-            dashboard.myModelsView.noModelsBtn.setVisible(false);
-            dashboard.myModelsView.myModelsScrollPane.setVisible(true);
-        }
-    }
-
-    /**
-     * Verifies a ModelBox user using the facilities provided from the auth package and redirects the UI
-     * to the dashboard. The dashboard.fxml document is loaded and set as the root node of the current scene.
-     *
-     * @param  event  a JavaFX event with the properties and methods of the element that triggered the event
-     * @return        nothing of value is returned
-     */
-    @FXML
-    private void loginEnterKeyPressed(KeyEvent event) {
-        try {
-            if (event.getCode().equals(KeyCode.ENTER)) {
-                activeLogin.setPassword(passField.getText());
-                activeLogin.setEmailAddress(emailField.getText());
-                activeLogin.logUserIn();
-
+            if (handleLogin == 0) {
                 dashboardLoader = new FXMLLoader(getClass().getResource("/views/dashboard.fxml"));
                 Parent root = (Parent) dashboardLoader.load();
                 dashboard = dashboardLoader.getController();
@@ -96,11 +53,10 @@ public class loginController {
                 dashboard.dashViewsAnchorPane.getChildren().setAll(myModelsRoot);
 
                 // Modify UI accordingly
-                if(dashboard.myModelsList.isEmpty()){
+                if (dashboard.myModelsList.isEmpty()) {
                     dashboard.myModelsView.myModelsScrollPane.setVisible(false);
                     dashboard.myModelsView.noModelsBtn.setVisible(true);
-                }
-                else {
+                } else {
                     dashboard.myModelsView.myModelsFlowPane.getChildren().clear();
 
                     for (File model : dashboard.myModelsList) {
@@ -111,8 +67,76 @@ public class loginController {
                     dashboard.myModelsView.myModelsScrollPane.setVisible(true);
                 }
             }
-        } catch (Exception loadException){
-            // Handle exception if fxml document fails to load and show properly
+            else {
+                loginController signInController = new loginController();
+                FXMLLoader loginLoader = new FXMLLoader();
+                loginLoader.setController(signInController);
+                Parent root = FXMLLoader.load(getClass().getResource("/views/login.fxml"));
+                loginBtn.getScene().setRoot(root);
+                loginFailed();
+            }
+            } catch(Exception loadException){
+                // Handle exception if
+            // fxml document fails to load and show properly
+            }
+
+
+    }
+
+    /**
+     * Verifies a ModelBox user using the facilities provided from the auth package and redirects the UI
+     * to the dashboard. The dashboard.fxml document is loaded and set as the root node of the current scene.
+     *
+     * @param  event  a JavaFX event with the properties and methods of the element that triggered the event
+     * @return        nothing of value is returned
+     */
+    @FXML
+    private void loginEnterKeyPressed(KeyEvent event) {
+        if(event.getCode().equals((KeyCode.ENTER))) {
+            try {
+                    activeLogin = new logIn();
+                    activeLogin.setPassword(passField.getText());
+                    activeLogin.setEmailAddress(emailField.getText());
+                    int handleLogin = activeLogin.logUserIn();
+
+                    if (handleLogin == 0) {
+                        dashboardLoader = new FXMLLoader(getClass().getResource("/views/dashboard.fxml"));
+                        Parent root = (Parent) dashboardLoader.load();
+                        dashboard = dashboardLoader.getController();
+                        loginBtn.getScene().setRoot(root);
+
+                        dashboard.dashboardViewLoader = new FXMLLoader(getClass().getResource("/views/myModels.fxml"));
+                        Parent myModelsRoot = (Parent) dashboard.dashboardViewLoader.load();
+                        dashboard.myModelsView = dashboard.dashboardViewLoader.getController();
+                        dashboard.dashViewsAnchorPane.getChildren().setAll(myModelsRoot);
+
+                        // Modify UI accordingly
+                        if (dashboard.myModelsList.isEmpty()) {
+                            dashboard.myModelsView.myModelsScrollPane.setVisible(false);
+                            dashboard.myModelsView.noModelsBtn.setVisible(true);
+                        } else {
+                            dashboard.myModelsView.myModelsFlowPane.getChildren().clear();
+
+                            for (File model : dashboard.myModelsList) {
+                                dashboard.myModelsView.addMyModelsPreviewCard(model);
+                            }
+
+                            dashboard.myModelsView.noModelsBtn.setVisible(false);
+                            dashboard.myModelsView.myModelsScrollPane.setVisible(true);
+                        }
+                    }
+                 else {
+                     loginController signInController = new loginController();
+                     FXMLLoader loginLoader = new FXMLLoader();
+                     loginLoader.setController(signInController);
+                     Parent root = FXMLLoader.load(getClass().getResource("/views/login.fxml"));
+                     loginBtn.getScene().setRoot(root);
+                     loginFailed();
+
+                }
+            } catch (Exception loadException) {
+                // Handle exception if fxml document fails to load and show properly
+            }
         }
     }
 
@@ -158,5 +182,9 @@ public class loginController {
         } catch (Exception loadException){
             // Handle exception if fxml document fails to load and show properly
         }
+    }
+
+    private void loginFailed(){
+        System.out.println("Login Failed");
     }
 }
