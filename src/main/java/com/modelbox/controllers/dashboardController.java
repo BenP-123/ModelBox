@@ -72,7 +72,7 @@ public class dashboardController {
      */
     @FXML
     private void accountMenuBtnClicked(Event e){
-        if(com.modelbox.auth.logIn.database != null) {
+        if(loginController.activeLogin.getMongoDatabase() != null) {
             displayNameTextField.setText(usersIO.getDisplayName());
             emailAddressTextField.setText(usersIO.getEmailAddress());
         }
@@ -153,7 +153,7 @@ public class dashboardController {
             profileView = dashboardViewLoader.getController();
 
             // Modify UI accordingly
-            if(com.modelbox.auth.logIn.database != null) {
+            if(loginController.activeLogin.getMongoDatabase() != null) {
                 profileView.displayNameTextField.setText(usersIO.getDisplayName());
                 profileView.firstNameTextField.setText(usersIO.getFirstName());
                 profileView.lastNameTextField.setText(usersIO.getLastName());
@@ -184,7 +184,7 @@ public class dashboardController {
             settingsView = dashboardViewLoader.getController();
 
             // Modify UI accordingly
-            if(com.modelbox.auth.logIn.database != null) {
+            if(loginController.activeLogin.getMongoDatabase() != null) {
                 settingsView.displayNameTextField.setText(usersIO.getDisplayName());
             }
 
@@ -204,7 +204,8 @@ public class dashboardController {
     @FXML
     private void logOutBtnClicked(Event e){
         try {
-            logOut.logUserOut();
+            logOut activeLogOut = new logOut();
+            activeLogOut.logUserOut();
             logInViewLoader = new FXMLLoader(getClass().getResource("/views/login.fxml"));
             Parent root = logInViewLoader.load();
             logInView = logInViewLoader.getController();

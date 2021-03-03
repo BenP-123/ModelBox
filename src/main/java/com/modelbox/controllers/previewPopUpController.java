@@ -69,7 +69,7 @@ public class previewPopUpController {
 
         stage.addEventHandler(ScrollEvent.SCROLL, event -> {
             double delta = event.getDeltaY();
-            group.translateZProperty().set(group.getTranslateZ() + delta);
+            group.translateZProperty().set(group.getTranslateZ() - delta);
         });
     }
 }

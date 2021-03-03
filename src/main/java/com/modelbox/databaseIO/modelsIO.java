@@ -19,7 +19,7 @@ import static com.mongodb.client.model.Filters.eq;
 
 public class modelsIO {
 
-    public static MongoCollection<Document> modelsCollection = logIn.database.getCollection("models");
+    public static MongoCollection<Document> modelsCollection = loginController.activeLogin.getMongoDatabase().getCollection("models");
 
     /**
      * Using the MongoDB driver, add a document that contains a 3D model in binary data

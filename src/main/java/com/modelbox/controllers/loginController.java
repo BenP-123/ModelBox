@@ -1,7 +1,6 @@
 package com.modelbox.controllers;
 
 import com.modelbox.auth.logIn;
-import com.modelbox.auth.logOut;
 import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -21,15 +20,13 @@ public class loginController {
     public static dashboardController dashboard;
     public static logIn activeLogin;
     private FXMLLoader dashboardLoader;
-    @FXML public static TextField emailField;
-    @FXML public static PasswordField passField;
+    @FXML private TextField emailField;
+    @FXML private PasswordField passField;
     @FXML private Button loginBtn;
     @FXML private Button forgotPassBtn;
     @FXML private Button createAccountBtn;
     @FXML private AnchorPane loginAnchorPane;
     @FXML private Pane loginErrorPopout;
-
-    private static int areRequiredFieldsMet;
 
     /**
      * Verifies a ModelBox user using the facilities provided from the auth package and redirects the UI
@@ -42,55 +39,52 @@ public class loginController {
     private void loginBtnClicked(Event e) {
         try {
             activeLogin = new logIn();
-            activeLogin.setPassword(passField.getText());
-            activeLogin.setEmailAddress(emailField.getText());
+            activeLogin.setEmailAddress(emailField == null ? "" : emailField.getText());
+            activeLogin.setPassword(passField == null ? "" : passField.getText());
 
-            areRequiredFieldsMet = activeLogin.areRequiredFieldsMet();
+            // Run verification checks (do them as logical ands in the condition once the methods are implemented)
+            if (activeLogin.areRequiredFieldsMet()){
 
-            if (areRequiredFieldsMet == 1){
-                loginErrorPopout.setVisible(false);
+                // Attempt to log the user in
+                if (activeLogin.logUserIn() == 0) {
+                    dashboardLoader = new FXMLLoader(getClass().getResource("/views/dashboard.fxml"));
+                    Parent root = (Parent) dashboardLoader.load();
+                    dashboard = dashboardLoader.getController();
+                    loginBtn.getScene().setRoot(root);
+
+                    dashboard.dashboardViewLoader = new FXMLLoader(getClass().getResource("/views/myModels.fxml"));
+                    Parent myModelsRoot = (Parent) dashboard.dashboardViewLoader.load();
+                    dashboard.myModelsView = dashboard.dashboardViewLoader.getController();
+                    dashboard.dashViewsAnchorPane.getChildren().setAll(myModelsRoot);
+
+                    // Modify UI accordingly
+                    if (dashboard.myModelsList.isEmpty()) {
+                        dashboard.myModelsView.myModelsScrollPane.setVisible(false);
+                        dashboard.myModelsView.noModelsBtn.setVisible(true);
+                    } else {
+                        dashboard.myModelsView.myModelsFlowPane.getChildren().clear();
+
+                        for (File model : dashboard.myModelsList) {
+                            dashboard.myModelsView.addMyModelsPreviewCard(model);
+                        }
+
+                        dashboard.myModelsView.noModelsBtn.setVisible(false);
+                        dashboard.myModelsView.myModelsScrollPane.setVisible(true);
+                    }
+                } else {
+                    // Clear the login fields
+                    emailField.setText("");
+                    passField.setText("");
+                }
+
             } else {
                 loginErrorPopout.setVisible(true);
             }
 
-            int handleLogin = activeLogin.logUserIn();
-
-            if (handleLogin == 0) {
-                dashboardLoader = new FXMLLoader(getClass().getResource("/views/dashboard.fxml"));
-                Parent root = (Parent) dashboardLoader.load();
-                dashboard = dashboardLoader.getController();
-                loginBtn.getScene().setRoot(root);
-
-                dashboard.dashboardViewLoader = new FXMLLoader(getClass().getResource("/views/myModels.fxml"));
-                Parent myModelsRoot = (Parent) dashboard.dashboardViewLoader.load();
-                dashboard.myModelsView = dashboard.dashboardViewLoader.getController();
-                dashboard.dashViewsAnchorPane.getChildren().setAll(myModelsRoot);
-
-                // Modify UI accordingly
-                if (dashboard.myModelsList.isEmpty()) {
-                    dashboard.myModelsView.myModelsScrollPane.setVisible(false);
-                    dashboard.myModelsView.noModelsBtn.setVisible(true);
-                } else {
-                    dashboard.myModelsView.myModelsFlowPane.getChildren().clear();
-
-                    for (File model : dashboard.myModelsList) {
-                        dashboard.myModelsView.addMyModelsPreviewCard(model);
-                    }
-
-                    dashboard.myModelsView.noModelsBtn.setVisible(false);
-                    dashboard.myModelsView.myModelsScrollPane.setVisible(true);
-                }
-            }
-        } catch(Exception loadException){
-                // Handle exception if
-            // fxml document fails to load and show properly
-                activeLogin.setPassword(passField.getText());
-                activeLogin.setEmailAddress(emailField.getText());
-                System.out.println("HIIIIIIIIIIIIIIIIIIIIIIIIII");
-                activeLogin.logUserIn();
+        } catch(Exception exception){
+            // Handle errors
+            System.err.println(exception);
         }
-
-
     }
 
     /**
@@ -104,19 +98,15 @@ public class loginController {
     private void loginEnterKeyPressed(KeyEvent event) {
         if(event.getCode().equals((KeyCode.ENTER))) {
             try {
-                    activeLogin = new logIn();
-                    activeLogin.setPassword(passField.getText());
-                    activeLogin.setEmailAddress(emailField.getText());
+                activeLogin = new logIn();
+                activeLogin.setEmailAddress(emailField == null ? "" : emailField.getText());
+                activeLogin.setPassword(passField == null ? "" : passField.getText());
 
-                    if((activeLogin.getEmailAddress() != "") && (activeLogin.getPassword() != "")){
-                        loginErrorPopout.setVisible(false);
-                    } else{
-                        loginErrorPopout.setVisible(true);
-                    }
+                // Run verification checks (do them as logical ands in the condition once the methods are implemented)
+                if (activeLogin.areRequiredFieldsMet()){
 
-                    int handleLogin = activeLogin.logUserIn();
-
-                    if (handleLogin == 0) {
+                    // Attempt to log the user in
+                    if (activeLogin.logUserIn() == 0) {
                         dashboardLoader = new FXMLLoader(getClass().getResource("/views/dashboard.fxml"));
                         Parent root = (Parent) dashboardLoader.load();
                         dashboard = dashboardLoader.getController();
@@ -141,13 +131,19 @@ public class loginController {
                             dashboard.myModelsView.noModelsBtn.setVisible(false);
                             dashboard.myModelsView.myModelsScrollPane.setVisible(true);
                         }
+                    } else {
+                        // Clear the login fields
+                        emailField.setText("");
+                        passField.setText("");
                     }
-            } catch (Exception loadException) {
-                // Handle exception if fxml document fails to load and show properly
-                activeLogin.setPassword(passField.getText());
-                activeLogin.setEmailAddress(emailField.getText());
-                System.out.println("HIIIIIIIIIIIIIIIIIIIIIIIIII");
-                activeLogin.logUserIn();
+
+                } else {
+                    loginErrorPopout.setVisible(true);
+                }
+
+            } catch(Exception exception){
+                // Handle errors
+                System.err.println(exception);
             }
         }
     }
@@ -195,14 +191,4 @@ public class loginController {
             // Handle exception if fxml document fails to load and show properly
         }
     }
-
-    /*@FXML
-    public void loginErrorPopout(){
-        if((activeLogin.getEmailAddress() != "") && (activeLogin.getPassword() != "")){
-            loginErrorPopout.setVisible(false);
-        }
-        else{
-            loginErrorPopout.setVisible(true);
-        }
-    }*/
 }

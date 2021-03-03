@@ -1,22 +1,21 @@
 package com.modelbox.auth;
 
-import static com.modelbox.auth.logIn.mongoClient;
+import com.modelbox.controllers.loginController;
 
-public final class logOut {
+public class logOut {
 
     /**
      * Using the MongoDB driver, log the user out of the application's database
      *
      * @return       0 on success, -1 on error
      */
-    public static int logUserOut(){
+    public int logUserOut(){
         try {
-            mongoClient.close();
-            System.out.println("Successfully logged out.");
+            loginController.activeLogin.getMongoClient().close();
             return 0;
         }
         catch (Exception e) {
-            // Handle exception
+            // Handle errors
             return -1;
         }
     }

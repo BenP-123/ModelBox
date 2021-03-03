@@ -10,7 +10,7 @@ import static com.mongodb.client.model.Filters.eq;
 
 public class usersIO {
 
-    public static MongoCollection<Document> usersCollection = logIn.database.getCollection("users");
+    public static MongoCollection<Document> usersCollection = loginController.activeLogin.getMongoDatabase().getCollection("users");
 
     /**
      * Using the MongoDB driver, retrieve the owner_id of the current logged in user
@@ -140,5 +140,6 @@ public class usersIO {
 
     public static void setProfilePicture(String profilePic) {
         // Need to implement
+
     }
 }

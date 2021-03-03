@@ -34,16 +34,7 @@ public class createAccountController {
         // Load and show the login fxml document if the user already has an account
         createAccount.createNewUser(emailField.getText(), passField.getText());
 
-        loginController signInController = new loginController();
-        FXMLLoader loginLoader = new FXMLLoader();
-        loginLoader.setController(signInController);
 
-        try {
-            Parent root = loginLoader.load(getClass().getResource("/views/login.fxml"));
-            loginBtn.getScene().setRoot(root);
-        } catch (Exception fxmlLoadException){
-            // Handle exception if fxml document fails to load and show properly
-        }
     }
 
     /**
