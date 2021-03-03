@@ -1,6 +1,7 @@
 package com.modelbox.controllers;
 
 import com.modelbox.auth.logIn;
+import com.modelbox.auth.logOut;
 import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,13 +12,14 @@ import javafx.fxml.FXML;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 
 import java.io.File;
 
 public class loginController {
 
     public static dashboardController dashboard;
-    public static logIn activeLogin = new logIn();
+    public static logIn activeLogin;
     private FXMLLoader dashboardLoader;
     @FXML private TextField emailField;
     @FXML private PasswordField passField;
@@ -25,6 +27,9 @@ public class loginController {
     @FXML private Button forgotPassBtn;
     @FXML private Button createAccountBtn;
     @FXML private AnchorPane loginAnchorPane;
+    @FXML private Pane loginErrorPopout;
+
+    private static int areRequiredFieldsMet;
 
     /**
      * Verifies a ModelBox user using the facilities provided from the auth package and redirects the UI
@@ -36,8 +41,24 @@ public class loginController {
     @FXML
     private void loginBtnClicked(Event e) {
         try {
+            activeLogin = new logIn();
             activeLogin.setPassword(passField.getText());
             activeLogin.setEmailAddress(emailField.getText());
+
+            try {
+
+                areRequiredFieldsMet = activeLogin.areRequiredFieldsMet();
+
+                if(areRequiredFieldsMet == 1){
+                    loginErrorPopout.setVisible(false);
+                }
+                else{
+                    loginErrorPopout.setVisible(true);
+                }
+
+            } catch(Exception emptyFields){
+
+            }
 
             int handleLogin = activeLogin.logUserIn();
 
@@ -67,18 +88,14 @@ public class loginController {
                     dashboard.myModelsView.myModelsScrollPane.setVisible(true);
                 }
             }
-            else {
-                loginController signInController = new loginController();
-                FXMLLoader loginLoader = new FXMLLoader();
-                loginLoader.setController(signInController);
-                Parent root = FXMLLoader.load(getClass().getResource("/views/login.fxml"));
-                loginBtn.getScene().setRoot(root);
-                loginFailed();
-            }
-            } catch(Exception loadException){
+        } catch(Exception loadException){
                 // Handle exception if
             // fxml document fails to load and show properly
-            }
+                activeLogin.setPassword(passField.getText());
+                activeLogin.setEmailAddress(emailField.getText());
+                System.out.println("HIIIIIIIIIIIIIIIIIIIIIIIIII");
+                activeLogin.logUserIn();
+        }
 
 
     }
@@ -97,6 +114,20 @@ public class loginController {
                     activeLogin = new logIn();
                     activeLogin.setPassword(passField.getText());
                     activeLogin.setEmailAddress(emailField.getText());
+
+                    try {
+
+                        if((activeLogin.getEmailAddress() != "") && (activeLogin.getPassword() != "")){
+                            loginErrorPopout.setVisible(false);
+                        }
+                        else{
+                            loginErrorPopout.setVisible(true);
+                        }
+
+                    } catch(Exception emptyFields){
+
+                    }
+
                     int handleLogin = activeLogin.logUserIn();
 
                     if (handleLogin == 0) {
@@ -125,17 +156,12 @@ public class loginController {
                             dashboard.myModelsView.myModelsScrollPane.setVisible(true);
                         }
                     }
-                 else {
-                     loginController signInController = new loginController();
-                     FXMLLoader loginLoader = new FXMLLoader();
-                     loginLoader.setController(signInController);
-                     Parent root = FXMLLoader.load(getClass().getResource("/views/login.fxml"));
-                     loginBtn.getScene().setRoot(root);
-                     loginFailed();
-
-                }
             } catch (Exception loadException) {
                 // Handle exception if fxml document fails to load and show properly
+                activeLogin.setPassword(passField.getText());
+                activeLogin.setEmailAddress(emailField.getText());
+                System.out.println("HIIIIIIIIIIIIIIIIIIIIIIIIII");
+                activeLogin.logUserIn();
             }
         }
     }
@@ -184,7 +210,13 @@ public class loginController {
         }
     }
 
-    private void loginFailed(){
-        System.out.println("Login Failed");
-    }
+    /*@FXML
+    public void loginErrorPopout(){
+        if((activeLogin.getEmailAddress() != "") && (activeLogin.getPassword() != "")){
+            loginErrorPopout.setVisible(false);
+        }
+        else{
+            loginErrorPopout.setVisible(true);
+        }
+    }*/
 }

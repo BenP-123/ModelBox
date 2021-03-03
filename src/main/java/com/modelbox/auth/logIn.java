@@ -1,9 +1,11 @@
 package com.modelbox.auth;
 
+import com.modelbox.controllers.loginController;
 import com.modelbox.databaseIO.usersIO;
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.MongoCredential;
+import com.mongodb.MongoSecurityException;
 import com.mongodb.client.*;
 import org.bson.Document;
 import java.io.UnsupportedEncodingException;
@@ -13,8 +15,9 @@ import java.util.logging.Level;
 
 public class logIn {
 
-    private String emailAddress;
-    private String password;
+    private static String pass;
+    private static String email;
+    private static int areRequiredFieldsMet;
     public static MongoClient mongoClient;
     public static MongoDatabase database;
 
@@ -55,7 +58,12 @@ public class logIn {
             System.out.println("Successfully logged in.");
 
             return 0;
-        } catch (Exception e) {
+        } catch (MongoSecurityException wrong){
+            //clear exception
+            clearLogin();
+            return -1;
+        }
+        catch (Exception e) {
             System.out.println(e);
             System.out.println("Error!");
             return -1;
@@ -67,10 +75,15 @@ public class logIn {
      *
      * @return       0 on success, -1 on error
      */
-    private int areRequiredFieldsMet() {
-        // Need to implement
+    public static int areRequiredFieldsMet()
+    {
+        if((getEmailAddress() != "") && (getPassword() != "")){
+            return 1;
+        }
+        else{
+            return -1;
+        }
 
-        return 0;
     }
 
     /**
@@ -78,9 +91,9 @@ public class logIn {
      *
      * @return       a string containing the email address
      */
-    public String getEmailAddress()
+    public static String getEmailAddress()
     {
-        return this.emailAddress;
+        return email;
     }
 
     /**
@@ -88,9 +101,9 @@ public class logIn {
      *
      * @return       a string containing the provided password
      */
-    public String getPassword()
+    public static String getPassword()
     {
-        return this.password;
+        return pass;
     }
 
     /**
@@ -99,9 +112,9 @@ public class logIn {
      * @param  emailAddress
      * @return              void
      */
-    public void setEmailAddress(String emailAddress)
+    public static void setEmailAddress(String emailAddress)
     {
-        this.emailAddress = emailAddress;
+        email = emailAddress;
     }
 
     /**
@@ -110,7 +123,9 @@ public class logIn {
      * @param  password
      * @return          void
      */
-    public void setPassword(String password) { this.password = password; }
+    public static void setPassword(String password) {
+        pass = password;
+    }
 
 
     /**
@@ -119,7 +134,7 @@ public class logIn {
      *
      * @return       a string containing the encoded value
      */
-    private String encodeValue(String value) {
+    private static String encodeValue(String value) {
         try {
             return URLEncoder.encode(value, StandardCharsets.UTF_8.toString());
         } catch (UnsupportedEncodingException ex) {
@@ -127,8 +142,8 @@ public class logIn {
         }
     }
 
-    public void clearLogin(){
-        this.password = "";
-        this.emailAddress = "";
+    public void clearLogin() {
+        pass = "";
+        email = "";
     }
 }
