@@ -1,5 +1,7 @@
 package com.modelbox.auth;
 
+import org.graalvm.polyglot.Context;
+
 public final class createAccount {
 
     /**
@@ -7,8 +9,11 @@ public final class createAccount {
      *
      * @return       0 on success, -1 on error
      */
-    public static int createNewUser(){
-        // Need to implement
+    public static int createNewUser(String emailAddress, String password){
+
+        try (Context context = Context.create()) {
+            context.eval("js", "print('Hello JavaScript!');");
+        }
 
         return 0;
     }

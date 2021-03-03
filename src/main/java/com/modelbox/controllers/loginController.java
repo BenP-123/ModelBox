@@ -21,8 +21,8 @@ public class loginController {
     public static dashboardController dashboard;
     public static logIn activeLogin;
     private FXMLLoader dashboardLoader;
-    @FXML private TextField emailField;
-    @FXML private PasswordField passField;
+    @FXML public static TextField emailField;
+    @FXML public static PasswordField passField;
     @FXML private Button loginBtn;
     @FXML private Button forgotPassBtn;
     @FXML private Button createAccountBtn;
@@ -45,19 +45,12 @@ public class loginController {
             activeLogin.setPassword(passField.getText());
             activeLogin.setEmailAddress(emailField.getText());
 
-            try {
+            areRequiredFieldsMet = activeLogin.areRequiredFieldsMet();
 
-                areRequiredFieldsMet = activeLogin.areRequiredFieldsMet();
-
-                if(areRequiredFieldsMet == 1){
-                    loginErrorPopout.setVisible(false);
-                }
-                else{
-                    loginErrorPopout.setVisible(true);
-                }
-
-            } catch(Exception emptyFields){
-
+            if (areRequiredFieldsMet == 1){
+                loginErrorPopout.setVisible(false);
+            } else {
+                loginErrorPopout.setVisible(true);
             }
 
             int handleLogin = activeLogin.logUserIn();
@@ -115,17 +108,10 @@ public class loginController {
                     activeLogin.setPassword(passField.getText());
                     activeLogin.setEmailAddress(emailField.getText());
 
-                    try {
-
-                        if((activeLogin.getEmailAddress() != "") && (activeLogin.getPassword() != "")){
-                            loginErrorPopout.setVisible(false);
-                        }
-                        else{
-                            loginErrorPopout.setVisible(true);
-                        }
-
-                    } catch(Exception emptyFields){
-
+                    if((activeLogin.getEmailAddress() != "") && (activeLogin.getPassword() != "")){
+                        loginErrorPopout.setVisible(false);
+                    } else{
+                        loginErrorPopout.setVisible(true);
                     }
 
                     int handleLogin = activeLogin.logUserIn();

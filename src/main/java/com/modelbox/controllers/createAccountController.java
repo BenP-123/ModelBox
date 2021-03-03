@@ -1,5 +1,6 @@
 package com.modelbox.controllers;
 
+import com.modelbox.auth.createAccount;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -31,6 +32,8 @@ public class createAccountController {
     @FXML
     private void createAccountBtnClicked(Event e) {
         // Load and show the login fxml document if the user already has an account
+        createAccount.createNewUser(emailField.getText(), passField.getText());
+
         loginController signInController = new loginController();
         FXMLLoader loginLoader = new FXMLLoader();
         loginLoader.setController(signInController);
