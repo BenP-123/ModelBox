@@ -8,9 +8,12 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 
 
 public class createAccountController {
+
+    public static createAccount activeCreateAccount;
 
     @FXML private TextField firstNameField;
     @FXML private TextField lastNameField;
@@ -19,6 +22,7 @@ public class createAccountController {
     @FXML private PasswordField confirmPassField;
     @FXML private Button createAccountBtn;
     @FXML private Button loginBtn;
+    @FXML private Pane createAccountErrorPopout;
 
     /**
      * Creates a new ModelBox user using the facilities provided from the auth package and redirects the UI
@@ -32,9 +36,31 @@ public class createAccountController {
     @FXML
     private void createAccountBtnClicked(Event e) {
         // Load and show the login fxml document if the user already has an account
-        createAccount.createNewUser(emailField.getText(), passField.getText());
+        try {
+            activeCreateAccount = new createAccount();
+            activeCreateAccount.setFirstNameField(firstNameField.getText());
+            activeCreateAccount.setLastNameField(lastNameField.getText());
+            activeCreateAccount.setEmailAddress(emailField.getText());
+            activeCreateAccount.setPassword(passField.getText());
+            activeCreateAccount.setconfirmPassField(confirmPassField.getText());
 
+            if(activeCreateAccount.areRequiredFieldsMet()){
+                createAccountErrorPopout.setVisible(false);
+            }
+            else{
+                createAccountErrorPopout.setVisible(true);
+            }
 
+            if(activeCreateAccount.doPasswordsMatch()){
+                createAccountErrorPopout.setVisible(false);
+            }
+            else {
+                createAccountErrorPopout.setVisible(true);
+            }
+
+        } catch(Exception exception){
+
+        }
     }
 
     /**

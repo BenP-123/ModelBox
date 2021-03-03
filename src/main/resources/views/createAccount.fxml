@@ -12,9 +12,10 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+<?import javafx.scene.layout.Pane?>
 <AnchorPane id="createAccountPane" fx:id="createAccountPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1002.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.modelbox.controllers.createAccountController">
     <children>
-      <AnchorPane prefWidth="450.0" style="-fx-background-color: #17181a#17181a;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane prefWidth="450.0" style="-fx-background-color: #17181a;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: none;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
@@ -156,6 +157,20 @@
                               <Font name="Arial" size="14.0" />
                            </font>
                         </Text>
+                        <Pane fx:id="createAccountErrorPopout" prefHeight="38.0" prefWidth="482.0" style="-fx-border-style: solid; -fx-border-color: #f20202; -fx-border-radius: 4;" AnchorPane.leftAnchor="34.0" AnchorPane.topAnchor="31.0">
+                           <children>
+                              <Text fill="RED" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Required fields are not met. Please fill in the required fields." textAlignment="CENTER" wrappingWidth="482.2000869598278">
+                                 <font>
+                                    <Font name="Arial" size="13.0" />
+                                 </font>
+                              </Text>
+                              <TextField alignment="CENTER" editable="false" prefHeight="38.0" prefWidth="482.0" promptText="Required fields are not met. Please fill in the required fields." style="-fx-background-color: red;">
+                                 <font>
+                                    <Font name="Arial" size="14.0" />
+                                 </font>
+                              </TextField>
+                           </children>
+                        </Pane>
                      </children>
                   </AnchorPane>
                </children>

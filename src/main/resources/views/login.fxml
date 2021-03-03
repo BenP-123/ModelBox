@@ -117,9 +117,18 @@
                               <Font name="Arial" size="14.0" />
                            </font>
                         </Text>
-                        <Pane fx:id="loginErrorPopout" layoutX="49.0" layoutY="57.0" prefHeight="38.0" prefWidth="482.0" style="-fx-border-style: solid; -fx-border-color: #f20202;" visible="false" AnchorPane.leftAnchor="49.0" AnchorPane.topAnchor="57.0">
+                        <Pane fx:id="loginErrorPopout" layoutX="49.0" layoutY="57.0" prefHeight="38.0" prefWidth="482.0" style="-fx-border-style: solid; -fx-border-color: #f20202; -fx-border-radius: 4;" AnchorPane.leftAnchor="34.0" AnchorPane.topAnchor="57.0">
                            <children>
-                              <Text fill="#f20202" layoutX="11.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Required fields are not met. Please fill in the required fields." wrappingWidth="481.38885498046875" />
+                              <Text fill="RED" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Required fields are not met. Please fill in the required fields." textAlignment="CENTER" wrappingWidth="482.2000869598278">
+                                 <font>
+                                    <Font name="Arial" size="13.0" />
+                                 </font>
+                              </Text>
+                              <TextField alignment="CENTER" editable="false" prefHeight="38.0" prefWidth="482.0" promptText="Required fields are not met. Please fill in the required fields." style="-fx-background-color: red;">
+                                 <font>
+                                    <Font name="Arial" size="14.0" />
+                                 </font>
+                              </TextField>
                            </children>
                         </Pane>
                      </children>
