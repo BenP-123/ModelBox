@@ -35,31 +35,39 @@ public class createAccountController {
      */
     @FXML
     private void createAccountBtnClicked(Event e) {
+
         // Load and show the login fxml document if the user already has an account
         try {
             activeCreateAccount = new createAccount();
-            activeCreateAccount.setFirstNameField(firstNameField.getText());
-            activeCreateAccount.setLastNameField(lastNameField.getText());
-            activeCreateAccount.setEmailAddress(emailField.getText());
-            activeCreateAccount.setPassword(passField.getText());
-            activeCreateAccount.setconfirmPassField(confirmPassField.getText());
+            activeCreateAccount.setFirstNameField(firstNameField == null ? "" : firstNameField.getText());
+            activeCreateAccount.setLastNameField(lastNameField == null ? "" : lastNameField.getText());
+            activeCreateAccount.setEmailAddress(emailField == null ? "" : emailField.getText());
+            activeCreateAccount.setPassword(passField == null ? "" : passField.getText());
+            activeCreateAccount.setconfirmPassField(confirmPassField == null ? "" : confirmPassField.getText());
 
-            if(activeCreateAccount.areRequiredFieldsMet()){
-                createAccountErrorPopout.setVisible(false);
-            }
-            else{
-                createAccountErrorPopout.setVisible(true);
-            }
+            if(activeCreateAccount.areRequiredFieldsMet() && activeCreateAccount.doPasswordsMatch()){
 
-            if(activeCreateAccount.doPasswordsMatch()){
+                // Do NOT show error pop up
                 createAccountErrorPopout.setVisible(false);
-            }
-            else {
+
+                if(activeCreateAccount.createNewUser(activeCreateAccount.getEmailAddress(), activeCreateAccount.getPassword()) == 0){
+
+                } else {
+                    // Clear the createAccount fields
+                    firstNameField.setText("");
+                    lastNameField.setText("");
+                    emailField.setText("");
+                    passField.setText("");
+                    confirmPassField.setText("");
+                }
+            } else{
+                //Show error pop up
                 createAccountErrorPopout.setVisible(true);
             }
 
         } catch(Exception exception){
-
+            // Handle errors
+            System.err.println(exception);
         }
     }
 

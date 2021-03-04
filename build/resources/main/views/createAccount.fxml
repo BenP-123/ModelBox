@@ -157,7 +157,7 @@
                               <Font name="Arial" size="14.0" />
                            </font>
                         </Text>
-                        <Pane fx:id="createAccountErrorPopout" prefHeight="38.0" prefWidth="482.0" style="-fx-border-style: solid; -fx-border-color: #f20202; -fx-border-radius: 4;" AnchorPane.leftAnchor="34.0" AnchorPane.topAnchor="31.0">
+                        <Pane fx:id="createAccountErrorPopout" prefHeight="38.0" prefWidth="482.0" style="-fx-border-style: solid; -fx-border-color: #f20202; -fx-border-radius: 4;" visible="false" AnchorPane.leftAnchor="34.0" AnchorPane.topAnchor="31.0">
                            <children>
                               <Text fill="RED" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Required fields are not met. Please fill in the required fields." textAlignment="CENTER" wrappingWidth="482.2000869598278">
                                  <font>

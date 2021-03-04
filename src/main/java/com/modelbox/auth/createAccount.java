@@ -28,22 +28,18 @@ public final class createAccount {
     {
         firstName = firstNameField;
     }
-
     public void setLastNameField(String lastNameField)
     {
         lastName = lastNameField;
     }
-
     public void setEmailAddress(String email)
     {
         emailAddress = email;
     }
-
     public void setPassword(String pass)
     {
         password = pass;
     }
-
     public void setconfirmPassField(String confirmPass)
     {
         confirmPassword = confirmPass;
@@ -54,22 +50,18 @@ public final class createAccount {
     {
         return firstName;
     }
-
     public String getLastName()
     {
         return lastName;
     }
-
     public String getEmailAddress()
     {
         return emailAddress;
     }
-
     public String getPassword()
     {
         return password;
     }
-
     public String getConfirmPassword()
     {
         return confirmPassword;
@@ -109,7 +101,7 @@ public final class createAccount {
      * @return       0 on success, -1 on error
      */
     public boolean doPasswordsMatch() {
-        if(getPassword() == getConfirmPassword()){
+        if(getPassword().equals(getConfirmPassword())){
             return true;
         } else {
             return false;

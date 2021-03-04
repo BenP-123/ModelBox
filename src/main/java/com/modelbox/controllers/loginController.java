@@ -45,6 +45,8 @@ public class loginController {
             // Run verification checks (do them as logical ands in the condition once the methods are implemented)
             if (activeLogin.areRequiredFieldsMet()){
 
+                loginErrorPopout.setVisible(false);
+
                 // Attempt to log the user in
                 if (activeLogin.logUserIn() == 0) {
                     dashboardLoader = new FXMLLoader(getClass().getResource("/views/dashboard.fxml"));
@@ -104,6 +106,8 @@ public class loginController {
 
                 // Run verification checks (do them as logical ands in the condition once the methods are implemented)
                 if (activeLogin.areRequiredFieldsMet()){
+
+                    loginErrorPopout.setVisible(false);
 
                     // Attempt to log the user in
                     if (activeLogin.logUserIn() == 0) {
