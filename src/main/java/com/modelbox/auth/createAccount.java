@@ -1,6 +1,12 @@
 package com.modelbox.auth;
 
 import org.graalvm.polyglot.Context;
+import org.graalvm.polyglot.Source;
+import org.graalvm.polyglot.Value;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Objects;
 
 public final class createAccount {
 
@@ -15,11 +21,21 @@ public final class createAccount {
      *
      * @return       0 on success, -1 on error
      */
-    public int createNewUser(String emailAddress, String password){
+    public int createNewUser(String emailAddress, String password) throws IOException {
 
-        try (Context context = Context.create()) {
-            context.eval("js", "print('Hello JavaScript!');");
-        }
+        //For Debugging
+        System.out.println("In CreateNewUser...");
+        //End Debugging
+
+        Context polyglot = Context.create("js");
+        File createUsr = new File(Objects.requireNonNull(getClass().getClassLoader().getResource("scripts/createAccount.js")).getFile());
+        polyglot.eval(Source.newBuilder("js", createUsr).build());
+
+        //Language ID is 'js' and function called is 'registerAccount'
+        Value createNewUser = polyglot.getBindings("js").getMember("registerAccount");
+
+        //Function call passing email and password, tested and passes both email and password to the function properly...
+        Value createNewUserResult = createNewUser.execute(this.getEmailAddress(), this.getPassword());
 
         return 0;
     }
