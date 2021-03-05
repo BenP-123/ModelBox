@@ -117,7 +117,7 @@
                               <Font name="Arial" size="14.0" />
                            </font>
                         </Text>
-                        <Pane fx:id="loginErrorPopout"  prefHeight="38.0" prefWidth="482.0" style="-fx-border-radius: 4;" visible="false" AnchorPane.leftAnchor="34.0" AnchorPane.topAnchor="57.0">
+                        <Pane fx:id="loginErrorPopout" prefHeight="38.0" prefWidth="482.0" style="-fx-border-radius: 4;" visible="false" AnchorPane.leftAnchor="34.0" AnchorPane.topAnchor="57.0">
                            <children>
                               <TextField alignment="CENTER" editable="false" prefHeight="38.0" prefWidth="482.0" promptText="Required fields are not met. Please fill in the required fields." style="-fx-background-color: red; -fx-text-fill: white;">
                                  <font>
