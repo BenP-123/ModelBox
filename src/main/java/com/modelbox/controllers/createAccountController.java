@@ -23,6 +23,7 @@ public class createAccountController {
     @FXML private Button createAccountBtn;
     @FXML private Button loginBtn;
     @FXML private Pane createAccountErrorPopout;
+    @FXML private TextField createAccountErrorTxtField;
 
     /**
      * Creates a new ModelBox user using the facilities provided from the auth package and redirects the UI
@@ -62,7 +63,17 @@ public class createAccountController {
                 }
             } else{
                 //Show error pop up
-                createAccountErrorPopout.setVisible(true);
+                if(!(activeCreateAccount.areRequiredFieldsMet())) {
+                    createAccountErrorTxtField.setText("Required fields are not met. Please fill in the required fields.");
+                    createAccountErrorPopout.setVisible(true);
+                }
+                else if(!(activeCreateAccount.doPasswordsMatch())){
+                    createAccountErrorTxtField.setText("Passwords do not match!");
+                    createAccountErrorPopout.setVisible(true);
+                }
+                else {
+
+                }
             }
 
         } catch(Exception exception){
