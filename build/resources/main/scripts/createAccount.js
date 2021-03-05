@@ -8,8 +8,8 @@
 *           If this javascript file is executed as standalone it works properly and creates a
 *           new user. If we can figure this out we can add a lot of new features using JavaScript!
 *  */
-//import * as Realm from "realm-web";
-//const app = new Realm.App({ id: "modelbox-vqzyc" });
+import * as Realm from "realm-web";
+const app = new Realm.App({ id: "modelbox-vqzyc" });
 
 async function registerAccount(email, password) {
 
@@ -20,7 +20,7 @@ async function registerAccount(email, password) {
     //End Debugging, everything was passed properly via parameter.
 
     //Create Account
-    //await app.emailPasswordAuth.registerUser(email, password)
+    await app.emailPasswordAuth.registerUser(email, password)
 
     /* As of now users are approved automatically without confirmation for Testing Purposes */
     //await app.emailPasswordAuth.resendConfirmationEmail(email)

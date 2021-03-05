@@ -98,6 +98,12 @@ public final class createAccount {
 
     }
 
+    public boolean isEmailValid()
+    {
+        String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+        return getEmailAddress().matches(regex);
+    }
+
     /**
      * Verifies that the provided email does not already exist in the application's database
      *

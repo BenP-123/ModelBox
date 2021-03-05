@@ -46,7 +46,7 @@ public class createAccountController {
             activeCreateAccount.setPassword(passField == null ? "" : passField.getText());
             activeCreateAccount.setconfirmPassField(confirmPassField == null ? "" : confirmPassField.getText());
 
-            if(activeCreateAccount.areRequiredFieldsMet() && activeCreateAccount.doPasswordsMatch()){
+            if(activeCreateAccount.areRequiredFieldsMet() && activeCreateAccount.doPasswordsMatch() && activeCreateAccount.isEmailValid()){
 
                 // Do NOT show error pop up
                 createAccountErrorPopout.setVisible(false);
@@ -67,12 +67,17 @@ public class createAccountController {
                     createAccountErrorTxtField.setText("Required fields are not met. Please fill in the required fields.");
                     createAccountErrorPopout.setVisible(true);
                 }
+                else if(!(activeCreateAccount.doPasswordsMatch()) && !(activeCreateAccount.isEmailValid())){
+                    createAccountErrorTxtField.setText("Passwords do not match and the provided email address is invalid.");
+                    createAccountErrorPopout.setVisible(true);
+                }
                 else if(!(activeCreateAccount.doPasswordsMatch())){
                     createAccountErrorTxtField.setText("Passwords do not match!");
                     createAccountErrorPopout.setVisible(true);
                 }
-                else {
-
+                else if(!(activeCreateAccount.isEmailValid())){
+                    createAccountErrorTxtField.setText("Email is not a valid email address.");
+                    createAccountErrorPopout.setVisible(true);
                 }
             }
 
