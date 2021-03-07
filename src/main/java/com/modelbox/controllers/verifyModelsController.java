@@ -1,6 +1,7 @@
 package com.modelbox.controllers;
 
 import com.modelbox.databaseIO.modelsIO;
+import com.modelbox.databaseIO.usersIO;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -37,35 +38,39 @@ public class verifyModelsController {
      */
     @FXML
     private void uploadModelsBtnClicked(Event e){
-        // Add new files to myModelsList
-        loginController.dashboard.myModelsList.addAll(loginController.dashboard.verifyModelsList);
-
         try {
+            // Store models to the database
+            for (File model : loginController.dashboard.verifyModelsList) {
+                modelsIO.setModelFile(model);
+            }
+
+            // Prep the view
             loginController.dashboard.dashboardViewLoader = new FXMLLoader(getClass().getResource("/views/myModels.fxml"));
             Parent root = loginController.dashboard.dashboardViewLoader.load();
             loginController.dashboard.myModelsView = loginController.dashboard.dashboardViewLoader.getController();
 
-            if (loginController.dashboard.myModelsList.isEmpty()){
-                loginController.dashboard.myModelsView.myModelsScrollPane.setVisible(false);
-                loginController.dashboard.myModelsView.noModelsBtn.setVisible(true);
-            } else {
-                // Clear all the UI cards from the myModelsFlowPane on the myModelsView
-                loginController.dashboard.myModelsView.myModelsFlowPane.getChildren().clear();
+            // Clear all the UI cards from the myModelsFlowPane on the myModelsView
+            loginController.dashboard.myModelsView.myModelsFlowPane.getChildren().clear();
 
-                // Add the UI cards for the myModels view and store model to the database
-                for (File model : loginController.dashboard.verifyModelsList) {
-                    loginController.dashboard.myModelsView.addMyModelsPreviewCard(model);
-                    modelsIO.setModelFile(model);
-                }
+            // Clear the byte[] list with the old models stored
+            loginController.dashboard.dbModelsList.clear();
 
-                loginController.dashboard.myModelsView.noModelsBtn.setVisible(false);
-                loginController.dashboard.myModelsView.myModelsScrollPane.setVisible(true);
+            // Get the updated list of byte[]'s from the database
+            modelsIO.getMyModels(usersIO.getOwnerID());
+
+            // Add the UI cards for the myModels view
+            for (byte[] model : loginController.dashboard.dbModelsList) {
+                loginController.dashboard.myModelsView.addMyModelsPreviewCard(model);
             }
 
-            // Show myModelsView
+            loginController.dashboard.myModelsView.noModelsBtn.setVisible(false);
+            loginController.dashboard.myModelsView.myModelsScrollPane.setVisible(true);
+
+            // Show the myModelsView
             loginController.dashboard.dashViewsAnchorPane.getChildren().setAll(root);
         } catch (Exception loadException){
             // Handle exception if fxml document fails to load and show properly
+            System.err.println(loadException);
         }
 
     }

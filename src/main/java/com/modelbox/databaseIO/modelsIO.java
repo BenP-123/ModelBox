@@ -6,7 +6,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import com.modelbox.controllers.loginController;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
 import org.bson.BsonBinary;
 import org.bson.Document;
 import com.modelbox.auth.logIn;
@@ -42,6 +44,7 @@ public class modelsIO {
             return 0;
         } catch (Exception e) {
             // Handle error if file cannot be read to a byte array and stored
+            e.printStackTrace();
             return -1;
         }
     }
@@ -72,7 +75,28 @@ public class modelsIO {
      */
     public static void deleteModelDocument(String modelName) {
         Bson filter = and(eq("modelName", modelName), eq("owner_id", usersIO.getOwnerID()));
-        Document found = modelsCollection.find(filter).first();
-        modelsCollection.deleteOne(found);
+        modelsCollection.deleteOne(filter);
+    }
+
+    public static void getMyModels(String ownerID){
+
+        Bson filter = eq("owner_id", usersIO.getOwnerID());
+
+        try (MongoCursor<Document> cur = modelsCollection.find(filter).iterator()) {
+            while (cur.hasNext()) {
+                Binary data = (Binary)cur.next().get("modelFile");
+
+                loginController.dashboard.dbModelsList.add(data.getData());
+            }
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+    }
+
+    public static String getModelName(byte[] modelData){
+        Bson filter = and(eq("modelFile", new BsonBinary(modelData)), eq("owner_id", usersIO.getOwnerID()));
+        String modelName = (String) (modelsCollection.find(filter).first()).get("modelName");
+
+        return modelName;
     }
 }

@@ -38,6 +38,11 @@
          </children></AnchorPane>
         <AnchorPane id="previewModelAnchorPane" fx:id="previewModelAnchorPane" style="-fx-background-color: #eeeeee; -fx-background-radius: 0 15 15 0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="375.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
+            <SubScene fx:id="previewModelSubScene" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <root>
+                <Region />
+              </root>
+            </SubScene>
             <Button id="closePreviewBtn" fx:id="closePreviewBtn" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#closePreviewBtnClicked" style="-fx-background-color: none;" text="Button" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                <graphic>
                   <ImageView id="closePreviewBtnIcon" fx:id="closePreviewBtnIcon" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
@@ -56,11 +61,15 @@
                   </ImageView>
                </graphic>
             </Button>
-            <SubScene fx:id="previewModelSubScene" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-              <root>
-                <Region />
-              </root>
-            </SubScene>
+            <Button id="downloadModelBtn" fx:id="helpBtn" contentDisplay="GRAPHIC_ONLY" layoutX="332.0" layoutY="315.0" mnemonicParsing="false" onAction="#helpBtnClicked" style="-fx-background-color: none;" text="Button" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0">
+               <graphic>
+                  <ImageView id="closePreviewBtnIcon" fx:id="closePreviewBtnIcon11" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/help-btn.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
          </children></AnchorPane>
     </children>
 </AnchorPane>

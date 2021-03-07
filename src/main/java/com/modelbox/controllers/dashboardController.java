@@ -1,5 +1,6 @@
 package com.modelbox.controllers;
 
+import com.modelbox.databaseIO.modelsIO;
 import com.modelbox.databaseIO.usersIO;
 import com.modelbox.auth.logOut;
 import javafx.event.Event;
@@ -17,7 +18,7 @@ import com.interactivemesh.jfx.importer.stl.StlMeshImporter;
 
 
 public class dashboardController {
-    public List<File> myModelsList;
+    public List<byte[]> dbModelsList;
     public List<File> browseModelsList;
     public List<File> verifyModelsList;
     public StlMeshImporter stlImporter;
@@ -50,7 +51,7 @@ public class dashboardController {
         stlImporter = new StlMeshImporter();
         browseModelsList = new ArrayList<>();
         verifyModelsList = new ArrayList<>();
-        myModelsList = new ArrayList<>();
+        dbModelsList = new ArrayList<>();
     }
 
     /**
@@ -95,14 +96,14 @@ public class dashboardController {
             myModelsView = dashboardViewLoader.getController();
 
             // Modify UI accordingly
-            if(myModelsList.isEmpty()){
+            if(dbModelsList.isEmpty()){
                 myModelsView.myModelsScrollPane.setVisible(false);
                 myModelsView.noModelsBtn.setVisible(true);
             }
             else {
                 myModelsView.myModelsFlowPane.getChildren().clear();
 
-                for (File model : myModelsList) {
+                for (byte[] model : dbModelsList) {
                     myModelsView.addMyModelsPreviewCard(model);
                 }
 
@@ -227,6 +228,16 @@ public class dashboardController {
         int index = 0;
         for (int i = 0; i < modelList.size(); i++) {
             if (modelFileName.equals((modelList.get(i)).getName())) {
+                index = i;
+            }
+        }
+        return index;
+    }
+
+    public int getModelByteIndex(List<byte[]> modelList, String modelFileName) {
+        int index = 0;
+        for (int i = 0; i < modelList.size(); i++) {
+            if (modelFileName.equals(modelsIO.getModelName(modelList.get(i)))) {
                 index = i;
             }
         }

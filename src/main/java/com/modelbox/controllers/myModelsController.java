@@ -1,5 +1,6 @@
 package com.modelbox.controllers;
 
+import com.github.robtimus.net.protocol.data.DataURLs;
 import com.modelbox.databaseIO.modelsIO;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -20,9 +21,6 @@ import javafx.scene.shape.TriangleMesh;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.apache.commons.io.FilenameUtils;
-
-import java.io.File;
-import java.net.URL;
 
 
 public class myModelsController {
@@ -58,13 +56,16 @@ public class myModelsController {
      *   @param  modelFile  a 3D model file
      *	 @return void       no value returned
      */
-    public void addMyModelsPreviewCard(File modelFile) {
+    public void addMyModelsPreviewCard(byte[] modelFile) {
         try {
-            URL modelUrl = new URL("file:///" + modelFile.getAbsolutePath());
-            loginController.dashboard.stlImporter.read(modelUrl);
-        }
-        catch (Exception loadException) {
-            // Handle exceptions
+            String previousValue = System.getProperty("java.protocol.handler.pkgs") == null ? "" : System.getProperty("java.protocol.handler.pkgs")+"|";
+            System.setProperty("java.protocol.handler.pkgs", previousValue + "com.github.robtimus.net.protocol");
+
+            loginController.dashboard.stlImporter.read(DataURLs.builder(modelFile).withBase64Data(true).withMediaType("model/stl").build());
+        } catch (NullPointerException nullException) {
+            nullException.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         // Create the models so that it can go in each model card that's generated
@@ -89,16 +90,16 @@ public class myModelsController {
 
             // Delete the model from the myModels view
             myModelsFlowPane.getChildren().remove(currentModel);
-            loginController.dashboard.myModelsList.remove(
-                    loginController.dashboard.myModelsList.get(
-                            loginController.dashboard.getModelIndexByName(
-                                    loginController.dashboard.myModelsList, currentModel.getId()
+            loginController.dashboard.dbModelsList.remove(
+                    loginController.dashboard.dbModelsList.get(
+                            loginController.dashboard.getModelByteIndex(
+                                    loginController.dashboard.dbModelsList, currentModel.getId()
                             )
                     )
             );
 
             // Modify UI depending on how many models remain
-            if(loginController.dashboard.myModelsList.isEmpty()){
+            if(loginController.dashboard.dbModelsList.isEmpty()){
                 loginController.dashboard.myModelsView.myModelsScrollPane.setVisible(false);
                 loginController.dashboard.myModelsView.noModelsBtn.setVisible(true);
             }
@@ -126,14 +127,13 @@ public class myModelsController {
 
             }
 
-            // Load the model file from disk
+            // Load the model file from database
             try {
-                int modelIndex = loginController.dashboard.getModelIndexByName(loginController.dashboard.myModelsList, currentModel.getId());
-                File currentModelFile = loginController.dashboard.myModelsList.get(modelIndex);
-                URL currentModelUrl = new URL("file:///" + currentModelFile.getAbsolutePath());
-                loginController.dashboard.stlImporter.read(currentModelUrl);
-            }
-            catch (Exception loadException) {
+                int modelIndex = loginController.dashboard.getModelByteIndex(loginController.dashboard.dbModelsList, currentModel.getId());
+                byte[] currentModelFile = loginController.dashboard.dbModelsList.get(modelIndex);
+                loginController.dashboard.stlImporter.read(DataURLs.builder(currentModelFile).withBase64Data(true).withMediaType("model/stl").build());
+
+            } catch (Exception loadException) {
                 // Handle exceptions
             }
 
@@ -158,13 +158,11 @@ public class myModelsController {
             Camera camera = new PerspectiveCamera();
             loginController.dashboard.previewPopUpView.previewModelSubScene.setCamera(camera);
 
-            // Position the model in the center of the sub-scene
+            // Position the sub-scene so that it extends to the modelAnchorPane bounds
             loginController.dashboard.previewPopUpView.previewModelSubScene.widthProperty().bind(loginController.dashboard.previewPopUpView.previewModelAnchorPane.widthProperty());
             loginController.dashboard.previewPopUpView.previewModelSubScene.heightProperty().bind(loginController.dashboard.previewPopUpView.previewModelAnchorPane.heightProperty());
-            previewModelGroup.translateXProperty().bind(loginController.dashboard.previewPopUpView.previewModelSubScene.widthProperty().divide(2.0));
-            previewModelGroup.translateYProperty().bind(loginController.dashboard.previewPopUpView.previewModelSubScene.heightProperty().divide(2.0));
 
-            // Make the model so that it can be manipulated in 3D space (rotated)
+            // Make the model so that it can be manipulated in 3D space
             loginController.dashboard.previewPopUpView.initMouseControl(previewModelGroup, loginController.dashboard.previewPopUpView.previewModelSubScene, (Stage) myModelsAnchorPane.getScene().getWindow());
 
             // Actually launch the preview pop-up
@@ -189,7 +187,7 @@ public class myModelsController {
 
         // Manipulate the features of the model card and the arrangement of its internals
         StackPane modelMeshPane = new StackPane(modelMeshView, deleteModelBtn, previewModelBtn, downloadModelBtn);
-        modelMeshPane.setId(modelFile.getName());
+        modelMeshPane.setId(modelsIO.getModelName(modelFile));
         modelMeshPane.setStyle("-fx-background-color: #eeeeee; -fx-background-radius: 8 8 8 8");
         modelMeshPane.setMinWidth(150);
         modelMeshPane.setMinHeight(250);

@@ -1,6 +1,8 @@
 package com.modelbox.controllers;
 
 import com.modelbox.auth.logIn;
+import com.modelbox.databaseIO.modelsIO;
+import com.modelbox.databaseIO.usersIO;
 import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,8 +14,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-
-import java.io.File;
 
 public class loginController {
 
@@ -54,31 +54,40 @@ public class loginController {
                     dashboard = dashboardLoader.getController();
                     loginBtn.getScene().setRoot(root);
 
+                    // Prep the view
                     dashboard.dashboardViewLoader = new FXMLLoader(getClass().getResource("/views/myModels.fxml"));
                     Parent myModelsRoot = (Parent) dashboard.dashboardViewLoader.load();
                     dashboard.myModelsView = dashboard.dashboardViewLoader.getController();
                     dashboard.dashViewsAnchorPane.getChildren().setAll(myModelsRoot);
 
-                    // Modify UI accordingly
-                    if (dashboard.myModelsList.isEmpty()) {
-                        dashboard.myModelsView.myModelsScrollPane.setVisible(false);
-                        dashboard.myModelsView.noModelsBtn.setVisible(true);
-                    } else {
-                        dashboard.myModelsView.myModelsFlowPane.getChildren().clear();
+                    // Clear all the UI cards from the myModelsFlowPane on the myModelsView
+                    loginController.dashboard.myModelsView.myModelsFlowPane.getChildren().clear();
 
-                        for (File model : dashboard.myModelsList) {
-                            dashboard.myModelsView.addMyModelsPreviewCard(model);
+                    // Clear the byte[] list with the old models stored
+                    loginController.dashboard.dbModelsList.clear();
+
+                    // Get the updated list of byte[]'s from the database
+                    modelsIO.getMyModels(usersIO.getOwnerID());
+
+                    // Perform a check to make sure the list isn't empty
+                    if (loginController.dashboard.dbModelsList.isEmpty()){
+                        loginController.dashboard.myModelsView.myModelsScrollPane.setVisible(false);
+                        loginController.dashboard.myModelsView.noModelsBtn.setVisible(true);
+                    } else {
+
+                        // Add the UI cards for the myModels view
+                        for (byte[] model : loginController.dashboard.dbModelsList) {
+                            loginController.dashboard.myModelsView.addMyModelsPreviewCard(model);
                         }
 
-                        dashboard.myModelsView.noModelsBtn.setVisible(false);
-                        dashboard.myModelsView.myModelsScrollPane.setVisible(true);
+                        loginController.dashboard.myModelsView.noModelsBtn.setVisible(false);
+                        loginController.dashboard.myModelsView.myModelsScrollPane.setVisible(true);
                     }
                 } else {
                     // Clear the login fields
                     emailField.setText("");
                     passField.setText("");
                 }
-
             } else {
                 loginErrorPopout.setVisible(true);
             }
@@ -121,14 +130,16 @@ public class loginController {
                         dashboard.myModelsView = dashboard.dashboardViewLoader.getController();
                         dashboard.dashViewsAnchorPane.getChildren().setAll(myModelsRoot);
 
+                        modelsIO.getMyModels(usersIO.getOwnerID());
+
                         // Modify UI accordingly
-                        if (dashboard.myModelsList.isEmpty()) {
+                        if (dashboard.dbModelsList.isEmpty()) {
                             dashboard.myModelsView.myModelsScrollPane.setVisible(false);
                             dashboard.myModelsView.noModelsBtn.setVisible(true);
                         } else {
                             dashboard.myModelsView.myModelsFlowPane.getChildren().clear();
 
-                            for (File model : dashboard.myModelsList) {
+                            for (byte[] model : dashboard.dbModelsList) {
                                 dashboard.myModelsView.addMyModelsPreviewCard(model);
                             }
 
