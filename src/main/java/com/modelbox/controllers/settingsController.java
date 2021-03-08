@@ -12,13 +12,13 @@ public class settingsController {
     @FXML private AnchorPane accountSecurityAnchorPane;
 
     /**
-     *   Sets the account settings pane as visible.
+     *   Sets the account settings pane as visible
      *
-     *   @param  e      a JavaFX event with the properties and methods of the element that triggered the event
-     *	 @return void   no value returned
+     *   @param  event a JavaFX Event
+     *	 @return void
      */
     @FXML
-    private void accountSettingsBtnClicked(Event e) {
+    private void accountSettingsBtnClicked(Event event) {
         accountSecurityAnchorPane.setVisible(false);
         accountSettingsAnchorPane.setVisible(true);
     }
@@ -26,11 +26,11 @@ public class settingsController {
     /**
      *   Sets the account security pane as visible.
      *
-     *   @param  e      a JavaFX event with the properties and methods of the element that triggered the event
-     *	 @return void   no value returned
+     *   @param  event  a JavaFX Event
+     *	 @return void
      */
     @FXML
-    private void accountSecurityBtnClicked(Event e) {
+    private void accountSecurityBtnClicked(Event event) {
         accountSettingsAnchorPane.setVisible(false);
         accountSecurityAnchorPane.setVisible(true);
     }

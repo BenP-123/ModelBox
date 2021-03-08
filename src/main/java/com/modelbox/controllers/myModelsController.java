@@ -2,7 +2,9 @@ package com.modelbox.controllers;
 
 import com.github.robtimus.net.protocol.data.DataURLs;
 import com.modelbox.databaseIO.modelsIO;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -22,7 +24,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.apache.commons.io.FilenameUtils;
 
-
 public class myModelsController {
 
     private FXMLLoader previewPopUpLoader;
@@ -32,29 +33,28 @@ public class myModelsController {
     @FXML public AnchorPane myModelsAnchorPane;
 
     /**
-     *	If the user does not have any models uploaded and clicks the prompt button on the myModels view, they are
-     *	immediately forwarded to the uploadModelsView.
+     *	Handles the UI redirect to the upload models view
      *
-     *  @param  e       a JavaFX event with the properties and methods of the element that triggered the event
-     *	@return void    no value returned
+     *  @param  event a JavaFX Event
+     *	@return void
      */
     @FXML
-    private void noModelsBtnClicked(Event e) {
+    private void noModelsBtnClicked(Event event) {
         try {
             loginController.dashboard.dashboardViewLoader.setController(loginController.dashboard.uploadModelsView);
             Parent root = loginController.dashboard.dashboardViewLoader.load(getClass().getResource("/views/uploadModels.fxml"));
             loginController.dashboard.dashViewsAnchorPane.getChildren().setAll(root);
-        } catch (Exception loadException){
-            // Handle exception if fxml document fails to load and show properly
+        } catch (Exception e){
+            // Handle errors
+            e.printStackTrace();
         }
     }
 
     /**
-     *   Populates the UI with a user's models. The Models are displayed and are downloadable by clicking the
-     *   download button. Likewise, an interactive and larger preview can be seen by clicking the eyeball button.
+     *   Populates the UI with a single preview card for all of a user's uploaded 3D models
      *
-     *   @param  modelFile  a 3D model file
-     *	 @return void       no value returned
+     *   @param  modelFile a byte array containing the contents of the STL file
+     *	 @return void
      */
     public void addMyModelsPreviewCard(byte[] modelFile) {
         try {
@@ -79,11 +79,54 @@ public class myModelsController {
         Button deleteModelBtn = new Button();
         deleteModelBtn.setGraphic(deleteModelIcon);
         deleteModelBtn.setStyle("-fx-background-color: none;");
-        deleteModelBtn.setOnAction(e -> {
+        deleteModelBtn.setOnAction(deleteModelBtnClicked);
+
+        // Create a preview btn for each model card generated
+        ImageView previewModelIcon = new ImageView("/images/preview-btn.png");
+        previewModelIcon.setFitHeight(25);
+        previewModelIcon.setFitWidth(25);
+        Button previewModelBtn = new Button();
+        previewModelBtn.setGraphic(previewModelIcon);
+        previewModelBtn.setStyle("-fx-background-color: none;");
+        previewModelBtn.setOnAction(previewModelBtnClicked);
+
+        // Create a download btn for each model card generated
+        ImageView downloadModelIcon = new ImageView("/images/download-btn.png");
+        downloadModelIcon.setFitHeight(25);
+        downloadModelIcon.setFitWidth(25);
+        Button downloadModelBtn = new Button();
+        downloadModelBtn.setGraphic(downloadModelIcon);
+        downloadModelBtn.setStyle("-fx-background-color: none;");
+        downloadModelBtn.setOnAction(downloadModelBtnClicked);
+
+        // Manipulate the features of the model card and the arrangement of its internals
+        StackPane modelMeshPane = new StackPane(modelMeshView, deleteModelBtn, previewModelBtn, downloadModelBtn);
+        modelMeshPane.setId(modelsIO.getModelName(modelFile));
+        modelMeshPane.setStyle("-fx-background-color: #eeeeee; -fx-background-radius: 8 8 8 8");
+        modelMeshPane.setMinWidth(150);
+        modelMeshPane.setMinHeight(250);
+        modelMeshPane.setMaxWidth(150);
+        modelMeshPane.setMaxHeight(250);
+        StackPane.setAlignment(modelMeshView, Pos.CENTER);
+        StackPane.setAlignment(deleteModelBtn, Pos.TOP_RIGHT);
+        StackPane.setAlignment(previewModelBtn, Pos.BOTTOM_RIGHT);
+        previewModelBtn.setTranslateX(-30);
+        StackPane.setAlignment(downloadModelBtn, Pos.BOTTOM_RIGHT);
+        myModelsFlowPane.getChildren().add(modelMeshPane);
+    }
+
+    /********************************************* PREVIEW CARD HANDLERS **********************************************/
+
+    /**
+     *   Deletes a model preview card from the my models view and removes the corresponding model from the database
+     *
+     *   @param  e    a JavaFX ActionEvent
+     *	 @return void
+     */
+    EventHandler<ActionEvent> deleteModelBtnClicked = new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent e) {
             StackPane currentModel = (StackPane) ((Button) e.getSource()).getParent();
-
-            // Display a warning message prior to removing from the database and UI
-
 
             // Delete the model from the database
             modelsIO.deleteModelDocument(currentModel.getId());
@@ -103,17 +146,18 @@ public class myModelsController {
                 loginController.dashboard.myModelsView.myModelsScrollPane.setVisible(false);
                 loginController.dashboard.myModelsView.noModelsBtn.setVisible(true);
             }
+        }
+    };
 
-        });
-
-        // Create a preview btn for each model card generated
-        ImageView previewModelIcon = new ImageView("/images/preview-btn.png");
-        previewModelIcon.setFitHeight(25);
-        previewModelIcon.setFitWidth(25);
-        Button previewModelBtn = new Button();
-        previewModelBtn.setGraphic(previewModelIcon);
-        previewModelBtn.setStyle("-fx-background-color: none;");
-        previewModelBtn.setOnAction(e -> {
+    /**
+     *   Opens a preview pop-up panel for the user to interact with and learn more about a specific model
+     *
+     *   @param  e    a JavaFX ActionEvent
+     *	 @return void
+     */
+    EventHandler<ActionEvent> previewModelBtnClicked = new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent e) {
             StackPane currentModel = (StackPane) ((Button) e.getSource()).getParent();
             Parent previewRoot = null;
 
@@ -122,9 +166,9 @@ public class myModelsController {
                 previewPopUpLoader = new FXMLLoader(getClass().getResource("/views/previewPopUp.fxml"));
                 previewRoot = previewPopUpLoader.load();
                 loginController.dashboard.previewPopUpView = previewPopUpLoader.getController();
-            } catch (Exception loadException) {
-                // Handle error if document cannot load properly
-
+            } catch (Exception exception) {
+                // Handle errors
+                exception.printStackTrace();
             }
 
             // Load the model file from database
@@ -132,9 +176,9 @@ public class myModelsController {
                 int modelIndex = loginController.dashboard.getModelByteIndex(loginController.dashboard.dbModelsList, currentModel.getId());
                 byte[] currentModelFile = loginController.dashboard.dbModelsList.get(modelIndex);
                 loginController.dashboard.stlImporter.read(DataURLs.builder(currentModelFile).withBase64Data(true).withMediaType("model/stl").build());
-
-            } catch (Exception loadException) {
-                // Handle exceptions
+            } catch (Exception exception) {
+                // Handle errors
+                exception.printStackTrace();
             }
 
             // Create the model in JavaFX
@@ -167,37 +211,24 @@ public class myModelsController {
 
             // Actually launch the preview pop-up
             myModelsAnchorPane.getChildren().add(previewRoot);
-        });
+        }
+    };
 
-        // Create a download btn for each model card generated
-        ImageView downloadModelIcon = new ImageView("/images/download-btn.png");
-        downloadModelIcon.setFitHeight(25);
-        downloadModelIcon.setFitWidth(25);
-        Button downloadModelBtn = new Button();
-        downloadModelBtn.setGraphic(downloadModelIcon);
-        downloadModelBtn.setStyle("-fx-background-color: none;");
-        downloadModelBtn.setOnAction(e -> {
+    /**
+     *   Downloads (really saves) the selected model to the users local computer
+     *
+     *   @param  e    a JavaFX ActionEvent
+     *	 @return void
+     */
+    EventHandler<ActionEvent> downloadModelBtnClicked = new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent e) {
             StackPane currentModel = (StackPane) ((Button) e.getSource()).getParent();
             FileChooser fileSaver = new FileChooser();
             fileSaver.getExtensionFilters().addAll(
                     new FileChooser.ExtensionFilter("STL File","*.stl"));
             fileSaver.setTitle("Save 3D Model");
             modelsIO.downloadModelFile(currentModel.getId(), (fileSaver.showSaveDialog(loginController.dashboard.dashboardAnchorPane.getScene().getWindow())).toPath());
-        });
-
-        // Manipulate the features of the model card and the arrangement of its internals
-        StackPane modelMeshPane = new StackPane(modelMeshView, deleteModelBtn, previewModelBtn, downloadModelBtn);
-        modelMeshPane.setId(modelsIO.getModelName(modelFile));
-        modelMeshPane.setStyle("-fx-background-color: #eeeeee; -fx-background-radius: 8 8 8 8");
-        modelMeshPane.setMinWidth(150);
-        modelMeshPane.setMinHeight(250);
-        modelMeshPane.setMaxWidth(150);
-        modelMeshPane.setMaxHeight(250);
-        StackPane.setAlignment(modelMeshView, Pos.CENTER);
-        StackPane.setAlignment(deleteModelBtn, Pos.TOP_RIGHT);
-        StackPane.setAlignment(previewModelBtn, Pos.BOTTOM_RIGHT);
-        previewModelBtn.setTranslateX(-30);
-        StackPane.setAlignment(downloadModelBtn, Pos.BOTTOM_RIGHT);
-        myModelsFlowPane.getChildren().add(modelMeshPane);
-    }
+        }
+    };
 }

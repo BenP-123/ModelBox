@@ -2,10 +2,13 @@ package com.modelbox.databaseIO;
 
 import com.modelbox.controllers.loginController;
 import com.mongodb.client.MongoCollection;
+import org.bson.BsonBinary;
 import org.bson.Document;
 import com.modelbox.auth.logIn;
 import org.bson.conversions.Bson;
+import org.bson.types.Binary;
 
+import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
 
 public class usersIO {
@@ -68,14 +71,15 @@ public class usersIO {
     }
 
     /**
-     * Using the MongoDB driver, retrieve the profile picture of the current logged in user
+     * Using the MongoDB driver, retrieve the profile picture of the currently logged in user
      *
-     * @return       should be a File containing the current user's profile picture
+     * @return a byte[] that contains all the picture data
      */
-    public static String getProfilePicture() {
-        // Need to implement
+    public static byte[] getProfilePicture() {
+        Bson filter = eq("owner_id", usersIO.getOwnerID());
+        Binary pictureData = (usersCollection.find(filter).first()).get("profilePicture", org.bson.types.Binary.class);
 
-        return "FIXME";
+        return pictureData.getData();
     }
 
     public static void setDisplayName(String displayNameField){
@@ -138,8 +142,18 @@ public class usersIO {
         }
     }
 
-    public static void setProfilePicture(String profilePic) {
-        // Need to implement
+    public static void setProfilePicture(byte[] profilePic) {
+
+        Bson filter = eq("owner_id", usersIO.getOwnerID());
+        Document found = usersCollection.find(filter).first();
+
+        if(found != null){
+            Bson updatedValue = new Document("profilePicture", new BsonBinary(profilePic));
+            Bson updatedOperation = new Document("$set", updatedValue);
+            usersCollection.updateOne(found, updatedOperation);
+
+            System.out.println("User's picture updated");
+        }
 
     }
 }

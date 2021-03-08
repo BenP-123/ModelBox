@@ -8,95 +8,101 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Pane;
-
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 public class createAccountController {
 
     public static createAccount activeCreateAccount;
-
+    private FXMLLoader dashboardLoader;
     @FXML private TextField firstNameField;
     @FXML private TextField lastNameField;
     @FXML private TextField emailField;
     @FXML private PasswordField passField;
     @FXML private PasswordField confirmPassField;
-    @FXML private Button createAccountBtn;
     @FXML private Button loginBtn;
-    @FXML private Pane createAccountErrorPopout;
-    @FXML private TextField createAccountErrorTxtField;
+    @FXML private TextField createAccountErrorField;
 
     /**
-     * Creates a new ModelBox user using the facilities provided from the auth package and redirects the UI
-     * to the dashboard. The dashboard.fxml document is loaded and set as the root node of the current scene.
-     * <p>
-     * Note: The database is not yet connected to the application. Therefore, no actual account creation occurs.
+     * Handles the creation of a user account when the create account button is clicked
      *
-     * @param  e    a JavaFX event with the properties and methods of the element that triggered the event
-     * @return      nothing of value is returned
+     * @param  event    a JavaFX Event
+     * @return void
      */
     @FXML
-    private void createAccountBtnClicked(Event e) {
+    private void createAccountBtnClicked(Event event) {
+        createNewUserAccount();
+    }
 
-        // Load and show the login fxml document if the user already has an account
+    /**
+     * Handles the creation of a user account when the enter key is pressed on the last field
+     *
+     * @param  event    a JavaFX KeyEvent
+     * @return void
+     */
+    @FXML
+    private void createAccountEnterKeyPressed(KeyEvent event) {
+        if(event.getCode().equals((KeyCode.ENTER))) {
+            createNewUserAccount();
+        }
+    }
+
+    private void createNewUserAccount() {
         try {
             activeCreateAccount = new createAccount();
             activeCreateAccount.setFirstNameField(firstNameField == null ? "" : firstNameField.getText());
             activeCreateAccount.setLastNameField(lastNameField == null ? "" : lastNameField.getText());
             activeCreateAccount.setEmailAddress(emailField == null ? "" : emailField.getText());
             activeCreateAccount.setPassword(passField == null ? "" : passField.getText());
-            activeCreateAccount.setconfirmPassField(confirmPassField == null ? "" : confirmPassField.getText());
+            activeCreateAccount.setConfirmPassField(confirmPassField == null ? "" : confirmPassField.getText());
 
-            if(activeCreateAccount.areRequiredFieldsMet() && activeCreateAccount.doPasswordsMatch() && activeCreateAccount.isEmailValid()){
+            if(activeCreateAccount.didVerificationsPass()) {
+                createAccountErrorField.setVisible(false);
 
-                // Do NOT show error pop up
-                createAccountErrorPopout.setVisible(false);
+                // Attempt to create the new user
+                if(activeCreateAccount.createNewUser() == 0){
+                    // Redirect to dashboard
+                    dashboardLoader = new FXMLLoader(getClass().getResource("/views/dashboard.fxml"));
+                    Parent root = (Parent) dashboardLoader.load();
+                    loginController.dashboard = dashboardLoader.getController();
+                    loginBtn.getScene().setRoot(root);
 
-                if(activeCreateAccount.createNewUser(activeCreateAccount.getEmailAddress(), activeCreateAccount.getPassword()) == 0){
+                    // Show the my models view
+                    loginController.dashboard.dashboardViewLoader = new FXMLLoader(getClass().getResource("/views/myModels.fxml"));
+                    Parent myModelsRoot = (Parent) loginController.dashboard.dashboardViewLoader.load();
+                    loginController.dashboard.myModelsView = loginController.dashboard.dashboardViewLoader.getController();
+                    loginController.dashboard.dashViewsAnchorPane.getChildren().setAll(myModelsRoot);
 
                 } else {
-                    // Clear the createAccount fields
+                    createAccountErrorField.setText("Attempt to create a new account was unsuccessful. Try again!");
+                    createAccountErrorField.setVisible(true);
+
+                    // Clear the form and let the user try again
                     firstNameField.setText("");
                     lastNameField.setText("");
                     emailField.setText("");
                     passField.setText("");
                     confirmPassField.setText("");
                 }
-            } else{
-                //Show error pop up
-                if(!(activeCreateAccount.areRequiredFieldsMet())) {
-                    createAccountErrorTxtField.setText("Required fields are not met. Please fill in the required fields.");
-                    createAccountErrorPopout.setVisible(true);
-                }
-                else if(!(activeCreateAccount.doPasswordsMatch()) && !(activeCreateAccount.isEmailValid())){
-                    createAccountErrorTxtField.setText("Passwords do not match and the provided email address is invalid.");
-                    createAccountErrorPopout.setVisible(true);
-                }
-                else if(!(activeCreateAccount.doPasswordsMatch())){
-                    createAccountErrorTxtField.setText("Passwords do not match!");
-                    createAccountErrorPopout.setVisible(true);
-                }
-                else if(!(activeCreateAccount.isEmailValid())){
-                    createAccountErrorTxtField.setText("Email is not a valid email address.");
-                    createAccountErrorPopout.setVisible(true);
-                }
+            } else {
+                createAccountErrorField.setText(activeCreateAccount.getCreateAccountErrorMessage());
+                createAccountErrorField.setVisible(true);
             }
 
         } catch(Exception exception){
             // Handle errors
-            System.err.println(exception);
+            exception.printStackTrace();
         }
     }
 
     /**
-     * The application UI is redirected to the login view by loading and setting the login.fxml document as
-     * the root node of the current scene.
+     * Handles the UI redirect to the log in view
      *
-     * @param  e    a JavaFX event with the properties and methods of the element that triggered the event
-     * @return      nothing of value is returned
+     * @param  event a JavaFX Event
+     * @return void
      */
     @FXML
-    private void loginBtnClicked(Event e) {
-        // Load and show the login fxml document if the user already has an account
+    private void loginBtnClicked(Event event) {
         loginController signInController = new loginController();
         FXMLLoader loginLoader = new FXMLLoader();
         loginLoader.setController(signInController);
@@ -104,8 +110,9 @@ public class createAccountController {
         try {
             Parent root = loginLoader.load(getClass().getResource("/views/login.fxml"));
             loginBtn.getScene().setRoot(root);
-        } catch (Exception fxmlLoadException){
-            // Handle exception if fxml document fails to load and show properly
+        } catch (Exception exception){
+            // Handle errors
+            exception.printStackTrace();
         }
     }
 }

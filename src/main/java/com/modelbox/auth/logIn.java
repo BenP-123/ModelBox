@@ -3,7 +3,6 @@ package com.modelbox.auth;
 import com.mongodb.*;
 import com.mongodb.client.*;
 import com.mongodb.client.MongoClient;
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.logging.Level;
@@ -12,17 +11,18 @@ public class logIn {
 
     private String emailAddress;
     private String password;
+    private String loginErrorMessage;
     private MongoClient mongoClient;
     private MongoDatabase mongoDatabase;
 
     /**
-     * Using the MongoDB driver, log the user into the application's database
+     * Logs the user into the MongoDB database for the app
      *
-     * @return       0 on success, -1 on error
+     * @return 0 on success, -1 on error
      */
-    public int logUserIn(){
+    public int logUserIn() {
         try {
-            // Sets a level to the JULLogger, lots of visible text in red on console.
+            // Sets a level to the JULLogger to eliminate lots of visible red text in the console.
             java.util.logging.Logger.getLogger("org.mongodb.driver").setLevel(Level.SEVERE);
 
             ConnectionString connectString = new ConnectionString(
@@ -42,55 +42,142 @@ public class logIn {
             this.setMongoDatabase(mongoClient.getDatabase("modelboxApp"));
 
             return 0;
-        } catch (Exception e) {
+        } catch (Exception exception) {
             // Handle errors
-            System.err.println(e);
+            exception.printStackTrace();
             return -1;
         }
     }
 
+    /*********************************************** VERIFICATION/CHECK METHODS ***************************************/
+
     /**
-     * Verifies that all the fields on the login form have been provided
+     * Verifies that all the login form checks have succeeded
      *
-     * @return       true on success, false on error
+     * @return true on success, false on error
      */
-    public boolean areRequiredFieldsMet()
-    {
-        if(!(emailAddress.equals("")) && !(password.equals(""))){
-            // Required fields met
+    public boolean didVerificationsPass() {
+        if (areRequiredFieldsMet()) {
             return true;
-        } else{
-            // Missing values for proper log in
+        } else {
+            loginErrorMessage = "Required fields must be provided! Please fill in the required fields.";
             return false;
         }
-
     }
 
-    public String getEmailAddress()
-    {
+    /**
+     * Verifies that all the fields on the login view have been provided
+     *
+     * @return true on success, false on error
+     */
+    public boolean areRequiredFieldsMet() {
+        if(!(emailAddress.equals("")) && !(password.equals(""))) {
+            return true;
+        } else{
+            return false;
+        }
+    }
+
+    /*************************************************** GETTER METHODS ***********************************************/
+
+    /**
+     * Gets the login error of the current app user
+     *
+     * @return a string containing the login error message that should be shown to the user
+     */
+    public String getLoginErrorMessage() {
+        return loginErrorMessage;
+    }
+
+    /**
+     * Gets the email address of the logged in user
+     *
+     * @return a string containing the email address
+     */
+    public String getEmailAddress() {
         return emailAddress;
     }
-    public String getPassword()
-    {
+
+    /**
+     * Gets the password of the logged in user
+     *
+     * @return a string containing the UI-entered password
+     */
+    public String getPassword() {
         return password;
     }
-    public MongoClient getMongoClient()
-    {
+
+    /**
+     * Gets the MongoDB connection client
+     *
+     * @return a MongoClient object for database uses
+     */
+    public MongoClient getMongoClient() {
         return mongoClient;
     }
-    public MongoDatabase getMongoDatabase() { return mongoDatabase; }
 
+    /**
+     * Gets the MongoDB database for the application
+     *
+     * @return a MongoDatabase object for database uses
+     */
+    public MongoDatabase getMongoDatabase() {
+        return mongoDatabase;
+    }
 
-    public void setEmailAddress(String email) { emailAddress = email; }
-    public void setPassword(String pass) { password = pass; }
-    public void setMongoClient(MongoClient client) { mongoClient = client; }
-    public void setMongoDatabase(MongoDatabase database) { mongoDatabase = database; }
+    /*************************************************** SETTER METHODS ***********************************************/
 
+    /**
+     * Sets the email address for the current app user
+     *
+     * @return void
+     */
+    public void setEmailAddress(String email) {
+        emailAddress = email;
+    }
+
+    /**
+     * Sets the UI-entered password for the current app user
+     *
+     * @return void
+     */
+    public void setPassword(String pass) {
+        password = pass;
+    }
+
+    /**
+     * Sets the MongoClient for the current MongoDB connection
+     *
+     * @return void
+     */
+    public void setMongoClient(MongoClient client) {
+        mongoClient = client;
+    }
+
+    /**
+     * Sets the MongoDatabase for further app database uses
+     *
+     * @return void
+     */
+    public void setMongoDatabase(MongoDatabase database) {
+        mongoDatabase = database;
+    }
+
+    /*************************************************** UTILITY METHODS **********************************************/
+
+    /**
+     * Method URL encodes the value of the provided string. This is used to escape characters in the email address
+     * of the user for proper use in the MongoDB connection string.
+     *
+     * @return a String containing the encoded value if successful, or just the original String if unsuccessful
+     */
     private String encodeValue(String value) {
         try {
             return URLEncoder.encode(value, StandardCharsets.UTF_8.toString());
-        } catch (UnsupportedEncodingException ex) {
-            throw new RuntimeException(ex.getCause());
+        } catch (Exception exception) {
+            // Handle errors
+            exception.printStackTrace();
         }
+        return value;
     }
 }

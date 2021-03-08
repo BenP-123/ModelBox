@@ -34,12 +34,24 @@ public class previewPopUpController {
     @FXML public SubScene previewModelSubScene;
 
 
+    /**
+     *   Closes and removes the preview pop-up from view
+     *
+     *   @param  e    a JavaFX Event
+     *	 @return void
+     */
     @FXML
     private void closePreviewBtnClicked(Event e) {
         AnchorPane currentPreview = (AnchorPane) ((Button) e.getSource()).getParent().getParent();
         loginController.dashboard.myModelsView.myModelsAnchorPane.getChildren().remove(currentPreview);
     }
 
+    /**
+     *   Downloads (really saves) the selected model to the users local computer
+     *
+     *   @param  e    a JavaFX Event
+     *	 @return void
+     */
     @FXML
     private void downloadModelBtnClicked(Event e) {
         AnchorPane currentModel = (AnchorPane) ((Button) e.getSource()).getParent();
@@ -50,6 +62,12 @@ public class previewPopUpController {
         modelsIO.downloadModelFile(currentModel.getId(), (fileSaver.showSaveDialog(loginController.dashboard.dashboardAnchorPane.getScene().getWindow())).toPath());
     }
 
+    /**
+     * Creates, styles, and shows the help pane in the preview pop-up
+     *
+     * @param  e    a JavaFX Event
+     * @return void
+     */
     @FXML
     private void helpBtnClicked(Event e) {
         // Add help anchor pane to window.
@@ -107,6 +125,12 @@ public class previewPopUpController {
         previewModelAnchorPane.getChildren().add(helpAnchorPane);
     }
 
+    /**
+     * Closes the help pane in the preview pop-up
+     *
+     * @param  e    a JavaFX Event
+     * @return void
+     */
     @FXML
     private void closeHelpBtnClicked(Event e) {
         // Remove help anchor pane from window
@@ -114,7 +138,16 @@ public class previewPopUpController {
         previewModelAnchorPane.getChildren().remove(helpPopUp);
     }
 
+    /*************************************************** UTILITY METHODS **********************************************/
 
+    /**
+     * Sets up the functionality for a user to rotate, zoom, and pan their model
+     *
+     * @param  meshGroup a JavaFX Group
+     * @param  scene     a JavaFX SubScene
+     * @param  stage     a JavaFX Stage
+     * @return void
+     */
     public void initMouseControl(Group meshGroup, SubScene scene, Stage stage) {
         Rotate xRotate;
         Rotate yRotate;

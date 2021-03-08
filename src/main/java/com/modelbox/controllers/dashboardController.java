@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.fxml.FXML;
@@ -43,8 +44,7 @@ public class dashboardController {
 
 
     /**
-     *   Constructs the dashboardController object, with all the corresponding properties
-     *   and methods.
+     *   Constructs a dashboardController object
      *
      */
     public dashboardController() {
@@ -54,25 +54,27 @@ public class dashboardController {
         dbModelsList = new ArrayList<>();
     }
 
+    /************************************************* MENU TOGGLE METHODS ********************************************/
+
     /**
-     *	Displays the navigation menu.
+     *	Toggles the navigation menu
      *
-     *  @param  e      a JavaFX event with the properties and methods of the element that triggered the event
-     *	@return void   no value returned
+     *  @param  event a JavaFX Event
+     *	@return void
      */
     @FXML
-    private void navigationMenuBtnClicked(Event e){
+    private void navigationMenuBtnClicked(Event event){
         navigationMenuPane.setVisible(!navigationMenuPane.visibleProperty().get());
     }
 
     /**
-     *	Displays the user account menu.
+     *	Toggles the user account menu
      *
-     *  @param e       a JavaFX event with the properties and methods of the element that triggered the event
-     *	@return void   no value returned
+     *  @param  event a JavaFX Event
+     *	@return void
      */
     @FXML
-    private void accountMenuBtnClicked(Event e){
+    private void accountMenuBtnClicked(Event event){
         if(loginController.activeLogin.getMongoDatabase() != null) {
             displayNameTextField.setText(usersIO.getDisplayName());
             emailAddressTextField.setText(usersIO.getEmailAddress());
@@ -80,14 +82,16 @@ public class dashboardController {
         accountMenuPane.setVisible(!accountMenuPane.visibleProperty().get());
     }
 
+    /************************************************* UI REDIRECT METHODS ********************************************/
+
     /**
-     *	Retrieves all of a users models from the database and displays them.
+     * Handles the UI redirect to the my models view
      *
-     *  @param  e       a JavaFX event with the properties and methods of the element that triggered the event
-     *	@return void    no value returned
+     * @param  event a JavaFX Event
+     * @return void
      */
     @FXML
-    private void myModelsBtnClicked(Event e){
+    private void myModelsBtnClicked(Event event){
         navigationMenuPane.setVisible(false);
 
         try {
@@ -112,19 +116,20 @@ public class dashboardController {
             }
 
             dashViewsAnchorPane.getChildren().setAll(root);
-        } catch (Exception loadException){
-            // Handle exception if fxml document fails to load and show properly
+        } catch (Exception exception){
+            // Handle errors
+            exception.printStackTrace();
         }
     }
-    
+
     /**
-     *	Displays the uploadModels view.
+     * Handles the UI redirect to the upload models view
      *
-     *  @param  e       a JavaFX event with the properties and methods of the element that triggered the event
-     *	@return void    no value returned
+     * @param  event a JavaFX Event
+     * @return void
      */
     @FXML
-    private void uploadModelsBtnClicked(Event e){
+    private void uploadModelsBtnClicked(Event event){
         navigationMenuPane.setVisible(false);
 
         try {
@@ -132,19 +137,20 @@ public class dashboardController {
             Parent root = dashboardViewLoader.load();
             uploadModelsView = dashboardViewLoader.getController();
             dashViewsAnchorPane.getChildren().setAll(root);
-        } catch (Exception loadException){
-            // Handle exception if fxml document fails to load and show properly
+        } catch (Exception exception){
+            // Handle errors
+            exception.printStackTrace();
         }
     }
 
     /**
-     *	Displays the profile view.
+     * Handles the UI redirect to the profile view
      *
-     *  @param  e       a JavaFX event with the properties and methods of the element that triggered the event
-     *	@return void    no value returned
+     * @param  event a JavaFX Event
+     * @return void
      */
     @FXML
-    private void accountProfileBtnClicked(Event e){
+    private void accountProfileBtnClicked(Event event){
         accountMenuPane.setVisible(false);
 
         // Show profile view
@@ -160,22 +166,24 @@ public class dashboardController {
                 profileView.lastNameTextField.setText(usersIO.getLastName());
                 profileView.emailAddressTextField.setText(usersIO.getEmailAddress());
                 profileView.bioTextArea.setText(usersIO.getProfileBio());
+                profileView.profilePictureImage.setImage(new Image(new ByteArrayInputStream(usersIO.getProfilePicture())));
             }
 
             dashViewsAnchorPane.getChildren().setAll(root);
-        } catch (Exception loadException){
-            // Handle exception if fxml document fails to load and show properly
+        } catch (Exception exception){
+            // Handle errors
+            exception.printStackTrace();
         }
     }
-    
+
     /**
-     *	Displays the settings view.
+     * Handles the UI redirect to the settings view
      *
-     *  @param  e       a JavaFX event with the properties and methods of the element that triggered the event
-     *	@return void    no value returned
+     * @param  event a JavaFX Event
+     * @return void
      */
     @FXML
-    private void accountSettingsBtnClicked(Event e){
+    private void accountSettingsBtnClicked(Event event){
         accountMenuPane.setVisible(false);
 
         // Show settings view
@@ -190,17 +198,16 @@ public class dashboardController {
             }
 
             dashViewsAnchorPane.getChildren().setAll(root);
-        } catch (Exception loadException){
-            // Handle exception if fxml document fails to load and show properly
+        } catch (Exception exception){
+            // Handle errors
+            exception.printStackTrace();
         }
     }
 
     /**
-     *   Logs a user out of the application. After logging out, the login pane is displayed if the user
-     *   wishes to login again.
+     * Logs the user out and redirects to the login view
      *
-     *   @param  e      a JavaFX event with the properties and methods of the element that triggered the event
-     *	 @return void   no value returned
+     * @return void
      */
     @FXML
     private void logOutBtnClicked(Event e){
@@ -211,18 +218,20 @@ public class dashboardController {
             Parent root = logInViewLoader.load();
             logInView = logInViewLoader.getController();
             logOutBtn.getScene().setRoot(root);
-        } catch (Exception loadException){
-            // Handle exception if fxml document fails to load and show properly
+        } catch (Exception exception){
+            // Handle errors
+            exception.printStackTrace();
         }
     }
 
+    /*************************************************** UTILITY METHODS **********************************************/
+
     /**
-     *	Returns the index of a 3D model in a list of models, allowing for each model to be removed individually from the
-     *	list by clicking a cancel button in the UI.
+     *	Returns the index of a specific 3D model in a list of models
      *
-     *  @param  modelList       a ListArray that contains all the models.
-     *  @param  modelFileName   string that represents the model file name.
-     *	@return index           the index value of the model in the List array is returned.
+     *  @param  modelList     a List of File(s) that contains models
+     *  @param  modelFileName a string that represents the filename of the model
+     *	@return               the index value of the model in the List
      */
     public int getModelIndexByName(List<File> modelList, String modelFileName) {
         int index = 0;
@@ -234,6 +243,13 @@ public class dashboardController {
         return index;
     }
 
+    /**
+     *	Returns the index of a specific 3D model in a list of models
+     *
+     *  @param  modelList     a List of byte[]'s that contains models
+     *  @param  modelFileName a string that represents the filename of the model
+     *	@return               the index value of the model in the List
+     */
     public int getModelByteIndex(List<byte[]> modelList, String modelFileName) {
         int index = 0;
         for (int i = 0; i < modelList.size(); i++) {

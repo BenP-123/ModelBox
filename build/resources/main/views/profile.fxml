@@ -7,23 +7,30 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="profileAnchorPane" fx:id="profileAnchorPane" prefHeight="610.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.modelbox.controllers.profileController" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+<AnchorPane id="profileAnchorPane" fx:id="profileAnchorPane" prefHeight="610.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.modelbox.controllers.profileController">
    <children>
       <Text id="profileTextHeading" fill="#17181a" strokeType="OUTSIDE" strokeWidth="0.0" text="Profile" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="30.0">
          <font>
             <Font name="Arial" size="30.0" />
          </font>
       </Text>
-      <Circle id="profilePictureCircle" fx:id="profilePictureCircle" fill="#17181a" radius="102.0" stroke="#17181a" strokeType="INSIDE" strokeWidth="5.0" AnchorPane.leftAnchor="58.0" AnchorPane.topAnchor="113.0" />
       <ImageView id="profilePictureImage" fx:id="profilePictureImage" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="115.0">
          <image>
             <Image url="@../images/kermit-the-frog.jpg" />
          </image>
       </ImageView>
+      <Button id="addProfilePictureBtn" fx:id="addProfilePictureBtn" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" mnemonicParsing="false" onAction="#addProfilePictureBtnClicked" prefHeight="200.0" prefWidth="200.0" style="-fx-background-radius: 50%; -fx-background-color: #171a1d;" visible="false" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="115.0">
+         <graphic>
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/picture-btn.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
       <Button id="editProfileBtn" fx:id="editProfileBtn" alignment="CENTER" mnemonicParsing="false" onAction="#editProfileBtnClicked" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: #007be8; -fx-background-radius: 5 5 5 5;" text="Edit profile" textFill="WHITE" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="350.0">
          <font>
             <Font name="Arial" size="14.0" />

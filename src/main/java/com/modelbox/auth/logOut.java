@@ -5,17 +5,17 @@ import com.modelbox.controllers.loginController;
 public class logOut {
 
     /**
-     * Using the MongoDB driver, log the user out of the application's database
+     * Logs the user out of the MongoDB database for the app
      *
-     * @return       0 on success, -1 on error
+     * @return 0 on success, -1 on error
      */
-    public int logUserOut(){
+    public int logUserOut() {
         try {
             loginController.activeLogin.getMongoClient().close();
             return 0;
-        }
-        catch (Exception e) {
+        } catch (Exception exception) {
             // Handle errors
+            exception.printStackTrace();
             return -1;
         }
     }

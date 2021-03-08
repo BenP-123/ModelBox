@@ -1,38 +1,42 @@
-com/modelbox/controllers/settingsController.java
- com.modelbox.controllers.settingsController
-com/modelbox/initialStagePrep.java
- com.modelbox.initialStagePrep
-com/modelbox/auth/logIn.java
- com.modelbox.auth.logIn
-com/modelbox/modelboxApp.java
- com.modelbox.modelboxApp
 com/modelbox/auth/createAccount.java
  com.modelbox.auth.createAccount
-com/modelbox/auth/forgotPassword.java
- com.modelbox.auth.forgotPassword
-com/modelbox/controllers/profileController.java
- com.modelbox.controllers.profileController
+com/modelbox/databaseIO/collaboratorsIO.java
+ com.modelbox.databaseIO.collaboratorsIO
+com/modelbox/auth/logIn.java
+ com.modelbox.auth.logIn
 com/modelbox/databaseIO/usersIO.java
  com.modelbox.databaseIO.usersIO
-com/modelbox/databaseIO/modelsIO.java
- com.modelbox.databaseIO.modelsIO
+com/modelbox/initialStagePrep.java
+ com.modelbox.initialStagePrep
+com/modelbox/auth/forgotPassword.java
+ com.modelbox.auth.forgotPassword
+com/modelbox/auth/logOut.java
+ com.modelbox.auth.logOut
+com/modelbox/controllers/settingsController.java
+ com.modelbox.controllers.settingsController
+com/modelbox/modelboxApp.java
+ com.modelbox.modelboxApp
 com/modelbox/controllers/forgotPasswordController.java
  com.modelbox.controllers.forgotPasswordController
-com/modelbox/controllers/dashboardController.java
- com.modelbox.controllers.dashboardController
+com/modelbox/databaseIO/modelsIO.java
+ com.modelbox.databaseIO.modelsIO
+com/modelbox/controllers/myModelsController.java
+ com.modelbox.controllers.myModelsController
+ com.modelbox.controllers.myModelsController$1
+ com.modelbox.controllers.myModelsController$2
+ com.modelbox.controllers.myModelsController$3
 com/modelbox/controllers/verifyModelsController.java
  com.modelbox.controllers.verifyModelsController
+ com.modelbox.controllers.verifyModelsController$1
 com/modelbox/controllers/uploadModelsController.java
  com.modelbox.controllers.uploadModelsController
 com/modelbox/controllers/previewPopUpController.java
  com.modelbox.controllers.previewPopUpController
 com/modelbox/controllers/createAccountController.java
  com.modelbox.controllers.createAccountController
-com/modelbox/controllers/myModelsController.java
- com.modelbox.controllers.myModelsController
-com/modelbox/databaseIO/collaboratorsIO.java
- com.modelbox.databaseIO.collaboratorsIO
-com/modelbox/auth/logOut.java
- com.modelbox.auth.logOut
+com/modelbox/controllers/dashboardController.java
+ com.modelbox.controllers.dashboardController
+com/modelbox/controllers/profileController.java
+ com.modelbox.controllers.profileController
 com/modelbox/controllers/loginController.java
  com.modelbox.controllers.loginController

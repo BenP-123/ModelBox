@@ -2,27 +2,79 @@ package com.modelbox.auth;
 
 public final class forgotPassword {
 
+    private String forgotPasswordErrorMessage;
+    private String emailAddress;
+
     /**
-     * Using MongoDB Realm, the user's password is reset by sending an email to the user's email
-     * address - which is stored in the database.
+     * Sends a password reset email to the current app user (someone not logged in)
      *
-     * @return       0 on success, -1 on error
+     * @return 0 on success, -1 on error
      */
-    public static int resetPassword(){
+    public int sendPasswordResetEmail(){
         // Need to implement
 
         return 0;
     }
 
-    /**
-     * Verify if an email was provided and if the email provided matches one that is on record
-     * in the database
-     *
-     * @return       0 on success, -1 on error
-     */
-    private int isEmailValid(){
-        // Need to implement
+    /*********************************************** VERIFICATION/CHECK METHODS ***************************************/
 
-        return 0;
+    /**
+     * Verifies that all the forgot password form checks have succeeded
+     *
+     * @return true on success, false on error
+     */
+    public boolean didVerificationsPass() {
+        if (areRequiredFieldsMet()) {
+            return true;
+        } else {
+            forgotPasswordErrorMessage = "Required fields must be provided! Please fill in the required fields.";
+            return false;
+        }
     }
+
+    /**
+     * Verifies that all the fields on the forgot password view have been provided
+     *
+     * @return true on success, false on error
+     */
+    public boolean areRequiredFieldsMet() {
+        if(!(emailAddress.equals(""))) {
+            return true;
+        } else{
+            return false;
+        }
+    }
+
+    /*************************************************** GETTER METHODS ***********************************************/
+
+    /**
+     * Gets the forgot password error of the current app user
+     *
+     * @return a string containing the forgot password error message that should be shown to the user
+     */
+    public String getForgotPasswordErrorMessage() {
+        return forgotPasswordErrorMessage;
+    }
+
+    /**
+     * Gets the email address provided by the app user
+     *
+     * @return a string containing the email address
+     */
+    public String getEmailAddress() {
+        return emailAddress;
+    }
+
+    /*************************************************** SETTER METHODS ***********************************************/
+
+    /**
+     * Sets the password reset email address for the current user
+     *
+     * @return void
+     */
+    public void setEmailAddress(String email) {
+        emailAddress = email;
+    }
+
+
 }

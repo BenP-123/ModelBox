@@ -2,42 +2,34 @@ package com.modelbox.controllers;
 
 import com.modelbox.databaseIO.modelsIO;
 import com.modelbox.databaseIO.usersIO;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.MeshView;
 import javafx.scene.shape.TriangleMesh;
-import javafx.scene.text.Text;
-
 import java.io.File;
 import java.net.URL;
 
 public class verifyModelsController {
 
-    @FXML private AnchorPane verifyModelsAnchorPane;
-    @FXML private Text verifyModelsTextHeading;
-    @FXML private ScrollPane verifyModelsScrollPane;
     @FXML private FlowPane verifyModelsFlowPane;
-    @FXML private Button uploadModelsBtn;
 
     /**
-     *	Upon clicking the upload models button the models are uploaded to MongoDB. The files are then converted into
-     *	strings of bytes and uploaded to a MongoDB "models" collection. All models are tied to the user by the
-     *	"owner_id" JSON field.
+     *	Uploads the selected and verified models to the database and generates the preview cards on the my models view
      *
-     *   @param  e      a JavaFX event with the properties and methods of the element that triggered the event
-     *	 @return void   no value returned
+     *   @param  event a JavaFX Event
+     *	 @return void
      */
     @FXML
-    private void uploadModelsBtnClicked(Event e){
+    private void uploadModelsBtnClicked(Event event){
         try {
             // Store models to the database
             for (File model : loginController.dashboard.verifyModelsList) {
@@ -68,27 +60,27 @@ public class verifyModelsController {
 
             // Show the myModelsView
             loginController.dashboard.dashViewsAnchorPane.getChildren().setAll(root);
-        } catch (Exception loadException){
-            // Handle exception if fxml document fails to load and show properly
-            System.err.println(loadException);
+        } catch (Exception exception){
+            // Handle errors
+            exception.printStackTrace();
         }
 
     }
 
     /**
-     *	Adds the models to the verifyModels view as a card with a button to delete the model from the batch of models to
-     *  be uploaded.
+     *	Populates the UI with a single preview card for all of a user's selected 3D models
      *
-     *   @param  modelFile   the 3D Model File selected by the user.
-     *	 @return void        no value returned
+     *   @param  modelFile the 3D Model File selected by the user
+     *	 @return void
      */
     public void addVerifyModelsPreviewCard(File modelFile){
         try {
             URL modelUrl = new URL("file:///" + modelFile.getAbsolutePath());
             loginController.dashboard.stlImporter.read(modelUrl);
         }
-        catch (Exception loadException) {
+        catch (Exception exception) {
             // Handle exceptions
+            exception.printStackTrace();
         }
 
         // Create the models so that it can go in each model card that's generated
@@ -102,17 +94,7 @@ public class verifyModelsController {
         Button cancelUploadBtn = new Button();
         cancelUploadBtn.setGraphic(cancelUploadIcon);
         cancelUploadBtn.setStyle("-fx-background-color: none;");
-        cancelUploadBtn.setOnAction(e -> {
-            StackPane currentModel = (StackPane) ((Button) e.getSource()).getParent();
-            verifyModelsFlowPane.getChildren().remove(currentModel);
-            loginController.dashboard.verifyModelsList.remove(
-                    loginController.dashboard.verifyModelsList.get(
-                            loginController.dashboard.getModelIndexByName(
-                                    loginController.dashboard.verifyModelsList, currentModel.getId()
-                            )
-                    )
-            );
-        });
+        cancelUploadBtn.setOnAction(cancelModelUploadBtnClicked);
 
         // Manipulate the features of the model card and the arrangement of its internals
         StackPane modelMeshPane = new StackPane(modelMeshView, cancelUploadBtn);
@@ -128,4 +110,28 @@ public class verifyModelsController {
         //Add the model card to the view
         verifyModelsFlowPane.getChildren().add(modelMeshPane);
     }
+
+    /********************************************* PREVIEW CARD HANDLERS **********************************************/
+
+    /**
+     *   Deletes a model preview card from the verify models view and removes the model from the list of models to be
+     *   uploaded to the database
+     *
+     *   @param  e    a JavaFX ActionEvent
+     *	 @return void
+     */
+    EventHandler<ActionEvent> cancelModelUploadBtnClicked = new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent e) {
+            StackPane currentModel = (StackPane) ((Button) e.getSource()).getParent();
+            verifyModelsFlowPane.getChildren().remove(currentModel);
+            loginController.dashboard.verifyModelsList.remove(
+                    loginController.dashboard.verifyModelsList.get(
+                            loginController.dashboard.getModelIndexByName(
+                                    loginController.dashboard.verifyModelsList, currentModel.getId()
+                            )
+                    )
+            );
+        }
+    };
 }

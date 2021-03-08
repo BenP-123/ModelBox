@@ -6,10 +6,16 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
+import org.bson.BsonBinary;
+
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.nio.file.Files;
 
 public class profileController {
 
@@ -19,14 +25,12 @@ public class profileController {
     @FXML public TextField lastNameTextField;
     @FXML public TextField emailAddressTextField;
     @FXML public TextArea bioTextArea;
-    @FXML private Circle profilePictureCircle;
-    @FXML private ImageView profilePictureImage;
-    @FXML private AnchorPane profileAnchorPane;
+    @FXML public ImageView profilePictureImage;
+    @FXML private Button addProfilePictureBtn;
     private FileChooser profilePictureFileChooser;
 
     /**
-     *   Constructs the profileController object, with all the corresponding properties
-     *   and methods.
+     *   Constructs the profileController object
      *
      */
     public profileController() {
@@ -35,27 +39,52 @@ public class profileController {
         profilePictureFileChooser.setTitle("Select Profile Picture");
     }
 
-    /**
-     *   Sets the profile picture of a user in the settings page. A user selects an image and it is converted
-     *   into a String of bytes and stored into MongoDB.
-     *
-     *   @param  e      a JavaFX event with the properties and methods of the element that triggered the event
-     *	 @return void   no value returned
-     */
-    @FXML
-    private void addProfilePictureBtn(Event e){
-        //  profilePictureImage.setImage(new Image(profilePictureFileChooser.showOpenDialog(editProfileBtn.getScene().getWindow())));
+    private void displayProfilePicture() {
+
+        ByteArrayInputStream pictureData = new ByteArrayInputStream(usersIO.getProfilePicture());
+        Image profilePicture = new Image(pictureData);
+        profilePictureImage.setImage(profilePicture);
+
     }
 
     /**
-     *	Sets all fields to be editable in the profile view. Upon editing the information the new data is saved
-     *  to the database.
+     *   Sets the profile picture of a user
      *
-     *  @param  e       a JavaFX event with the properties and methods of the element that triggered the event
-     *	@return void    no value returned
+     *   @param  event  a JavaFX Event
+     *	 @return void
      */
     @FXML
-    private void editProfileBtnClicked(Event e) {
+    private void addProfilePictureBtnClicked(Event event){
+        try {
+            // Get the new picture and upload to the database
+            File newPictureFile = profilePictureFileChooser.showOpenDialog(editProfileBtn.getScene().getWindow());
+            usersIO.setProfilePicture(Files.readAllBytes(newPictureFile.toPath()));
+
+            // Show it in the profile view
+            displayProfilePicture();
+
+            // Change button preview while still in edit mode
+            ImageView newButtonIcon = new ImageView(new Image("/images/save-picture-btn.png"));
+            newButtonIcon.setFitWidth(200);
+            newButtonIcon.setFitHeight(200);
+            addProfilePictureBtn.setGraphic(newButtonIcon);
+            addProfilePictureBtn.disableProperty().set(true);
+
+        } catch (Exception exception) {
+            // Handle errors
+            exception.printStackTrace();
+        }
+
+    }
+
+    /**
+     *	Allows all the fields in the profile page to be edited
+     *
+     *  @param  event a JavaFX Event
+     *	@return void
+     */
+    @FXML
+    private void editProfileBtnClicked(Event event) {
         if (editProfileBtn.getText().equals("Edit profile")) {
             editProfileBtn.setText("Update profile");
             editProfileBtn.setStyle("-fx-background-color: green;");
@@ -64,8 +93,10 @@ public class profileController {
             lastNameTextField.setEditable(true);
             emailAddressTextField.setEditable(true);
             bioTextArea.setEditable(true);
-        } else {
+            profilePictureImage.setVisible(false);
+            addProfilePictureBtn.setVisible(true);
 
+        } else {
             editProfileBtn.setText("Edit profile");
             editProfileBtn.setStyle("-fx-background-color: #007be8;");
             displayNameTextField.setEditable(false);
@@ -73,6 +104,8 @@ public class profileController {
             lastNameTextField.setEditable(false);
             emailAddressTextField.setEditable(false);
             bioTextArea.setEditable(false);
+            profilePictureImage.setVisible(true);
+            addProfilePictureBtn.setVisible(false);
 
             // Save profile edits
             if(!(displayNameTextField.getText().equals(usersIO.getDisplayName()))){
@@ -94,7 +127,6 @@ public class profileController {
             if(!(bioTextArea.getText().equals(usersIO.getProfileBio()))) {
                 usersIO.setProfileBio(bioTextArea.getText());
             }
-
         }
     }
 }
