@@ -195,6 +195,7 @@ public class dashboardController {
             // Modify UI accordingly
             if(loginController.activeLogin.getMongoDatabase() != null) {
                 settingsView.displayNameTextField.setText(usersIO.getDisplayName());
+                settingsView.displaySettingsPicture();
             }
 
             dashViewsAnchorPane.getChildren().setAll(root);

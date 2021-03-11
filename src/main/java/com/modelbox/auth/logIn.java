@@ -1,8 +1,12 @@
 package com.modelbox.auth;
 
+import com.modelbox.controllers.loginController;
 import com.mongodb.*;
 import com.mongodb.client.*;
 import com.mongodb.client.MongoClient;
+import org.bson.Document;
+import org.bson.conversions.Bson;
+
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.logging.Level;
@@ -57,11 +61,16 @@ public class logIn {
      * @return true on success, false on error
      */
     public boolean didVerificationsPass() {
-        if (areRequiredFieldsMet()) {
-            return true;
-        } else {
+        if (!areRequiredFieldsMet()) {
             loginErrorMessage = "Required fields must be provided! Please fill in the required fields.";
             return false;
+        }
+        else if(!isEmailInTheDatabase()){
+            loginErrorMessage = "The provided email cannot be found.";
+            return false;
+        }
+        else {
+            return true;
         }
     }
 
@@ -76,6 +85,26 @@ public class logIn {
         } else{
             return false;
         }
+    }
+
+    /**
+     * Verifies that the email provided is a user in the database
+     *
+     * @return true on success, false on error
+     */
+    public boolean isEmailInTheDatabase() {
+        //Need to replace usersCollection with some sort of code that connects to the data base...
+
+        /*Document found = usersCollection.find(eq("emailAddress", getEmailAddress())).first();
+        if(found != null){
+            return true;
+        }
+        else{
+            return false;
+        }*/
+
+        //Delete this later on when SDK is set up
+        return true;
     }
 
     /*************************************************** GETTER METHODS ***********************************************/

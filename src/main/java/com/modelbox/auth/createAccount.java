@@ -63,6 +63,9 @@ public final class createAccount {
         } else if (!isEmailValid()) {
             createAccountErrorMessage = "Provided email address is invalid.";
             return false;
+        } else if(!isEmailAlreadyInTheDatabase()){
+            createAccountErrorMessage = "The provided email already has an account.";
+            return false;
         } else {
             return true;
         }
@@ -110,9 +113,29 @@ public final class createAccount {
      *
      * @return true if email exists, false if email doesn't exist
      */
-    private boolean doesEmailAlreadyExist() {
+    public boolean doesEmailAlreadyExist() {
         // Need to implement
 
+        return true;
+    }
+
+    /**
+     * Verifies that the email provided is not user in the database
+     *
+     * @return true on success, false on error
+     */
+    public boolean isEmailAlreadyInTheDatabase() {
+        //Need to replace usersCollection with some sort of code that connects to the data base...
+
+        /*Document found = usersCollection.find(eq("emailAddress", getEmailAddress())).first();
+        if(found == null){
+            return true;
+        }
+        else{
+            return false;
+        }*/
+
+        //Delete this later on when SDK is set up
         return true;
     }
 

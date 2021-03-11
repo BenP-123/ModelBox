@@ -27,6 +27,7 @@ public class profileController {
     @FXML public TextArea bioTextArea;
     @FXML public ImageView profilePictureImage;
     @FXML private Button addProfilePictureBtn;
+    @FXML private Button cancelProfileUploadBtn;
     private FileChooser profilePictureFileChooser;
 
     /**
@@ -40,10 +41,12 @@ public class profileController {
     }
 
     private void displayProfilePicture() {
-
         ByteArrayInputStream pictureData = new ByteArrayInputStream(usersIO.getProfilePicture());
         Image profilePicture = new Image(pictureData);
         profilePictureImage.setImage(profilePicture);
+    }
+
+    private void previewUsersImage() {
 
     }
 
@@ -60,21 +63,32 @@ public class profileController {
             File newPictureFile = profilePictureFileChooser.showOpenDialog(editProfileBtn.getScene().getWindow());
             usersIO.setProfilePicture(Files.readAllBytes(newPictureFile.toPath()));
 
-            // Show it in the profile view
-            displayProfilePicture();
+            //Show users image that is about to be uploaded
+            previewUsersImage();
 
-            // Change button preview while still in edit mode
-            ImageView newButtonIcon = new ImageView(new Image("/images/save-picture-btn.png"));
-            newButtonIcon.setFitWidth(200);
-            newButtonIcon.setFitHeight(200);
-            addProfilePictureBtn.setGraphic(newButtonIcon);
-            addProfilePictureBtn.disableProperty().set(true);
+            profilePictureImage.setVisible(true);
+            addProfilePictureBtn.setVisible(false);
+
+            cancelProfileUploadBtn.setVisible(true);
 
         } catch (Exception exception) {
             // Handle errors
             exception.printStackTrace();
         }
 
+    }
+
+    /**
+     *   Cancels the users profile Upload and sets the upload button to true
+     *
+     *   @param  event  a JavaFX Event
+     *	 @return void
+     */
+    @FXML
+    private void cancelProfileUploadBtn(Event event){
+        profilePictureImage.setVisible(false);
+        addProfilePictureBtn.setVisible(true);
+        cancelProfileUploadBtn.setVisible(false);
     }
 
     /**
@@ -106,6 +120,9 @@ public class profileController {
             bioTextArea.setEditable(false);
             profilePictureImage.setVisible(true);
             addProfilePictureBtn.setVisible(false);
+            cancelProfileUploadBtn.setVisible(false);
+            // Show users image in the profile view
+            displayProfilePicture();
 
             // Save profile edits
             if(!(displayNameTextField.getText().equals(usersIO.getDisplayName()))){
