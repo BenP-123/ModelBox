@@ -80,7 +80,7 @@
             <Font name="Arial" size="15.0" />
          </font>
       </Text>
-      <TextArea id="bioTextArea" fx:id="bioTextArea" editable="false" prefHeight="80.0" prefWidth="500.0" promptText="Add a bio" style="-fx-faint-focus-color: transparent; -fx-focus-color: transparent; -fx-border-color: #C4C4C4; -fx-border-radius: 4px; -fx-padding: -1px; -fx-wrap-text: true; -fx-background-color: #ffffff;" AnchorPane.leftAnchor="350.0" AnchorPane.topAnchor="390.0">
+      <TextArea id="bioTextArea" fx:id="bioTextArea" editable="false" prefHeight="80.0" prefWidth="500.0" promptText="Add a bio" style="-fx-faint-focus-color: transparent; -fx-focus-color: transparent; -fx-border-color: #C4C4C4; -fx-border-radius: 4px; -fx-padding: 8px; -fx-wrap-text: true; -fx-background-color: #ffffff;" AnchorPane.leftAnchor="350.0" AnchorPane.topAnchor="390.0">
          <font>
             <Font name="Arial" size="14.0" />
          </font>

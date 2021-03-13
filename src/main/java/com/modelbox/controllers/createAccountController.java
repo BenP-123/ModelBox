@@ -10,6 +10,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.web.WebView;
 
 public class createAccountController {
 
@@ -61,17 +62,18 @@ public class createAccountController {
 
                 // Attempt to create the new user
                 if(activeCreateAccount.createNewUser() == 0){
-                    // Redirect to dashboard
-                    dashboardLoader = new FXMLLoader(getClass().getResource("/views/dashboard.fxml"));
-                    Parent root = (Parent) dashboardLoader.load();
-                    loginController.dashboard = dashboardLoader.getController();
-                    loginBtn.getScene().setRoot(root);
 
-                    // Show the my models view
-                    loginController.dashboard.dashboardViewLoader = new FXMLLoader(getClass().getResource("/views/myModels.fxml"));
-                    Parent myModelsRoot = (Parent) loginController.dashboard.dashboardViewLoader.load();
-                    loginController.dashboard.myModelsView = loginController.dashboard.dashboardViewLoader.getController();
-                    loginController.dashboard.dashViewsAnchorPane.getChildren().setAll(myModelsRoot);
+                    loginController signInController = new loginController();
+                    FXMLLoader loginLoader = new FXMLLoader();
+                    loginLoader.setController(signInController);
+
+                    try {
+                        Parent root = loginLoader.load(getClass().getResource("/views/accountCreated.fxml"));
+                        loginBtn.getScene().setRoot(root);
+                    } catch (Exception exception){
+                        // Handle errors
+                        exception.printStackTrace();
+                    }
 
                 } else {
                     createAccountErrorField.setText("Attempt to create a new account was unsuccessful. Try again!");

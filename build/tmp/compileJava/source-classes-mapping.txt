@@ -1,7 +1,7 @@
 com/modelbox/databaseIO/usersIO.java
  com.modelbox.databaseIO.usersIO
-com/modelbox/databaseIO/collaboratorsIO.java
- com.modelbox.databaseIO.collaboratorsIO
+com/modelbox/controllers/dashboardController.java
+ com.modelbox.controllers.dashboardController
 com/modelbox/auth/logIn.java
  com.modelbox.auth.logIn
 com/modelbox/controllers/createAccountController.java
@@ -13,8 +13,8 @@ com/modelbox/controllers/myModelsController.java
  com.modelbox.controllers.myModelsController$3
 com/modelbox/auth/forgotPassword.java
  com.modelbox.auth.forgotPassword
-com/modelbox/auth/logOut.java
- com.modelbox.auth.logOut
+com/modelbox/controllers/profileController.java
+ com.modelbox.controllers.profileController
 com/modelbox/controllers/settingsController.java
  com.modelbox.controllers.settingsController
 com/modelbox/modelboxApp.java
@@ -34,9 +34,9 @@ com/modelbox/initialStagePrep.java
  com.modelbox.initialStagePrep
 com/modelbox/controllers/previewPopUpController.java
  com.modelbox.controllers.previewPopUpController
-com/modelbox/controllers/dashboardController.java
- com.modelbox.controllers.dashboardController
-com/modelbox/controllers/profileController.java
- com.modelbox.controllers.profileController
+com/modelbox/databaseIO/collaboratorsIO.java
+ com.modelbox.databaseIO.collaboratorsIO
+com/modelbox/auth/logOut.java
+ com.modelbox.auth.logOut
 com/modelbox/controllers/loginController.java
  com.modelbox.controllers.loginController
