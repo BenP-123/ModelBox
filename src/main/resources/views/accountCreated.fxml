@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="loginPane" fx:id="loginAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1002.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.modelbox.controllers.createAccountController">
+<AnchorPane id="accountCreatedPane" fx:id="accountCreatedAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1002.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.modelbox.controllers.accountCreatedController">
     <children>
         <AnchorPane prefWidth="450.0" style="-fx-background-color: #17181a#17181a;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -35,31 +35,31 @@
             <children>
                 <VBox alignment="CENTER" style="-fx-background-color: #ffffff;">
                     <children>
-                        <AnchorPane prefHeight="650.0">
+                        <AnchorPane prefWidth="450.0">
                             <children>
-                                <Text fill="#17181a" layoutX="39.0" layoutY="301.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Account Successfully Created!" wrappingWidth="500.0" AnchorPane.leftAnchor="39.0" AnchorPane.topAnchor="275.0">
+                                <Text fill="#17181a" strokeType="OUTSIDE" strokeWidth="0.0" text="Congratulations!" wrappingWidth="500.0" AnchorPane.bottomAnchor="338.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="175.0">
                                     <font>
                                         <Font name="Arial" size="28.0" />
                                     </font>
                                 </Text>
-                                <Text fill="#757575" layoutX="39.0" layoutY="328.0" strokeType="OUTSIDE" strokeWidth="0.0" text="An email has been sent for verification! Once verified you will be able to login!" wrappingWidth="478.0" AnchorPane.leftAnchor="39.0" AnchorPane.topAnchor="315.326171875">
+                                <Text fill="#757575" strokeType="OUTSIDE" strokeWidth="0.0" text="Your account has been successfully created. You must confirm your email address before using ModelBox." wrappingWidth="400.0" AnchorPane.bottomAnchor="338.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="225.0">
                                     <font>
                                         <Font name="Arial" size="14.0" />
                                     </font>
                                 </Text>
-                                <Text fill="#17181a" layoutX="60.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="200.0" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="240.0">
+                                <Text fill="#757575" strokeType="OUTSIDE" strokeWidth="0.0" text="Confirmed your account?" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="325.0">
                                     <font>
-                                        <Font name="Arial" size="15.0" />
+                                        <Font name="Arial" size="13.0" />
                                     </font>
                                 </Text>
-                                <Button fx:id="loginBtn" layoutX="139.0" layoutY="368.0" mnemonicParsing="false" onAction="#loginBtnClicked" style="-fx-background-color: transparent; -fx-padding: 0;" text="Login" textFill="#007be8" AnchorPane.leftAnchor="139.0" AnchorPane.topAnchor="368.0">
+                                <Button fx:id="loginBtn" layoutX="218.0" layoutY="514.0" mnemonicParsing="false" onAction="#loginBtnClicked" style="-fx-background-color: transparent; -fx-padding: 0;" text="Login" textFill="#007be8" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="324.0">
                                     <font>
                                         <Font name="Arial" size="13.0" />
                                     </font>
                                 </Button>
-                        <Text fill="#757575" layoutX="39.0" layoutY="382.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Account Verified?" wrappingWidth="96.0">
+                        <Text fill="#757575" layoutX="50.0" layoutY="295.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please check your email for a confirmation link." wrappingWidth="400.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="275.0">
                            <font>
-                              <Font name="Arial" size="12.0" />
+                              <Font name="Arial" size="14.0" />
                            </font>
                         </Text>
                             </children>

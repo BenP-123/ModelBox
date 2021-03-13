@@ -123,10 +123,7 @@ public class loginController {
      */
     @FXML
     private void forgotPassBtnClicked(Event event) {
-        forgotPasswordController forgotPassController = new forgotPasswordController();
         FXMLLoader forgotPassLoader = new FXMLLoader();
-        forgotPassLoader.setController(forgotPassController);
-
         try {
             Parent root = forgotPassLoader.load(getClass().getResource("/views/forgotPassword.fxml"));
             forgotPassBtn.getScene().setRoot(root);
@@ -144,10 +141,7 @@ public class loginController {
      */
     @FXML
     private void createAccountBtnClicked(Event event) {
-        createAccountController createController = new createAccountController();
         FXMLLoader createAccountLoader = new FXMLLoader();
-        createAccountLoader.setController(createController);
-
         try {
             Parent root = createAccountLoader.load(getClass().getResource("/views/createAccount.fxml"));
             createAccountBtn.getScene().setRoot(root);

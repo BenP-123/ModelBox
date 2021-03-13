@@ -58,9 +58,7 @@ public class forgotPasswordController {
                 if (activeForgotPassword.sendPasswordResetEmail() == 0) {
 
                     // Redirect to the login
-                    loginController signInController = new loginController();
                     FXMLLoader loginLoader = new FXMLLoader();
-                    loginLoader.setController(signInController);
                     Parent root = loginLoader.load(getClass().getResource("/views/login.fxml"));
                     resetPassBtn.getParent().getScene().setRoot(root);
 

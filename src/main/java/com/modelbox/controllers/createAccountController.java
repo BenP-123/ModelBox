@@ -62,13 +62,10 @@ public class createAccountController {
 
                 // Attempt to create the new user
                 if(activeCreateAccount.createNewUser() == 0){
-
-                    loginController signInController = new loginController();
-                    FXMLLoader loginLoader = new FXMLLoader();
-                    loginLoader.setController(signInController);
+                    FXMLLoader confirmAccountLoader = new FXMLLoader();
 
                     try {
-                        Parent root = loginLoader.load(getClass().getResource("/views/accountCreated.fxml"));
+                        Parent root = confirmAccountLoader.load(getClass().getResource("/views/accountCreated.fxml"));
                         loginBtn.getScene().setRoot(root);
                     } catch (Exception exception){
                         // Handle errors
@@ -105,10 +102,7 @@ public class createAccountController {
      */
     @FXML
     private void loginBtnClicked(Event event) {
-        loginController signInController = new loginController();
         FXMLLoader loginLoader = new FXMLLoader();
-        loginLoader.setController(signInController);
-
         try {
             Parent root = loginLoader.load(getClass().getResource("/views/login.fxml"));
             loginBtn.getScene().setRoot(root);
