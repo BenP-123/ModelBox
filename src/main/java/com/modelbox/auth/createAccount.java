@@ -1,12 +1,8 @@
 package com.modelbox.auth;
 
-import org.graalvm.polyglot.Context;
-import org.graalvm.polyglot.Source;
-import org.graalvm.polyglot.Value;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.Objects;
+import javafx.concurrent.Worker;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 
 public final class createAccount {
 
@@ -16,6 +12,8 @@ public final class createAccount {
     private String password;
     private String confirmPassword;
     private String createAccountErrorMessage;
+    private WebView browser;
+    private WebEngine engine;
 
     /**
      * Creates a new user in the MongoDB database for the app
@@ -25,17 +23,19 @@ public final class createAccount {
     public int createNewUser() {
 
         try {
-            /*
-            Context polyglot = Context.create("js");
-            File createUsr = new File(Objects.requireNonNull(getClass().getClassLoader().getResource("scripts/createAccount.js")).getFile());
-            polyglot.eval(Source.newBuilder("js", createUsr).build());
+            browser = new WebView();
+            engine = browser.getEngine();
 
-            //Language ID is 'js' and function called is 'registerAccount'
-            Value createNewUser = polyglot.getBindings("js").getMember("registerAccount");
+            engine.getLoadWorker().stateProperty().addListener((obs, oldValue, newValue) -> {
+                if (newValue == Worker.State.SUCCEEDED) {
+                    String functionCall = "createAccount(\"" + emailAddress + "\", \"" + password + "\");";
+                    engine.executeScript(functionCall);
+                }
+            });
 
-            //Function call passing email and password, tested and passes both email and password to the function properly...
-            Value createNewUserResult = createNewUser.execute(this.getEmailAddress(), this.getPassword());
-            */
+            // Load the Realm Web SDK and Create Account Script
+            engine.load("https://modelbox-vqzyc.mongodbstitch.com/create-account/index.html");
+
             return 0;
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -205,6 +205,7 @@ public final class createAccount {
      */
     public void setFirstNameField(String firstNameField) {
         firstName = firstNameField;
+
     }
 
     /**

@@ -3,15 +3,12 @@ package com.modelbox.databaseIO;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import com.modelbox.controllers.loginController;
-import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import org.bson.BsonBinary;
 import org.bson.Document;
-import com.modelbox.auth.logIn;
 import org.bson.conversions.Bson;
 import org.bson.types.Binary;
 import org.bson.types.ObjectId;
