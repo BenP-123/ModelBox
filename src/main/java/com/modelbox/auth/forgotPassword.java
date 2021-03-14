@@ -21,7 +21,7 @@ public final class forgotPassword {
 
             engine.getLoadWorker().stateProperty().addListener((obs, oldValue, newValue) -> {
                 if (newValue == Worker.State.SUCCEEDED) {
-                    String functionCall = "sendPasswordResetEmail(\"" + emailAddress + "\");";
+                    String functionCall = "sendResetEmail(\"" + emailAddress + "\");";
                     engine.executeScript(functionCall);
                 }
             });
