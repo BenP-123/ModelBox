@@ -25,8 +25,8 @@ public class previewPopUpController {
     private double anchorAngleY = 0;
     private final DoubleProperty angleX = new SimpleDoubleProperty(0);
     private final DoubleProperty angleY = new SimpleDoubleProperty(0);
-    private final DoubleProperty positionX = new SimpleDoubleProperty(0);
-    private final DoubleProperty positionY = new SimpleDoubleProperty(0);
+    private final DoubleProperty positionX = new SimpleDoubleProperty(187.5);
+    private final DoubleProperty positionY = new SimpleDoubleProperty(212.5);
 
     @FXML public AnchorPane previewModelAnchorPane;
     @FXML public Text modelNameText;

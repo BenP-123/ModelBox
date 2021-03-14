@@ -3,6 +3,7 @@ package com.modelbox.databaseIO;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 
 import com.modelbox.controllers.loginController;
 import com.mongodb.client.result.DeleteResult;
@@ -32,7 +33,7 @@ public class modelsIO {
     public static void getAllModelsFromCurrentUser(){
         Bson filter = eq("owner_id", usersIO.getOwnerID());
 
-        modelsCollection.find(filter).first().subscribe(new Subscriber<Document>() {
+        loginController.activeLogin.getMongoDatabase().runCommand(new Document("find", "models").append("filter", filter).append("limit", 100)).subscribe(new Subscriber<Document>() {
             @Override
             public void onSubscribe(Subscription s) {
                 s.request(Integer.MAX_VALUE);
@@ -43,7 +44,16 @@ public class modelsIO {
 
             @Override
             public void onNext(Document document) {
-                loginController.dashboard.dbModelsList.add(document);
+                // Retrieve and parse the 'find' command result document
+                try {
+                    Document cursor = (Document) document.get("cursor");
+                    ArrayList batch = (ArrayList) cursor.get("firstBatch");
+                    for (Object model : batch) {
+                        loginController.dashboard.dbModelsList.add((Document) model);
+                    }
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                }
             }
 
             @Override

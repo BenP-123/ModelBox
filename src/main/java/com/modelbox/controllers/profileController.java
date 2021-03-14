@@ -8,6 +8,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -24,6 +25,8 @@ public class profileController {
     @FXML public ImageView profilePictureImage;
     @FXML private Button addProfilePictureBtn;
     @FXML private Button cancelProfileUploadBtn;
+    @FXML public AnchorPane profileContentAnchorPane;
+    @FXML public AnchorPane loadingAnchorPane;
     private FileChooser profilePictureFileChooser;
     private File newPictureFile;
     private int checkIfCancelBtnClicked;

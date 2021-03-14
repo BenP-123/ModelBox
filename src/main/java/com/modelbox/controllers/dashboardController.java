@@ -141,18 +141,11 @@ public class dashboardController {
             dashboardViewLoader = new FXMLLoader(getClass().getResource("/views/profile.fxml"));
             Parent root = dashboardViewLoader.load();
             profileView = dashboardViewLoader.getController();
-
-            // Modify UI accordingly
-            if(loginController.activeLogin.getMongoDatabase() != null) {
-                profileView.displayNameTextField.setText(usersIO.getDisplayName());
-                profileView.firstNameTextField.setText(usersIO.getFirstName());
-                profileView.lastNameTextField.setText(usersIO.getLastName());
-                profileView.emailAddressTextField.setText(usersIO.getEmailAddress());
-                profileView.bioTextArea.setText(usersIO.getProfileBio());
-                profileView.profilePictureImage.setImage(new Image(new ByteArrayInputStream(usersIO.getProfilePicture())));
-            }
-
             dashViewsAnchorPane.getChildren().setAll(root);
+
+            // Asynchronously populate the profile view with database info and show the info when ready
+            usersIO.getAllInfoFromCurrentUser();
+
         } catch (Exception exception){
             // Handle errors
             exception.printStackTrace();

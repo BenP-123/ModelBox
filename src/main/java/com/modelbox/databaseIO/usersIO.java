@@ -2,10 +2,18 @@ package com.modelbox.databaseIO;
 
 import com.modelbox.controllers.loginController;
 import com.mongodb.reactivestreams.client.MongoCollection;
+import javafx.application.Platform;
+import javafx.scene.image.Image;
 import org.bson.BsonBinary;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bson.types.Binary;
+import org.reactivestreams.Subscriber;
+import org.reactivestreams.Subscription;
+
+import java.io.ByteArrayInputStream;
+import java.util.ArrayList;
+
 import static com.mongodb.client.model.Filters.eq;
 
 public class usersIO {
@@ -13,6 +21,58 @@ public class usersIO {
     public static MongoCollection<Document> usersCollection = loginController.activeLogin.getMongoDatabase().getCollection("users");
 
     //************************************************** GETTER METHODS **********************************************//
+
+    /**
+     * Using the MongoDB driver, retrieve all the users profile info from the database
+     *
+     */
+    public static void getAllInfoFromCurrentUser(){
+        Bson filter = eq("owner_id", usersIO.getOwnerID());
+
+        usersCollection.find(filter).first().subscribe(new Subscriber<Document>() {
+
+            private Document userDocument;
+
+            @Override
+            public void onSubscribe(Subscription s) {
+                s.request(Integer.MAX_VALUE);
+            }
+
+            @Override
+            public void onNext(Document document) {
+                userDocument = document;
+            }
+
+            @Override
+            public void onError(Throwable t) {
+                // Handle errors
+                t.printStackTrace();
+                onComplete();
+            }
+
+            @Override
+            public void onComplete() {
+                try {
+                    Platform.runLater(
+                            () -> {
+                                // Modify UI accordingly on the profile view
+                                loginController.dashboard.profileView.displayNameTextField.setText((String) userDocument.get("displayName"));
+                                loginController.dashboard.profileView.firstNameTextField.setText((String) userDocument.get("firstName"));
+                                loginController.dashboard.profileView.lastNameTextField.setText((String) userDocument.get("lastName"));
+                                loginController.dashboard.profileView.emailAddressTextField.setText((String) userDocument.get("emailAddress"));
+                                loginController.dashboard.profileView.bioTextArea.setText((String) userDocument.get("profileBio"));
+                                loginController.dashboard.profileView.profilePictureImage.setImage(new Image(new ByteArrayInputStream(((Binary) userDocument.get("profilePicture")).getData())));
+                                loginController.dashboard.profileView.loadingAnchorPane.setVisible(false);
+                                loginController.dashboard.profileView.profileContentAnchorPane.setVisible(true);
+                            }
+                    );
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                }
+            }
+        });
+
+    }
 
     /**
      * Using the MongoDB driver, retrieve the owner_id of the current logged in user

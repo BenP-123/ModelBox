@@ -4,5 +4,10 @@
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$" />
   </component>
+  <component name="JavadocGenerationManager">
+    <option name="OUTPUT_DIRECTORY" value="$USER_HOME$/Downloads/javadoc" />
+    <option name="OPTION_SCOPE" value="private" />
+    <option name="OPEN_IN_BROWSER" value="false" />
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="openjdk-15" project-jdk-type="JavaSDK" />
 </project>
