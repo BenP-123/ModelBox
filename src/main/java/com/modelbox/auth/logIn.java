@@ -10,6 +10,7 @@ import com.mongodb.reactivestreams.client.MongoDatabase;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.prefs.Preferences;
 
 public class logIn {
@@ -27,6 +28,9 @@ public class logIn {
      */
     public int logUserIn() {
         try {
+            Logger mongoLogger = Logger.getLogger( "org.mongodb.driver" );
+            mongoLogger.setLevel(Level.SEVERE);
+
             ConnectionString connectString = new ConnectionString(
                     "mongodb://" + encodeValue(getEmailAddress()) + ":" + getPassword() + "@realm.mongodb.com:27020/?authMechanism=PLAIN&authSource=%24external&ssl=true&appName=modelbox-vqzyc:Model-Box:local-userpass");
 

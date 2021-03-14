@@ -27,11 +27,11 @@ dependencies {
     testCompile group: 'org.testng', name: 'testng', version: '7.1.0'
     compile group: 'org.mongodb', name: 'mongodb-driver-reactivestreams', version: '4.2.2'
     compile group: 'commons-io', name: 'commons-io', version: '2.8.0'
-    compile group: 'org.graalvm.js', name: 'js', version: '21.0.0.2'
     compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.4.0-b180830.0359'
     compile group: 'com.github.robtimus', name: 'data-url', version: '1.0'
     compile name: 'jimStlMeshImporterJFX'
     implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.30'
+    implementation group: 'org.slf4j', name: 'slf4j-nop', version: '1.7.30'
 }
 
 test {

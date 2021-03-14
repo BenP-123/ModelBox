@@ -61,6 +61,26 @@ public class previewPopUpController {
     }
 
     /**
+     * Zooms in on the model currently in the interactive preview panel
+     *
+     * @param event a JavaFX Event
+     */
+    @FXML
+    private void zoomInBtnClicked(Event event) {
+        previewModelSubScene.getRoot().setTranslateZ(previewModelSubScene.getRoot().getTranslateZ() - 100);
+    }
+
+    /**
+     * Zooms out of the model currently in the interactive preview panel
+     *
+     * @param event a JavaFX Event
+     */
+    @FXML
+    private void zoomOutBtnClicked(Event event) {
+        previewModelSubScene.getRoot().setTranslateZ(previewModelSubScene.getRoot().getTranslateZ() + 100);
+    }
+
+    /**
      * Creates, styles, and shows the help pane in the preview pop-up
      *
      * @param event a JavaFX Event

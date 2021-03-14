@@ -28,7 +28,6 @@ public class uploadModelsController {
      *  Opens a file browser to select local 3D models to upload
      *
      *  @param  event a JavaFX Event
-     *	@return void
      */
     @FXML
     private void browseModelsBtnClicked(Event event){
