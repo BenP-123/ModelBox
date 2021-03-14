@@ -1,22 +1,42 @@
 package com.modelbox.auth;
 
+import javafx.concurrent.Worker;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
+
 public final class forgotPassword {
 
     private String forgotPasswordErrorMessage;
     private String emailAddress;
 
     /**
-     * Sends a password reset email to the current app user (someone not logged in)
+     * Sends a password reset email to the current app user
      *
      * @return 0 on success, -1 on error
      */
     public int sendPasswordResetEmail(){
-        // Need to implement
+        try {
+            WebView browser = new WebView();
+            WebEngine engine = browser.getEngine();
 
-        return 0;
+            engine.getLoadWorker().stateProperty().addListener((obs, oldValue, newValue) -> {
+                if (newValue == Worker.State.SUCCEEDED) {
+                    String functionCall = "sendPasswordResetEmail(\"" + emailAddress + "\");";
+                    engine.executeScript(functionCall);
+                }
+            });
+
+            // Load the Realm Web SDK and Reset Password Script
+            engine.load("https://modelbox-vqzyc.mongodbstitch.com/forgot-password/index.html");
+
+            return 0;
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return -1;
+        }
     }
 
-    /*********************************************** VERIFICATION/CHECK METHODS ***************************************/
+    //********************************************** VERIFICATION/CHECK METHODS **************************************//
 
     /**
      * Verifies that all the forgot password form checks have succeeded
@@ -38,19 +58,15 @@ public final class forgotPassword {
      * @return true on success, false on error
      */
     public boolean areRequiredFieldsMet() {
-        if(!(emailAddress.equals(""))) {
-            return true;
-        } else{
-            return false;
-        }
+        return !(emailAddress.equals(""));
     }
 
-    /*************************************************** GETTER METHODS ***********************************************/
+    //************************************************** GETTER METHODS **********************************************//
 
     /**
      * Gets the forgot password error of the current app user
      *
-     * @return a string containing the forgot password error message that should be shown to the user
+     * @return a String containing the forgot password error message that should be shown to the user
      */
     public String getForgotPasswordErrorMessage() {
         return forgotPasswordErrorMessage;
@@ -59,22 +75,21 @@ public final class forgotPassword {
     /**
      * Gets the email address provided by the app user
      *
-     * @return a string containing the email address
+     * @return a String containing the email address
      */
     public String getEmailAddress() {
         return emailAddress;
     }
 
-    /*************************************************** SETTER METHODS ***********************************************/
+    //************************************************** SETTER METHODS **********************************************//
 
     /**
      * Sets the password reset email address for the current user
      *
-     * @return void
+     * @param email a String containing the new email address to use for the user
      */
     public void setEmailAddress(String email) {
         emailAddress = email;
     }
-
 
 }

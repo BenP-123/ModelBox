@@ -4,6 +4,8 @@ import javafx.concurrent.Worker;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 
+import java.util.prefs.Preferences;
+
 public final class createAccount {
 
     private String firstName;
@@ -12,8 +14,6 @@ public final class createAccount {
     private String password;
     private String confirmPassword;
     private String createAccountErrorMessage;
-    private WebView browser;
-    private WebEngine engine;
 
     /**
      * Creates a new user in the MongoDB database for the app
@@ -23,8 +23,8 @@ public final class createAccount {
     public int createNewUser() {
 
         try {
-            browser = new WebView();
-            engine = browser.getEngine();
+            WebView browser = new WebView();
+            WebEngine engine = browser.getEngine();
 
             engine.getLoadWorker().stateProperty().addListener((obs, oldValue, newValue) -> {
                 if (newValue == Worker.State.SUCCEEDED) {
@@ -36,6 +36,12 @@ public final class createAccount {
             // Load the Realm Web SDK and Create Account Script
             engine.load("https://modelbox-vqzyc.mongodbstitch.com/create-account/index.html");
 
+            // Save the other create account fields so they can be added to the users custom_data object
+            Preferences prefs = Preferences.userRoot().node("/com/modelbox");
+            prefs.put("displayName", firstName + " " + lastName);
+            prefs.put("firstName", firstName);
+            prefs.put("lastName", lastName);
+
             return 0;
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -43,7 +49,7 @@ public final class createAccount {
         }
     }
 
-    /*********************************************** VERIFICATION/CHECK METHODS ***************************************/
+    //********************************************** VERIFICATION/CHECK METHODS **************************************//
 
     /**
      * Verifies that all the create account form checks have succeeded
@@ -77,12 +83,10 @@ public final class createAccount {
      * @return true on success, false on error
      */
     public boolean areRequiredFieldsMet() {
-        if((getFirstName() != "") && (getLastName() != "") && (getEmailAddress() != "") && (getPassword() != "")
-                && (getConfirmPassword() != "")) {
-            return true;
-        } else {
-            return false;
-        }
+        return (!getFirstName().equals("")) && (!getLastName().equals(""))
+                && (!getEmailAddress().equals(""))
+                && (!getPassword().equals(""))
+                && (!getConfirmPassword().equals(""));
     }
 
     /**
@@ -91,11 +95,7 @@ public final class createAccount {
      * @return true on success, false on error
      */
     public boolean doPasswordsMatch() {
-        if(getPassword().equals(getConfirmPassword())){
-            return true;
-        } else {
-            return false;
-        }
+        return getPassword().equals(getConfirmPassword());
     }
 
     /**
@@ -125,21 +125,12 @@ public final class createAccount {
      * @return true on success, false on error
      */
     public boolean isEmailAlreadyInTheDatabase() {
-        //Need to replace usersCollection with some sort of code that connects to the data base...
+        // Need to implement
 
-        /*Document found = usersCollection.find(eq("emailAddress", getEmailAddress())).first();
-        if(found == null){
-            return true;
-        }
-        else{
-            return false;
-        }*/
-
-        //Delete this later on when SDK is set up
         return true;
     }
 
-    /*************************************************** GETTER METHODS ***********************************************/
+    //************************************************** GETTER METHODS **********************************************//
 
 
     /**
@@ -196,22 +187,21 @@ public final class createAccount {
         return confirmPassword;
     }
 
-    /*************************************************** SETTER METHODS ***********************************************/
+    //************************************************** SETTER METHODS **********************************************//
 
     /**
      * Sets the first name for the current app user
      *
-     * @return void
+     * @param firstNameField a String containing the first name of the current app user
      */
     public void setFirstNameField(String firstNameField) {
         firstName = firstNameField;
-
     }
 
     /**
      * Sets the last name for the current app user
      *
-     * @return void
+     * @param lastNameField a String containing the last name of the current app user
      */
     public void setLastNameField(String lastNameField) {
         lastName = lastNameField;
@@ -220,7 +210,7 @@ public final class createAccount {
     /**
      * Sets the email address for the current app user
      *
-     * @return void
+     * @param email a String containing the email of the current app user
      */
     public void setEmailAddress(String email) {
         emailAddress = email;
@@ -229,7 +219,7 @@ public final class createAccount {
     /**
      * Sets the UI-entered password for the current app user
      *
-     * @return void
+     * @param pass a String containing the password of the current app user
      */
     public void setPassword(String pass) {
         password = pass;
@@ -238,14 +228,10 @@ public final class createAccount {
     /**
      * Sets the UI-entered confirm password for the current app user
      *
-     * @return void
+     * @param confirmPass a String containing the confirmed password of the current app user
      */
     public void setConfirmPassField(String confirmPass) {
         confirmPassword = confirmPass;
     }
-
-
-
-
 
 }

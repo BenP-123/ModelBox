@@ -26,40 +26,24 @@ public class verifyModelsController {
      *	Uploads the selected and verified models to the database and generates the preview cards on the my models view
      *
      *   @param  event a JavaFX Event
-     *	 @return void
      */
     @FXML
     private void uploadModelsBtnClicked(Event event){
         try {
             // Store models to the database
             for (File model : loginController.dashboard.verifyModelsList) {
-                modelsIO.setModelFile(model);
+                modelsIO.createNewModel(model);
             }
 
             // Prep the view
             loginController.dashboard.dashboardViewLoader = new FXMLLoader(getClass().getResource("/views/myModels.fxml"));
             Parent root = loginController.dashboard.dashboardViewLoader.load();
             loginController.dashboard.myModelsView = loginController.dashboard.dashboardViewLoader.getController();
-
-            // Clear all the UI cards from the myModelsFlowPane on the myModelsView
-            loginController.dashboard.myModelsView.myModelsFlowPane.getChildren().clear();
-
-            // Clear the byte[] list with the old models stored
-            loginController.dashboard.dbModelsList.clear();
-
-            // Get the updated list of byte[]'s from the database
-            modelsIO.getMyModels(usersIO.getOwnerID());
-
-            // Add the UI cards for the myModels view
-            for (byte[] model : loginController.dashboard.dbModelsList) {
-                loginController.dashboard.myModelsView.addMyModelsPreviewCard(model);
-            }
-
-            loginController.dashboard.myModelsView.noModelsBtn.setVisible(false);
-            loginController.dashboard.myModelsView.myModelsScrollPane.setVisible(true);
-
-            // Show the myModelsView
             loginController.dashboard.dashViewsAnchorPane.getChildren().setAll(root);
+
+            // Asynchronously populate the my models view and show appropriate nodes when ready
+            modelsIO.getAllModelsFromCurrentUser();
+
         } catch (Exception exception){
             // Handle errors
             exception.printStackTrace();
@@ -71,7 +55,6 @@ public class verifyModelsController {
      *	Populates the UI with a single preview card for all of a user's selected 3D models
      *
      *   @param  modelFile the 3D Model File selected by the user
-     *	 @return void
      */
     public void addVerifyModelsPreviewCard(File modelFile){
         try {
@@ -117,17 +100,16 @@ public class verifyModelsController {
      *   Deletes a model preview card from the verify models view and removes the model from the list of models to be
      *   uploaded to the database
      *
-     *   @param  e    a JavaFX ActionEvent
-     *	 @return void
+     *   @param event a JavaFX ActionEvent
      */
     EventHandler<ActionEvent> cancelModelUploadBtnClicked = new EventHandler<ActionEvent>() {
         @Override
-        public void handle(ActionEvent e) {
-            StackPane currentModel = (StackPane) ((Button) e.getSource()).getParent();
+        public void handle(ActionEvent event) {
+            StackPane currentModel = (StackPane) ((Button) event.getSource()).getParent();
             verifyModelsFlowPane.getChildren().remove(currentModel);
             loginController.dashboard.verifyModelsList.remove(
                     loginController.dashboard.verifyModelsList.get(
-                            loginController.dashboard.getModelIndexByName(
+                            loginController.dashboard.getFileIndexByModelName(
                                     loginController.dashboard.verifyModelsList, currentModel.getId()
                             )
                     )

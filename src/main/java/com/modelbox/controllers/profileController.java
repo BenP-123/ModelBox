@@ -8,12 +8,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
-import org.bson.BsonBinary;
-
-import javax.imageio.ImageIO;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.nio.file.Files;
@@ -47,7 +42,6 @@ public class profileController {
      *   Checks to see if the image should be uploaded to the database or not
      *   and Gets the image from the database to be updated in the profile view
      *
-     *	 @return void
      */
     private void displayProfilePicture() {
         //If checkIfCancelBtnClicked equals one the user decided to not change the image and
@@ -71,10 +65,9 @@ public class profileController {
     /**
      *   User selects an image to be previewed
      *
-     *   @param  profilePic  a JavaFX byte array
-     *	 @return void
+     *   @param  profilePic  a byte[] containing the file contents of the user's picture
      */
-    private void previewUsersImage(byte [] profilePic) {
+    private void previewUsersImage(byte[] profilePic) {
         //Display the users image without uploading it to the database
         ByteArrayInputStream pictureData = new ByteArrayInputStream(profilePic);
         Image profilePicture = new Image(pictureData);
@@ -85,7 +78,6 @@ public class profileController {
      *   User selects an image to be previewed
      *
      *   @param  event  a JavaFX Event
-     *	 @return void
      */
     @FXML
     private void addProfilePictureBtnClicked(Event event){
@@ -113,7 +105,6 @@ public class profileController {
      *   Cancels the users profile Upload and sets the upload button to true
      *
      *   @param  event  a JavaFX Event
-     *	 @return void
      */
     @FXML
     private void cancelProfileUploadBtn(Event event){
@@ -131,7 +122,6 @@ public class profileController {
      *	Allows all the fields in the profile page to be edited
      *
      *  @param  event a JavaFX Event
-     *	@return void
      */
     @FXML
     private void editProfileBtnClicked(Event event) {

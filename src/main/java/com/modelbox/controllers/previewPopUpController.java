@@ -35,41 +35,38 @@ public class previewPopUpController {
 
 
     /**
-     *   Closes and removes the preview pop-up from view
+     * Closes and removes the preview pop-up from view
      *
-     *   @param  e    a JavaFX Event
-     *	 @return void
+     * @param event a JavaFX Event
      */
     @FXML
-    private void closePreviewBtnClicked(Event e) {
-        AnchorPane currentPreview = (AnchorPane) ((Button) e.getSource()).getParent().getParent();
+    private void closePreviewBtnClicked(Event event) {
+        AnchorPane currentPreview = (AnchorPane) ((Button) event.getSource()).getParent().getParent();
         loginController.dashboard.myModelsView.myModelsAnchorPane.getChildren().remove(currentPreview);
     }
 
     /**
-     *   Downloads (really saves) the selected model to the users local computer
+     * Downloads (really saves) the selected model to the users local computer
      *
-     *   @param  e    a JavaFX Event
-     *	 @return void
+     * @param event a JavaFX Event
      */
     @FXML
-    private void downloadModelBtnClicked(Event e) {
-        AnchorPane currentModel = (AnchorPane) ((Button) e.getSource()).getParent();
+    private void downloadModelBtnClicked(Event event) {
+        AnchorPane currentModel = (AnchorPane) ((Button) event.getSource()).getParent();
         FileChooser fileSaver = new FileChooser();
         fileSaver.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("STL File","*.stl"));
         fileSaver.setTitle("Save 3D Model");
-        modelsIO.downloadModelFile(currentModel.getId(), (fileSaver.showSaveDialog(loginController.dashboard.dashboardAnchorPane.getScene().getWindow())).toPath());
+        modelsIO.saveModelFile(currentModel.getId(), (fileSaver.showSaveDialog(loginController.dashboard.dashboardAnchorPane.getScene().getWindow())).toPath());
     }
 
     /**
      * Creates, styles, and shows the help pane in the preview pop-up
      *
-     * @param  e    a JavaFX Event
-     * @return void
+     * @param event a JavaFX Event
      */
     @FXML
-    private void helpBtnClicked(Event e) {
+    private void helpBtnClicked(Event event) {
         // Add help anchor pane to window.
         AnchorPane helpAnchorPane = new AnchorPane();
         AnchorPane.setTopAnchor(helpAnchorPane, 50.0);
@@ -128,13 +125,12 @@ public class previewPopUpController {
     /**
      * Closes the help pane in the preview pop-up
      *
-     * @param  e    a JavaFX Event
-     * @return void
+     * @param event a JavaFX Event
      */
     @FXML
-    private void closeHelpBtnClicked(Event e) {
+    private void closeHelpBtnClicked(Event event) {
         // Remove help anchor pane from window
-        AnchorPane helpPopUp = (AnchorPane) ((Button) e.getSource()).getParent();
+        AnchorPane helpPopUp = (AnchorPane) ((Button) event.getSource()).getParent();
         previewModelAnchorPane.getChildren().remove(helpPopUp);
     }
 
@@ -146,7 +142,6 @@ public class previewPopUpController {
      * @param  meshGroup a JavaFX Group
      * @param  scene     a JavaFX SubScene
      * @param  stage     a JavaFX Stage
-     * @return void
      */
     public void initMouseControl(Group meshGroup, SubScene scene, Stage stage) {
         Rotate xRotate;

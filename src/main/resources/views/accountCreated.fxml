@@ -57,7 +57,7 @@
                                         <Font name="Arial" size="13.0" />
                                     </font>
                                 </Button>
-                        <Text fill="#757575" layoutX="50.0" layoutY="295.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please check your email for a confirmation link." wrappingWidth="400.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="275.0">
+                        <Text fill="#757575" layoutX="50.0" layoutY="295.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please check your email for a confirmation link. Once confirmed, log in on this device to initialize your account." wrappingWidth="400.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="275.0">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>

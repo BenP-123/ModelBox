@@ -15,7 +15,6 @@ public class accountCreatedController {
      * Handles the UI redirect to the log in view
      *
      * @param  event a JavaFX Event
-     * @return void
      */
     @FXML
     private void loginBtnClicked(Event event) {

@@ -16,10 +16,11 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import com.interactivemesh.jfx.importer.stl.StlMeshImporter;
+import org.bson.Document;
 
 
 public class dashboardController {
-    public List<byte[]> dbModelsList;
+    public List<Document> dbModelsList;
     public List<File> browseModelsList;
     public List<File> verifyModelsList;
     public StlMeshImporter stlImporter;
@@ -44,7 +45,7 @@ public class dashboardController {
 
 
     /**
-     *   Constructs a dashboardController object
+     * Constructs a dashboardController object
      *
      */
     public dashboardController() {
@@ -57,10 +58,9 @@ public class dashboardController {
     /************************************************* MENU TOGGLE METHODS ********************************************/
 
     /**
-     *	Toggles the navigation menu
+     *	Toggles the navigation menu visibility
      *
      *  @param  event a JavaFX Event
-     *	@return void
      */
     @FXML
     private void navigationMenuBtnClicked(Event event){
@@ -68,10 +68,9 @@ public class dashboardController {
     }
 
     /**
-     *	Toggles the user account menu
+     *	Toggles the user account menu visibility
      *
      *  @param  event a JavaFX Event
-     *	@return void
      */
     @FXML
     private void accountMenuBtnClicked(Event event){
@@ -88,7 +87,6 @@ public class dashboardController {
      * Handles the UI redirect to the my models view
      *
      * @param  event a JavaFX Event
-     * @return void
      */
     @FXML
     private void myModelsBtnClicked(Event event){
@@ -99,21 +97,8 @@ public class dashboardController {
             Parent root = dashboardViewLoader.load();
             myModelsView = dashboardViewLoader.getController();
 
-            // Modify UI accordingly
-            if(dbModelsList.isEmpty()){
-                myModelsView.myModelsScrollPane.setVisible(false);
-                myModelsView.noModelsBtn.setVisible(true);
-            }
-            else {
-                myModelsView.myModelsFlowPane.getChildren().clear();
-
-                for (byte[] model : dbModelsList) {
-                    myModelsView.addMyModelsPreviewCard(model);
-                }
-
-                myModelsView.noModelsBtn.setVisible(false);
-                myModelsView.myModelsScrollPane.setVisible(true);
-            }
+            // Asynchronously populate the my models view and show appropriate nodes when ready
+            modelsIO.getAllModelsFromCurrentUser();
 
             dashViewsAnchorPane.getChildren().setAll(root);
         } catch (Exception exception){
@@ -126,7 +111,6 @@ public class dashboardController {
      * Handles the UI redirect to the upload models view
      *
      * @param  event a JavaFX Event
-     * @return void
      */
     @FXML
     private void uploadModelsBtnClicked(Event event){
@@ -147,7 +131,6 @@ public class dashboardController {
      * Handles the UI redirect to the profile view
      *
      * @param  event a JavaFX Event
-     * @return void
      */
     @FXML
     private void accountProfileBtnClicked(Event event){
@@ -180,7 +163,6 @@ public class dashboardController {
      * Handles the UI redirect to the settings view
      *
      * @param  event a JavaFX Event
-     * @return void
      */
     @FXML
     private void accountSettingsBtnClicked(Event event){
@@ -208,10 +190,10 @@ public class dashboardController {
     /**
      * Logs the user out and redirects to the login view
      *
-     * @return void
+     * @param  event a JavaFX Event
      */
     @FXML
-    private void logOutBtnClicked(Event e){
+    private void logOutBtnClicked(Event event){
         try {
             logOut activeLogOut = new logOut();
             activeLogOut.logUserOut();
@@ -230,14 +212,14 @@ public class dashboardController {
     /**
      *	Returns the index of a specific 3D model in a list of models
      *
-     *  @param  modelList     a List of File(s) that contains models
-     *  @param  modelFileName a string that represents the filename of the model
-     *	@return               the index value of the model in the List
+     *  @param list      a List of File(s) that contain 3D models
+     *  @param modelName a string that represents the name of the model
+     *	@return the index value of the model in the List
      */
-    public int getModelIndexByName(List<File> modelList, String modelFileName) {
+    public int getFileIndexByModelName(List<File> list, String modelName) {
         int index = 0;
-        for (int i = 0; i < modelList.size(); i++) {
-            if (modelFileName.equals((modelList.get(i)).getName())) {
+        for (int i = 0; i < list.size(); i++) {
+            if (modelName.equals((list.get(i)).getName())) {
                 index = i;
             }
         }
@@ -247,14 +229,14 @@ public class dashboardController {
     /**
      *	Returns the index of a specific 3D model in a list of models
      *
-     *  @param  modelList     a List of byte[]'s that contains models
-     *  @param  modelFileName a string that represents the filename of the model
-     *	@return               the index value of the model in the List
+     *  @param  list      a List of Document(s) that contain 3D models
+     *  @param  modelName a string that represents the name of the model
+     *	@return the index value of the model in the List
      */
-    public int getModelByteIndex(List<byte[]> modelList, String modelFileName) {
+    public int getDocumentIndexByModelName(List<Document> list, String modelName) {
         int index = 0;
-        for (int i = 0; i < modelList.size(); i++) {
-            if (modelFileName.equals(modelsIO.getModelName(modelList.get(i)))) {
+        for (int i = 0; i < list.size(); i++) {
+            if (modelName.equals(modelsIO.getModelName(list.get(i)))) {
                 index = i;
             }
         }

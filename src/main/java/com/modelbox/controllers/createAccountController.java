@@ -10,12 +10,10 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.web.WebView;
 
 public class createAccountController {
 
     public static createAccount activeCreateAccount;
-    private FXMLLoader dashboardLoader;
     @FXML private TextField firstNameField;
     @FXML private TextField lastNameField;
     @FXML private TextField emailField;
@@ -28,7 +26,6 @@ public class createAccountController {
      * Handles the creation of a user account when the create account button is clicked
      *
      * @param  event    a JavaFX Event
-     * @return void
      */
     @FXML
     private void createAccountBtnClicked(Event event) {
@@ -39,7 +36,6 @@ public class createAccountController {
      * Handles the creation of a user account when the enter key is pressed on the last field
      *
      * @param  event    a JavaFX KeyEvent
-     * @return void
      */
     @FXML
     private void createAccountEnterKeyPressed(KeyEvent event) {
@@ -48,6 +44,11 @@ public class createAccountController {
         }
     }
 
+    /**
+     * Attempts to create a new user account using the information provided in the createAccount view
+     * and modifies the view accordingly to handle errors
+     *
+     */
     private void createNewUserAccount() {
         try {
             activeCreateAccount = new createAccount();
@@ -98,7 +99,6 @@ public class createAccountController {
      * Handles the UI redirect to the log in view
      *
      * @param  event a JavaFX Event
-     * @return void
      */
     @FXML
     private void loginBtnClicked(Event event) {

@@ -21,7 +21,6 @@ public class forgotPasswordController {
      * Handles resetting the user's password when the reset password button is clicked
      *
      * @param  event a JavaFX Event
-     * @return void
      */
     @FXML
     private void resetPassBtnClicked(Event event) {
@@ -32,7 +31,6 @@ public class forgotPasswordController {
      * Handles resetting the user's password when the enter key is pressed on the last field
      *
      * @param  event  a JavaFX KeyEvent
-     * @return void
      */
     @FXML
     private void resetPassEnterKeyPressed(KeyEvent event) {
@@ -42,9 +40,9 @@ public class forgotPasswordController {
     }
 
     /**
-     * Resets the user's password and redirects the user to the dashboard
+     * Attempts to reset the user's password using the information provided in the forgotPassword view
+     * and modifies the view accordingly to handle errors
      *
-     * @return void
      */
     private void resetUserPassword() {
         try {

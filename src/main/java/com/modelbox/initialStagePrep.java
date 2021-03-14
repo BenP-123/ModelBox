@@ -1,6 +1,5 @@
 package com.modelbox;
 
-import com.modelbox.controllers.createAccountController;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -11,10 +10,8 @@ import javafx.fxml.FXMLLoader;
 public class initialStagePrep extends Application {
     public void start(Stage stage) throws Exception {
 
-        // Load the create account view
-        createAccountController createController = new createAccountController();
+        // Load the createAccount view
         FXMLLoader createAccountLoader = new FXMLLoader();
-        createAccountLoader.setController(createController);
         Parent root = createAccountLoader.load(getClass().getResource("/views/createAccount.fxml"));
         stage.getIcons().add(new Image(initialStagePrep.class.getResourceAsStream("/images/modelboxLogo.png")));
         stage.setScene(new Scene(root, 1000, 650));

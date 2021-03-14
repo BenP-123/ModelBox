@@ -23,6 +23,7 @@ import javafx.scene.shape.TriangleMesh;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.apache.commons.io.FilenameUtils;
+import org.bson.Document;
 
 public class myModelsController {
 
@@ -31,12 +32,12 @@ public class myModelsController {
     @FXML public FlowPane myModelsFlowPane;
     @FXML public Button noModelsBtn;
     @FXML public AnchorPane myModelsAnchorPane;
+    @FXML public AnchorPane loadingAnchorPane;
 
     /**
-     *	Handles the UI redirect to the upload models view
+     * Handles the UI redirect to the upload models view
      *
-     *  @param  event a JavaFX Event
-     *	@return void
+     * @param  event a JavaFX Event
      */
     @FXML
     private void noModelsBtnClicked(Event event) {
@@ -44,28 +45,26 @@ public class myModelsController {
             loginController.dashboard.dashboardViewLoader.setController(loginController.dashboard.uploadModelsView);
             Parent root = loginController.dashboard.dashboardViewLoader.load(getClass().getResource("/views/uploadModels.fxml"));
             loginController.dashboard.dashViewsAnchorPane.getChildren().setAll(root);
-        } catch (Exception e){
+        } catch (Exception exception){
             // Handle errors
-            e.printStackTrace();
+            exception.printStackTrace();
         }
     }
 
     /**
-     *   Populates the UI with a single preview card for all of a user's uploaded 3D models
+     * Populates the UI with a single preview card for all of a user's uploaded 3D models
      *
-     *   @param  modelFile a byte array containing the contents of the STL file
-     *	 @return void
+     * @param model a Document containing all the information for a 3D model
      */
-    public void addMyModelsPreviewCard(byte[] modelFile) {
+    public void addMyModelsPreviewCard(Document model) {
         try {
             String previousValue = System.getProperty("java.protocol.handler.pkgs") == null ? "" : System.getProperty("java.protocol.handler.pkgs")+"|";
             System.setProperty("java.protocol.handler.pkgs", previousValue + "com.github.robtimus.net.protocol");
 
-            loginController.dashboard.stlImporter.read(DataURLs.builder(modelFile).withBase64Data(true).withMediaType("model/stl").build());
-        } catch (NullPointerException nullException) {
-            nullException.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
+            loginController.dashboard.stlImporter.read(DataURLs.builder(modelsIO.getModelFile(model)).withBase64Data(true).withMediaType("model/stl").build());
+        } catch (Exception exception) {
+            // Handle errors
+            exception.printStackTrace();
         }
 
         // Create the models so that it can go in each model card that's generated
@@ -101,7 +100,7 @@ public class myModelsController {
 
         // Manipulate the features of the model card and the arrangement of its internals
         StackPane modelMeshPane = new StackPane(modelMeshView, deleteModelBtn, previewModelBtn, downloadModelBtn);
-        modelMeshPane.setId(modelsIO.getModelName(modelFile));
+        modelMeshPane.setId(modelsIO.getModelName(model));
         modelMeshPane.setStyle("-fx-background-color: #eeeeee; -fx-background-radius: 8 8 8 8");
         modelMeshPane.setMinWidth(150);
         modelMeshPane.setMinHeight(250);
@@ -118,15 +117,14 @@ public class myModelsController {
     /********************************************* PREVIEW CARD HANDLERS **********************************************/
 
     /**
-     *   Deletes a model preview card from the my models view and removes the corresponding model from the database
+     * Deletes a model preview card from the my models view and removes the corresponding model from the database
      *
-     *   @param  e    a JavaFX ActionEvent
-     *	 @return void
+     * @param event a JavaFX ActionEvent
      */
     EventHandler<ActionEvent> deleteModelBtnClicked = new EventHandler<ActionEvent>() {
         @Override
-        public void handle(ActionEvent e) {
-            StackPane currentModel = (StackPane) ((Button) e.getSource()).getParent();
+        public void handle(ActionEvent event) {
+            StackPane currentModel = (StackPane) ((Button) event.getSource()).getParent();
 
             // Delete the model from the database
             modelsIO.deleteModelDocument(currentModel.getId());
@@ -135,7 +133,7 @@ public class myModelsController {
             myModelsFlowPane.getChildren().remove(currentModel);
             loginController.dashboard.dbModelsList.remove(
                     loginController.dashboard.dbModelsList.get(
-                            loginController.dashboard.getModelByteIndex(
+                            loginController.dashboard.getDocumentIndexByModelName(
                                     loginController.dashboard.dbModelsList, currentModel.getId()
                             )
                     )
@@ -150,15 +148,14 @@ public class myModelsController {
     };
 
     /**
-     *   Opens a preview pop-up panel for the user to interact with and learn more about a specific model
+     * Opens a preview pop-up panel for the user to interact with and learn more about a specific model
      *
-     *   @param  e    a JavaFX ActionEvent
-     *	 @return void
+     * @param event a JavaFX ActionEvent
      */
     EventHandler<ActionEvent> previewModelBtnClicked = new EventHandler<ActionEvent>() {
         @Override
-        public void handle(ActionEvent e) {
-            StackPane currentModel = (StackPane) ((Button) e.getSource()).getParent();
+        public void handle(ActionEvent event) {
+            StackPane currentModel = (StackPane) ((Button) event.getSource()).getParent();
             Parent previewRoot = null;
 
             // Load a preview pop-up window
@@ -173,8 +170,8 @@ public class myModelsController {
 
             // Load the model file from database
             try {
-                int modelIndex = loginController.dashboard.getModelByteIndex(loginController.dashboard.dbModelsList, currentModel.getId());
-                byte[] currentModelFile = loginController.dashboard.dbModelsList.get(modelIndex);
+                int modelIndex = loginController.dashboard.getDocumentIndexByModelName(loginController.dashboard.dbModelsList, currentModel.getId());
+                byte[] currentModelFile = modelsIO.getModelFile(loginController.dashboard.dbModelsList.get(modelIndex));
                 loginController.dashboard.stlImporter.read(DataURLs.builder(currentModelFile).withBase64Data(true).withMediaType("model/stl").build());
             } catch (Exception exception) {
                 // Handle errors
@@ -215,10 +212,9 @@ public class myModelsController {
     };
 
     /**
-     *   Downloads (really saves) the selected model to the users local computer
+     * Downloads (really saves) the selected model to the users local computer
      *
-     *   @param  e    a JavaFX ActionEvent
-     *	 @return void
+     * @param event a JavaFX ActionEvent
      */
     EventHandler<ActionEvent> downloadModelBtnClicked = new EventHandler<ActionEvent>() {
         @Override
@@ -228,7 +224,7 @@ public class myModelsController {
             fileSaver.getExtensionFilters().addAll(
                     new FileChooser.ExtensionFilter("STL File","*.stl"));
             fileSaver.setTitle("Save 3D Model");
-            modelsIO.downloadModelFile(currentModel.getId(), (fileSaver.showSaveDialog(loginController.dashboard.dashboardAnchorPane.getScene().getWindow())).toPath());
+            modelsIO.saveModelFile(currentModel.getId(), (fileSaver.showSaveDialog(loginController.dashboard.dashboardAnchorPane.getScene().getWindow())).toPath());
         }
     };
 }

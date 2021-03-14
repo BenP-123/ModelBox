@@ -29,7 +29,6 @@ public class loginController {
      * Handles the user login when the login button is clicked
      *
      * @param  event    a JavaFX Event
-     * @return void
      */
     @FXML
     private void loginBtnClicked(Event event) {
@@ -40,7 +39,6 @@ public class loginController {
      * Handles the user login when the enter key is pressed on the last field
      *
      * @param  event  a JavaFX KeyEvent
-     * @return void
      */
     @FXML
     private void loginEnterKeyPressed(KeyEvent event) {
@@ -52,7 +50,6 @@ public class loginController {
     /**
      * Logs the user in and redirects the user to the dashboard
      *
-     * @return void
      */
     private void loginCurrentUser() {
         try {
@@ -79,22 +76,8 @@ public class loginController {
                     dashboard.dashViewsAnchorPane.getChildren().setAll(myModelsRoot);
 
                     // Asynchronously populate the my models view and show appropriate nodes when ready
-                    modelsIO.getMyModels(usersIO.getOwnerID());
+                    modelsIO.getAllModelsFromCurrentUser();
 
-                    // Modify UI accordingly
-                    if (dashboard.dbModelsList.isEmpty()) {
-                        dashboard.myModelsView.myModelsScrollPane.setVisible(false);
-                        dashboard.myModelsView.noModelsBtn.setVisible(true);
-                    } else {
-                        dashboard.myModelsView.myModelsFlowPane.getChildren().clear();
-
-                        for (byte[] model : dashboard.dbModelsList) {
-                            dashboard.myModelsView.addMyModelsPreviewCard(model);
-                        }
-
-                        dashboard.myModelsView.noModelsBtn.setVisible(false);
-                        dashboard.myModelsView.myModelsScrollPane.setVisible(true);
-                    }
                 } else {
                     loginErrorField.setText("Authentication unsuccessful. Try again!");
                     loginErrorField.setVisible(true);
@@ -119,7 +102,6 @@ public class loginController {
      * Handles the UI redirect to the forgot password view
      *
      * @param  event    a JavaFX Event
-     * @return void
      */
     @FXML
     private void forgotPassBtnClicked(Event event) {
@@ -137,7 +119,6 @@ public class loginController {
      * Handles the UI redirect to the create account view
      *
      * @param  event    a JavaFX Event
-     * @return void
      */
     @FXML
     private void createAccountBtnClicked(Event event) {
