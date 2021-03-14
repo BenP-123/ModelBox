@@ -25,7 +25,7 @@ public class verifyModelsController {
     /**
      *	Uploads the selected and verified models to the database and generates the preview cards on the my models view
      *
-     *   @param  event a JavaFX Event
+     *  @param  event a JavaFX Event
      */
     @FXML
     private void uploadModelsBtnClicked(Event event){
@@ -54,7 +54,7 @@ public class verifyModelsController {
     /**
      *	Populates the UI with a single preview card for all of a user's selected 3D models
      *
-     *   @param  modelFile the 3D Model File selected by the user
+     *  @param  modelFile the 3D Model File selected by the user
      */
     public void addVerifyModelsPreviewCard(File modelFile){
         try {
@@ -96,13 +96,15 @@ public class verifyModelsController {
 
     /********************************************* PREVIEW CARD HANDLERS **********************************************/
 
-    /**
-     *   Deletes a model preview card from the verify models view and removes the model from the list of models to be
-     *   uploaded to the database
-     *
-     *   @param event a JavaFX ActionEvent
-     */
+
     EventHandler<ActionEvent> cancelModelUploadBtnClicked = new EventHandler<ActionEvent>() {
+
+        /**
+         *   Deletes a model preview card from the verify models view and removes the model from the list of models to be
+         *   uploaded to the database
+         *
+         *   @param event a JavaFX ActionEvent
+         */
         @Override
         public void handle(ActionEvent event) {
             StackPane currentModel = (StackPane) ((Button) event.getSource()).getParent();

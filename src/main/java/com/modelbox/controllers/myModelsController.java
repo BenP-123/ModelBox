@@ -116,12 +116,13 @@ public class myModelsController {
 
     /********************************************* PREVIEW CARD HANDLERS **********************************************/
 
-    /**
-     * Deletes a model preview card from the my models view and removes the corresponding model from the database
-     *
-     * @param event a JavaFX ActionEvent
-     */
     EventHandler<ActionEvent> deleteModelBtnClicked = new EventHandler<ActionEvent>() {
+
+        /**
+         * Deletes a model preview card from the my models view and removes the corresponding model from the database
+         *
+         * @param event a JavaFX ActionEvent
+         */
         @Override
         public void handle(ActionEvent event) {
             StackPane currentModel = (StackPane) ((Button) event.getSource()).getParent();
@@ -147,12 +148,13 @@ public class myModelsController {
         }
     };
 
-    /**
-     * Opens a preview pop-up panel for the user to interact with and learn more about a specific model
-     *
-     * @param event a JavaFX ActionEvent
-     */
     EventHandler<ActionEvent> previewModelBtnClicked = new EventHandler<ActionEvent>() {
+
+        /**
+         * Opens a preview pop-up panel for the user to interact with and learn more about a specific model
+         *
+         * @param event a JavaFX ActionEvent
+         */
         @Override
         public void handle(ActionEvent event) {
             StackPane currentModel = (StackPane) ((Button) event.getSource()).getParent();
@@ -211,15 +213,17 @@ public class myModelsController {
         }
     };
 
-    /**
-     * Downloads (really saves) the selected model to the users local computer
-     *
-     * @param event a JavaFX ActionEvent
-     */
+
     EventHandler<ActionEvent> downloadModelBtnClicked = new EventHandler<ActionEvent>() {
+
+        /**
+         * Downloads (really saves) the selected model to the users local computer
+         *
+         * @param event a JavaFX ActionEvent
+         */
         @Override
-        public void handle(ActionEvent e) {
-            StackPane currentModel = (StackPane) ((Button) e.getSource()).getParent();
+        public void handle(ActionEvent event) {
+            StackPane currentModel = (StackPane) ((Button) event.getSource()).getParent();
             FileChooser fileSaver = new FileChooser();
             fileSaver.getExtensionFilters().addAll(
                     new FileChooser.ExtensionFilter("STL File","*.stl"));

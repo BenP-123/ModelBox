@@ -20,8 +20,7 @@ public class settingsController {
     /**
      *   Sets the account settings pane as visible
      *
-     *   @param  event a JavaFX Event
-     *	 @return void
+     *   @param event a JavaFX Event
      */
     @FXML
     private void accountSettingsBtnClicked(Event event) {
@@ -32,8 +31,7 @@ public class settingsController {
     /**
      *   Sets the account security pane as visible.
      *
-     *   @param  event  a JavaFX Event
-     *	 @return void
+     *   @param event a JavaFX Event
      */
     @FXML
     private void accountSecurityBtnClicked(Event event) {
@@ -44,8 +42,6 @@ public class settingsController {
     /**
      *   Gets the profile image from the database and displays it in the settings view
      *
-     *
-     *	 @return void
      */
     public void displaySettingsPicture() {
         //Get users image from the database and show it in the settings view
