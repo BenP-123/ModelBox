@@ -1,9 +1,12 @@
 package com.modelbox.databaseIO;
 
 import com.modelbox.controllers.loginController;
+import com.mongodb.client.result.UpdateResult;
 import com.mongodb.reactivestreams.client.MongoCollection;
 import javafx.application.Platform;
 import javafx.scene.image.Image;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import org.bson.BsonBinary;
 import org.bson.Document;
 import org.bson.conversions.Bson;
@@ -61,7 +64,7 @@ public class usersIO {
                                 loginController.dashboard.profileView.lastNameTextField.setText((String) userDocument.get("lastName"));
                                 loginController.dashboard.profileView.emailAddressTextField.setText((String) userDocument.get("emailAddress"));
                                 loginController.dashboard.profileView.bioTextArea.setText((String) userDocument.get("profileBio"));
-                                loginController.dashboard.profileView.profilePictureImage.setImage(new Image(new ByteArrayInputStream(((Binary) userDocument.get("profilePicture")).getData())));
+                                loginController.dashboard.profileView.profilePictureImage.setFill(new ImagePattern(new Image(new ByteArrayInputStream(((Binary) userDocument.get("profilePicture")).getData()))));
                                 loginController.dashboard.profileView.loadingAnchorPane.setVisible(false);
                                 loginController.dashboard.profileView.profileContentAnchorPane.setVisible(true);
                             }
@@ -373,7 +376,9 @@ public class usersIO {
             if(found != null){
                 Bson updatedValue = new Document("displayName", displayName).append("firstName", firstName).append("lastName", lastName);
                 Bson updatedOperation = new Document("$set", updatedValue);
-                usersCollection.updateOne(found, updatedOperation);
+                subscribers.OperationSubscriber<UpdateResult> updateSubscriber = new subscribers.OperationSubscriber<>();
+                usersCollection.updateOne(found, updatedOperation).subscribe(updateSubscriber);
+                updateSubscriber.await();
             }
 
         } catch (Throwable throwable) {

@@ -8,6 +8,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -18,7 +19,7 @@
             <Font name="Arial" size="30.0" />
          </font>
       </Text>
-      <AnchorPane id="profileContentAnchorPane" fx:id="profileContentAnchorPane" prefHeight="200.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="100.0">
+      <AnchorPane id="profileContentAnchorPane" fx:id="profileContentAnchorPane" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="100.0">
          <children>
             <Button fx:id="cancelProfileUploadBtn" mnemonicParsing="false" onAction="#cancelProfileUploadBtn" style="-fx-background-color: none;" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <graphic>
@@ -29,11 +30,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <ImageView id="profilePictureImage" fx:id="profilePictureImage" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="15.0">
-               <image>
-                  <Image url="@../images/kermit-the-frog.jpg" />
-               </image>
-            </ImageView>
+            <Circle fx:id="profilePictureImage" radius="100.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="15.0" />
             <Button id="addProfilePictureBtn" fx:id="addProfilePictureBtn" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" mnemonicParsing="false" onAction="#addProfilePictureBtnClicked" prefHeight="200.0" prefWidth="200.0" style="-fx-background-radius: 50%; -fx-background-color: #171a1d;" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="15.0">
                <graphic>
                   <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
@@ -112,7 +109,7 @@
             </TextField>
          </children>
       </AnchorPane>
-      <AnchorPane id="loadingAnchorPane" fx:id="loadingAnchorPane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #ffffff; -fx-border-color: #c4c4c4; -fx-border-style: dashed; -fx-border-width: 2; -fx-border-radius: 15 15 15 15;" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="100.0">
+      <AnchorPane id="loadingAnchorPane" fx:id="loadingAnchorPane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #ffffff; -fx-border-color: #c4c4c4; -fx-border-style: dashed; -fx-border-width: 2; -fx-border-radius: 15 15 15 15;" visible="false" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="100.0">
          <children>
             <Text layoutX="383.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Loading..." AnchorPane.leftAnchor="383.0" AnchorPane.rightAnchor="380.79296875" AnchorPane.topAnchor="150.0">
                <font>

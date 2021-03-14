@@ -7,8 +7,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -22,14 +23,14 @@ public class profileController {
     @FXML public TextField lastNameTextField;
     @FXML public TextField emailAddressTextField;
     @FXML public TextArea bioTextArea;
-    @FXML public ImageView profilePictureImage;
+    @FXML public Circle profilePictureImage;
     @FXML private Button addProfilePictureBtn;
     @FXML private Button cancelProfileUploadBtn;
     @FXML public AnchorPane profileContentAnchorPane;
     @FXML public AnchorPane loadingAnchorPane;
     private FileChooser profilePictureFileChooser;
     private File newPictureFile;
-    private int checkIfCancelBtnClicked;
+    private byte[] profilePic;
 
     /**
      *   Constructs the profileController object
@@ -42,30 +43,6 @@ public class profileController {
     }
 
     /**
-     *   Checks to see if the image should be uploaded to the database or not
-     *   and Gets the image from the database to be updated in the profile view
-     *
-     */
-    private void displayProfilePicture() {
-        //If checkIfCancelBtnClicked equals one the user decided to not change the image and
-        //wants to keep the previous image uploaded to the database before editing their profile
-        if(checkIfCancelBtnClicked != 1) {
-            try {
-                //Upload users image to the database
-                usersIO.setProfilePicture(Files.readAllBytes(this.newPictureFile.toPath()));
-            } catch (Exception exception) {
-                // Handle errors
-                exception.printStackTrace();
-            }
-        }
-
-        //Get the users image from the database and display it
-        ByteArrayInputStream pictureData = new ByteArrayInputStream(usersIO.getProfilePicture());
-        Image profilePicture = new Image(pictureData);
-        profilePictureImage.setImage(profilePicture);
-    }
-
-    /**
      *   User selects an image to be previewed
      *
      *   @param  profilePic  a byte[] containing the file contents of the user's picture
@@ -74,7 +51,7 @@ public class profileController {
         //Display the users image without uploading it to the database
         ByteArrayInputStream pictureData = new ByteArrayInputStream(profilePic);
         Image profilePicture = new Image(pictureData);
-        profilePictureImage.setImage(profilePicture);
+        profilePictureImage.setFill(new ImagePattern(profilePicture));
     }
 
     /**
@@ -87,7 +64,7 @@ public class profileController {
         try {
             //Get the users image and call the display function w/o uploading it to the database
             newPictureFile = profilePictureFileChooser.showOpenDialog(editProfileBtn.getScene().getWindow());
-            byte[] profilePic = Files.readAllBytes(newPictureFile.toPath());
+            profilePic = Files.readAllBytes(newPictureFile.toPath());
             previewUsersImage(profilePic);
         }catch (Exception exception) {
             // Handle errors
@@ -99,9 +76,6 @@ public class profileController {
 
             //Show the cancel upload image button
             cancelProfileUploadBtn.setVisible(true);
-
-            //The user has currently not cancelled their chosen image and is previewing their chosen image
-            checkIfCancelBtnClicked = 0;
     }
 
     /**
@@ -111,14 +85,10 @@ public class profileController {
      */
     @FXML
     private void cancelProfileUploadBtn(Event event){
+        profilePictureImage.setFill(new ImagePattern(new Image(new ByteArrayInputStream(usersIO.getProfilePicture()))));
         profilePictureImage.setVisible(false);
-        addProfilePictureBtn.setVisible(true);
         cancelProfileUploadBtn.setVisible(false);
-
-        //User has cancelled their selected image and if they click
-        //upload the previous image stored in the database will be displayed
-        //AKA Pre edit profile image
-        checkIfCancelBtnClicked = 1;
+        addProfilePictureBtn.setVisible(true);
     }
 
     /**
@@ -150,8 +120,6 @@ public class profileController {
             profilePictureImage.setVisible(true);
             addProfilePictureBtn.setVisible(false);
             cancelProfileUploadBtn.setVisible(false);
-            // Show users image in the profile view
-            displayProfilePicture();
 
             // Save profile edits
             if(!(displayNameTextField.getText().equals(usersIO.getDisplayName()))){
@@ -172,6 +140,10 @@ public class profileController {
 
             if(!(bioTextArea.getText().equals(usersIO.getProfileBio()))) {
                 usersIO.setProfileBio(bioTextArea.getText());
+            }
+
+            if(!(usersIO.getProfilePicture().equals(profilePic))) {
+                usersIO.setProfilePicture(profilePic);
             }
         }
     }
