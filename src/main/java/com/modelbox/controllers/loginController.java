@@ -3,6 +3,8 @@ package com.modelbox.controllers;
 import com.modelbox.auth.logIn;
 import com.modelbox.databaseIO.modelsIO;
 import com.modelbox.databaseIO.usersIO;
+import com.mongodb.MongoException;
+import com.mongodb.MongoSecurityException;
 import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,6 +14,9 @@ import javafx.scene.control.TextField;
 import javafx.fxml.FXML;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 
 public class loginController {
 
@@ -53,9 +58,9 @@ public class loginController {
      */
     private void loginCurrentUser() {
         try {
-            activeLogin = new logIn();
-            activeLogin.setEmailAddress(emailField == null ? "" : emailField.getText());
-            activeLogin.setPassword(passField == null ? "" : passField.getText());
+                activeLogin = new logIn();
+                activeLogin.setEmailAddress(emailField == null ? "" : emailField.getText());
+                activeLogin.setPassword(passField == null ? "" : passField.getText());
 
             if (activeLogin.didVerificationsPass()){
                 loginErrorField.setVisible(false);
@@ -63,20 +68,32 @@ public class loginController {
                 // Attempt to log the user in
                 if (activeLogin.logUserIn() == 0) {
 
+                    ByteArrayOutputStream file = new ByteArrayOutputStream();
+                    System.setErr(new PrintStream(file));
                     // Redirect to dashboard
-                    dashboardLoader = new FXMLLoader(getClass().getResource("/views/dashboard.fxml"));
-                    Parent root = (Parent) dashboardLoader.load();
-                    dashboard = dashboardLoader.getController();
-                    loginBtn.getScene().setRoot(root);
 
-                    // Show the my models view
-                    dashboard.dashboardViewLoader = new FXMLLoader(getClass().getResource("/views/myModels.fxml"));
-                    Parent myModelsRoot = (Parent) dashboard.dashboardViewLoader.load();
-                    dashboard.myModelsView = dashboard.dashboardViewLoader.getController();
-                    dashboard.dashViewsAnchorPane.getChildren().setAll(myModelsRoot);
+                    //Only way so far i figured out to "Test" the connection with credentials
+                    usersIO.getAllInfoFromCurrentUser();
+                    String texto = new String(file.toByteArray());
+                    if(texto.contains("invalid username/password")) {
+                        loginErrorField.setText("Authentication unsuccessful. Invalid Username/Password!");
+                        loginErrorField.setVisible(true);
 
-                    // Asynchronously populate the my models view and show appropriate nodes when ready
-                    modelsIO.getAllModelsFromCurrentUser();
+                    }else {
+                        dashboardLoader = new FXMLLoader(getClass().getResource("/views/dashboard.fxml"));
+                        Parent root = (Parent) dashboardLoader.load();
+                        dashboard = dashboardLoader.getController();
+                        loginBtn.getScene().setRoot(root);
+
+                        // Show the my models view
+                        dashboard.dashboardViewLoader = new FXMLLoader(getClass().getResource("/views/myModels.fxml"));
+                        Parent myModelsRoot = (Parent) dashboard.dashboardViewLoader.load();
+                        dashboard.myModelsView = dashboard.dashboardViewLoader.getController();
+                        dashboard.dashViewsAnchorPane.getChildren().setAll(myModelsRoot);
+
+                        // Asynchronously populate the my models view and show appropriate nodes when ready
+                        modelsIO.getAllModelsFromCurrentUser();
+                    }
 
                 } else {
                     loginErrorField.setText("Authentication unsuccessful. Try again!");
@@ -86,7 +103,6 @@ public class loginController {
                     emailField.setText("");
                     passField.setText("");
                 }
-
             } else {
                 loginErrorField.setText(activeLogin.getLoginErrorMessage());
                 loginErrorField.setVisible(true);
