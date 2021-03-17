@@ -1,21 +1,15 @@
-com/modelbox/auth/changeEmail.java
- com.modelbox.auth.changeEmail
-com/modelbox/databaseIO/usersIO.java
- com.modelbox.databaseIO.usersIO
- com.modelbox.databaseIO.usersIO$1
-com/modelbox/controllers/dashboardController.java
- com.modelbox.controllers.dashboardController
+com/modelbox/controllers/forgotPasswordController.java
+ com.modelbox.controllers.forgotPasswordController
+com/modelbox/auth/createAccount.java
+ com.modelbox.auth.createAccount
 com/modelbox/auth/logIn.java
  com.modelbox.auth.logIn
 com/modelbox/controllers/createAccountController.java
  com.modelbox.controllers.createAccountController
 com/modelbox/controllers/accountCreatedController.java
  com.modelbox.controllers.accountCreatedController
-com/modelbox/controllers/myModelsController.java
- com.modelbox.controllers.myModelsController
- com.modelbox.controllers.myModelsController$1
- com.modelbox.controllers.myModelsController$2
- com.modelbox.controllers.myModelsController$3
+com/modelbox/initialStagePrep.java
+ com.modelbox.initialStagePrep
 com/modelbox/databaseIO/subscribers.java
  com.modelbox.databaseIO.subscribers
  com.modelbox.databaseIO.subscribers$ObservableSubscriber
@@ -30,22 +24,26 @@ com/modelbox/controllers/settingsController.java
  com.modelbox.controllers.settingsController
 com/modelbox/modelboxApp.java
  com.modelbox.modelboxApp
+com/modelbox/databaseIO/usersIO.java
+ com.modelbox.databaseIO.usersIO
+ com.modelbox.databaseIO.usersIO$1
 com/modelbox/databaseIO/modelsIO.java
  com.modelbox.databaseIO.modelsIO
  com.modelbox.databaseIO.modelsIO$1
-com/modelbox/controllers/forgotPasswordController.java
- com.modelbox.controllers.forgotPasswordController
+com/modelbox/controllers/dashboardController.java
+ com.modelbox.controllers.dashboardController
 com/modelbox/controllers/verifyModelsController.java
  com.modelbox.controllers.verifyModelsController
  com.modelbox.controllers.verifyModelsController$1
-com/modelbox/auth/createAccount.java
- com.modelbox.auth.createAccount
 com/modelbox/controllers/uploadModelsController.java
  com.modelbox.controllers.uploadModelsController
-com/modelbox/initialStagePrep.java
- com.modelbox.initialStagePrep
 com/modelbox/controllers/previewPopUpController.java
  com.modelbox.controllers.previewPopUpController
+com/modelbox/controllers/myModelsController.java
+ com.modelbox.controllers.myModelsController
+ com.modelbox.controllers.myModelsController$1
+ com.modelbox.controllers.myModelsController$2
+ com.modelbox.controllers.myModelsController$3
 com/modelbox/auth/logOut.java
  com.modelbox.auth.logOut
 com/modelbox/controllers/loginController.java
