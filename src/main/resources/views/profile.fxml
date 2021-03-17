@@ -76,25 +76,12 @@
                   <Font name="Arial" size="15.0" />
                </font>
             </Text>
-            <Text id="emailAddressTextLabel" fx:id="emailAddressTextLabel" fill="#17181a" strokeType="OUTSIDE" strokeWidth="0.0" text="Email address" wrappingWidth="500.0" AnchorPane.leftAnchor="290.0" AnchorPane.topAnchor="180.0">
+            <Text id="bioTextLabel" fx:id="bioTextLabel" fill="#17181a" layoutX="290.0" layoutY="194.5791015625" strokeType="OUTSIDE" strokeWidth="0.0" text="Bio" wrappingWidth="500.0" AnchorPane.leftAnchor="290.0" AnchorPane.topAnchor="181.0">
                <font>
                   <Font name="Arial" size="15.0" />
                </font>
             </Text>
-            <TextField id="emailAddressTextField" fx:id="emailAddressTextField" editable="false" prefHeight="25.0" prefWidth="500.0" promptText="Email address" style="-fx-padding: 8px; -fx-faint-focus-color: transparent; -fx-focus-color: #C4C4C4; -fx-background-color: #ffffff; -fx-border-color: #C4C4C4; -fx-border-radius: 4px;" text="kermit@sesamestreet.com" AnchorPane.leftAnchor="290.0" AnchorPane.topAnchor="205.0">
-               <font>
-                  <Font name="Arial" size="14.0" />
-               </font>
-               <padding>
-                  <Insets left="10.0" />
-               </padding>
-            </TextField>
-            <Text id="bioTextLabel" fx:id="bioTextLabel" fill="#17181a" strokeType="OUTSIDE" strokeWidth="0.0" text="Bio" wrappingWidth="500.0" AnchorPane.leftAnchor="290.0" AnchorPane.topAnchor="265.0">
-               <font>
-                  <Font name="Arial" size="15.0" />
-               </font>
-            </Text>
-            <TextArea id="bioTextArea" fx:id="bioTextArea" editable="false" prefHeight="80.0" prefWidth="500.0" promptText="Add a bio" style="-fx-faint-focus-color: transparent; -fx-focus-color: transparent; -fx-border-color: #C4C4C4; -fx-border-radius: 4px; -fx-padding: 8px; -fx-wrap-text: true; -fx-background-color: #ffffff;" AnchorPane.leftAnchor="290.0" AnchorPane.topAnchor="290.0">
+            <TextArea id="bioTextArea" fx:id="bioTextArea" editable="false" layoutX="290.0" layoutY="209.0" prefHeight="80.0" prefWidth="500.0" promptText="Add a bio" style="-fx-faint-focus-color: transparent; -fx-focus-color: transparent; -fx-border-color: #C4C4C4; -fx-border-radius: 4px; -fx-padding: 8px; -fx-wrap-text: true; -fx-background-color: #ffffff;" AnchorPane.leftAnchor="290.0" AnchorPane.topAnchor="209.0">
                <font>
                   <Font name="Arial" size="14.0" />
                </font>

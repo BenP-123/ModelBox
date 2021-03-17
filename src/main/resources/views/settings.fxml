@@ -1,29 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="settingsAnchorPane" fx:id="settingsAnchorPane" prefHeight="610.0" prefWidth="1000.0" style="-fx-background-color: #ffffff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.modelbox.controllers.settingsController">
+<AnchorPane id="settingsAnchorPane" fx:id="settingsAnchorPane" prefHeight="610.0" prefWidth="1000.0" style="-fx-background-color: #ffffff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.modelbox.controllers.settingsController">
    <children>
       <Text id="settingsTextHeading" fx:id="settingsTextHeading" fill="#17181a" strokeType="OUTSIDE" strokeWidth="0.0" text="Settings" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="30.0">
          <font>
@@ -38,7 +27,15 @@
             <Insets left="15.0" />
          </padding>
       </Button>
-      <Button id="accountSecurityBtn" fx:id="accountSecurityBtn" contentDisplay="TEXT_ONLY" graphicTextGap="0.0" mnemonicParsing="false" onAction="#accountSecurityBtnClicked" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: none; -fx-border-color: #868686; -fx-border-radius: 0 0 5 5; -fx-alignment: center-left;" text="Account security" textFill="#757575" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="209.0">
+      <Button id="accountSecurityBtn" fx:id="accountSecurityBtn" contentDisplay="TEXT_ONLY" graphicTextGap="0.0" layoutX="60.0" layoutY="209.0" mnemonicParsing="false" onAction="#accountSecurityBtnClicked" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: none; -fx-border-color: #868686; -fx-alignment: center-left;" text="Account security" textFill="#757575" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="209.0">
+         <font>
+            <Font name="Arial" size="14.0" />
+         </font>
+         <padding>
+            <Insets left="15.0" />
+         </padding>
+      </Button>
+      <Button id="changeEmailBtn" fx:id="changeEmailBtn" contentDisplay="TEXT_ONLY" graphicTextGap="0.0" layoutX="60.0" layoutY="243.0" mnemonicParsing="false" onAction="#changeEmailBtnClicked" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: none; -fx-border-color: #868686; -fx-border-radius: 0 0 5 5; -fx-alignment: center-left;" text="Change email" textFill="#757575">
          <font>
             <Font name="Arial" size="14.0" />
          </font>
@@ -144,6 +141,38 @@
             </Button>
          </children>
       </AnchorPane>
+      <AnchorPane id="changeEmailAnchorPane" fx:id="changeEmailAnchorPane" layoutX="10.0" layoutY="10.0" prefHeight="400.0" prefWidth="582.0" style="-fx-background-color: #ffffff;" visible="false" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="390.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="125.0">
+         <children>
+            <Text layoutX="10.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Change email" wrappingWidth="151.81364365729615" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="15.0">
+               <font>
+                  <Font name="Arial" size="22.0" />
+               </font>
+            </Text>
+            <Button fx:id="changeEmailButton" contentDisplay="TEXT_ONLY" graphicTextGap="0.0" layoutX="25.0" layoutY="139.0" mnemonicParsing="false" onAction="#changeEmailButtonClicked" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: green; -fx-background-radius: 5 5 5 5;" text="Change email" textFill="WHITE" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="139.0">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+            </Button>
+            <TextField fx:id="newEmailField" layoutX="25.0" layoutY="82.0" onKeyPressed="#changeEmailEnterKeyPressed" prefHeight="25.0" prefWidth="300.0" promptText="New email" style="-fx-padding: 8px; -fx-faint-focus-color: transparent; -fx-focus-color: #C4C4C4; -fx-background-color: #ffffff; -fx-border-color: #C4C4C4; -fx-border-radius: 4px;" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="82.0">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </TextField>
+            <Text fill="#17181a" layoutX="25.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter new email" wrappingWidth="225.0" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="57.0">
+               <font>
+                  <Font name="Arial" size="15.0" />
+               </font>
+            </Text>
+            <TextField id="changeEmailErrorField" fx:id="changeEmailErrorField" alignment="CENTER" editable="false" layoutX="34.0" layoutY="194.0" prefHeight="38.0" prefWidth="482.0" style="-fx-background-color: #ffffff; -fx-border-color: red; -fx-border-radius: 5px; -fx-padding: 8px;" text="Error" visible="false" AnchorPane.leftAnchor="34.0" AnchorPane.topAnchor="194.0">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+            </TextField>
+         </children>
+      </AnchorPane>
       <TextField id="displayNameTextField" fx:id="displayNameTextField" editable="false" style="-fx-background-color: #ffffff;" text="Kermit the Frog" AnchorPane.leftAnchor="114.0" AnchorPane.topAnchor="87.0">
          <font>
             <Font name="Arial" size="16.0" />
@@ -157,11 +186,7 @@
             <Font name="Arial" size="14.0" />
          </font>
       </Text>
-      <ImageView id="settingsPictureImage" fx:id="settingsPictureImage" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="61.0" AnchorPane.topAnchor="91.0">
-         <image>
-            <Image url="@../images/kermit-the-frog.jpg" />
-         </image>
-      </ImageView>
+      <Circle fx:id="settingsPictureImage" layoutX="86.0" layoutY="116.0" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
       <Line id="settingsDividerLine" fx:id="settingsDividerLine" endX="-10.8839111328125" endY="461.0" startX="-10.8839111328125" startY="-82.5" stroke="#17181a" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="320.0" AnchorPane.topAnchor="30.0">
          <effect>
             <DropShadow blurType="GAUSSIAN" radius="7.0" width="9.0" />

@@ -62,7 +62,7 @@ public class usersIO {
                                 loginController.dashboard.profileView.displayNameTextField.setText((String) userDocument.get("displayName"));
                                 loginController.dashboard.profileView.firstNameTextField.setText((String) userDocument.get("firstName"));
                                 loginController.dashboard.profileView.lastNameTextField.setText((String) userDocument.get("lastName"));
-                                loginController.dashboard.profileView.emailAddressTextField.setText((String) userDocument.get("emailAddress"));
+                                //loginController.dashboard.profileView.emailAddressTextField.setText((String) userDocument.get("emailAddress"));
                                 loginController.dashboard.profileView.bioTextArea.setText((String) userDocument.get("profileBio"));
                                 loginController.dashboard.profileView.profilePictureImage.setFill(new ImagePattern(new Image(new ByteArrayInputStream(((Binary) userDocument.get("profilePicture")).getData()))));
                                 loginController.dashboard.profileView.loadingAnchorPane.setVisible(false);

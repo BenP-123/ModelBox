@@ -21,7 +21,6 @@ public class profileController {
     @FXML public TextField displayNameTextField;
     @FXML public TextField firstNameTextField;
     @FXML public TextField lastNameTextField;
-    @FXML public TextField emailAddressTextField;
     @FXML public TextArea bioTextArea;
     @FXML public Circle profilePictureImage;
     @FXML private Button addProfilePictureBtn;
@@ -104,7 +103,6 @@ public class profileController {
             displayNameTextField.setEditable(true);
             firstNameTextField.setEditable(true);
             lastNameTextField.setEditable(true);
-            emailAddressTextField.setEditable(true);
             bioTextArea.setEditable(true);
             profilePictureImage.setVisible(false);
             addProfilePictureBtn.setVisible(true);
@@ -115,7 +113,6 @@ public class profileController {
             displayNameTextField.setEditable(false);
             firstNameTextField.setEditable(false);
             lastNameTextField.setEditable(false);
-            emailAddressTextField.setEditable(false);
             bioTextArea.setEditable(false);
             profilePictureImage.setVisible(true);
             addProfilePictureBtn.setVisible(false);
@@ -134,9 +131,9 @@ public class profileController {
                 usersIO.setLastName(lastNameTextField.getText());
             }
 
-            if(!(emailAddressTextField.getText().equals(usersIO.getEmailAddress()))){
+            /*if(!(emailAddressTextField.getText().equals(usersIO.getEmailAddress()))){
                 usersIO.setEmailAddress(emailAddressTextField.getText());
-            }
+            }*/
 
             if(!(bioTextArea.getText().equals(usersIO.getProfileBio()))) {
                 usersIO.setProfileBio(bioTextArea.getText());
