@@ -1,14 +1,17 @@
 package com.modelbox.auth;
 
 import com.modelbox.databaseIO.usersIO;
-import com.mongodb.ConnectionString;
-import com.mongodb.MongoClientSettings;
+import com.mongodb.*;
 import com.mongodb.reactivestreams.client.MongoClient;
 import com.mongodb.reactivestreams.client.MongoClients;
 import com.mongodb.reactivestreams.client.MongoDatabase;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.PrintStream;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.prefs.Preferences;
@@ -43,10 +46,10 @@ public class logIn {
 
             // Create the connection
             this.setMongoClient(MongoClients.create(clientSettings));
-
             // Access the application database
-            this.setMongoDatabase(mongoClient.getDatabase("modelboxApp"));
 
+
+            this.setMongoDatabase(mongoClient.getDatabase("modelboxApp"));
             initializeNewAccount();
 
             return 0;
@@ -171,7 +174,7 @@ public class logIn {
      * @param client a MongoClient object used in further database I/O
      */
     public void setMongoClient(MongoClient client) {
-        mongoClient = client;
+            mongoClient = client;
     }
 
     /**
