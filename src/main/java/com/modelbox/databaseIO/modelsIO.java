@@ -14,6 +14,7 @@ import org.bson.BsonBinary;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bson.types.Binary;
+import org.bson.types.ObjectId;
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 
@@ -98,6 +99,16 @@ public class modelsIO {
     }
 
     /**
+     * Gets the id of a model from a Document
+     *
+     * @param model a Document containing all the information for a 3D model
+     * @return      a String containing the id of the model stored by the user
+     */
+    public static String getModelID(Document model){
+        return model.getObjectId("_id").toString();
+    }
+
+    /**
      * Gets the name of a model from a Document
      *
      * @param model a Document containing all the information for a 3D model
@@ -144,11 +155,11 @@ public class modelsIO {
     /**
      * Using the MongoDB driver, retrieve the 3D model with the specified name and save the file locally to the path specified
      *
-     * @param modelName a String containing the name of the 3D model
+     * @param modelID a String containing the name of the 3D model
      * @param savePath  a Path containing the location that the model will be saved to
      */
-    public static void saveModelFile(String modelName, Path savePath) {
-        Bson filter = and(eq("modelName", modelName), eq("owner_id", usersIO.getOwnerID()));
+    public static void saveModelFile(String modelID, Path savePath) {
+        Bson filter = and(eq("_id", new ObjectId(modelID)), eq("owner_id", usersIO.getOwnerID()));
         subscribers.OperationSubscriber<Document> findSubscriber = new subscribers.OperationSubscriber<>();
         modelsCollection.find(filter).first().subscribe(findSubscriber);
 
@@ -164,10 +175,10 @@ public class modelsIO {
     /**
      * Using the MongoDB driver, delete the 3D model with the specified name and all its properties from the user's account
      *
-     * @param modelName a String containing the name of the 3D model
+     * @param modelID a String containing the name of the 3D model
      */
-    public static void deleteModelDocument(String modelName) {
-        Bson filter = and(eq("modelName", modelName), eq("owner_id", usersIO.getOwnerID()));
+    public static void deleteModelDocument(String modelID) {
+        Bson filter = and(eq("_id", new ObjectId(modelID)), eq("owner_id", usersIO.getOwnerID()));
         subscribers.OperationSubscriber<DeleteResult> deleteSubscriber = new subscribers.OperationSubscriber<>();
         modelsCollection.deleteOne(filter).subscribe(deleteSubscriber);
 
