@@ -133,16 +133,13 @@ public class modelsIO {
     /**
      * Using the MongoDB driver, add a new model document that contains a 3D model in binary data
      *
-     * @return 0 on success, -1 on error
+     * @param  model a Document containing all the information for a 3D model
+     * @return 0    on success, -1 on error
      */
-    public static int createNewModel(File model){
+    public static int createNewModel(Document model){
         try {
-            Document modelDocument = new Document("owner_id", usersIO.getOwnerID());
-            modelDocument.append("modelName", model.getName());
-            byte[] data = Files.readAllBytes(model.toPath());
-            modelDocument.append("modelFile", new BsonBinary(data));
             subscribers.OperationSubscriber<InsertOneResult> insertSubscriber = new subscribers.OperationSubscriber<>();
-            modelsCollection.insertOne(modelDocument).subscribe(insertSubscriber);
+            modelsCollection.insertOne(model).subscribe(insertSubscriber);
             insertSubscriber.await();
             return 0;
         } catch (Throwable throwable) {
@@ -155,7 +152,7 @@ public class modelsIO {
     /**
      * Using the MongoDB driver, retrieve the 3D model with the specified name and save the file locally to the path specified
      *
-     * @param modelID a String containing the name of the 3D model
+     * @param modelID   a String containing the name of the 3D model
      * @param savePath  a Path containing the location that the model will be saved to
      */
     public static void saveModelFile(String modelID, Path savePath) {

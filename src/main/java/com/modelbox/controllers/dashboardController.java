@@ -22,10 +22,11 @@ import org.bson.Document;
 public class dashboardController {
     public List<Document> dbModelsList;
     public List<File> browseModelsList;
-    public List<File> verifyModelsList;
+    public List<Document> verifyModelsList;
     public StlMeshImporter stlImporter;
     public myModelsController myModelsView;
     public previewPopUpController previewPopUpView;
+    public editPopUpController editPopUpView;
     public uploadModelsController uploadModelsView;
     public verifyModelsController verifyModelsView;
     public profileController profileView;

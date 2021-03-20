@@ -170,7 +170,7 @@ public class myModelsController {
                 exception.printStackTrace();
             }
 
-            // Load the model file from database
+            // Load the model file from the database models list
             int modelIndex = loginController.dashboard.getDocumentIndexByModelID(loginController.dashboard.dbModelsList, currentModel.getId());
             byte[] currentModelFile = modelsIO.getModelFile(loginController.dashboard.dbModelsList.get(modelIndex));
 
@@ -185,7 +185,7 @@ public class myModelsController {
             TriangleMesh currentModelMesh = loginController.dashboard.stlImporter.getImport();
             MeshView currentModelMeshView = new MeshView(currentModelMesh);
 
-            // Set the id of the previewModelSubScene to be equal to the modelName
+            // Set the id of the previewModelSubScene to be equal to the model id
             loginController.dashboard.previewPopUpView.previewModelAnchorPane.setId(currentModel.getId());
 
             // Set the modelNameText and modelTypeText labels
