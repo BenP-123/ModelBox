@@ -22,10 +22,11 @@ import org.bson.Document;
 public class dashboardController {
     public List<Document> dbModelsList;
     public List<File> browseModelsList;
-    public List<File> verifyModelsList;
+    public List<Document> verifyModelsList;
     public StlMeshImporter stlImporter;
     public myModelsController myModelsView;
     public previewPopUpController previewPopUpView;
+    public editPopUpController editPopUpView;
     public uploadModelsController uploadModelsView;
     public verifyModelsController verifyModelsView;
     public profileController profileView;
@@ -223,13 +224,13 @@ public class dashboardController {
      *	Returns the index of a specific 3D model in a list of models
      *
      *  @param  list      a List of Document(s) that contain 3D models
-     *  @param  modelName a string that represents the name of the model
+     *  @param  modelID   a string that represents the id of the model
      *	@return the index value of the model in the List
      */
-    public int getDocumentIndexByModelName(List<Document> list, String modelName) {
+    public int getDocumentIndexByModelID(List<Document> list, String modelID) {
         int index = 0;
         for (int i = 0; i < list.size(); i++) {
-            if (modelName.equals(modelsIO.getModelName(list.get(i)))) {
+            if (modelID.equals(modelsIO.getModelID(list.get(i)))) {
                 index = i;
             }
         }

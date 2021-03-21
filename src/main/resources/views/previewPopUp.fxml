@@ -92,6 +92,18 @@
                   <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                </padding>
             </Button>
+            <Button id="changeColorBtn" fx:id="changeColorBtn" contentDisplay="GRAPHIC_ONLY" layoutX="268.0" layoutY="318.0" mnemonicParsing="false" onAction="#changeColorBtnClicked" style="-fx-background-color: none;" text="Button" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="120.0">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/color-btn.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+               </padding>
+            </Button>
             <Button id="downloadModelBtn" fx:id="helpBtn" contentDisplay="GRAPHIC_ONLY" layoutX="332.0" layoutY="315.0" mnemonicParsing="false" onAction="#helpBtnClicked" style="-fx-background-color: none;" text="Button" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="15.0">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">

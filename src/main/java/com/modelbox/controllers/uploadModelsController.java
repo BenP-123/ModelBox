@@ -1,12 +1,18 @@
 package com.modelbox.controllers;
 
+import com.modelbox.databaseIO.usersIO;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
+import org.bson.BsonBinary;
+import org.bson.Document;
+import org.bson.types.ObjectId;
+
 import java.io.File;
+import java.nio.file.Files;
 
 public class uploadModelsController {
 
@@ -49,15 +55,22 @@ public class uploadModelsController {
                 loginController.dashboard.dashboardViewLoader = new FXMLLoader(getClass().getResource("/views/verifyModels.fxml"));
                 Parent root = loginController.dashboard.dashboardViewLoader.load();
                 loginController.dashboard.verifyModelsView = loginController.dashboard.dashboardViewLoader.getController();
-
-                // Clear verifyModels UI and add a UI card for each model in the list
-                for (File model : loginController.dashboard.browseModelsList) {
-                    loginController.dashboard.verifyModelsView.addVerifyModelsPreviewCard(model);
-                }
-
-                // Copy the browseModelsList to verifyModelsList
                 loginController.dashboard.verifyModelsList.clear();
-                loginController.dashboard.verifyModelsList.addAll(loginController.dashboard.browseModelsList);
+
+                for (File model : loginController.dashboard.browseModelsList) {
+                    Document modelDocument = new Document("_id", new ObjectId());
+                    try {
+                        modelDocument.append("owner_id", usersIO.getOwnerID());
+                        modelDocument.append("modelName", model.getName());
+                        byte[] data = Files.readAllBytes(model.toPath());
+                        modelDocument.append("modelFile", new BsonBinary(data));
+                    } catch (Exception exception) {
+                        // Handle errors
+                        exception.printStackTrace();
+                    }
+                    loginController.dashboard.verifyModelsList.add(modelDocument);
+                    loginController.dashboard.verifyModelsView.addVerifyModelsPreviewCard(modelDocument);
+                }
 
                 // Show the verifyModels view
                 loginController.dashboard.dashViewsAnchorPane.getChildren().setAll(root);

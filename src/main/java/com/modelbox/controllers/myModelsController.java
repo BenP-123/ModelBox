@@ -100,7 +100,7 @@ public class myModelsController {
 
         // Manipulate the features of the model card and the arrangement of its internals
         StackPane modelMeshPane = new StackPane(modelMeshView, deleteModelBtn, previewModelBtn, downloadModelBtn);
-        modelMeshPane.setId(modelsIO.getModelName(model));
+        modelMeshPane.setId(modelsIO.getModelID(model));
         modelMeshPane.setStyle("-fx-background-color: #eeeeee; -fx-background-radius: 8 8 8 8");
         modelMeshPane.setMinWidth(150);
         modelMeshPane.setMinHeight(250);
@@ -134,7 +134,7 @@ public class myModelsController {
             myModelsFlowPane.getChildren().remove(currentModel);
             loginController.dashboard.dbModelsList.remove(
                     loginController.dashboard.dbModelsList.get(
-                            loginController.dashboard.getDocumentIndexByModelName(
+                            loginController.dashboard.getDocumentIndexByModelID(
                                     loginController.dashboard.dbModelsList, currentModel.getId()
                             )
                     )
@@ -170,10 +170,11 @@ public class myModelsController {
                 exception.printStackTrace();
             }
 
-            // Load the model file from database
+            // Load the model file from the database models list
+            int modelIndex = loginController.dashboard.getDocumentIndexByModelID(loginController.dashboard.dbModelsList, currentModel.getId());
+            byte[] currentModelFile = modelsIO.getModelFile(loginController.dashboard.dbModelsList.get(modelIndex));
+
             try {
-                int modelIndex = loginController.dashboard.getDocumentIndexByModelName(loginController.dashboard.dbModelsList, currentModel.getId());
-                byte[] currentModelFile = modelsIO.getModelFile(loginController.dashboard.dbModelsList.get(modelIndex));
                 loginController.dashboard.stlImporter.read(DataURLs.builder(currentModelFile).withBase64Data(true).withMediaType("model/stl").build());
             } catch (Exception exception) {
                 // Handle errors
@@ -184,12 +185,13 @@ public class myModelsController {
             TriangleMesh currentModelMesh = loginController.dashboard.stlImporter.getImport();
             MeshView currentModelMeshView = new MeshView(currentModelMesh);
 
-            // Set the id of the previewModelSubScene to be equal to the modelName
+            // Set the id of the previewModelSubScene to be equal to the model id
             loginController.dashboard.previewPopUpView.previewModelAnchorPane.setId(currentModel.getId());
 
             // Set the modelNameText and modelTypeText labels
-            loginController.dashboard.previewPopUpView.modelNameText.setText(FilenameUtils.removeExtension(currentModel.getId()));
-            loginController.dashboard.previewPopUpView.modelTypeText.setText(FilenameUtils.getExtension(currentModel.getId()).toUpperCase());
+            String currentModelName = modelsIO.getModelName(loginController.dashboard.dbModelsList.get(modelIndex));
+            loginController.dashboard.previewPopUpView.modelNameText.setText(FilenameUtils.removeExtension(currentModelName));
+            loginController.dashboard.previewPopUpView.modelTypeText.setText(FilenameUtils.getExtension(currentModelName).toUpperCase());
 
             // Add the mesh to the preview pop-up group
             Group previewModelGroup = new Group(currentModelMeshView);

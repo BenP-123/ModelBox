@@ -1,5 +1,6 @@
 package com.modelbox;
 
+import com.modelbox.controllers.loginController;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -17,6 +18,11 @@ public class initialStagePrep extends Application {
         stage.setScene(new Scene(root, 1000, 650));
         stage.setMinWidth(1000);
         stage.setMinHeight(650);
+        stage.setOnCloseRequest(event -> {
+            if (loginController.activeLogin.getMongoDatabase() != null) {
+                loginController.activeLogin.getMongoClient().close();
+            }
+        });
         stage.show();
     }
 }
