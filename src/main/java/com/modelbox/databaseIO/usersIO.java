@@ -356,6 +356,17 @@ public class usersIO {
         }
     }
 
+    //*************************************************** DELETE USER METHOD *****************************************//
+
+    public static void deleteUser () {
+        try{
+            usersCollection.deleteOne(eq("owner_id", usersIO.getOwnerID()));
+        }catch(Throwable throwable) {
+            throwable.printStackTrace();
+        }
+
+    }
+
     //*************************************************** UTILITY METHODS ********************************************//
 
     /**
