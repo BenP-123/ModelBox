@@ -1,59 +1,61 @@
 com/modelbox/auth/changeEmail.java
  com.modelbox.auth.changeEmail
-com/modelbox/modelboxApp.java
- com.modelbox.modelboxApp
-com/modelbox/controllers/forgotPasswordController.java
- com.modelbox.controllers.forgotPasswordController
+com/modelbox/databaseIO/usersIO.java
+ com.modelbox.databaseIO.usersIO
+ com.modelbox.databaseIO.usersIO$1
+com/modelbox/controllers/dashboardController.java
+ com.modelbox.controllers.dashboardController
 com/modelbox/auth/logIn.java
  com.modelbox.auth.logIn
 com/modelbox/controllers/createAccountController.java
  com.modelbox.controllers.createAccountController
-com/modelbox/controllers/resetpasswordSentController.java
- com.modelbox.controllers.resetpasswordSentController
+com/modelbox/auth/deleteAccount.java
+ com.modelbox.auth.deleteAccount
 com/modelbox/controllers/accountCreatedController.java
  com.modelbox.controllers.accountCreatedController
+com/modelbox/controllers/resetpasswordSentController.java
+ com.modelbox.controllers.resetpasswordSentController
+com/modelbox/controllers/myModelsController.java
+ com.modelbox.controllers.myModelsController
+ com.modelbox.controllers.myModelsController$1
+ com.modelbox.controllers.myModelsController$2
+ com.modelbox.controllers.myModelsController$3
 com/modelbox/databaseIO/subscribers.java
  com.modelbox.databaseIO.subscribers
  com.modelbox.databaseIO.subscribers$ObservableSubscriber
  com.modelbox.databaseIO.subscribers$OperationSubscriber
  com.modelbox.databaseIO.subscribers$PrintDocumentSubscriber
  com.modelbox.databaseIO.subscribers$PrintSubscriber
-com/modelbox/auth/createAccount.java
- com.modelbox.auth.createAccount
 com/modelbox/auth/forgotPassword.java
  com.modelbox.auth.forgotPassword
+com/modelbox/controllers/editPopUpController.java
+ com.modelbox.controllers.editPopUpController
 com/modelbox/controllers/profileController.java
  com.modelbox.controllers.profileController
 com/modelbox/controllers/settingsController.java
  com.modelbox.controllers.settingsController
-com/modelbox/auth/logOut.java
- com.modelbox.auth.logOut
-com/modelbox/initialStagePrep.java
- com.modelbox.initialStagePrep
-com/modelbox/databaseIO/usersIO.java
- com.modelbox.databaseIO.usersIO
- com.modelbox.databaseIO.usersIO$1
+com/modelbox/modelboxApp.java
+ com.modelbox.modelboxApp
 com/modelbox/databaseIO/modelsIO.java
  com.modelbox.databaseIO.modelsIO
  com.modelbox.databaseIO.modelsIO$1
-com/modelbox/controllers/previewPopUpController.java
- com.modelbox.controllers.previewPopUpController
- com.modelbox.controllers.previewPopUpController$1
- com.modelbox.controllers.previewPopUpController$2
-com/modelbox/controllers/myModelsController.java
- com.modelbox.controllers.myModelsController
- com.modelbox.controllers.myModelsController$1
- com.modelbox.controllers.myModelsController$2
- com.modelbox.controllers.myModelsController$3
-com/modelbox/controllers/dashboardController.java
- com.modelbox.controllers.dashboardController
+com/modelbox/controllers/forgotPasswordController.java
+ com.modelbox.controllers.forgotPasswordController
 com/modelbox/controllers/verifyModelsController.java
  com.modelbox.controllers.verifyModelsController
  com.modelbox.controllers.verifyModelsController$1
  com.modelbox.controllers.verifyModelsController$2
+com/modelbox/auth/createAccount.java
+ com.modelbox.auth.createAccount
 com/modelbox/controllers/uploadModelsController.java
  com.modelbox.controllers.uploadModelsController
-com/modelbox/controllers/editPopUpController.java
- com.modelbox.controllers.editPopUpController
+com/modelbox/initialStagePrep.java
+ com.modelbox.initialStagePrep
+com/modelbox/controllers/previewPopUpController.java
+ com.modelbox.controllers.previewPopUpController
+ com.modelbox.controllers.previewPopUpController$1
+ com.modelbox.controllers.previewPopUpController$2
+com/modelbox/auth/logOut.java
+ com.modelbox.auth.logOut
 com/modelbox/controllers/loginController.java
  com.modelbox.controllers.loginController
