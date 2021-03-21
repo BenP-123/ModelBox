@@ -19,7 +19,7 @@ public class initialStagePrep extends Application {
         stage.setMinWidth(1000);
         stage.setMinHeight(650);
         stage.setOnCloseRequest(event -> {
-            if (loginController.activeLogin.getMongoDatabase() != null) {
+            if (loginController.activeLogin != null) {
                 loginController.activeLogin.getMongoClient().close();
             }
         });
