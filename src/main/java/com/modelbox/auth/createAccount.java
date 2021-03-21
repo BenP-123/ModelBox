@@ -66,6 +66,9 @@ public final class createAccount {
         } else if (!doPasswordsMatch()) {
             createAccountErrorMessage = "Passwords do not match!";
             return false;
+        } else if(!isPasswordValidLength()){
+            createAccountErrorMessage = "Password must be at least 6 to 128 characters long.";
+            return false;
         } else if (!isEmailValid()) {
             createAccountErrorMessage = "Provided email address is invalid.";
             return false;
@@ -87,6 +90,10 @@ public final class createAccount {
                 && (!getEmailAddress().equals(""))
                 && (!getPassword().equals(""))
                 && (!getConfirmPassword().equals(""));
+    }
+
+    public boolean isPasswordValidLength(){
+        return (getPassword().length() >= 6 && getPassword().length() <= 128);
     }
 
     /**
