@@ -1,6 +1,9 @@
 package com.modelbox.auth;
 
 import com.modelbox.databaseIO.usersIO;
+import javafx.concurrent.Worker;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 
 public class deleteAccount {
 
@@ -10,7 +13,19 @@ public class deleteAccount {
 
     public int deleteUsersAccount() {
         try {
-            usersIO.deleteUser();
+            WebView browser = new WebView();
+            WebEngine engine = browser.getEngine();
+
+            engine.getLoadWorker().stateProperty().addListener((obs, oldValue, newValue) -> {
+                if (newValue == Worker.State.SUCCEEDED) {
+                    //String functionCall = "sendDeleteAccountConfirmation(\"" + emailAddress + "\");";
+                    //engine.executeScript(functionCall);
+                }
+            });
+
+            // Load the Realm Web SDK and Delete Account Confirmation Script
+            engine.load("https://modelbox-vqzyc.mongodbstitch.com/delete-account/index.html");
+
             return 0;
         } catch (Exception exception){
             exception.printStackTrace();

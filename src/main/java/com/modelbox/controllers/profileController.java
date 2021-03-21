@@ -131,10 +131,6 @@ public class profileController {
                 usersIO.setLastName(lastNameTextField.getText());
             }
 
-            /*if(!(emailAddressTextField.getText().equals(usersIO.getEmailAddress()))){
-                usersIO.setEmailAddress(emailAddressTextField.getText());
-            }*/
-
             if(!(bioTextArea.getText().equals(usersIO.getProfileBio()))) {
                 usersIO.setProfileBio(bioTextArea.getText());
             }

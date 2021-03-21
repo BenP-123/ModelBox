@@ -6,16 +6,13 @@ import com.mongodb.reactivestreams.client.MongoCollection;
 import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
-import javafx.scene.shape.Circle;
 import org.bson.BsonBinary;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bson.types.Binary;
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
-
 import java.io.ByteArrayInputStream;
-import java.util.ArrayList;
 
 import static com.mongodb.client.model.Filters.eq;
 
@@ -226,7 +223,9 @@ public class usersIO {
             if(found != null){
                 Bson updatedValue = new Document("emailAddress", email);
                 Bson updatedOperation = new Document("$set", updatedValue);
-                usersCollection.updateOne(found, updatedOperation);
+                subscribers.OperationSubscriber<UpdateResult> updateOneSubscriber = new subscribers.OperationSubscriber<>();
+                usersCollection.updateOne(found, updatedOperation).subscribe(updateOneSubscriber);
+                updateOneSubscriber.await();
             }
 
         } catch (Throwable throwable) {
@@ -252,7 +251,9 @@ public class usersIO {
             if(found != null){
                 Bson updatedValue = new Document("displayName", displayName);
                 Bson updatedOperation = new Document("$set", updatedValue);
-                usersCollection.updateOne(found, updatedOperation);
+                subscribers.OperationSubscriber<UpdateResult> updateOneSubscriber = new subscribers.OperationSubscriber<>();
+                usersCollection.updateOne(found, updatedOperation).subscribe(updateOneSubscriber);
+                updateOneSubscriber.await();;
             }
 
         } catch (Throwable throwable) {
@@ -276,7 +277,9 @@ public class usersIO {
             if(found != null){
                 Bson updatedValue = new Document("firstName", firstName);
                 Bson updatedOperation = new Document("$set", updatedValue);
-                usersCollection.updateOne(found, updatedOperation);
+                subscribers.OperationSubscriber<UpdateResult> updateOneSubscriber = new subscribers.OperationSubscriber<>();
+                usersCollection.updateOne(found, updatedOperation).subscribe(updateOneSubscriber);
+                updateOneSubscriber.await();;
             }
 
         } catch (Throwable throwable) {
@@ -300,7 +303,9 @@ public class usersIO {
             if(found != null){
                 Bson updatedValue = new Document("lastName", lastName);
                 Bson updatedOperation = new Document("$set", updatedValue);
-                usersCollection.updateOne(found, updatedOperation);
+                subscribers.OperationSubscriber<UpdateResult> updateOneSubscriber = new subscribers.OperationSubscriber<>();
+                usersCollection.updateOne(found, updatedOperation).subscribe(updateOneSubscriber);
+                updateOneSubscriber.await();;
             }
 
         } catch (Throwable throwable) {
@@ -324,7 +329,9 @@ public class usersIO {
             if(found != null){
                 Bson updatedValue = new Document("profileBio", bioStatement);
                 Bson updatedOperation = new Document("$set", updatedValue);
-                usersCollection.updateOne(found, updatedOperation);
+                subscribers.OperationSubscriber<UpdateResult> updateOneSubscriber = new subscribers.OperationSubscriber<>();
+                usersCollection.updateOne(found, updatedOperation).subscribe(updateOneSubscriber);
+                updateOneSubscriber.await();;
             }
 
         } catch (Throwable throwable) {
@@ -348,23 +355,14 @@ public class usersIO {
             if(found != null){
                 Bson updatedValue = new Document("profilePicture", new BsonBinary(profilePic));
                 Bson updatedOperation = new Document("$set", updatedValue);
-                usersCollection.updateOne(found, updatedOperation);
+                subscribers.OperationSubscriber<UpdateResult> updateOneSubscriber = new subscribers.OperationSubscriber<>();
+                usersCollection.updateOne(found, updatedOperation).subscribe(updateOneSubscriber);
+                updateOneSubscriber.await();;
             }
 
         } catch (Throwable throwable) {
             throwable.printStackTrace();
         }
-    }
-
-    //*************************************************** DELETE USER METHOD *****************************************//
-
-    public static void deleteUser () {
-        try{
-            usersCollection.deleteOne(eq("owner_id", usersIO.getOwnerID()));
-        }catch(Throwable throwable) {
-            throwable.printStackTrace();
-        }
-
     }
 
     //*************************************************** UTILITY METHODS ********************************************//

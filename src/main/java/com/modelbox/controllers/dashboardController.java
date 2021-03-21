@@ -2,13 +2,11 @@ package com.modelbox.controllers;
 
 import com.modelbox.databaseIO.modelsIO;
 import com.modelbox.databaseIO.usersIO;
-import com.modelbox.auth.logOut;
 import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.fxml.FXML;
@@ -189,8 +187,6 @@ public class dashboardController {
     @FXML
     private void logOutBtnClicked(Event event){
         try {
-            logOut activeLogOut = new logOut();
-            activeLogOut.logUserOut();
             logInViewLoader = new FXMLLoader(getClass().getResource("/views/login.fxml"));
             Parent root = logInViewLoader.load();
             logInView = logInViewLoader.getController();

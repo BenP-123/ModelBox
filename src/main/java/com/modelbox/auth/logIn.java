@@ -46,8 +46,8 @@ public class logIn {
 
             // Create the connection
             this.setMongoClient(MongoClients.create(clientSettings));
-            // Access the application database
 
+            // Access the application database
             this.setMongoDatabase(mongoClient.getDatabase("modelboxApp"));
             initializeNewAccount();
 
