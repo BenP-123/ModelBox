@@ -1,7 +1,6 @@
 package com.modelbox.controllers;
 
-import com.modelbox.databaseIO.modelsIO;
-import com.modelbox.databaseIO.usersIO;
+import com.modelbox.app;
 import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import com.interactivemesh.jfx.importer.stl.StlMeshImporter;
 import org.bson.Document;
+import org.bson.types.ObjectId;
 
 
 public class dashboardController {
@@ -22,25 +22,15 @@ public class dashboardController {
     public List<File> browseModelsList;
     public List<Document> verifyModelsList;
     public StlMeshImporter stlImporter;
-    public myModelsController myModelsView;
-    public previewPopUpController previewPopUpView;
-    public editPopUpController editPopUpView;
-    public uploadModelsController uploadModelsView;
-    public verifyModelsController verifyModelsView;
-    public profileController profileView;
-    public settingsController settingsView;
-    public FXMLLoader dashboardViewLoader;
-    private loginController logInView;
-    private FXMLLoader logInViewLoader;
-
 
     @FXML public AnchorPane dashboardAnchorPane;
     @FXML public AnchorPane dashViewsAnchorPane;
     @FXML private Pane navigationMenuPane;
-    @FXML private Pane accountMenuPane;
-    @FXML private TextField displayNameTextField;
-    @FXML private TextField emailAddressTextField;
-    @FXML private Button logOutBtn;
+    @FXML public Pane accountMenuPane;
+    @FXML private Pane notificationsPane;
+    @FXML public TextField displayNameTextField;
+    @FXML public TextField emailAddressTextField;
+    @FXML public Button logOutBtn;
 
 
     /**
@@ -63,6 +53,8 @@ public class dashboardController {
      */
     @FXML
     private void navigationMenuBtnClicked(Event event){
+        accountMenuPane.setVisible(false);
+        notificationsPane.setVisible(false);
         navigationMenuPane.setVisible(!navigationMenuPane.visibleProperty().get());
     }
 
@@ -73,11 +65,31 @@ public class dashboardController {
      */
     @FXML
     private void accountMenuBtnClicked(Event event){
-        if(loginController.activeLogin.getMongoDatabase() != null) {
-            displayNameTextField.setText(usersIO.getDisplayName());
-            emailAddressTextField.setText(usersIO.getEmailAddress());
+        try {
+            if (accountMenuPane.visibleProperty().get()) {
+                accountMenuPane.setVisible(false);
+            } else {
+                accountMenuPane.setVisible(false);
+                notificationsPane.setVisible(false);
+                String functionCall = String.format("ModelBox.UserIO.getCurrentUserAccountMenu();");
+                app.mongoApp.eval(functionCall);
+            }
+        } catch(Exception exception){
+            // Handle errors
+            exception.printStackTrace();
         }
-        accountMenuPane.setVisible(!accountMenuPane.visibleProperty().get());
+    }
+
+    /**
+     *	Toggles the notifications visibility
+     *
+     *  @param  event a JavaFX Event
+     */
+    @FXML
+    private void notificationsBtnClicked(Event event){
+        navigationMenuPane.setVisible(false);
+        accountMenuPane.setVisible(false);
+        notificationsPane.setVisible(!notificationsPane.visibleProperty().get());
     }
 
     /************************************************* UI REDIRECT METHODS ********************************************/
@@ -89,21 +101,21 @@ public class dashboardController {
      */
     @FXML
     private void myModelsBtnClicked(Event event){
-        navigationMenuPane.setVisible(false);
-
         try {
-            dashboardViewLoader = new FXMLLoader(getClass().getResource("/views/myModels.fxml"));
-            Parent root = dashboardViewLoader.load();
-            myModelsView = dashboardViewLoader.getController();
+            navigationMenuPane.setVisible(false);
+
+            // Show my models view
+            app.viewLoader = new FXMLLoader(getClass().getResource("/views/myModels/myModels.fxml"));
+            Parent root = app.viewLoader.load();
+            app.myModelsView = app.viewLoader.getController();
+            app.dashboard.dashViewsAnchorPane.getChildren().setAll(root);
 
             // Asynchronously populate the my models view and show appropriate nodes when ready
-            modelsIO.getAllModelsFromCurrentUser();
-
-            dashViewsAnchorPane.getChildren().setAll(root);
-        } catch (Exception exception){
-            // Handle errors
+            app.models.getAllModelsFromCurrentUser();
+        } catch (Exception exception) {
             exception.printStackTrace();
         }
+
     }
 
     /**
@@ -113,15 +125,15 @@ public class dashboardController {
      */
     @FXML
     private void uploadModelsBtnClicked(Event event){
-        navigationMenuPane.setVisible(false);
-
         try {
-            dashboardViewLoader = new FXMLLoader(getClass().getResource("/views/uploadModels.fxml"));
-            Parent root = dashboardViewLoader.load();
-            uploadModelsView = dashboardViewLoader.getController();
-            dashViewsAnchorPane.getChildren().setAll(root);
-        } catch (Exception exception){
-            // Handle errors
+            navigationMenuPane.setVisible(false);
+
+            // Show upload models view
+            app.viewLoader = new FXMLLoader(getClass().getResource("/views/uploadModels/uploadModels.fxml"));
+            Parent root = app.viewLoader.load();
+            app.uploadModelsView = app.viewLoader.getController();
+            app.dashboard.dashViewsAnchorPane.getChildren().setAll(root);
+        } catch (Exception exception) {
             exception.printStackTrace();
         }
     }
@@ -133,22 +145,22 @@ public class dashboardController {
      */
     @FXML
     private void accountProfileBtnClicked(Event event){
-        accountMenuPane.setVisible(false);
-
-        // Show profile view
         try {
-            dashboardViewLoader = new FXMLLoader(getClass().getResource("/views/profile.fxml"));
-            Parent root = dashboardViewLoader.load();
-            profileView = dashboardViewLoader.getController();
-            dashViewsAnchorPane.getChildren().setAll(root);
+            accountMenuPane.setVisible(false);
 
-            // Asynchronously populate the profile view with database info and show the info when ready
-            usersIO.getAllInfoFromCurrentUser();
+            // Show profile view
+            app.viewLoader = new FXMLLoader(getClass().getResource("/views/account/profile.fxml"));
+            Parent root = app.viewLoader.load();
+            app.profileView = app.viewLoader.getController();
+            app.dashboard.dashViewsAnchorPane.getChildren().setAll(root);
 
-        } catch (Exception exception){
-            // Handle errors
+            // Load data
+            String functionCall = String.format("ModelBox.UserIO.getCurrentUserProfile();");
+            app.mongoApp.eval(functionCall);
+        } catch (Exception exception) {
             exception.printStackTrace();
         }
+
     }
 
     /**
@@ -158,23 +170,19 @@ public class dashboardController {
      */
     @FXML
     private void accountSettingsBtnClicked(Event event){
-        accountMenuPane.setVisible(false);
-
-        // Show settings view
         try {
-            dashboardViewLoader = new FXMLLoader(getClass().getResource("/views/settings.fxml"));
-            Parent root = dashboardViewLoader.load();
-            settingsView = dashboardViewLoader.getController();
+            accountMenuPane.setVisible(false);
 
-            // Modify UI accordingly
-            if(loginController.activeLogin.getMongoDatabase() != null) {
-                settingsView.displayNameTextField.setText(usersIO.getDisplayName());
-                settingsView.displaySettingsPicture();
-            }
+            // Show settings view
+            app.viewLoader = new FXMLLoader(getClass().getResource("/views/account/settings.fxml"));
+            Parent root = app.viewLoader.load();
+            app.settingsView = app.viewLoader.getController();
+            app.dashboard.dashViewsAnchorPane.getChildren().setAll(root);
 
-            dashViewsAnchorPane.getChildren().setAll(root);
-        } catch (Exception exception){
-            // Handle errors
+            // Load data
+            String functionCall = String.format("ModelBox.UserIO.getCurrentUserSettings();");
+            app.mongoApp.eval(functionCall);
+        } catch (Exception exception) {
             exception.printStackTrace();
         }
     }
@@ -187,10 +195,8 @@ public class dashboardController {
     @FXML
     private void logOutBtnClicked(Event event){
         try {
-            logInViewLoader = new FXMLLoader(getClass().getResource("/views/login.fxml"));
-            Parent root = logInViewLoader.load();
-            logInView = logInViewLoader.getController();
-            logOutBtn.getScene().setRoot(root);
+            String functionCall = String.format("ModelBox.Authentication.logOutCurrentUser();");
+            app.mongoApp.eval(functionCall);
         } catch (Exception exception){
             // Handle errors
             exception.printStackTrace();
@@ -226,7 +232,7 @@ public class dashboardController {
     public int getDocumentIndexByModelID(List<Document> list, String modelID) {
         int index = 0;
         for (int i = 0; i < list.size(); i++) {
-            if (modelID.equals(modelsIO.getModelID(list.get(i)))) {
+            if (modelID.equals(((ObjectId) list.get(i).get("_id")).toString())) {
                 index = i;
             }
         }

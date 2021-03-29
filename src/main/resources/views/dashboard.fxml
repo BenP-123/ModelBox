@@ -15,7 +15,7 @@
    <children>
       <AnchorPane id="menuBarAnchorPane" fx:id="menuBarAnchorPane" prefHeight="40.0" prefWidth="1000.0" style="-fx-background-color: #17181a;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Button id="navigationMenuBtn" fx:id="navigationMenuBtn" mnemonicParsing="false" onAction="#navigationMenuBtnClicked" prefHeight="40.0" prefWidth="60.0" style="-fx-background-color: none;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Button id="navigationMenuBtn" fx:id="navigationMenuBtn" mnemonicParsing="false" onAction="#navigationMenuBtnClicked" prefHeight="40.0" prefWidth="50.0" style="-fx-background-color: none;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <graphic>
                   <ImageView id="navigationMenuBtnIcon" fx:id="navigationMenuBtnIcon" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -24,11 +24,20 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button id="accountMenuBtn" fx:id="accountMenuBtn" mnemonicParsing="false" onAction="#accountMenuBtnClicked" prefHeight="40.0" prefWidth="60.0" style="-fx-background-color: none;" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Button id="accountMenuBtn" fx:id="accountMenuBtn" mnemonicParsing="false" onAction="#accountMenuBtnClicked" prefHeight="40.0" prefWidth="50.0" style="-fx-background-color: none; -fx-background-insets: 0;" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <graphic>
                   <ImageView id="accountMenuBtnIcon" fx:id="accountMenuBtnIcon" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/user-account.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button id="notificationsBtn" fx:id="notificationsBtn" layoutX="950.0" layoutY="10.0" mnemonicParsing="false" onAction="#notificationsBtnClicked" prefHeight="40.0" prefWidth="50.0" style="-fx-background-color: none;" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="0.0">
+               <graphic>
+                  <ImageView id="notificationsBtnIcon" fx:id="notificationsBtnIcon" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/notifications-btn.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -48,7 +57,7 @@
                   <Font name="Arial" size="12.0" />
                </font>
             </Text>
-            <Line id="navMenuIndicator" endX="60.0" stroke="WHITE" strokeWidth="1.25" />
+            <Line id="navMenuIndicator" endX="50.0" stroke="WHITE" strokeWidth="1.25" />
             <Line id="navMenuDivider1" endX="275.0" endY="1.52587890625E-5" layoutX="25.0" layoutY="100.0" stroke="WHITE" strokeWidth="1.25" />
             <Line id="navMenuDivider2" endX="275.0" endY="1.52587890625E-5" layoutX="27.0" layoutY="140.0" stroke="WHITE" strokeWidth="1.25" />
             <Button id="myModelsBtn" fx:id="myModelsBtn" alignment="BASELINE_LEFT" graphicTextGap="20.0" layoutX="25.0" layoutY="71.0" mnemonicParsing="false" onAction="#myModelsBtnClicked" prefHeight="25.0" prefWidth="275.0" style="-fx-background-color: none;" text="My Models" textFill="WHITE">
@@ -79,7 +88,7 @@
       </Pane>
       <Pane id="accountMenuPane" fx:id="accountMenuPane" layoutX="754.0" layoutY="51.0" prefHeight="225.0" prefWidth="300.0" style="-fx-background-color: #17181a; -fx-background-radius: 0 0 0 25;" visible="false" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
          <children>
-            <Line id="accountMenuIndicator" endX="60.0" layoutX="240.0" stroke="WHITE" strokeWidth="1.25" />
+            <Line id="accountMenuIndicator" endX="50.0" layoutX="250.0" stroke="WHITE" strokeWidth="1.25" />
             <TextField id="displayNameTextField" fx:id="displayNameTextField" editable="false" layoutX="8.0" layoutY="7.0" prefHeight="37.0" prefWidth="290.0" style="-fx-background-color: #17181A; -fx-text-inner-color: #ffffff;" text="Kermit the Frog">
                <font>
                   <Font name="Arial" size="20.0" />
@@ -127,6 +136,24 @@
                   <Font name="Arial" size="14.0" />
                </font>
             </Button>
+         </children>
+      </Pane>
+      <Pane id="notificationsPane" fx:id="notificationsPane" layoutX="710.0" layoutY="50.0" prefHeight="225.0" prefWidth="300.0" style="-fx-background-color: #17181a; -fx-background-radius: 0 0 0 25;" visible="false" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
+         <children>
+            <Line id="accountMenuIndicator" endX="50.0" layoutX="200.0" stroke="WHITE" strokeWidth="1.25" />
+            <Text fill="#fefefe" layoutX="22.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No new notifications.">
+               <font>
+                  <Font name="Arial" size="15.0" />
+               </font>
+            </Text>
+            <TextField id="displayNameTextField" fx:id="displayNameTextField1" editable="false" layoutX="8.0" layoutY="7.0" prefHeight="37.0" prefWidth="290.0" style="-fx-background-color: #17181A; -fx-text-inner-color: #ffffff;" text="Notifications">
+               <font>
+                  <Font name="Arial" size="20.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </TextField>
          </children>
       </Pane>
    </children>

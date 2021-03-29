@@ -1,0 +1,201 @@
+package com.modelbox.controllers.uploadModels;
+
+import com.github.robtimus.net.protocol.data.DataURLs;
+import com.modelbox.app;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.shape.MeshView;
+import javafx.scene.shape.TriangleMesh;
+import org.apache.commons.io.FilenameUtils;
+import org.bson.Document;
+import org.bson.types.Binary;
+import org.bson.types.ObjectId;
+
+public class verifyModelsController {
+
+    @FXML public FlowPane verifyModelsFlowPane;
+    @FXML public AnchorPane verifyModelsAnchorPane;
+
+    /**
+     *	Uploads the selected and verified models to the database and generates the preview cards on the my models view
+     *
+     *  @param event a JavaFX Event
+     */
+    @FXML
+    private void uploadModelsBtnClicked(Event event){
+        try {
+            // Store models to the database
+            for (Document model : app.dashboard.verifyModelsList) {
+                app.models.createNewModel(model);
+            }
+
+            // Prep the view
+            app.viewLoader = new FXMLLoader(getClass().getResource("/views/myModels/myModels.fxml"));
+            Parent root = app.viewLoader.load();
+            app.myModelsView = app.viewLoader.getController();
+            app.dashboard.dashViewsAnchorPane.getChildren().setAll(root);
+
+            // Asynchronously populate the my models view and show appropriate nodes when ready
+            app.models.getAllModelsFromCurrentUser();
+
+        } catch (Exception exception){
+            // Handle errors
+            exception.printStackTrace();
+        }
+
+    }
+
+    /**
+     *	Populates the UI with a single preview card for all of a user's selected 3D models
+     *
+     *  @param  model the 3D model document selected by the user
+     */
+    public void addVerifyModelsPreviewCard(Document model){
+        try {
+            String previousValue = System.getProperty("java.protocol.handler.pkgs") == null ? "" : System.getProperty("java.protocol.handler.pkgs")+"|";
+            System.setProperty("java.protocol.handler.pkgs", previousValue + "com.github.robtimus.net.protocol");
+
+            app.dashboard.stlImporter.read(DataURLs.builder(((Binary) model.get("modelFile")).getData()).withBase64Data(true).withMediaType("model/stl").build());
+        } catch (Exception exception) {
+            // Handle exceptions
+            exception.printStackTrace();
+        }
+
+        // Create the models so that it can go in each model card that's generated
+        TriangleMesh modelMesh = app.dashboard.stlImporter.getImport();
+        MeshView modelMeshView = new MeshView(modelMesh);
+
+        // Create a cancel btn for each model card generated
+        ImageView cancelUploadIcon = new ImageView("/images/delete-btn.png");
+        cancelUploadIcon.setFitHeight(25);
+        cancelUploadIcon.setFitWidth(25);
+        Button cancelUploadBtn = new Button();
+        cancelUploadBtn.setGraphic(cancelUploadIcon);
+        cancelUploadBtn.setStyle("-fx-background-color: none;");
+        cancelUploadBtn.setOnAction(cancelModelUploadBtnClicked);
+
+        // Create an edit btn for each model card generated
+        ImageView editModelIcon = new ImageView("/images/edit-btn.png");
+        editModelIcon.setFitHeight(25);
+        editModelIcon.setFitWidth(25);
+        Button editModelBtn = new Button();
+        editModelBtn.setGraphic(editModelIcon);
+        editModelBtn.setStyle("-fx-background-color: none;");
+        editModelBtn.setOnAction(editModelBtnClicked);
+
+        // Manipulate the features of the model card and the arrangement of its internals
+        StackPane modelMeshPane = new StackPane(modelMeshView, cancelUploadBtn, editModelBtn);
+        modelMeshPane.setId(((ObjectId) model.get("_id")).toString());
+        modelMeshPane.setStyle("-fx-background-color: #eeeeee; -fx-background-radius: 8 8 8 8");
+        modelMeshPane.setMinWidth(150);
+        modelMeshPane.setMinHeight(250);
+        modelMeshPane.setMaxWidth(150);
+        modelMeshPane.setMaxHeight(250);
+        StackPane.setAlignment(modelMeshView, Pos.CENTER);
+        StackPane.setAlignment(cancelUploadBtn, Pos.TOP_RIGHT);
+        StackPane.setAlignment(editModelBtn, Pos.BOTTOM_RIGHT);
+
+        //Add the model card to the view
+        verifyModelsFlowPane.getChildren().add(modelMeshPane);
+
+    }
+
+    /********************************************* PREVIEW CARD HANDLERS **********************************************/
+
+
+    EventHandler<ActionEvent> cancelModelUploadBtnClicked = new EventHandler<ActionEvent>() {
+
+        /**
+         *   Deletes a model preview card from the verify models view and removes the model from the list of models to be
+         *   uploaded to the database
+         *
+         *   @param event a JavaFX ActionEvent
+         */
+        @Override
+        public void handle(ActionEvent event) {
+            StackPane currentModel = (StackPane) ((Button) event.getSource()).getParent();
+            verifyModelsFlowPane.getChildren().remove(currentModel);
+            app.dashboard.verifyModelsList.remove(
+                    app.dashboard.verifyModelsList.get(
+                            app.dashboard.getDocumentIndexByModelID(
+                                    app.dashboard.verifyModelsList, currentModel.getId()
+                            )
+                    )
+            );
+
+            if (app.dashboard.verifyModelsList.isEmpty()) {
+                try {
+                    app.viewLoader = new FXMLLoader(getClass().getResource("/views/uploadModels/uploadModels.fxml"));
+                    Parent root = app.viewLoader.load();
+                    app.uploadModelsView = app.viewLoader.getController();
+                    app.dashboard.dashViewsAnchorPane.getChildren().setAll(root);
+                } catch (Exception exception){
+                    // Handle errors
+                    exception.printStackTrace();
+                }
+            }
+        }
+    };
+
+    EventHandler<ActionEvent> editModelBtnClicked = new EventHandler<ActionEvent>() {
+
+        /**
+         *   Allows the user to edit the attributes of the selected model
+         *
+         *   @param event a JavaFX ActionEvent
+         */
+        @Override
+        public void handle(ActionEvent event) {
+            StackPane currentModel = (StackPane) ((Button) event.getSource()).getParent();
+            Parent editRoot = null;
+
+            // Load an edit pop-up window
+            try {
+                app.viewLoader = new FXMLLoader(getClass().getResource("/views/uploadModels/editPopUp.fxml"));
+                editRoot = app.viewLoader.load();
+                app.editPopUpView = app.viewLoader.getController();
+            } catch (Exception exception) {
+                // Handle errors
+                exception.printStackTrace();
+            }
+
+            // Load the model file from the verify models list
+            int modelIndex = app.dashboard.getDocumentIndexByModelID(app.dashboard.verifyModelsList, currentModel.getId());
+            byte[] currentModelFile = ((Binary) app.dashboard.verifyModelsList.get(modelIndex).get("modelFile")).getData();
+
+            try {
+                app.dashboard.stlImporter.read(DataURLs.builder(currentModelFile).withBase64Data(true).withMediaType("model/stl").build());
+            } catch (Exception exception) {
+                // Handle errors
+                exception.printStackTrace();
+            }
+
+            // Create the model in JavaFX
+            TriangleMesh currentModelMesh = app.dashboard.stlImporter.getImport();
+            MeshView currentModelMeshView = new MeshView(currentModelMesh);
+
+            app.editPopUpView.editModelStackPane.getChildren().add(currentModelMeshView);
+            StackPane.setAlignment(currentModelMeshView, Pos.CENTER);
+
+            // Set the modelNameText and modelTypeText labels
+            String currentModelName = (String) app.dashboard.verifyModelsList.get(modelIndex).get("modelName");
+            app.editPopUpView.modelNameTextField.setText(FilenameUtils.removeExtension(currentModelName));
+            app.editPopUpView.modelTypeText.setText(FilenameUtils.getExtension(currentModelName).toUpperCase());
+
+            app.editPopUpView.editInfoAnchorPane.setId(currentModel.getId());
+
+            // Actually launch the edit pop-up
+            verifyModelsAnchorPane.getChildren().add(editRoot);
+        }
+    };
+}

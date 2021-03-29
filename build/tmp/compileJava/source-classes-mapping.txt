@@ -1,61 +1,51 @@
-com/modelbox/auth/changeEmail.java
- com.modelbox.auth.changeEmail
-com/modelbox/databaseIO/usersIO.java
- com.modelbox.databaseIO.usersIO
- com.modelbox.databaseIO.usersIO$1
+com/modelbox/mongo/subscribers.java
+ com.modelbox.mongo.subscribers
+ com.modelbox.mongo.subscribers$ObservableSubscriber
+ com.modelbox.mongo.subscribers$OperationSubscriber
+ com.modelbox.mongo.subscribers$PrintDocumentSubscriber
+ com.modelbox.mongo.subscribers$PrintSubscriber
+com/modelbox/mongo/errorBridge.java
+ com.modelbox.mongo.errorBridge
+com/modelbox/controllers/uploadModels/uploadModelsController.java
+ com.modelbox.controllers.uploadModels.uploadModelsController
+com/modelbox/controllers/auth/forgotPasswordController.java
+ com.modelbox.controllers.auth.forgotPasswordController
+com/modelbox/controllers/account/settingsController.java
+ com.modelbox.controllers.account.settingsController
+com/modelbox/init.java
+ com.modelbox.init
+com/modelbox/controllers/auth/createAccountController.java
+ com.modelbox.controllers.auth.createAccountController
+com/modelbox/controllers/account/profileController.java
+ com.modelbox.controllers.account.profileController
+com/modelbox/controllers/uploadModels/editPopUpController.java
+ com.modelbox.controllers.uploadModels.editPopUpController
+com/modelbox/controllers/auth/loginController.java
+ com.modelbox.controllers.auth.loginController
+com/modelbox/mongo/usersBridge.java
+ com.modelbox.mongo.usersBridge
 com/modelbox/controllers/dashboardController.java
  com.modelbox.controllers.dashboardController
-com/modelbox/auth/logIn.java
- com.modelbox.auth.logIn
-com/modelbox/auth/logOut.java
- com.modelbox.auth.logOut
-com/modelbox/auth/deleteAccount.java
- com.modelbox.auth.deleteAccount
-com/modelbox/controllers/accountCreatedController.java
- com.modelbox.controllers.accountCreatedController
-com/modelbox/controllers/resetpasswordSentController.java
- com.modelbox.controllers.resetpasswordSentController
-com/modelbox/controllers/myModelsController.java
- com.modelbox.controllers.myModelsController
- com.modelbox.controllers.myModelsController$1
- com.modelbox.controllers.myModelsController$2
- com.modelbox.controllers.myModelsController$3
-com/modelbox/databaseIO/subscribers.java
- com.modelbox.databaseIO.subscribers
- com.modelbox.databaseIO.subscribers$ObservableSubscriber
- com.modelbox.databaseIO.subscribers$OperationSubscriber
- com.modelbox.databaseIO.subscribers$PrintDocumentSubscriber
- com.modelbox.databaseIO.subscribers$PrintSubscriber
-com/modelbox/auth/forgotPassword.java
- com.modelbox.auth.forgotPassword
-com/modelbox/controllers/editPopUpController.java
- com.modelbox.controllers.editPopUpController
-com/modelbox/controllers/profileController.java
- com.modelbox.controllers.profileController
-com/modelbox/controllers/settingsController.java
- com.modelbox.controllers.settingsController
-com/modelbox/modelboxApp.java
- com.modelbox.modelboxApp
-com/modelbox/databaseIO/modelsIO.java
- com.modelbox.databaseIO.modelsIO
- com.modelbox.databaseIO.modelsIO$1
-com/modelbox/controllers/forgotPasswordController.java
- com.modelbox.controllers.forgotPasswordController
-com/modelbox/controllers/verifyModelsController.java
- com.modelbox.controllers.verifyModelsController
- com.modelbox.controllers.verifyModelsController$1
- com.modelbox.controllers.verifyModelsController$2
-com/modelbox/controllers/loginController.java
- com.modelbox.controllers.loginController
-com/modelbox/controllers/uploadModelsController.java
- com.modelbox.controllers.uploadModelsController
-com/modelbox/initialStagePrep.java
- com.modelbox.initialStagePrep
-com/modelbox/controllers/previewPopUpController.java
- com.modelbox.controllers.previewPopUpController
- com.modelbox.controllers.previewPopUpController$1
- com.modelbox.controllers.previewPopUpController$2
-com/modelbox/auth/createAccount.java
- com.modelbox.auth.createAccount
-com/modelbox/controllers/createAccountController.java
- com.modelbox.controllers.createAccountController
+com/modelbox/controllers/myModels/myModelsController.java
+ com.modelbox.controllers.myModels.myModelsController
+ com.modelbox.controllers.myModels.myModelsController$1
+ com.modelbox.controllers.myModels.myModelsController$2
+ com.modelbox.controllers.myModels.myModelsController$3
+ com.modelbox.controllers.myModels.myModelsController$4
+com/modelbox/controllers/myModels/previewPopUpController.java
+ com.modelbox.controllers.myModels.previewPopUpController
+ com.modelbox.controllers.myModels.previewPopUpController$1
+ com.modelbox.controllers.myModels.previewPopUpController$2
+com/modelbox/mongo/authBridge.java
+ com.modelbox.mongo.authBridge
+com/modelbox/controllers/uploadModels/verifyModelsController.java
+ com.modelbox.controllers.uploadModels.verifyModelsController
+ com.modelbox.controllers.uploadModels.verifyModelsController$1
+ com.modelbox.controllers.uploadModels.verifyModelsController$2
+com/modelbox/mongo/modelsBridge.java
+ com.modelbox.mongo.modelsBridge
+ com.modelbox.mongo.modelsBridge$1
+com/modelbox/app.java
+ com.modelbox.app
+com/modelbox/controllers/myModels/sharePopUpController.java
+ com.modelbox.controllers.myModels.sharePopUpController
