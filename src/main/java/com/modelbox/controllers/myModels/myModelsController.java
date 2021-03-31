@@ -2,6 +2,7 @@ package com.modelbox.controllers.myModels;
 
 import com.github.robtimus.net.protocol.data.DataURLs;
 import com.modelbox.app;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -24,14 +25,11 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.apache.commons.io.FilenameUtils;
-import org.bson.BsonArray;
-import org.bson.BsonBoolean;
 import org.bson.Document;
 import org.bson.types.Binary;
 import org.bson.types.ObjectId;
-
 import java.util.ArrayList;
-import java.util.function.Consumer;
+
 
 public class myModelsController {
 
@@ -66,7 +64,12 @@ public class myModelsController {
      */
     public void addMyModelsPreviewCard(Document model) {
         try {
-            String previousValue = System.getProperty("java.protocol.handler.pkgs") == null ? "" : System.getProperty("java.protocol.handler.pkgs")+"|";
+            //Make it a little clearer with my else/ if statements
+            String modelOwnerId = (String) model.get("owner_id");
+            String userLoggedInId = app.users.ownerId;
+            Boolean isShared = (Boolean) model.get("isShared");
+
+            String previousValue = System.getProperty("java.protocol.handler.pkgs") == null ? "" : System.getProperty("java.protocol.handler.pkgs") + "|";
             System.setProperty("java.protocol.handler.pkgs", previousValue + "com.github.robtimus.net.protocol");
 
             app.dashboard.stlImporter.read(DataURLs.builder(((Binary) model.get("modelFile")).getData()).withBase64Data(true).withMediaType("model/stl").build());
@@ -103,13 +106,32 @@ public class myModelsController {
             downloadModelBtn.setOnAction(downloadModelBtnClicked);
 
             // Create a share btn for each model card generated
-            ImageView shareModelIcon = ((Boolean) model.get("isShared")) ? new ImageView("/images/multi-user-btn.png") : new ImageView("/images/share-btn.png");
-            shareModelIcon.setFitHeight(25);
-            shareModelIcon.setFitWidth(25);
             Button shareModelBtn = new Button();
-            shareModelBtn.setGraphic(shareModelIcon);
-            shareModelBtn.setStyle("-fx-background-color: none;");
-            shareModelBtn.setOnAction(shareModelBtnClicked);
+            if ((isShared && modelOwnerId.equals(userLoggedInId))) {
+                //Icon if shared by owner to others
+                ImageView shareModelIcon = new ImageView("/images/multi-user-btn.png");
+                shareModelIcon.setFitHeight(25);
+                shareModelIcon.setFitWidth(25);
+                shareModelBtn.setGraphic(shareModelIcon);
+                shareModelBtn.setStyle("-fx-background-color: none;");
+                shareModelBtn.setOnAction(shareModelBtnClicked);
+            } else if (!isShared && modelOwnerId.equals(userLoggedInId)){
+                //Icon if not shared, but belongs to owner
+                ImageView shareModelIcon = new ImageView("/images/share-btn.png");
+                shareModelIcon.setFitHeight(25);
+                shareModelIcon.setFitWidth(25);
+                shareModelBtn.setGraphic(shareModelIcon);
+                shareModelBtn.setStyle("-fx-background-color: none;");
+                shareModelBtn.setOnAction(shareModelBtnClicked);
+            } else {
+                //Icon if shared from another user to currently logged in user.
+                ImageView shareModelIcon = new ImageView("/images/shared-with-usr.png");
+                shareModelIcon.setFitHeight(25);
+                shareModelIcon.setFitWidth(25);
+                shareModelBtn.setGraphic(shareModelIcon);
+                shareModelBtn.setStyle("-fx-background-color: none;");
+                shareModelBtn.setOnAction(shareWithMeBtnClicked);
+            }
 
             // Manipulate the features of the model card and the arrangement of its internals
             StackPane modelMeshPane = new StackPane(modelMeshView, deleteModelBtn, previewModelBtn, downloadModelBtn, shareModelBtn);
@@ -289,6 +311,20 @@ public class myModelsController {
                     new FileChooser.ExtensionFilter("STL File","*.stl"));
             fileSaver.setTitle("Save 3D Model");
             app.models.saveModelFile(currentModel.getId(), (fileSaver.showSaveDialog(app.dashboard.dashboardAnchorPane.getScene().getWindow())).toPath());
+        }
+    };
+
+
+    EventHandler<ActionEvent> shareWithMeBtnClicked = new EventHandler<ActionEvent>() {
+
+        /**
+         * Views information on Models shared with a user
+         *
+         * @param event a JavaFX ActionEvent
+         */
+        @Override
+        public void handle(ActionEvent event) {
+            System.out.println("PlaceHolder Code..");
         }
     };
 }

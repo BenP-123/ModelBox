@@ -2,6 +2,7 @@ package com.modelbox.mongo;
 
 import com.modelbox.app;
 import com.mongodb.BasicDBObject;
+import com.mongodb.client.model.Filters;
 import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.InsertOneResult;
 import com.mongodb.client.result.UpdateResult;
@@ -33,7 +34,7 @@ public class modelsBridge {
      *
      */
     public void getAllModelsFromCurrentUser(){
-        Bson filter = eq("owner_id", app.users.ownerId);
+        Bson filter = Filters.or(eq("owner_id", app.users.ownerId), eq("shared_id", app.users.ownerId));
 
         app.mongoDatabase.runCommand(new Document("find", "models").append("filter", filter).append("limit", 100)).subscribe(new Subscriber<Document>() {
             @Override
