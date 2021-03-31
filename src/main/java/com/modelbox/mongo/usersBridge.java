@@ -1,6 +1,8 @@
 package com.modelbox.mongo;
 
 import com.modelbox.app;
+import com.mongodb.client.model.Aggregates;
+import com.mongodb.client.model.Filters;
 import com.mongodb.client.result.UpdateResult;
 import com.mongodb.reactivestreams.client.MongoCollection;
 import javafx.scene.image.Image;
@@ -11,7 +13,9 @@ import org.bson.conversions.Bson;
 import org.bson.types.Binary;
 
 import java.io.ByteArrayInputStream;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 
 import static com.mongodb.client.model.Filters.eq;
 
@@ -113,5 +117,27 @@ public class usersBridge {
         } catch (Throwable throwable) {
             throwable.printStackTrace();
         }
+    }
+
+
+    public ArrayList getUserInfo(ArrayList collaborators) {
+        Bson filter = Filters.in("owner_id", collaborators);
+
+        subscribers.OperationSubscriber<Document> findSubscriber = new subscribers.OperationSubscriber<>();
+        app.users.usersCollection.find(filter).first().subscribe(findSubscriber);
+
+        try {
+            Document found = findSubscriber.await().getReceived().get(0);
+
+            if(found != null){
+                return (ArrayList)found.get("displayName");
+            }
+
+
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
+
+        return new ArrayList<>();
     }
 }

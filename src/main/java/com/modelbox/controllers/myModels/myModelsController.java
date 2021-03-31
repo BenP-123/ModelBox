@@ -345,14 +345,17 @@ public class myModelsController {
             // Set the id of the shareRootAnchorPane to be equal to the model id
             app.sharePopUpView.shareRootAnchorPane.setId(currentModel.getId());
 
+            /*
             ArrayList collaborators = app.models.getModelsSharedCollection(currentModel.getId());
+            ArrayList collabNames = app.users.getUserInfo(collaborators);
 
-            if (!collaborators.isEmpty()) {
-                for (Object collaborator : collaborators){
-                    app.sharePopUpView.collaboratorPermissionsList.getChildren().add(new Text(collaborator.toString() + " is a collaborator."));
+            if (!collabNames.isEmpty()) {
+                for (Object collabName : collabNames){
+                    app.sharePopUpView.collaboratorPermissionsList.getChildren().add(new Text(collabName + " is a collaborator."));
                 }
             }
 
+             */
 
             // Actually launch the share pop-up
             myModelsAnchorPane.getChildren().add(shareRoot);

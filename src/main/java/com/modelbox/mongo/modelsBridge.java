@@ -2,6 +2,7 @@ package com.modelbox.mongo;
 
 import com.modelbox.app;
 import com.mongodb.BasicDBObject;
+import com.mongodb.client.model.Aggregates;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.InsertOneResult;
@@ -237,6 +238,7 @@ public class modelsBridge {
     public ArrayList getModelsSharedCollection(String modelId) {
         // Filter based on _id of model and the current logged in user's id.
         Bson filter = and(eq("_id", new ObjectId(modelId)), eq("shared_id", app.users.ownerId));
+
         subscribers.OperationSubscriber<Document> findSubscriber = new subscribers.OperationSubscriber<>();
         app.models.modelsCollection.find(filter).first().subscribe(findSubscriber);
 

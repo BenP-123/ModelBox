@@ -1,15 +1,16 @@
 package com.modelbox.controllers.auth;
 
 import com.modelbox.app;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.fxml.FXML;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+
+import javax.swing.*;
 
 public class loginController {
 
@@ -18,6 +19,9 @@ public class loginController {
     @FXML public PasswordField passField;
     @FXML private Button forgotPassBtn;
     @FXML private Button createAccountBtn;
+    @FXML private CheckBox checkBox;
+    @FXML private TextField passwordPlainTxt;
+    final ToggleButton toggle = new ToggleButton();
 
 
 
@@ -92,4 +96,17 @@ public class loginController {
             exception.printStackTrace();
         }
     }
+
+    public void checkBoxSelected(ActionEvent actionEvent) {
+            if (checkBox.isSelected()) {
+                passwordPlainTxt.setText(passField.getText());
+                passwordPlainTxt.setVisible(true);
+                passField.setVisible(false);
+                return;
+            }
+            passField.setText(passwordPlainTxt.getText());
+            passField.setVisible(true);
+            passwordPlainTxt.setVisible(false);
+    }
+
 }
