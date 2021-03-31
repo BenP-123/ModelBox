@@ -21,8 +21,6 @@ public class loginController {
     @FXML private Button createAccountBtn;
     @FXML private CheckBox checkBox;
     @FXML private TextField passwordPlainTxt;
-    final ToggleButton toggle = new ToggleButton();
-
 
 
     /**
@@ -97,6 +95,12 @@ public class loginController {
         }
     }
 
+
+    /**
+     * Toggles the visibility of the entered password from masked to plain text.
+     *
+     * @param  actionEvent   a JavaFX Event
+     */
     public void checkBoxSelected(ActionEvent actionEvent) {
             if (checkBox.isSelected()) {
                 passwordPlainTxt.setText(passField.getText());
