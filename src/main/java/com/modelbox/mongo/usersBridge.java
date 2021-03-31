@@ -119,7 +119,7 @@ public class usersBridge {
         }
     }
 
-
+/* Edited out, working on getting user info for collaboration
     public ArrayList getUserInfo(ArrayList collaborators) {
         Bson filter = Filters.in("owner_id", collaborators);
 
@@ -140,4 +140,6 @@ public class usersBridge {
 
         return new ArrayList<>();
     }
+
+ */
 }
