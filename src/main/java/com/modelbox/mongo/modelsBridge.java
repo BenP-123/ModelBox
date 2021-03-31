@@ -234,6 +234,24 @@ public class modelsBridge {
         return new ArrayList();
     }
 
+    public ArrayList getModelsSharedCollection(String modelId) {
+        // Filter based on _id of model and the current logged in user's id.
+        Bson filter = and(eq("_id", new ObjectId(modelId)), eq("shared_id", app.users.ownerId));
+        subscribers.OperationSubscriber<Document> findSubscriber = new subscribers.OperationSubscriber<>();
+        app.models.modelsCollection.find(filter).first().subscribe(findSubscriber);
+
+        try {
+            Document found = findSubscriber.await().getReceived().get(0);
+
+            if(found != null){
+                return (ArrayList) found.get("shared_id");
+            }
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
+        return new ArrayList();
+    }
+
     //************************************************ IN-PROGRESS METHODS *******************************************//
     /*
     public int modelUploadTracker;

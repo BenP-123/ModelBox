@@ -2,6 +2,7 @@ package com.modelbox.controllers.myModels;
 
 import com.github.robtimus.net.protocol.data.DataURLs;
 import com.modelbox.app;
+import com.mongodb.client.model.Filters;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -26,9 +27,12 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.apache.commons.io.FilenameUtils;
 import org.bson.Document;
+import org.bson.conversions.Bson;
 import org.bson.types.Binary;
 import org.bson.types.ObjectId;
 import java.util.ArrayList;
+
+import static com.mongodb.client.model.Filters.eq;
 
 
 public class myModelsController {
@@ -130,7 +134,7 @@ public class myModelsController {
                 shareModelIcon.setFitWidth(25);
                 shareModelBtn.setGraphic(shareModelIcon);
                 shareModelBtn.setStyle("-fx-background-color: none;");
-                shareModelBtn.setOnAction(shareWithMeBtnClicked);
+                shareModelBtn.setOnAction(sharedWithMeBtnClicked);
             }
 
             // Manipulate the features of the model card and the arrangement of its internals
@@ -315,16 +319,44 @@ public class myModelsController {
     };
 
 
-    EventHandler<ActionEvent> shareWithMeBtnClicked = new EventHandler<ActionEvent>() {
+    EventHandler<ActionEvent> sharedWithMeBtnClicked = new EventHandler<ActionEvent>() {
 
         /**
-         * Views information on Models shared with a user
+         * Views information on Models shared from other users.
          *
          * @param event a JavaFX ActionEvent
          */
         @Override
         public void handle(ActionEvent event) {
-            System.out.println("PlaceHolder Code..");
+
+            StackPane currentModel = (StackPane) ((Button) event.getSource()).getParent();
+            Parent shareRoot = null;
+
+            // Load a share pop-up window
+            try {
+                app.viewLoader = new FXMLLoader(getClass().getResource("/views/myModels/sharedToUser.fxml"));
+                shareRoot = app.viewLoader.load();
+                app.sharePopUpView = app.viewLoader.getController();
+            } catch (Exception exception) {
+                // Handle errors
+                exception.printStackTrace();
+            }
+
+            // Set the id of the shareRootAnchorPane to be equal to the model id
+            app.sharePopUpView.shareRootAnchorPane.setId(currentModel.getId());
+
+            ArrayList collaborators = app.models.getModelsSharedCollection(currentModel.getId());
+
+            if (!collaborators.isEmpty()) {
+                for (Object collaborator : collaborators){
+                    app.sharePopUpView.collaboratorPermissionsList.getChildren().add(new Text(collaborator.toString() + " is a collaborator."));
+                }
+            }
+
+
+            // Actually launch the share pop-up
+            myModelsAnchorPane.getChildren().add(shareRoot);
         }
     };
+
 }

@@ -1,6 +1,7 @@
 package com.modelbox.controllers.myModels;
 
 import com.modelbox.app;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -43,5 +44,11 @@ public class sharePopUpController {
             collaboratorErrorTextField.setText(result);
             collaboratorErrorTextField.setVisible(true);
         }
+    }
+
+    @FXML
+    public void leaveCollaborationBtnClicked(ActionEvent actionEvent) {
+        //Place holder for leaving a collaboration
+        System.out.println("Placeholder function...");
     }
 }
