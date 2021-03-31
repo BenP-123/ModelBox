@@ -1,29 +1,3 @@
-com/modelbox/mongo/errorBridge.java
- com.modelbox.mongo.errorBridge
-com/modelbox/mongo/subscribers.java
- com.modelbox.mongo.subscribers
- com.modelbox.mongo.subscribers$ObservableSubscriber
- com.modelbox.mongo.subscribers$OperationSubscriber
- com.modelbox.mongo.subscribers$PrintDocumentSubscriber
- com.modelbox.mongo.subscribers$PrintSubscriber
-com/modelbox/controllers/uploadModels/uploadModelsController.java
- com.modelbox.controllers.uploadModels.uploadModelsController
-com/modelbox/controllers/auth/forgotPasswordController.java
- com.modelbox.controllers.auth.forgotPasswordController
-com/modelbox/controllers/account/settingsController.java
- com.modelbox.controllers.account.settingsController
-com/modelbox/controllers/account/profileController.java
- com.modelbox.controllers.account.profileController
-com/modelbox/controllers/auth/createAccountController.java
- com.modelbox.controllers.auth.createAccountController
-com/modelbox/init.java
- com.modelbox.init
-com/modelbox/controllers/uploadModels/editPopUpController.java
- com.modelbox.controllers.uploadModels.editPopUpController
-com/modelbox/controllers/auth/loginController.java
- com.modelbox.controllers.auth.loginController
-com/modelbox/mongo/usersBridge.java
- com.modelbox.mongo.usersBridge
 com/modelbox/controllers/dashboardController.java
  com.modelbox.controllers.dashboardController
 com/modelbox/controllers/myModels/myModelsController.java
@@ -33,20 +7,46 @@ com/modelbox/controllers/myModels/myModelsController.java
  com.modelbox.controllers.myModels.myModelsController$3
  com.modelbox.controllers.myModels.myModelsController$4
  com.modelbox.controllers.myModels.myModelsController$5
+com/modelbox/controllers/uploadModels/uploadModelsController.java
+ com.modelbox.controllers.uploadModels.uploadModelsController
+com/modelbox/controllers/auth/forgotPasswordController.java
+ com.modelbox.controllers.auth.forgotPasswordController
+com/modelbox/controllers/account/settingsController.java
+ com.modelbox.controllers.account.settingsController
+com/modelbox/controllers/account/profileController.java
+ com.modelbox.controllers.account.profileController
+com/modelbox/controllers/myModels/sharePopUpController.java
+ com.modelbox.controllers.myModels.sharePopUpController
+com/modelbox/init.java
+ com.modelbox.init
+com/modelbox/controllers/uploadModels/editPopUpController.java
+ com.modelbox.controllers.uploadModels.editPopUpController
+com/modelbox/mongo/modelsBridge.java
+ com.modelbox.mongo.modelsBridge
+ com.modelbox.mongo.modelsBridge$1
+com/modelbox/mongo/usersBridge.java
+ com.modelbox.mongo.usersBridge
+com/modelbox/mongo/subscribers.java
+ com.modelbox.mongo.subscribers
+ com.modelbox.mongo.subscribers$ObservableSubscriber
+ com.modelbox.mongo.subscribers$OperationSubscriber
+ com.modelbox.mongo.subscribers$PrintDocumentSubscriber
+ com.modelbox.mongo.subscribers$PrintSubscriber
+com/modelbox/mongo/errorBridge.java
+ com.modelbox.mongo.errorBridge
 com/modelbox/controllers/myModels/previewPopUpController.java
  com.modelbox.controllers.myModels.previewPopUpController
  com.modelbox.controllers.myModels.previewPopUpController$1
  com.modelbox.controllers.myModels.previewPopUpController$2
-com/modelbox/mongo/authBridge.java
- com.modelbox.mongo.authBridge
 com/modelbox/controllers/uploadModels/verifyModelsController.java
  com.modelbox.controllers.uploadModels.verifyModelsController
  com.modelbox.controllers.uploadModels.verifyModelsController$1
  com.modelbox.controllers.uploadModels.verifyModelsController$2
-com/modelbox/mongo/modelsBridge.java
- com.modelbox.mongo.modelsBridge
- com.modelbox.mongo.modelsBridge$1
+com/modelbox/controllers/auth/loginController.java
+ com.modelbox.controllers.auth.loginController
+com/modelbox/mongo/authBridge.java
+ com.modelbox.mongo.authBridge
+com/modelbox/controllers/auth/createAccountController.java
+ com.modelbox.controllers.auth.createAccountController
 com/modelbox/app.java
  com.modelbox.app
-com/modelbox/controllers/myModels/sharePopUpController.java
- com.modelbox.controllers.myModels.sharePopUpController
