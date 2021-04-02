@@ -61,7 +61,7 @@ public class createAccountController {
             prefs.put("firstName", firstNameField.getText());
             prefs.put("lastName", lastNameField.getText());
 
-            String functionCall = String.format("ModelBox.Authentication.registerNewUser('%s', '%s', '%s', '%s', '%s');",
+            String functionCall = String.format("ModelBox.Auth.registerNewUser('%s', '%s', '%s', '%s', '%s');",
                     firstNameField.getText(), lastNameField.getText(), emailField.getText(), passField.getText(), confirmPassField.getText());
             app.mongoApp.eval(functionCall);
         } catch(Exception exception){

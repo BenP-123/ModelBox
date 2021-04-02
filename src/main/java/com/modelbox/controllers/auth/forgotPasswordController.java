@@ -48,7 +48,7 @@ public class forgotPasswordController {
      */
     private void resetUserPassword() {
         try {
-            String functionCall = String.format("ModelBox.Authentication.sendPasswordResetEmail('%s');", emailField.getText());
+            String functionCall = String.format("ModelBox.Auth.sendPasswordResetEmail('%s');", emailField.getText());
             app.mongoApp.eval(functionCall);
         } catch(Exception exception){
             // Handle errors
@@ -66,6 +66,7 @@ public class forgotPasswordController {
         try {
             app.viewLoader = new FXMLLoader(getClass().getResource("/views/auth/login.fxml"));
             Parent root = app.viewLoader.load();
+            app.loginView = app.viewLoader.getController();
             loginBtn.getScene().setRoot(root);
         } catch (Exception exception){
             // Handle errors

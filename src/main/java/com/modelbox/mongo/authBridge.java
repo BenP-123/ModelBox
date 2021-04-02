@@ -18,6 +18,7 @@ public class authBridge {
     private String logInStatus;
     private String forgotPasswordStatus;
     private String createAccountStatus;
+    private String deleteAccountStatus;
 
     public String getLogInStatus() {
         return logInStatus;
@@ -29,6 +30,10 @@ public class authBridge {
 
     public String getCreateAccountStatus() {
         return createAccountStatus;
+    }
+
+    public String getDeleteAccountStatus() {
+        return deleteAccountStatus;
     }
 
     public void setLogInStatus(String status) {
@@ -43,6 +48,10 @@ public class authBridge {
         createAccountStatus = status;
     }
 
+    public void setDeleteAccountStatus(String status) {
+        deleteAccountStatus = status;
+    }
+
     public void handleLogInCurrentUser(String ownerID, String email, String password) {
         try {
             if (logInStatus.equals("success")) {
@@ -54,7 +63,7 @@ public class authBridge {
                 String firstName = prefs.get("firstName", "null");
                 String lastName = prefs.get("lastName", "null");
                 if (!displayName.equals("null") && !firstName.equals("null") && !lastName.equals("null")) {
-                    String functionCall = String.format("ModelBox.Authentication.initializeNewUser('%s', '%s', '%s');", displayName, firstName, lastName);
+                    String functionCall = String.format("ModelBox.Auth.initializeNewUser('%s', '%s', '%s');", displayName, firstName, lastName);
                     app.mongoApp.eval(functionCall);
                 } else {
                     setUpMyModelsView();
@@ -194,10 +203,19 @@ public class authBridge {
 
     public void handleDeleteCurrentUser() {
         try {
-            app.viewLoader = new FXMLLoader(getClass().getResource("/views/auth/login.fxml"));
-            Parent root = app.viewLoader.load();
-            app.loginView = app.viewLoader.getController();
-            app.dashboard.logOutBtn.getScene().setRoot(root);
+            if (deleteAccountStatus.equals("success")) {
+                app.viewLoader = new FXMLLoader(getClass().getResource("/views/auth/accountDeleted.fxml"));
+                Parent root = app.viewLoader.load();
+                app.accountDeletedView = app.viewLoader.getController();
+                app.dashboard.logOutBtn.getScene().setRoot(root);
+            } else {
+                app.settingsView.deleteConfirmationPopUp.setVisible(false);
+                app.settingsView.deleteAccountErrorField.setText(deleteAccountStatus);
+                app.settingsView.deleteAccountErrorField.setVisible(true);
+
+                // Clear the email field and let the user try again
+                app.settingsView.deleteAccountEmailField.setText("");
+            }
         } catch (Exception exception) {
             // Handle errors
             exception.printStackTrace();

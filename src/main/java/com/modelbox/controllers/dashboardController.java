@@ -71,7 +71,7 @@ public class dashboardController {
             } else {
                 accountMenuPane.setVisible(false);
                 notificationsPane.setVisible(false);
-                String functionCall = String.format("ModelBox.UserIO.getCurrentUserAccountMenu();");
+                String functionCall = String.format("ModelBox.Users.getCurrentUserAccountMenu();");
                 app.mongoApp.eval(functionCall);
             }
         } catch(Exception exception){
@@ -155,7 +155,7 @@ public class dashboardController {
             app.dashboard.dashViewsAnchorPane.getChildren().setAll(root);
 
             // Load data
-            String functionCall = String.format("ModelBox.UserIO.getCurrentUserProfile();");
+            String functionCall = String.format("ModelBox.Users.getCurrentUserProfile();");
             app.mongoApp.eval(functionCall);
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -180,7 +180,7 @@ public class dashboardController {
             app.dashboard.dashViewsAnchorPane.getChildren().setAll(root);
 
             // Load data
-            String functionCall = String.format("ModelBox.UserIO.getCurrentUserSettings();");
+            String functionCall = String.format("ModelBox.Users.getCurrentUserSettings();");
             app.mongoApp.eval(functionCall);
         } catch (Exception exception) {
             exception.printStackTrace();

@@ -24,10 +24,11 @@ public class settingsController {
     @FXML private TextField changeEmailErrorField;
     @FXML private Button changeEmailButton;
     @FXML private Button deleteAccountBtn;
-    @FXML private TextField emailAddressDeleteAccountField;
-    @FXML private TextField deleteAccountErrorField;
+    @FXML public TextField deleteAccountEmailField;
+    @FXML public TextField deleteAccountErrorField;
     @FXML public AnchorPane settingsContentAnchorPane;
     @FXML public AnchorPane loadingAnchorPane;
+    @FXML public AnchorPane deleteConfirmationPopUp;
 
     /**
      *   Sets the account settings pane as visible
@@ -41,7 +42,7 @@ public class settingsController {
         accountSettingsAnchorPane.setVisible(true);
         changeEmailErrorField.setVisible(false);
         deleteAccountErrorField.setVisible(false);
-        emailAddressDeleteAccountField.setText("");
+        deleteAccountEmailField.setText("");
 
         app.settingsView.accountSettingsBtn.setStyle("-fx-background-color: #D3D3D3; -fx-border-color: #868686; -fx-border-radius: 5 5 0 0; -fx-alignment: center-left;");
         app.settingsView.accountSecurityBtn.setStyle("-fx-background-color: transparent; -fx-border-color: #868686; -fx-border-radius: 0 0 0 0; -fx-alignment: center-left;");
@@ -82,17 +83,17 @@ public class settingsController {
 
     @FXML
     private void changeEmailButtonClicked(Event event) {
-        changeUsersEmail();
+        changeCurrentUserEmail();
     }
 
     @FXML
     private void changeEmailEnterKeyPressed(KeyEvent event) {
         if(event.getCode().equals((KeyCode.ENTER))) {
-            changeUsersEmail();
+            changeCurrentUserEmail();
         }
     }
 
-    private void changeUsersEmail(){
+    private void changeCurrentUserEmail(){
         try {
 
         } catch(Exception exception){
@@ -103,23 +104,37 @@ public class settingsController {
 
     @FXML
     private void deleteAccountBtnClicked(Event event) {
-        deleteUsersAccount();
+        deleteAccountErrorField.setVisible(false);
+        deleteConfirmationPopUp.setVisible(true);
     }
 
     @FXML
-    private void deleteConfirmPassField(KeyEvent event) {
+    private void deleteAccountEnterKeyPressed(KeyEvent event) {
         if(event.getCode().equals((KeyCode.ENTER))) {
-            deleteUsersAccount();
+            deleteAccountErrorField.setVisible(false);
+            deleteConfirmationPopUp.setVisible(true);
         }
     }
 
-    private void deleteUsersAccount() {
-        try {
+    @FXML
+    private void deleteConfirmationBtnClicked(Event event) {
+        deleteCurrentUser();
+    }
 
+    @FXML
+    private void closeConfirmationBtnClicked(Event event) {
+        deleteAccountErrorField.setVisible(false);
+        deleteConfirmationPopUp.setVisible(false);
+        deleteAccountEmailField.setText("");
+    }
+
+    private void deleteCurrentUser() {
+        try {
+            String functionCall = String.format("ModelBox.Auth.deleteCurrentUser('%s');", deleteAccountEmailField.getText());
+            app.mongoApp.eval(functionCall);
         } catch(Exception exception){
             // Handle errors
             exception.printStackTrace();
         }
     }
-
 }

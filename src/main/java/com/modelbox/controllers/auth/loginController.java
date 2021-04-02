@@ -51,7 +51,7 @@ public class loginController {
      */
     public void loginCurrentUser() {
         try {
-            String functionCall = String.format("ModelBox.Authentication.logInCurrentUser('%s', '%s');", emailField.getText(), passField.getText());
+            String functionCall = String.format("ModelBox.Auth.logInCurrentUser('%s', '%s');", emailField.getText(), passField.getText());
             app.mongoApp.eval(functionCall);
         } catch(Exception exception){
             // Handle errors

@@ -2,6 +2,7 @@ package com.modelbox;
 
 import com.modelbox.controllers.account.profileController;
 import com.modelbox.controllers.account.settingsController;
+import com.modelbox.controllers.auth.accountDeletedController;
 import com.modelbox.controllers.auth.createAccountController;
 import com.modelbox.controllers.dashboardController;
 import com.modelbox.controllers.auth.forgotPasswordController;
@@ -33,14 +34,15 @@ public class app extends Application{
     public static JSObject mongoApp;
     private WebEngine mongoEngine;
     public static FXMLLoader viewLoader;
+    public static accountDeletedController accountDeletedView;
     public static loginController loginView;
     public static dashboardController dashboard;
     public static myModelsController myModelsView;
     public static previewPopUpController previewPopUpView;
+    public static sharePopUpController sharePopUpView;
     public static uploadModelsController uploadModelsView;
     public static verifyModelsController verifyModelsView;
     public static editPopUpController editPopUpView;
-    public static sharePopUpController sharePopUpView;
     public static profileController profileView;
     public static settingsController settingsView;
     public static createAccountController createAccountView;
@@ -68,10 +70,10 @@ public class app extends Application{
             if (newValue == Worker.State.SUCCEEDED) {
                 try {
                     mongoApp = (JSObject) mongoEngine.executeScript("window");
-                    mongoApp.setMember("Auth", auth);
-                    mongoApp.setMember("Models", models);
-                    mongoApp.setMember("Users", users);
-                    mongoApp.setMember("Errors", errors);
+                    mongoApp.setMember("AuthBridge", auth);
+                    mongoApp.setMember("ModelsBridge", models);
+                    mongoApp.setMember("UsersBridge", users);
+                    mongoApp.setMember("ErrorBridge", errors);
 
                     Parent root = viewLoader.load();
                     app.createAccountView = viewLoader.getController();
@@ -92,6 +94,6 @@ public class app extends Application{
             }
         });
 
-        mongoEngine.load("https://modelbox-vqzyc.mongodbstitch.com");
+        mongoEngine.load("https://modelbox-vqzyc.mongodbstitch.com/index_v2.html");
     }
 }
