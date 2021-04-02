@@ -1,3 +1,11 @@
+com/modelbox/mongo/subscribers.java
+ com.modelbox.mongo.subscribers
+ com.modelbox.mongo.subscribers$ObservableSubscriber
+ com.modelbox.mongo.subscribers$OperationSubscriber
+ com.modelbox.mongo.subscribers$PrintDocumentSubscriber
+ com.modelbox.mongo.subscribers$PrintSubscriber
+com/modelbox/mongo/errorBridge.java
+ com.modelbox.mongo.errorBridge
 com/modelbox/controllers/dashboardController.java
  com.modelbox.controllers.dashboardController
 com/modelbox/controllers/myModels/myModelsController.java
@@ -13,24 +21,20 @@ com/modelbox/controllers/auth/forgotPasswordController.java
  com.modelbox.controllers.auth.forgotPasswordController
 com/modelbox/controllers/account/settingsController.java
  com.modelbox.controllers.account.settingsController
-com/modelbox/controllers/account/profileController.java
- com.modelbox.controllers.account.profileController
-com/modelbox/mongo/authBridge.java
- com.modelbox.mongo.authBridge
 com/modelbox/init.java
  com.modelbox.init
+com/modelbox/mongo/authBridge.java
+ com.modelbox.mongo.authBridge
+com/modelbox/controllers/account/profileController.java
+ com.modelbox.controllers.account.profileController
+com/modelbox/controllers/auth/accountDeletedController.java
+ com.modelbox.controllers.auth.accountDeletedController
 com/modelbox/controllers/uploadModels/editPopUpController.java
  com.modelbox.controllers.uploadModels.editPopUpController
 com/modelbox/app.java
  com.modelbox.app
 com/modelbox/mongo/usersBridge.java
  com.modelbox.mongo.usersBridge
-com/modelbox/mongo/subscribers.java
- com.modelbox.mongo.subscribers
- com.modelbox.mongo.subscribers$ObservableSubscriber
- com.modelbox.mongo.subscribers$OperationSubscriber
- com.modelbox.mongo.subscribers$PrintDocumentSubscriber
- com.modelbox.mongo.subscribers$PrintSubscriber
 com/modelbox/controllers/auth/loginController.java
  com.modelbox.controllers.auth.loginController
 com/modelbox/controllers/myModels/previewPopUpController.java
@@ -41,12 +45,10 @@ com/modelbox/controllers/uploadModels/verifyModelsController.java
  com.modelbox.controllers.uploadModels.verifyModelsController
  com.modelbox.controllers.uploadModels.verifyModelsController$1
  com.modelbox.controllers.uploadModels.verifyModelsController$2
-com/modelbox/controllers/auth/createAccountController.java
- com.modelbox.controllers.auth.createAccountController
 com/modelbox/mongo/modelsBridge.java
  com.modelbox.mongo.modelsBridge
  com.modelbox.mongo.modelsBridge$1
+com/modelbox/controllers/auth/createAccountController.java
+ com.modelbox.controllers.auth.createAccountController
 com/modelbox/controllers/myModels/sharePopUpController.java
  com.modelbox.controllers.myModels.sharePopUpController
-com/modelbox/mongo/errorBridge.java
- com.modelbox.mongo.errorBridge

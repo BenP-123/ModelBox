@@ -94,6 +94,6 @@ public class app extends Application{
             }
         });
 
-        mongoEngine.load("https://modelbox-vqzyc.mongodbstitch.com/index_v2.html");
+        mongoEngine.load("https://modelbox-vqzyc.mongodbstitch.com/");
     }
 }
