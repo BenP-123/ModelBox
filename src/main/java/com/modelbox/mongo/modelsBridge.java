@@ -89,6 +89,8 @@ public class modelsBridge {
 
                                     app.myModelsView.noModelsBtn.setVisible(false);
                                     app.myModelsView.loadingAnchorPane.setVisible(false);
+
+                                    app.myModelsView.myModelsFlowPane.minHeightProperty().bind(app.myModelsView.myModelsScrollPane.heightProperty());
                                     app.myModelsView.myModelsScrollPane.setVisible(true);
                                 }
                             }

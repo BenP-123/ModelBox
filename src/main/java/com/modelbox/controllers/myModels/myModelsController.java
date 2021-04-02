@@ -10,10 +10,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
-import javafx.scene.Camera;
-import javafx.scene.Group;
-import javafx.scene.Parent;
-import javafx.scene.PerspectiveCamera;
+import javafx.scene.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
@@ -137,15 +134,27 @@ public class myModelsController {
                 shareModelBtn.setOnAction(sharedWithMeBtnClicked);
             }
 
+            // Add the mesh to the model card group
+            Group modelCardGroup = new Group(modelMeshView);
+            SubScene modelSubScene = new SubScene(modelCardGroup, 150, 250);
+
+            // Center the model in the sub-scene of the card
+            modelCardGroup.setTranslateX(75);
+            modelCardGroup.setTranslateY(125);
+
+            // Add the camera to the sub-scene
+            Camera camera = new PerspectiveCamera();
+            modelSubScene.setCamera(camera);
+
             // Manipulate the features of the model card and the arrangement of its internals
-            StackPane modelMeshPane = new StackPane(modelMeshView, deleteModelBtn, previewModelBtn, downloadModelBtn, shareModelBtn);
+            StackPane modelMeshPane = new StackPane(modelSubScene, deleteModelBtn, previewModelBtn, downloadModelBtn, shareModelBtn);
             modelMeshPane.setId(((ObjectId) model.get("_id")).toString());
             modelMeshPane.setStyle("-fx-background-color: #eeeeee; -fx-background-radius: 8 8 8 8");
             modelMeshPane.setMinWidth(150);
             modelMeshPane.setMinHeight(250);
             modelMeshPane.setMaxWidth(150);
             modelMeshPane.setMaxHeight(250);
-            StackPane.setAlignment(modelMeshView, Pos.CENTER);
+            StackPane.setAlignment(modelSubScene, Pos.CENTER);
             StackPane.setAlignment(deleteModelBtn, Pos.TOP_RIGHT);
             StackPane.setAlignment(previewModelBtn, Pos.BOTTOM_RIGHT);
             previewModelBtn.setTranslateX(-30);

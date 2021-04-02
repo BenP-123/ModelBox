@@ -86,7 +86,7 @@ public class profileController {
      */
     @FXML
     private void cancelProfileUploadBtn(Event event){
-        //profilePictureImage.setFill(new ImagePattern(new Image(new ByteArrayInputStream(usersIO.getProfilePicture()))));
+        profilePic = null;
         profilePictureImage.setVisible(false);
         cancelProfileUploadBtn.setVisible(false);
         addProfilePictureBtn.setVisible(true);

@@ -195,7 +195,7 @@ public class dashboardController {
     @FXML
     private void logOutBtnClicked(Event event){
         try {
-            String functionCall = String.format("ModelBox.Authentication.logOutCurrentUser();");
+            String functionCall = String.format("ModelBox.Auth.logOutCurrentUser();");
             app.mongoApp.eval(functionCall);
         } catch (Exception exception){
             // Handle errors

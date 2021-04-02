@@ -73,6 +73,7 @@ public class uploadModelsController {
                     app.dashboard.verifyModelsList.add(modelDocument);
                     app.verifyModelsView.addVerifyModelsPreviewCard(modelDocument);
                 }
+                app.verifyModelsView.verifyModelsFlowPane.minHeightProperty().bind(app.verifyModelsView.verifyModelsScrollPane.heightProperty());
 
                 // Show the verifyModels view
                 app.dashboard.dashViewsAnchorPane.getChildren().setAll(root);

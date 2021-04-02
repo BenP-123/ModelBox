@@ -111,7 +111,7 @@ public class usersBridge {
                 updateOneSubscriber.await();
             }
 
-            String functionCall = String.format("ModelBox.UserIO.getCurrentUserProfile();");
+            String functionCall = String.format("ModelBox.Users.getCurrentUserProfile();");
             app.mongoApp.eval(functionCall);
 
         } catch (Throwable throwable) {

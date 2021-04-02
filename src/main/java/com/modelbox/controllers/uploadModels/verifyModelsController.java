@@ -8,8 +8,9 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
+import javafx.scene.*;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
@@ -23,6 +24,7 @@ import org.bson.types.ObjectId;
 
 public class verifyModelsController {
 
+    @FXML public ScrollPane verifyModelsScrollPane;
     @FXML public FlowPane verifyModelsFlowPane;
     @FXML public AnchorPane verifyModelsAnchorPane;
 
@@ -93,8 +95,20 @@ public class verifyModelsController {
         editModelBtn.setStyle("-fx-background-color: none;");
         editModelBtn.setOnAction(editModelBtnClicked);
 
+        // Add the mesh to the model card group
+        Group modelCardGroup = new Group(modelMeshView);
+        SubScene modelSubScene = new SubScene(modelCardGroup, 150, 250);
+
+        // Center the model in the sub-scene of the card
+        modelCardGroup.setTranslateX(75);
+        modelCardGroup.setTranslateY(125);
+
+        // Add the camera to the sub-scene
+        Camera camera = new PerspectiveCamera();
+        modelSubScene.setCamera(camera);
+
         // Manipulate the features of the model card and the arrangement of its internals
-        StackPane modelMeshPane = new StackPane(modelMeshView, cancelUploadBtn, editModelBtn);
+        StackPane modelMeshPane = new StackPane(modelSubScene, cancelUploadBtn, editModelBtn);
         modelMeshPane.setId(((ObjectId) model.get("_id")).toString());
         modelMeshPane.setStyle("-fx-background-color: #eeeeee; -fx-background-radius: 8 8 8 8");
         modelMeshPane.setMinWidth(150);

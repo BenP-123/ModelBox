@@ -339,33 +339,33 @@ public class previewPopUpController {
         AnchorPane.setLeftAnchor(helpHeading, 30.0);
 
         // Add rotate instruction
-        Text rotateHelpText = new Text("• To rotate the model, left click and drag the model to change the angle of the model.");
+        Text rotateHelpText = new Text("- To rotate the model, left click and drag to change the angle.");
         rotateHelpText.setStyle("-fx-fill: #171a1d; -fx-font-size: 14px; -fx-font-family: Arial;");
-        AnchorPane.setTopAnchor(rotateHelpText, 75.0);
+        AnchorPane.setTopAnchor(rotateHelpText, 70.0);
         AnchorPane.setLeftAnchor(rotateHelpText, 30.0);
         rotateHelpText.wrappingWidthProperty().bind(helpAnchorPane.widthProperty().subtract(60));
         helpAnchorPane.getChildren().add(rotateHelpText);
 
         // Add zoom instruction
-        Text zoomHelpText = new Text("• To zoom, use the scroll on your mouse or the plus and minus buttons.");
+        Text zoomHelpText = new Text("- To zoom, use the scroll on your mouse or the plus and minus buttons.");
         zoomHelpText.setStyle("-fx-fill: #171a1d; -fx-font-size: 14px; -fx-font-family: Arial;");
-        AnchorPane.setTopAnchor(zoomHelpText, 145.0);
+        AnchorPane.setTopAnchor(zoomHelpText, 130.0);
         AnchorPane.setLeftAnchor(zoomHelpText, 30.0);
         zoomHelpText.wrappingWidthProperty().bind(helpAnchorPane.widthProperty().subtract(60));
         helpAnchorPane.getChildren().add(zoomHelpText);
 
         // Add pan instruction
-        Text panHelpText = new Text("• To pan the model, right click and drag the model to change the position of the model.");
+        Text panHelpText = new Text("- To pan the model, right click and drag to change the position.");
         panHelpText.setStyle("-fx-fill: #171a1d; -fx-font-size: 14px; -fx-font-family: Arial;");
-        AnchorPane.setTopAnchor(panHelpText, 215.0);
+        AnchorPane.setTopAnchor(panHelpText, 200.0);
         AnchorPane.setLeftAnchor(panHelpText, 30.0);
         panHelpText.wrappingWidthProperty().bind(helpAnchorPane.widthProperty().subtract(60));
         helpAnchorPane.getChildren().add(panHelpText);
 
         // Add change inspection color instruction
-        Text colorHelpText = new Text("• To change the inspection color for the model, click the droplet button.");
+        Text colorHelpText = new Text("- To change the inspection color for the model, click the droplet button.");
         colorHelpText.setStyle("-fx-fill: #171a1d; -fx-font-size: 14px; -fx-font-family: Arial;");
-        AnchorPane.setTopAnchor(colorHelpText, 280.0);
+        AnchorPane.setTopAnchor(colorHelpText, 260.0);
         AnchorPane.setLeftAnchor(colorHelpText, 30.0);
         colorHelpText.wrappingWidthProperty().bind(helpAnchorPane.widthProperty().subtract(60));
         helpAnchorPane.getChildren().add(colorHelpText);
