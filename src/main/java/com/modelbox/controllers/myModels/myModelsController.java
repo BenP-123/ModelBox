@@ -213,6 +213,8 @@ public class myModelsController {
             int modelIndex = app.dashboard.getDocumentIndexByModelID(app.dashboard.dbModelsList, currentModel.getId());
             BsonDocument model = app.dashboard.dbModelsList.get(modelIndex).asDocument();
 
+            int numBytes = model.get("modelFile").asBinary().getData().length;
+
             try {
                 app.dashboard.stlImporter.read(DataURLs.builder(model.get("modelFile").asBinary().getData()).withBase64Data(true).withMediaType("model/stl").build());
             } catch (Exception exception) {
@@ -227,10 +229,13 @@ public class myModelsController {
             // Set the id of the previewModelSubScene to be equal to the model id
             app.previewPopUpView.previewModelAnchorPane.setId(currentModel.getId());
 
-            // Set the modelNameText and modelTypeText labels
+            // Set the modelNameText, modelTypeText, modelSizeText, and modelDateText model labels
             String currentModelName = model.get("modelName").asString().getValue();
-            app.previewPopUpView.modelNameText.setText(FilenameUtils.removeExtension(currentModelName));
+            app.previewPopUpView.modelNameTextField.setText(FilenameUtils.removeExtension(currentModelName));
             app.previewPopUpView.modelTypeText.setText(FilenameUtils.getExtension(currentModelName).toUpperCase());
+            app.previewPopUpView.modelSizeText.setText(app.models.getModelSize(numBytes));
+            String modelId = currentModel.getId();
+            app.previewPopUpView.modelDateText.setText(app.models.getModelTimestamp(modelId));
 
             // Add the mesh to the preview pop-up group
             Group previewModelGroup = new Group(currentModelMeshView);

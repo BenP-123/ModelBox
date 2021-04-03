@@ -14,6 +14,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.SubScene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
@@ -46,9 +47,17 @@ public class previewPopUpController {
     private final DoubleProperty bright = new SimpleDoubleProperty(100);
 
     @FXML public AnchorPane previewModelAnchorPane;
-    @FXML public Text modelNameText;
+    @FXML public TextField modelNameTextField;
+    @FXML public Text modelSizeText;
+    @FXML public Text modelDateText;
     @FXML public Text modelTypeText;
     @FXML public SubScene previewModelSubScene;
+    @FXML public Button saveAttributesBtn;
+
+    @FXML
+    private void saveAttributesBtnClicked(Event event) {
+        // FIXME
+    }
 
     /**
      * Closes and removes the preview pop-up from view

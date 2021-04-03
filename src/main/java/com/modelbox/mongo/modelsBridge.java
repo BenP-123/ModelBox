@@ -7,7 +7,12 @@ import javafx.scene.text.Text;
 import org.bson.BsonArray;
 import org.bson.BsonDocument;
 import org.bson.BsonValue;
-import org.bson.conversions.Bson;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import static java.lang.Integer.parseInt;
 
 public class modelsBridge {
 
@@ -97,5 +102,24 @@ public class modelsBridge {
 
         // Actually launch the share pop-up
         app.myModelsView.myModelsAnchorPane.getChildren().add(shareRoot);
+    }
+
+    public String getModelSize(int bytes){
+        String modelSizeString;
+        bytes /= 1024;
+
+        if(bytes > 1000) { modelSizeString = Math.round(bytes / 1024) + " MB"; }
+
+        else{ modelSizeString = bytes + " KB"; }
+
+        return modelSizeString;
+    }
+
+    public String getModelTimestamp(String modelId){
+        long millis = parseInt(modelId.substring(0,8), 16);
+        millis *= 1000;
+        DateFormat format = new SimpleDateFormat("MMM dd, yyyy");
+        Date result = new Date(millis);
+        return format.format(result);
     }
 }
