@@ -49,7 +49,7 @@ public class profileController {
      *   @param  profilePic  a byte[] containing the file contents of the user's picture
      */
     private void previewUsersImage(byte[] profilePic) {
-        //Display the users image without uploading it to the database
+        // Display the users image without uploading it to the database
         ByteArrayInputStream pictureData = new ByteArrayInputStream(profilePic);
         Image profilePicture = new Image(pictureData);
         profilePictureImage.setFill(new ImagePattern(profilePicture));
@@ -63,7 +63,7 @@ public class profileController {
     @FXML
     private void addProfilePictureBtnClicked(Event event){
         try {
-            //Get the users image and call the display function w/o uploading it to the database
+            // Get the users image and call the display function w/o uploading it to the database
             newPictureFile = profilePictureFileChooser.showOpenDialog(editProfileBtn.getScene().getWindow());
             profilePic = Files.readAllBytes(newPictureFile.toPath());
             previewUsersImage(profilePic);
@@ -71,11 +71,12 @@ public class profileController {
             // Handle errors
             exception.printStackTrace();
         }
-        //Show users image before uploading
+
+        // Show users image before uploading
         profilePictureImage.setVisible(true);
         addProfilePictureBtn.setVisible(false);
 
-        //Show the cancel upload image button
+        // Show the cancel upload image button
         cancelProfileUploadBtn.setVisible(true);
     }
 
@@ -114,8 +115,14 @@ public class profileController {
                 profileContentAnchorPane.setVisible(false);
                 loadingAnchorPane.setVisible(true);
 
-                // Set profile data
-                app.users.setCurrentUserProfileInfo(displayNameTextField.getText(), firstNameTextField.getText(), lastNameTextField.getText(), bioTextArea.getText(), profilePic);
+                // Set data
+                String profilePictureData = "";
+                if (profilePic != null) {
+                    byte[] encodedProfilePic = Base64.getEncoder().encode(profilePic);
+                    profilePictureData = new String(encodedProfilePic);
+                }
+                String functionCall = String.format("ModelBox.Users.setCurrentUserProfile('%s', '%s', '%s', '%s', '%s');", displayNameTextField.getText(), firstNameTextField.getText(), lastNameTextField.getText(), bioTextArea.getText(), profilePictureData);
+                app.mongoApp.eval(functionCall);
             }
         } catch (Exception exception) {
             // Handle errors

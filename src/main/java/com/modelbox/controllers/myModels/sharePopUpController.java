@@ -8,7 +8,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
+import org.bson.BsonDocument;
+import org.bson.BsonObjectId;
+import org.bson.BsonString;
+import org.bson.types.ObjectId;
 
 public class sharePopUpController {
 
@@ -35,15 +38,12 @@ public class sharePopUpController {
     private void addCollaboratorBtnClicked(Event event) {
         AnchorPane currentSharePanel = (AnchorPane) ((Button) event.getSource()).getParent().getParent();
 
-        String result = app.models.shareModel(collaboratorEmailTextField.getText(), currentSharePanel.getId());
-
-        if (result.equals("success")) {
-            Text newAddition = new Text(collaboratorEmailTextField.getText() + " is now a collaborator.");
-            collaboratorPermissionsList.getChildren().add(newAddition);
-        } else {
-            collaboratorErrorTextField.setText(result);
-            collaboratorErrorTextField.setVisible(true);
-        }
+        // Share the model with another user in the database
+        BsonDocument shareModelConfiguration = new BsonDocument()
+                .append("modelId", new BsonObjectId(new ObjectId(currentSharePanel.getId())))
+                .append("recipientEmail", new BsonString(collaboratorEmailTextField.getText()));
+        String functionCall = String.format("ModelBox.Models.shareCurrentUserModel('%s');", shareModelConfiguration.toJson());
+        app.mongoApp.eval(functionCall);
     }
 
     @FXML

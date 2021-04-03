@@ -27,6 +27,9 @@ import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.bson.BsonDocument;
+
+import java.nio.file.Files;
 
 public class previewPopUpController {
 
@@ -65,12 +68,21 @@ public class previewPopUpController {
      */
     @FXML
     private void downloadModelBtnClicked(Event event) {
-        AnchorPane currentModel = (AnchorPane) ((Button) event.getSource()).getParent();
-        FileChooser fileSaver = new FileChooser();
-        fileSaver.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("STL File","*.stl"));
-        fileSaver.setTitle("Save 3D Model");
-        app.models.saveModelFile(currentModel.getId(), (fileSaver.showSaveDialog(app.dashboard.dashboardAnchorPane.getScene().getWindow())).toPath());
+        try {
+            AnchorPane currentModel = (AnchorPane) ((Button) event.getSource()).getParent();
+            FileChooser fileSaver = new FileChooser();
+            fileSaver.getExtensionFilters().addAll(
+                    new FileChooser.ExtensionFilter("STL File","*.stl"));
+            fileSaver.setTitle("Save 3D Model");
+
+            // Load the model file from the database models list
+            int modelIndex = app.dashboard.getDocumentIndexByModelID(app.dashboard.dbModelsList, currentModel.getId());
+            BsonDocument model = app.dashboard.dbModelsList.get(modelIndex).asDocument();
+
+            Files.write(fileSaver.showSaveDialog(app.dashboard.dashboardAnchorPane.getScene().getWindow()).toPath(), model.get("modelFile").asBinary().getData());
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
     }
 
     /**

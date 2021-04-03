@@ -7,12 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
-import org.bson.BsonBoolean;
-import org.bson.Document;
-import org.bson.BsonArray;
-import org.bson.types.Binary;
-import org.bson.types.ObjectId;
-
+import org.bson.*;
 import java.io.File;
 import java.nio.file.Files;
 
@@ -20,7 +15,6 @@ public class uploadModelsController {
 
     private FileChooser modelFileChooser;
     @FXML private Button browseModelsBtn;
-
 
     /**
      *   Constructs an uploadModelsController object
@@ -58,13 +52,13 @@ public class uploadModelsController {
                 app.dashboard.verifyModelsList.clear();
                 // Add the models to the verifyModelsList
                 for (File model : app.dashboard.browseModelsList) {
-                    Document modelDocument = new Document("_id", new ObjectId());
+                    BsonDocument modelDocument = new BsonDocument("_id", new BsonObjectId());
                     try {
-                        modelDocument.append("owner_id", app.users.ownerId);
+                        modelDocument.append("owner_id", new BsonString(app.users.ownerId));
                         modelDocument.append("shared_id", new BsonArray());
-                        modelDocument.append("modelName", model.getName());
+                        modelDocument.append("modelName", new BsonString(model.getName()));
                         byte[] data = Files.readAllBytes(model.toPath());
-                        modelDocument.append("modelFile", new Binary(data));
+                        modelDocument.append("modelFile", new BsonBinary(data));
                         modelDocument.append("isShared", new BsonBoolean(false));
                     } catch (Exception exception) {
                         // Handle errors

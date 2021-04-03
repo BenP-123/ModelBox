@@ -17,8 +17,6 @@ import com.modelbox.mongo.authBridge;
 import com.modelbox.mongo.errorBridge;
 import com.modelbox.mongo.modelsBridge;
 import com.modelbox.mongo.usersBridge;
-import com.mongodb.reactivestreams.client.MongoClient;
-import com.mongodb.reactivestreams.client.MongoDatabase;
 import javafx.application.Application;
 import javafx.concurrent.Worker;
 import javafx.fxml.FXMLLoader;
@@ -51,8 +49,6 @@ public class app extends Application{
     public static modelsBridge models;
     public static usersBridge users;
     public static errorBridge errors;
-    public static MongoClient mongoClient;
-    public static MongoDatabase mongoDatabase;
 
     public app() {
         viewLoader = new FXMLLoader(getClass().getResource("/views/auth/createAccount.fxml"));
@@ -66,6 +62,7 @@ public class app extends Application{
 
     @Override
     public void start(Stage stage) throws Exception {
+        mongoEngine.setUserDataDirectory(null);
         mongoEngine.getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue == Worker.State.SUCCEEDED) {
                 try {
@@ -82,11 +79,6 @@ public class app extends Application{
                     stage.setScene(new Scene(root, 1000, 650));
                     stage.setMinWidth(1000);
                     stage.setMinHeight(650);
-                    stage.setOnCloseRequest(event -> {
-                        if (mongoClient != null) {
-                            mongoClient.close();
-                        }
-                    });
                     stage.show();
                 } catch (Exception exception) {
                     exception.printStackTrace();

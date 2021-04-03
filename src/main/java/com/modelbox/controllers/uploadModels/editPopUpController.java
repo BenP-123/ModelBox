@@ -8,6 +8,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
+import org.bson.BsonDocument;
+import org.bson.BsonString;
 import org.bson.Document;
 
 public class editPopUpController {
@@ -42,10 +44,10 @@ public class editPopUpController {
         loadingAnchorPane.setVisible(true);
 
         int currentModelIndex = app.dashboard.getDocumentIndexByModelID(app.dashboard.verifyModelsList, currentEditInfoPane.getId());
-        Document currentModelDocument = app.dashboard.verifyModelsList.get(currentModelIndex);
+        BsonDocument currentModelDocument = app.dashboard.verifyModelsList.get(currentModelIndex).asDocument();
 
         currentModelDocument.remove("modelName");
-        currentModelDocument.append("modelName", modelNameTextField.getText() + "." + modelTypeText.getText().toLowerCase());
+        currentModelDocument.append("modelName", new BsonString(modelNameTextField.getText() + "." + modelTypeText.getText().toLowerCase()));
 
         app.dashboard.verifyModelsList.remove(currentModelIndex);
         app.dashboard.verifyModelsList.add(currentModelDocument);

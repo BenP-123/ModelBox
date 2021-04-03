@@ -18,9 +18,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.shape.MeshView;
 import javafx.scene.shape.TriangleMesh;
 import org.apache.commons.io.FilenameUtils;
-import org.bson.Document;
-import org.bson.types.Binary;
-import org.bson.types.ObjectId;
+import org.bson.BsonDocument;
 
 public class verifyModelsController {
 
@@ -36,20 +34,16 @@ public class verifyModelsController {
     @FXML
     private void uploadModelsBtnClicked(Event event){
         try {
-            // Store models to the database
-            for (Document model : app.dashboard.verifyModelsList) {
-                app.models.createNewModel(model);
-            }
-
             // Prep the view
             app.viewLoader = new FXMLLoader(getClass().getResource("/views/myModels/myModels.fxml"));
             Parent root = app.viewLoader.load();
             app.myModelsView = app.viewLoader.getController();
             app.dashboard.dashViewsAnchorPane.getChildren().setAll(root);
 
-            // Asynchronously populate the my models view and show appropriate nodes when ready
-            app.models.getAllModelsFromCurrentUser();
-
+            // Store models to the database and asynchronously populate the my models view
+            BsonDocument modelsToUpload = new BsonDocument().append("modelsToInsert", app.dashboard.verifyModelsList);
+            String functionCall = String.format("ModelBox.Models.uploadCurrentUserModels('%s');", modelsToUpload.toJson());
+            app.mongoApp.eval(functionCall);
         } catch (Exception exception){
             // Handle errors
             exception.printStackTrace();
@@ -62,12 +56,12 @@ public class verifyModelsController {
      *
      *  @param  model the 3D model document selected by the user
      */
-    public void addVerifyModelsPreviewCard(Document model){
+    public void addVerifyModelsPreviewCard(BsonDocument model){
         try {
             String previousValue = System.getProperty("java.protocol.handler.pkgs") == null ? "" : System.getProperty("java.protocol.handler.pkgs")+"|";
             System.setProperty("java.protocol.handler.pkgs", previousValue + "com.github.robtimus.net.protocol");
 
-            app.dashboard.stlImporter.read(DataURLs.builder(((Binary) model.get("modelFile")).getData()).withBase64Data(true).withMediaType("model/stl").build());
+            app.dashboard.stlImporter.read(DataURLs.builder(model.get("modelFile").asBinary().getData()).withBase64Data(true).withMediaType("model/stl").build());
         } catch (Exception exception) {
             // Handle exceptions
             exception.printStackTrace();
@@ -109,7 +103,7 @@ public class verifyModelsController {
 
         // Manipulate the features of the model card and the arrangement of its internals
         StackPane modelMeshPane = new StackPane(modelSubScene, cancelUploadBtn, editModelBtn);
-        modelMeshPane.setId(((ObjectId) model.get("_id")).toString());
+        modelMeshPane.setId(model.get("_id").asObjectId().getValue().toHexString());
         modelMeshPane.setStyle("-fx-background-color: #eeeeee; -fx-background-radius: 8 8 8 8");
         modelMeshPane.setMinWidth(150);
         modelMeshPane.setMinHeight(250);
@@ -185,7 +179,7 @@ public class verifyModelsController {
 
             // Load the model file from the verify models list
             int modelIndex = app.dashboard.getDocumentIndexByModelID(app.dashboard.verifyModelsList, currentModel.getId());
-            byte[] currentModelFile = ((Binary) app.dashboard.verifyModelsList.get(modelIndex).get("modelFile")).getData();
+            byte[] currentModelFile = app.dashboard.verifyModelsList.get(modelIndex).asDocument().get("modelFile").asBinary().getData();
 
             try {
                 app.dashboard.stlImporter.read(DataURLs.builder(currentModelFile).withBase64Data(true).withMediaType("model/stl").build());
@@ -202,7 +196,7 @@ public class verifyModelsController {
             StackPane.setAlignment(currentModelMeshView, Pos.CENTER);
 
             // Set the modelNameText and modelTypeText labels
-            String currentModelName = (String) app.dashboard.verifyModelsList.get(modelIndex).get("modelName");
+            String currentModelName = app.dashboard.verifyModelsList.get(modelIndex).asDocument().get("modelName").asString().getValue();
             app.editPopUpView.modelNameTextField.setText(FilenameUtils.removeExtension(currentModelName));
             app.editPopUpView.modelTypeText.setText(FilenameUtils.getExtension(currentModelName).toUpperCase());
 

@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -20,6 +21,18 @@
             <Font name="Arial" size="30.0" />
          </font>
       </Text>
+      <HBox alignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
+         <children>
+            <TextField fx:id="modelSearchField" onKeyPressed="#modelSearchEnterKeyPressed" prefHeight="25.0" prefWidth="350.0" promptText="Search for a model" style="-fx-padding: 8px 8px 8px 12px; -fx-faint-focus-color: transparent; -fx-focus-color: #C4C4C4; -fx-background-color: #ffffff; -fx-border-color: #C4C4C4; -fx-border-radius: 5px;" visible="false">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </TextField>
+         </children>
+      </HBox>
       <ScrollPane id="myModelsScrollPane" fx:id="myModelsScrollPane" fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: #ffffff;" vbarPolicy="NEVER" visible="false" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="100.0">
          <content>
             <FlowPane id="myModelsFlowPane" fx:id="myModelsFlowPane" columnHalignment="CENTER" hgap="25.0" maxHeight="-Infinity" maxWidth="Infinity" prefWidth="880.0" style="-fx-background-color: #ffffff;" vgap="25.0" />

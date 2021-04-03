@@ -13,21 +13,21 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import com.interactivemesh.jfx.importer.stl.StlMeshImporter;
-import org.bson.Document;
-import org.bson.types.ObjectId;
-
+import javafx.scene.layout.VBox;
+import org.bson.BsonArray;
 
 public class dashboardController {
-    public List<Document> dbModelsList;
+    public BsonArray dbModelsList;
     public List<File> browseModelsList;
-    public List<Document> verifyModelsList;
+    public BsonArray verifyModelsList;
     public StlMeshImporter stlImporter;
 
+    @FXML public VBox notificationsVBox;
     @FXML public AnchorPane dashboardAnchorPane;
     @FXML public AnchorPane dashViewsAnchorPane;
     @FXML private Pane navigationMenuPane;
     @FXML public Pane accountMenuPane;
-    @FXML private Pane notificationsPane;
+    @FXML public AnchorPane notificationsAnchorPane;
     @FXML public TextField displayNameTextField;
     @FXML public TextField emailAddressTextField;
     @FXML public Button logOutBtn;
@@ -40,8 +40,8 @@ public class dashboardController {
     public dashboardController() {
         stlImporter = new StlMeshImporter();
         browseModelsList = new ArrayList<>();
-        verifyModelsList = new ArrayList<>();
-        dbModelsList = new ArrayList<>();
+        verifyModelsList = new BsonArray();
+        dbModelsList = new BsonArray();
     }
 
     /************************************************* MENU TOGGLE METHODS ********************************************/
@@ -54,7 +54,7 @@ public class dashboardController {
     @FXML
     private void navigationMenuBtnClicked(Event event){
         accountMenuPane.setVisible(false);
-        notificationsPane.setVisible(false);
+        notificationsAnchorPane.setVisible(false);
         navigationMenuPane.setVisible(!navigationMenuPane.visibleProperty().get());
     }
 
@@ -70,7 +70,7 @@ public class dashboardController {
                 accountMenuPane.setVisible(false);
             } else {
                 accountMenuPane.setVisible(false);
-                notificationsPane.setVisible(false);
+                notificationsAnchorPane.setVisible(false);
                 String functionCall = String.format("ModelBox.Users.getCurrentUserAccountMenu();");
                 app.mongoApp.eval(functionCall);
             }
@@ -89,7 +89,14 @@ public class dashboardController {
     private void notificationsBtnClicked(Event event){
         navigationMenuPane.setVisible(false);
         accountMenuPane.setVisible(false);
-        notificationsPane.setVisible(!notificationsPane.visibleProperty().get());
+
+        if (notificationsAnchorPane.visibleProperty().get()) {
+            notificationsAnchorPane.setVisible(false);
+        } else {
+            // Load data
+            String functionCall = String.format("ModelBox.Users.getCurrentUserNotifications();");
+            app.mongoApp.eval(functionCall);
+        }
     }
 
     /************************************************* UI REDIRECT METHODS ********************************************/
@@ -111,7 +118,8 @@ public class dashboardController {
             app.dashboard.dashViewsAnchorPane.getChildren().setAll(root);
 
             // Asynchronously populate the my models view and show appropriate nodes when ready
-            app.models.getAllModelsFromCurrentUser();
+            String functionCall = String.format("ModelBox.Models.getCurrentUserModels();");
+            app.mongoApp.eval(functionCall);
         } catch (Exception exception) {
             exception.printStackTrace();
         }
@@ -208,31 +216,14 @@ public class dashboardController {
     /**
      *	Returns the index of a specific 3D model in a list of models
      *
-     *  @param list      a List of File(s) that contain 3D models
-     *  @param modelName a string that represents the name of the model
-     *	@return the index value of the model in the List
-     */
-    public int getFileIndexByModelName(List<File> list, String modelName) {
-        int index = 0;
-        for (int i = 0; i < list.size(); i++) {
-            if (modelName.equals((list.get(i)).getName())) {
-                index = i;
-            }
-        }
-        return index;
-    }
-
-    /**
-     *	Returns the index of a specific 3D model in a list of models
-     *
-     *  @param  list      a List of Document(s) that contain 3D models
+     *  @param  list      a BsonArray of Document(s) that contain 3D models
      *  @param  modelID   a string that represents the id of the model
      *	@return the index value of the model in the List
      */
-    public int getDocumentIndexByModelID(List<Document> list, String modelID) {
+    public int getDocumentIndexByModelID(BsonArray list, String modelID) {
         int index = 0;
         for (int i = 0; i < list.size(); i++) {
-            if (modelID.equals(((ObjectId) list.get(i).get("_id")).toString())) {
+            if (modelID.equals(list.get(i).asDocument().get("_id").asObjectId().getValue().toHexString())) {
                 index = i;
             }
         }

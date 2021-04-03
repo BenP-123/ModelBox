@@ -1,41 +1,56 @@
 package com.modelbox.mongo;
 
 import com.modelbox.app;
-import com.mongodb.client.model.Aggregates;
-import com.mongodb.client.model.Filters;
-import com.mongodb.client.result.UpdateResult;
-import com.mongodb.reactivestreams.client.MongoCollection;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
-import org.bson.BsonBinary;
-import org.bson.Document;
-import org.bson.conversions.Bson;
-import org.bson.types.Binary;
+import javafx.scene.text.Text;
+import org.bson.BsonArray;
+import org.bson.BsonDocument;
+import org.bson.BsonValue;
 
 import java.io.ByteArrayInputStream;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.List;
-
-import static com.mongodb.client.model.Filters.eq;
 
 public class usersBridge {
 
     public String ownerId;
-    public MongoCollection<Document> usersCollection;
 
-    public void handleGetCurrentUserAccountMenu(String displayName, String emailAddress) {
+    public void handleGetCurrentUserAccountMenu(String currentUserAccountMenu) {
         try {
-            app.dashboard.displayNameTextField.setText(displayName);
-            app.dashboard.emailAddressTextField.setText(emailAddress);
+            BsonDocument currentUserDocument = BsonDocument.parse(currentUserAccountMenu);
+            app.dashboard.displayNameTextField.setText(currentUserDocument.get("displayName").asString().getValue());
+            app.dashboard.emailAddressTextField.setText(currentUserDocument.get("emailAddress").asString().getValue());
             app.dashboard.accountMenuPane.setVisible(!app.dashboard.accountMenuPane.visibleProperty().get());
         } catch (Exception exception) {
             exception.printStackTrace();
         }
     }
 
-    public void handleGetCurrentUserProfile(String displayName, String firstName, String lastName, String profileBio, String profilePicture) {
+    public void handleGetCurrentUserNotifications(String currentUserNotifications) {
         try {
+            BsonArray userNotifications = BsonArray.parse(currentUserNotifications);
+
+            app.dashboard.notificationsVBox.getChildren().clear();
+
+            if (userNotifications.isEmpty()) {
+                Text noNotifications = new Text("No notifications yet!");
+                noNotifications.setStyle("-fx-fill: #ffffff; -fx-font-size: 18px; -fx-font-family: Arial;");
+                app.dashboard.notificationsVBox.getChildren().add(noNotifications);
+            } else {
+                for (BsonValue notification : userNotifications) {
+
+                }
+            }
+
+            app.dashboard.notificationsAnchorPane.setVisible(true);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    public void handleGetCurrentUserProfile(String currentUserProfile) {
+        try {
+            BsonDocument currentUserDocument = BsonDocument.parse(currentUserProfile);
+
             app.profileView.editProfileBtn.setText("Edit profile");
             app.profileView.editProfileBtn.setStyle("-fx-background-color: #007be8;");
             app.profileView.displayNameTextField.setEditable(false);
@@ -46,15 +61,15 @@ public class usersBridge {
             app.profileView.addProfilePictureBtn.setVisible(false);
             app.profileView.cancelProfileUploadBtn.setVisible(false);
 
-            app.profileView.displayNameTextField.setText(displayName);
-            app.profileView.firstNameTextField.setText(firstName);
-            app.profileView.lastNameTextField.setText(lastName);
-            app.profileView.bioTextArea.setText(profileBio);
-            if (profilePicture.equals("")){
+            app.profileView.displayNameTextField.setText(currentUserDocument.get("displayName").asString().getValue());
+            app.profileView.firstNameTextField.setText(currentUserDocument.get("firstName").asString().getValue());
+            app.profileView.lastNameTextField.setText(currentUserDocument.get("lastName").asString().getValue());
+            String profileBioText = currentUserDocument.get("profileBio") == null ? "" : currentUserDocument.get("profileBio").asString().getValue();
+            app.profileView.bioTextArea.setText(profileBioText);
+            if (currentUserDocument.get("profilePicture") == null){
                 app.profileView.profilePictureImage.setFill(new ImagePattern(new Image(String.valueOf(getClass().getResource("/images/empty-profile-pic.png")))));
             } else {
-                byte[] decodedProfilePicture = Base64.getDecoder().decode(profilePicture.getBytes("UTF-8"));
-                app.profileView.profilePictureImage.setFill(new ImagePattern(new Image(new ByteArrayInputStream(decodedProfilePicture))));
+                app.profileView.profilePictureImage.setFill(new ImagePattern(new Image(new ByteArrayInputStream(currentUserDocument.get("profilePicture").asBinary().getData()))));
             }
             app.profileView.loadingAnchorPane.setVisible(false);
             app.profileView.profileContentAnchorPane.setVisible(true);
@@ -63,14 +78,15 @@ public class usersBridge {
         }
     }
 
-    public void handleGetCurrentUserSettings(String displayName, String profilePicture) {
+    public void handleGetCurrentUserSettings(String currentUserSettings) {
         try {
-            app.settingsView.displayNameTextField.setText(displayName);
-            if (profilePicture.equals("")){
+            BsonDocument currentUserDocument = BsonDocument.parse(currentUserSettings);
+
+            app.settingsView.displayNameTextField.setText(currentUserDocument.get("displayName").asString().getValue());
+            if (currentUserDocument.get("profilePicture") == null){
                 app.settingsView.settingsPictureImage.setFill(new ImagePattern(new Image(String.valueOf(getClass().getResource("/images/empty-profile-pic.png")))));
             } else {
-                byte[] decodedProfilePicture = Base64.getDecoder().decode(profilePicture.getBytes("UTF-8"));
-                app.settingsView.settingsPictureImage.setFill(new ImagePattern(new Image(new ByteArrayInputStream(decodedProfilePicture))));
+                app.settingsView.settingsPictureImage.setFill(new ImagePattern(new Image(new ByteArrayInputStream(currentUserDocument.get("profilePicture").asBinary().getData()))));
             }
             app.settingsView.loadingAnchorPane.setVisible(false);
             app.settingsView.settingsContentAnchorPane.setVisible(true);
@@ -78,68 +94,4 @@ public class usersBridge {
             exception.printStackTrace();
         }
     }
-
-    /**
-     * Using the MongoDB driver, sets the profile info of the currently logged in user
-     *
-     *
-     * @param displayName a String containing the display name for the current user
-     * @param firstName a String containing the first name for the current user
-     * @param lastName a String containing the last name for the current user
-     * @param profileBio a String containing the profile bio for the current user
-     * @param profilePicture a byte[] containing the new file contents of the picture to use for the current user
-     */
-    public void setCurrentUserProfileInfo(String displayName, String firstName, String lastName, String profileBio, byte[] profilePicture) {
-        Bson filter = eq("owner_id", app.users.ownerId);
-        subscribers.OperationSubscriber<Document> findSubscriber = new subscribers.OperationSubscriber<>();
-        app.users.usersCollection.find(filter).first().subscribe(findSubscriber);
-
-        try {
-            Document found = findSubscriber.await().getReceived().get(0);
-
-            if(found != null){
-                Document newValues = new Document("displayName", displayName).append("firstName", firstName)
-                        .append("lastName", lastName).append("profileBio", profileBio);
-
-                if (profilePicture != null) {
-                    newValues.append("profilePicture", new BsonBinary(profilePicture));
-                }
-                Bson updatedValue = newValues;
-                Bson updatedOperation = new Document("$set", updatedValue);
-                subscribers.OperationSubscriber<UpdateResult> updateOneSubscriber = new subscribers.OperationSubscriber<>();
-                usersCollection.updateOne(found, updatedOperation).subscribe(updateOneSubscriber);
-                updateOneSubscriber.await();
-            }
-
-            String functionCall = String.format("ModelBox.Users.getCurrentUserProfile();");
-            app.mongoApp.eval(functionCall);
-
-        } catch (Throwable throwable) {
-            throwable.printStackTrace();
-        }
-    }
-
-/* Edited out, working on getting user info for collaboration
-    public ArrayList getUserInfo(ArrayList collaborators) {
-        Bson filter = Filters.in("owner_id", collaborators);
-
-        subscribers.OperationSubscriber<Document> findSubscriber = new subscribers.OperationSubscriber<>();
-        app.users.usersCollection.find(filter).first().subscribe(findSubscriber);
-
-        try {
-            Document found = findSubscriber.await().getReceived().get(0);
-
-            if(found != null){
-                return (ArrayList)found.get("displayName");
-            }
-
-
-        } catch (Throwable throwable) {
-            throwable.printStackTrace();
-        }
-
-        return new ArrayList<>();
-    }
-
- */
 }
