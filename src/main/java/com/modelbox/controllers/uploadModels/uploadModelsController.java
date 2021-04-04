@@ -55,7 +55,7 @@ public class uploadModelsController {
                     BsonDocument modelDocument = new BsonDocument("_id", new BsonObjectId());
                     try {
                         modelDocument.append("owner_id", new BsonString(app.users.ownerId));
-                        modelDocument.append("shared_id", new BsonArray());
+                        modelDocument.append("collaborators", new BsonArray());
                         modelDocument.append("modelName", new BsonString(model.getName()));
                         byte[] data = Files.readAllBytes(model.toPath());
                         modelDocument.append("modelFile", new BsonBinary(data));

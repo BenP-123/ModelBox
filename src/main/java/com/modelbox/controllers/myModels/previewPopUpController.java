@@ -14,6 +14,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.SubScene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -47,12 +48,15 @@ public class previewPopUpController {
     private final DoubleProperty bright = new SimpleDoubleProperty(100);
 
     @FXML public AnchorPane previewModelAnchorPane;
-    @FXML public TextField modelNameTextField;
+    @FXML public TextField modelNameEditorTextField;
+    @FXML public Text modelNameViewerText;
     @FXML public Text modelSizeText;
     @FXML public Text modelDateText;
     @FXML public Text modelTypeText;
     @FXML public SubScene previewModelSubScene;
     @FXML public Button saveAttributesBtn;
+    @FXML public ScrollPane collaboratorsScrollPane;
+    @FXML public VBox collaboratorsVBox;
 
     @FXML
     private void saveAttributesBtnClicked(Event event) {

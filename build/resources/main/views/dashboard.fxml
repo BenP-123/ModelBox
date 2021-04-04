@@ -49,7 +49,7 @@
       <AnchorPane id="dashViewsAnchorPane" fx:id="dashViewsAnchorPane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #ffffff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />
       <Pane id="navigationMenuPane" fx:id="navigationMenuPane" layoutX="-15.0" layoutY="38.0" prefHeight="175.0" prefWidth="300.0" style="-fx-background-color: #17181a; -fx-background-radius: 0 0 25 0;" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="40.0">
          <children>
-            <Text id="navigationMenuTextHeading" fx:id="navigationMenuTextHeading" fill="WHITE" layoutX="25.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ModelBox">
+            <Text id="navigationMenuTextHeading" fx:id="navigationMenuTextHeading" fill="#55b0ff" layoutX="25.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ModelBox">
                <font>
                   <Font name="Arial" size="20.0" />
                </font>
@@ -91,7 +91,7 @@
       <Pane id="accountMenuPane" fx:id="accountMenuPane" layoutX="754.0" layoutY="51.0" prefHeight="225.0" prefWidth="300.0" style="-fx-background-color: #17181a; -fx-background-radius: 0 0 0 25;" visible="false" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
          <children>
             <Line id="accountMenuIndicator" endX="50.0" layoutX="250.0" stroke="WHITE" strokeWidth="1.25" />
-            <TextField id="displayNameTextField" fx:id="displayNameTextField" editable="false" layoutX="8.0" layoutY="7.0" prefHeight="37.0" prefWidth="290.0" style="-fx-background-color: #17181A; -fx-text-inner-color: #ffffff;" text="Kermit the Frog">
+            <TextField id="displayNameTextField" fx:id="displayNameTextField" editable="false" layoutX="8.0" layoutY="7.0" prefHeight="37.0" prefWidth="290.0" style="-fx-background-color: #17181A; -fx-text-inner-color: #55b0ff;" text="Kermit the Frog">
                <font>
                   <Font name="Arial" size="20.0" />
                </font>
@@ -142,15 +142,15 @@
       </Pane>
       <AnchorPane fx:id="notificationsAnchorPane" prefHeight="225.0" prefWidth="300.0" style="-fx-background-color: #171a1d; -fx-background-radius: 0 0 0 25;" visible="false" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
          <children>
-            <Line id="accountMenuIndicator" endX="50.0" layoutX="200.0" stroke="WHITE" strokeWidth="1.25" />
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Notifications" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="15.0">
+            <Line endX="50.0" layoutX="200.0" stroke="WHITE" strokeWidth="1.25" />
+            <Text fill="#55b0ff" strokeType="OUTSIDE" strokeWidth="0.0" text="Notifications" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="15.0">
                <font>
                   <Font name="Arial" size="20.0" />
                </font>
             </Text>
-            <ScrollPane fx:id="notificationsScrollPane" hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: transparent;" vbarPolicy="NEVER" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="45.0">
+            <ScrollPane id="notificationsScrollPane" fx:id="notificationsScrollPane" hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" style="-fx-background: #171a1d; -fx-border-color: #171a1d; -fx-padding: 0;" vbarPolicy="NEVER" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="45.0">
                <content>
-                  <VBox fx:id="notificationsVBox" alignment="TOP_CENTER" prefWidth="275.0" style="-fx-background-color: transparent;" />
+                  <VBox fx:id="notificationsVBox" alignment="TOP_LEFT" prefWidth="275.0" spacing="10.0" style="-fx-background-color: transparent; -fx-padding: 0;" />
                </content>
             </ScrollPane>
          </children>

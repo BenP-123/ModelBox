@@ -189,7 +189,7 @@
                                           <Font name="Arial" size="15.0" />
                                        </font>
                                     </Text>
-                                    <Button fx:id="updatePasswordBtn" layoutX="25.0" layoutY="285.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: green; -fx-background-radius: 5 5 5 5;" text="Update password" textFill="WHITE" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="290.0">
+                                    <Button fx:id="updatePasswordBtn" layoutX="25.0" layoutY="285.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: #007be8; -fx-background-radius: 5 5 5 5;" text="Update password" textFill="WHITE" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="290.0">
                                        <font>
                                           <Font name="Arial" size="14.0" />
                                        </font>
@@ -203,7 +203,7 @@
                                           <Font name="Arial" size="22.0" />
                                        </font>
                                     </Text>
-                                    <Button fx:id="changeEmailButton" contentDisplay="TEXT_ONLY" graphicTextGap="0.0" layoutX="25.0" layoutY="139.0" mnemonicParsing="false" onAction="#changeEmailButtonClicked" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: green; -fx-background-radius: 5 5 5 5;" text="Change email" textFill="WHITE" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="139.0">
+                                    <Button fx:id="changeEmailButton" contentDisplay="TEXT_ONLY" graphicTextGap="0.0" layoutX="25.0" layoutY="139.0" mnemonicParsing="false" onAction="#changeEmailButtonClicked" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: #007be8; -fx-background-radius: 5 5 5 5;" text="Change email" textFill="WHITE" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="139.0">
                                        <font>
                                           <Font name="Arial" size="14.0" />
                                        </font>

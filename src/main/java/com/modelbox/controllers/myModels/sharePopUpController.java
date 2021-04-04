@@ -36,19 +36,14 @@ public class sharePopUpController {
 
     @FXML
     private void addCollaboratorBtnClicked(Event event) {
-        AnchorPane currentSharePanel = (AnchorPane) ((Button) event.getSource()).getParent().getParent();
+        AnchorPane currentSharePanel = (AnchorPane) ((Button) event.getSource()).getParent().getParent().getParent();
 
         // Share the model with another user in the database
         BsonDocument shareModelConfiguration = new BsonDocument()
                 .append("modelId", new BsonObjectId(new ObjectId(currentSharePanel.getId())))
-                .append("recipientEmail", new BsonString(collaboratorEmailTextField.getText()));
+                .append("recipientEmail", new BsonString(collaboratorEmailTextField.getText()))
+                .append("permissions", new BsonString("Viewer"));
         String functionCall = String.format("ModelBox.Models.shareCurrentUserModel('%s');", shareModelConfiguration.toJson());
         app.mongoApp.eval(functionCall);
-    }
-
-    @FXML
-    public void leaveCollaborationBtnClicked(ActionEvent actionEvent) {
-        //Place holder for leaving a collaboration
-        System.out.println("Placeholder function...");
     }
 }

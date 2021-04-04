@@ -1,8 +1,14 @@
 package com.modelbox.mongo;
 
 import com.modelbox.app;
+import javafx.geometry.HPos;
+import javafx.geometry.VPos;
+import javafx.scene.control.Separator;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import org.bson.BsonArray;
 import org.bson.BsonDocument;
@@ -19,7 +25,9 @@ public class usersBridge {
             BsonDocument currentUserDocument = BsonDocument.parse(currentUserAccountMenu);
             app.dashboard.displayNameTextField.setText(currentUserDocument.get("displayName").asString().getValue());
             app.dashboard.emailAddressTextField.setText(currentUserDocument.get("emailAddress").asString().getValue());
-            app.dashboard.accountMenuPane.setVisible(!app.dashboard.accountMenuPane.visibleProperty().get());
+            app.dashboard.navigationMenuPane.setVisible(false);
+            app.dashboard.notificationsAnchorPane.setVisible(false);
+            app.dashboard.accountMenuPane.setVisible(true);
         } catch (Exception exception) {
             exception.printStackTrace();
         }
@@ -33,11 +41,29 @@ public class usersBridge {
 
             if (userNotifications.isEmpty()) {
                 Text noNotifications = new Text("No notifications yet!");
-                noNotifications.setStyle("-fx-fill: #ffffff; -fx-font-size: 18px; -fx-font-family: Arial;");
-                app.dashboard.notificationsVBox.getChildren().add(noNotifications);
-            } else {
-                for (BsonValue notification : userNotifications) {
+                noNotifications.setWrappingWidth(250);
+                noNotifications.setStyle("-fx-fill: #ffffff; -fx-font-size: 14px; -fx-font-family: Arial; -fx-padding: 0; -fx-background-insets: 0");
 
+                Line separator = new Line();
+                separator.setStartX(0);
+                separator.setEndX(275);
+                separator.setStroke(Color.WHITE);
+                separator.setStrokeWidth(1.25);
+                app.dashboard.notificationsVBox.getChildren().add(noNotifications);
+                app.dashboard.notificationsVBox.getChildren().add(1, separator);
+            } else {
+                for (int i = userNotifications.size() - 1; i >= 0; i--) {
+                    Text notificationMessage = new Text(userNotifications.get(i).asString().getValue());
+                    notificationMessage.setWrappingWidth(250);
+                    notificationMessage.setStyle("-fx-fill: #ffffff; -fx-font-size: 14px; -fx-font-family: Arial; -fx-padding: 0; -fx-background-insets: 0");
+
+                    Line separator = new Line();
+                    separator.setStartX(0);
+                    separator.setEndX(275);
+                    separator.setStroke(Color.WHITE);
+                    separator.setStrokeWidth(1.25);
+                    app.dashboard.notificationsVBox.getChildren().add(notificationMessage);
+                    app.dashboard.notificationsVBox.getChildren().add(separator);
                 }
             }
 

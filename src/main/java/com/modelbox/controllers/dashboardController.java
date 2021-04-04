@@ -25,7 +25,7 @@ public class dashboardController {
     @FXML public VBox notificationsVBox;
     @FXML public AnchorPane dashboardAnchorPane;
     @FXML public AnchorPane dashViewsAnchorPane;
-    @FXML private Pane navigationMenuPane;
+    @FXML public Pane navigationMenuPane;
     @FXML public Pane accountMenuPane;
     @FXML public AnchorPane notificationsAnchorPane;
     @FXML public TextField displayNameTextField;
