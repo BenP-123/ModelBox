@@ -15,6 +15,7 @@ import java.util.List;
 import com.interactivemesh.jfx.importer.stl.StlMeshImporter;
 import javafx.scene.layout.VBox;
 import org.bson.BsonArray;
+import org.bson.BsonValue;
 
 public class dashboardController {
     public BsonArray dbModelsList;
@@ -228,5 +229,19 @@ public class dashboardController {
             }
         }
         return index;
+    }
+
+    public String getCollaboratorRoleByModelID(BsonArray list, String modelID, String collaboratorID) {
+        String role = "";
+        for (int i = 0; i < list.size(); i++) {
+            if (modelID.equals(list.get(i).asDocument().get("_id").asObjectId().getValue().toHexString())) {
+                for (BsonValue collaborator : list.get(i).asDocument().get("collaborators").asArray()) {
+                    if (collaborator.asDocument().get("id").asString().getValue().equals(collaboratorID)) {
+                        role = collaborator.asDocument().get("permissions").asString().getValue();
+                    }
+                }
+            }
+        }
+        return role;
     }
 }

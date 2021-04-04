@@ -71,12 +71,13 @@
                   <Font name="Arial" size="14.0" />
                </font>
             </Text>
+            <Line endX="150.0" layoutX="41.0" layoutY="168.0" stroke="WHITE" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="187.0" />
             <Button id="editProfileBtn" fx:id="saveAttributesBtn" alignment="CENTER" layoutX="24.0" layoutY="281.0" mnemonicParsing="false" onAction="#saveAttributesBtnClicked" prefHeight="35.0" prefWidth="315.0" style="-fx-background-color: #007be8; -fx-background-radius: 5 5 5 5;" text="Save attributes" textFill="WHITE" visible="false" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
                <font>
                   <Font name="Arial" size="14.0" />
                </font>
             </Button>
-            <ScrollPane fx:id="collaboratorsScrollPane" hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" style="-fx-background: #171a1d; -fx-border-color: #171a1d; -fx-padding: 0;" vbarPolicy="NEVER" visible="false" AnchorPane.bottomAnchor="85.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="190.0">
+            <ScrollPane fx:id="collaboratorsScrollPane" hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" style="-fx-background: #171a1d; -fx-border-color: #171a1d; -fx-padding: 0;" vbarPolicy="NEVER" visible="false" AnchorPane.bottomAnchor="85.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="195.0">
                <content>
                   <VBox fx:id="collaboratorsVBox" alignment="TOP_LEFT" prefWidth="315.0" spacing="10.0" style="-fx-background-color: transparent; -fx-padding: 0;" />
                </content>

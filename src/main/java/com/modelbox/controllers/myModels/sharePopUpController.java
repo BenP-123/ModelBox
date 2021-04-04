@@ -4,6 +4,8 @@ import com.modelbox.app;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -20,8 +22,7 @@ public class sharePopUpController {
     @FXML public AnchorPane sharePermissionsAnchorPane;
     @FXML public TextField collaboratorEmailTextField;
     @FXML public TextField collaboratorErrorTextField;
-    @FXML public VBox collaboratorPermissionsList;
-
+    @FXML public VBox collaboratorsVBox;
 
     /**
      * Closes and removes the share pop-up from view
@@ -30,8 +31,22 @@ public class sharePopUpController {
      */
     @FXML
     private void closeShareBtnClicked(Event event) {
-        AnchorPane currentSharePanel = (AnchorPane) ((Button) event.getSource()).getParent().getParent();
-        app.myModelsView.myModelsAnchorPane.getChildren().remove(currentSharePanel);
+        try {
+            AnchorPane currentSharePanel = (AnchorPane) ((Button) event.getSource()).getParent().getParent();
+            app.myModelsView.myModelsAnchorPane.getChildren().remove(currentSharePanel);
+
+            // Refresh the my models view
+            app.viewLoader = new FXMLLoader(getClass().getResource("/views/myModels/myModels.fxml"));
+            Parent root = app.viewLoader.load();
+            app.myModelsView = app.viewLoader.getController();
+            app.dashboard.dashViewsAnchorPane.getChildren().setAll(root);
+
+            // Asynchronously populate the my models view and show appropriate nodes when ready
+            String functionCall = String.format("ModelBox.Models.getCurrentUserModels();");
+            app.mongoApp.eval(functionCall);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
     }
 
     @FXML

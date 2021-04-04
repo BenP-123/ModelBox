@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.MeshView;
@@ -86,10 +87,33 @@ public class modelsBridge {
 
     public void handleShareCurrentUserModel(String sharedUser) {
         if (shareModelStatus.equals("success")) {
-            BsonDocument sharedUserDocument = BsonDocument.parse(sharedUser);
+            BsonDocument collaborator = BsonDocument.parse(sharedUser);
 
-            Text newAddition = new Text(sharedUserDocument.get("displayName").asString().getValue() + " is now a collaborator.");
-            app.sharePopUpView.collaboratorPermissionsList.getChildren().add(newAddition);
+            // Display Viewer
+            VBox collaboratorInfo = new VBox();
+            collaboratorInfo.setPrefWidth(315);
+
+            Text displayName = new Text(collaborator.asDocument().get("displayName").asString().getValue());
+            displayName.setWrappingWidth(315);
+            displayName.setStyle("-fx-fill: #007be8; -fx-font-size: 14px; -fx-font-family: Arial; -fx-padding: 0; -fx-background-insets: 0");
+
+            Text emailAddress = new Text(collaborator.asDocument().get("emailAddress").asString().getValue());
+            emailAddress.setWrappingWidth(315);
+            emailAddress.setStyle("-fx-fill: #181a1d; -fx-font-size: 14px; -fx-font-family: Arial; -fx-padding: 0; -fx-background-insets: 0");
+
+            Text permissions = new Text("(Viewer)");
+            permissions.setWrappingWidth(315);
+            permissions.setStyle("-fx-fill: #181a1d; -fx-font-size: 14px; -fx-font-family: Arial; -fx-padding: 0; -fx-background-insets: 0");
+
+            collaboratorInfo.getChildren().addAll(displayName, emailAddress, permissions);
+
+            Line separator = new Line();
+            separator.setStartX(0);
+            separator.setEndX(275);
+            separator.setStroke(Color.color(0.0941, 0.1019, 0.1137));
+            separator.setStrokeWidth(1.25);
+            app.sharePopUpView.collaboratorsVBox.getChildren().add(collaboratorInfo);
+            app.sharePopUpView.collaboratorsVBox.getChildren().add(separator);
         } else {
             app.sharePopUpView.collaboratorErrorTextField.setText(shareModelStatus);
             app.sharePopUpView.collaboratorErrorTextField.setVisible(true);
@@ -146,12 +170,53 @@ public class modelsBridge {
                 app.previewPopUpView.saveAttributesBtn.setVisible(true);
                 app.previewPopUpView.collaboratorsScrollPane.setVisible(true);
                 app.previewPopUpView.collaboratorsVBox.getChildren().clear();
-                if (!modelCollaborators.isEmpty()) {
-                    // Display collaborators
-                    for (BsonValue collaborator : modelCollaborators) {
-                        Text collaboratorInfo = new Text(collaborator.asDocument().get("displayName").asString().getValue() + " (Editor) | " + collaborator.asDocument().get("emailAddress").asString().getValue());
-                        collaboratorInfo.setWrappingWidth(315);
-                        collaboratorInfo.setStyle("-fx-fill: #ffffff; -fx-font-size: 14px; -fx-font-family: Arial; -fx-padding: 0; -fx-background-insets: 0");
+
+                // Display collaborators
+                for (BsonValue collaborator : modelCollaborators) {
+                    if (collaborator.asDocument().get("owner_id").asString().getValue().equals(model.get("owner_id").asString().getValue())) {
+                        // Display owner
+                        VBox collaboratorInfo = new VBox();
+                        collaboratorInfo.setPrefWidth(315);
+
+                        Text displayName = new Text(collaborator.asDocument().get("displayName").asString().getValue());
+                        displayName.setWrappingWidth(315);
+                        displayName.setStyle("-fx-fill: #55b0ff; -fx-font-size: 14px; -fx-font-family: Arial; -fx-padding: 0; -fx-background-insets: 0");
+
+                        Text emailAddress = new Text(collaborator.asDocument().get("emailAddress").asString().getValue());
+                        emailAddress.setWrappingWidth(315);
+                        emailAddress.setStyle("-fx-fill: #ffffff; -fx-font-size: 14px; -fx-font-family: Arial; -fx-padding: 0; -fx-background-insets: 0");
+
+                        Text permissions = new Text("(Owner)");
+                        permissions.setWrappingWidth(315);
+                        permissions.setStyle("-fx-fill: #ffffff; -fx-font-size: 14px; -fx-font-family: Arial; -fx-padding: 0; -fx-background-insets: 0");
+
+                        collaboratorInfo.getChildren().addAll(displayName, emailAddress, permissions);
+
+                        Line separator = new Line();
+                        separator.setStartX(0);
+                        separator.setEndX(275);
+                        separator.setStroke(Color.WHITE);
+                        separator.setStrokeWidth(1.25);
+                        app.previewPopUpView.collaboratorsVBox.getChildren().add(collaboratorInfo);
+                        app.previewPopUpView.collaboratorsVBox.getChildren().add(separator);
+                    } else {
+                        // Display collaborator
+                        VBox collaboratorInfo = new VBox();
+                        collaboratorInfo.setPrefWidth(315);
+
+                        Text displayName = new Text(collaborator.asDocument().get("displayName").asString().getValue());
+                        displayName.setWrappingWidth(315);
+                        displayName.setStyle("-fx-fill: #55b0ff; -fx-font-size: 14px; -fx-font-family: Arial; -fx-padding: 0; -fx-background-insets: 0");
+
+                        Text emailAddress = new Text(collaborator.asDocument().get("emailAddress").asString().getValue());
+                        emailAddress.setWrappingWidth(315);
+                        emailAddress.setStyle("-fx-fill: #ffffff; -fx-font-size: 14px; -fx-font-family: Arial; -fx-padding: 0; -fx-background-insets: 0");
+
+                        Text permissions = new Text("(Editor)");
+                        permissions.setWrappingWidth(315);
+                        permissions.setStyle("-fx-fill: #ffffff; -fx-font-size: 14px; -fx-font-family: Arial; -fx-padding: 0; -fx-background-insets: 0");
+
+                        collaboratorInfo.getChildren().addAll(displayName, emailAddress, permissions);
 
                         Line separator = new Line();
                         separator.setStartX(0);
@@ -162,6 +227,7 @@ public class modelsBridge {
                         app.previewPopUpView.collaboratorsVBox.getChildren().add(separator);
                     }
                 }
+
             } else if (!model.get("owner_id").asString().getValue().equals(app.users.ownerId) && model.get("isShared").asBoolean().getValue()) {
                 // Current user is not the owner, the model is shared, the current user has viewer permissions
                 app.previewPopUpView.modelNameEditorTextField.setVisible(false);
@@ -170,12 +236,53 @@ public class modelsBridge {
                 app.previewPopUpView.modelNameViewerText.setText(FilenameUtils.removeExtension(model.get("modelName").asString().getValue()));
                 app.previewPopUpView.collaboratorsScrollPane.setVisible(true);
                 app.previewPopUpView.collaboratorsVBox.getChildren().clear();
-                if (!modelCollaborators.isEmpty()) {
-                    // Display collaborators
-                    for (BsonValue collaborator : modelCollaborators) {
-                        Text collaboratorInfo = new Text(collaborator.asDocument().get("displayName").asString().getValue() + " (Viewer) | " + collaborator.asDocument().get("emailAddress").asString().getValue());
-                        collaboratorInfo.setWrappingWidth(315);
-                        collaboratorInfo.setStyle("-fx-fill: #ffffff; -fx-font-size: 14px; -fx-font-family: Arial; -fx-padding: 0; -fx-background-insets: 0");
+
+                // Display collaborators
+                for (BsonValue collaborator : modelCollaborators) {
+                    if (collaborator.asDocument().get("owner_id").asString().getValue().equals(model.get("owner_id").asString().getValue())) {
+                        // Display owner
+                        VBox collaboratorInfo = new VBox();
+                        collaboratorInfo.setPrefWidth(315);
+
+                        Text displayName = new Text(collaborator.asDocument().get("displayName").asString().getValue());
+                        displayName.setWrappingWidth(315);
+                        displayName.setStyle("-fx-fill: #55b0ff; -fx-font-size: 14px; -fx-font-family: Arial; -fx-padding: 0; -fx-background-insets: 0");
+
+                        Text emailAddress = new Text(collaborator.asDocument().get("emailAddress").asString().getValue());
+                        emailAddress.setWrappingWidth(315);
+                        emailAddress.setStyle("-fx-fill: #ffffff; -fx-font-size: 14px; -fx-font-family: Arial; -fx-padding: 0; -fx-background-insets: 0");
+
+                        Text permissions = new Text("(Owner)");
+                        permissions.setWrappingWidth(315);
+                        permissions.setStyle("-fx-fill: #ffffff; -fx-font-size: 14px; -fx-font-family: Arial; -fx-padding: 0; -fx-background-insets: 0");
+
+                        collaboratorInfo.getChildren().addAll(displayName, emailAddress, permissions);
+
+                        Line separator = new Line();
+                        separator.setStartX(0);
+                        separator.setEndX(275);
+                        separator.setStroke(Color.WHITE);
+                        separator.setStrokeWidth(1.25);
+                        app.previewPopUpView.collaboratorsVBox.getChildren().add(collaboratorInfo);
+                        app.previewPopUpView.collaboratorsVBox.getChildren().add(separator);
+                    } else {
+                        // Display collaborator
+                        VBox collaboratorInfo = new VBox();
+                        collaboratorInfo.setPrefWidth(315);
+
+                        Text displayName = new Text(collaborator.asDocument().get("displayName").asString().getValue());
+                        displayName.setWrappingWidth(315);
+                        displayName.setStyle("-fx-fill: #55b0ff; -fx-font-size: 14px; -fx-font-family: Arial; -fx-padding: 0; -fx-background-insets: 0");
+
+                        Text emailAddress = new Text(collaborator.asDocument().get("emailAddress").asString().getValue());
+                        emailAddress.setWrappingWidth(315);
+                        emailAddress.setStyle("-fx-fill: #ffffff; -fx-font-size: 14px; -fx-font-family: Arial; -fx-padding: 0; -fx-background-insets: 0");
+
+                        Text permissions = new Text("(Viewer)");
+                        permissions.setWrappingWidth(315);
+                        permissions.setStyle("-fx-fill: #ffffff; -fx-font-size: 14px; -fx-font-family: Arial; -fx-padding: 0; -fx-background-insets: 0");
+
+                        collaboratorInfo.getChildren().addAll(displayName, emailAddress, permissions);
 
                         Line separator = new Line();
                         separator.setStartX(0);
@@ -225,10 +332,85 @@ public class modelsBridge {
             // Set the id of the shareRootAnchorPane to be equal to the model id
             app.sharePopUpView.shareRootAnchorPane.setId(modelId);
 
-            if (!modelCollaborators.isEmpty()) {
+            if (modelCollaborators.isEmpty()) {
+                // Display a message saying there are no collaborators
+                VBox noCollaboratorsMessage = new VBox();
+                noCollaboratorsMessage.setSpacing(10);
+                noCollaboratorsMessage.setPrefWidth(315);
+
+                Text heading = new Text("No collaborators yet!");
+                heading.setWrappingWidth(315);
+                heading.setStyle("-fx-fill: #007be8; -fx-font-size: 16px; -fx-font-family: Arial; -fx-padding: 0; -fx-background-insets: 0");
+
+                Text subHeading = new Text("To start sharing this model with others, add a collaborator.");
+                subHeading.setWrappingWidth(315);
+                subHeading.setStyle("-fx-fill: #181a1d; -fx-font-size: 14px; -fx-font-family: Arial; -fx-padding: 0; -fx-background-insets: 0");
+
+                noCollaboratorsMessage.getChildren().addAll(heading, subHeading);
+
+                Line separator = new Line();
+                separator.setStartX(0);
+                separator.setEndX(275);
+                separator.setStroke(Color.color(0.0941, 0.1019, 0.1137));
+                separator.setStrokeWidth(1.25);
+                app.sharePopUpView.collaboratorsVBox.getChildren().add(noCollaboratorsMessage);
+                app.sharePopUpView.collaboratorsVBox.getChildren().add(separator);
+            } else {
                 // Display collaborators
                 for (BsonValue collaborator : modelCollaborators) {
-                    // Add a collaborator to app.sharePopUpView.collaboratorsVBox
+                    if (app.dashboard.getCollaboratorRoleByModelID(app.dashboard.dbModelsList, modelId, collaborator.asDocument().get("owner_id").asString().getValue()).equals("Editor")) {
+                        // Display Editor
+                        VBox collaboratorInfo = new VBox();
+                        collaboratorInfo.setPrefWidth(315);
+
+                        Text displayName = new Text(collaborator.asDocument().get("displayName").asString().getValue());
+                        displayName.setWrappingWidth(315);
+                        displayName.setStyle("-fx-fill: #007be8; -fx-font-size: 14px; -fx-font-family: Arial; -fx-padding: 0; -fx-background-insets: 0");
+
+                        Text emailAddress = new Text(collaborator.asDocument().get("emailAddress").asString().getValue());
+                        emailAddress.setWrappingWidth(315);
+                        emailAddress.setStyle("-fx-fill: #181a1d; -fx-font-size: 14px; -fx-font-family: Arial; -fx-padding: 0; -fx-background-insets: 0");
+
+                        Text permissions = new Text("(Editor)");
+                        permissions.setWrappingWidth(315);
+                        permissions.setStyle("-fx-fill: #181a1d; -fx-font-size: 14px; -fx-font-family: Arial; -fx-padding: 0; -fx-background-insets: 0");
+
+                        collaboratorInfo.getChildren().addAll(displayName, emailAddress, permissions);
+
+                        Line separator = new Line();
+                        separator.setStartX(0);
+                        separator.setEndX(275);
+                        separator.setStroke(Color.color(0.0941, 0.1019, 0.1137));
+                        separator.setStrokeWidth(1.25);
+                        app.sharePopUpView.collaboratorsVBox.getChildren().add(collaboratorInfo);
+                        app.sharePopUpView.collaboratorsVBox.getChildren().add(separator);
+                    } else {
+                        // Display Viewer
+                        VBox collaboratorInfo = new VBox();
+                        collaboratorInfo.setPrefWidth(315);
+
+                        Text displayName = new Text(collaborator.asDocument().get("displayName").asString().getValue());
+                        displayName.setWrappingWidth(315);
+                        displayName.setStyle("-fx-fill: #007be8; -fx-font-size: 14px; -fx-font-family: Arial; -fx-padding: 0; -fx-background-insets: 0");
+
+                        Text emailAddress = new Text(collaborator.asDocument().get("emailAddress").asString().getValue());
+                        emailAddress.setWrappingWidth(315);
+                        emailAddress.setStyle("-fx-fill: #181a1d; -fx-font-size: 14px; -fx-font-family: Arial; -fx-padding: 0; -fx-background-insets: 0");
+
+                        Text permissions = new Text("(Viewer)");
+                        permissions.setWrappingWidth(315);
+                        permissions.setStyle("-fx-fill: #181a1d; -fx-font-size: 14px; -fx-font-family: Arial; -fx-padding: 0; -fx-background-insets: 0");
+
+                        collaboratorInfo.getChildren().addAll(displayName, emailAddress, permissions);
+
+                        Line separator = new Line();
+                        separator.setStartX(0);
+                        separator.setEndX(275);
+                        separator.setStroke(Color.color(0.0941, 0.1019, 0.1137));
+                        separator.setStrokeWidth(1.25);
+                        app.sharePopUpView.collaboratorsVBox.getChildren().add(collaboratorInfo);
+                        app.sharePopUpView.collaboratorsVBox.getChildren().add(separator);
+                    }
                 }
             }
 
