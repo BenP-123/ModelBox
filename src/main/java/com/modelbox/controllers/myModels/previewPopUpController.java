@@ -10,8 +10,10 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
+import javafx.scene.Parent;
 import javafx.scene.SubScene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -28,26 +30,29 @@ import javafx.scene.shape.MeshView;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import org.bson.BsonDocument;
+import org.bson.BsonObjectId;
+import org.bson.BsonString;
+import org.bson.types.ObjectId;
 
 import java.nio.file.Files;
 
 public class previewPopUpController {
 
-    private double anchorX, anchorY;
+    private double anchorX, anchorY, originalDistance;
     private double anchorAngleX = 0;
     private double anchorAngleY = 0;
     private final DoubleProperty angleX = new SimpleDoubleProperty(0);
     private final DoubleProperty angleY = new SimpleDoubleProperty(0);
-    private final DoubleProperty positionX = new SimpleDoubleProperty(187.5);
-    private final DoubleProperty positionY = new SimpleDoubleProperty(212.5);
+    public final DoubleProperty positionX = new SimpleDoubleProperty(0);
+    public final DoubleProperty positionY = new SimpleDoubleProperty(0);
     private final ObjectProperty<Color> customColorProperty = new SimpleObjectProperty<>(Color.WHITE);
     private final DoubleProperty hue = new SimpleDoubleProperty(-1);
     private final DoubleProperty sat = new SimpleDoubleProperty(-1);
     private final DoubleProperty bright = new SimpleDoubleProperty(100);
 
     @FXML public AnchorPane previewModelAnchorPane;
+    @FXML public AnchorPane previewInfoAnchorPane;
     @FXML public TextField modelNameEditorTextField;
     @FXML public Text modelNameViewerText;
     @FXML public Text modelSizeText;
@@ -60,7 +65,19 @@ public class previewPopUpController {
 
     @FXML
     private void saveAttributesBtnClicked(Event event) {
-        // FIXME
+        try {
+            AnchorPane currentPreview = (AnchorPane) ((Button) event.getSource()).getParent();
+
+            // Share the model with another user in the database
+            BsonDocument saveModelConfiguration = new BsonDocument()
+                    .append("modelId", new BsonObjectId(new ObjectId(currentPreview.getId())))
+                    .append("newModelName", new BsonString(modelNameEditorTextField.getText() + ".stl"));
+            String functionCall = String.format("ModelBox.Models.saveCurrentUserModelAttributes('%s');", saveModelConfiguration.toJson());
+            app.mongoApp.eval(functionCall);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+
     }
 
     /**
@@ -70,8 +87,23 @@ public class previewPopUpController {
      */
     @FXML
     private void closePreviewBtnClicked(Event event) {
-        AnchorPane currentPreview = (AnchorPane) ((Button) event.getSource()).getParent().getParent();
-        app.myModelsView.myModelsAnchorPane.getChildren().remove(currentPreview);
+        try {
+            AnchorPane currentPreview = (AnchorPane) ((Button) event.getSource()).getParent().getParent();
+            app.myModelsView.myModelsAnchorPane.getChildren().remove(currentPreview);
+
+            // Refresh the my models view
+            app.viewLoader = new FXMLLoader(getClass().getResource("/views/myModels/myModels.fxml"));
+            Parent root = app.viewLoader.load();
+            app.myModelsView = app.viewLoader.getController();
+            app.dashboard.dashViewsAnchorPane.getChildren().setAll(root);
+
+            // Asynchronously populate the my models view and show appropriate nodes when ready
+            String functionCall = String.format("ModelBox.Models.getCurrentUserModels();");
+            app.mongoApp.eval(functionCall);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+
     }
 
     /**
@@ -366,7 +398,7 @@ public class previewPopUpController {
         // Add rotate instruction
         Text rotateHelpText = new Text("- To rotate the model, left click and drag to change the angle.");
         rotateHelpText.setStyle("-fx-fill: #171a1d; -fx-font-size: 14px; -fx-font-family: Arial;");
-        AnchorPane.setTopAnchor(rotateHelpText, 70.0);
+        AnchorPane.setTopAnchor(rotateHelpText, 65.0);
         AnchorPane.setLeftAnchor(rotateHelpText, 30.0);
         rotateHelpText.wrappingWidthProperty().bind(helpAnchorPane.widthProperty().subtract(60));
         helpAnchorPane.getChildren().add(rotateHelpText);
@@ -374,7 +406,7 @@ public class previewPopUpController {
         // Add zoom instruction
         Text zoomHelpText = new Text("- To zoom, use the scroll on your mouse or the plus and minus buttons.");
         zoomHelpText.setStyle("-fx-fill: #171a1d; -fx-font-size: 14px; -fx-font-family: Arial;");
-        AnchorPane.setTopAnchor(zoomHelpText, 130.0);
+        AnchorPane.setTopAnchor(zoomHelpText, 110.0);
         AnchorPane.setLeftAnchor(zoomHelpText, 30.0);
         zoomHelpText.wrappingWidthProperty().bind(helpAnchorPane.widthProperty().subtract(60));
         helpAnchorPane.getChildren().add(zoomHelpText);
@@ -382,7 +414,7 @@ public class previewPopUpController {
         // Add pan instruction
         Text panHelpText = new Text("- To pan the model, right click and drag to change the position.");
         panHelpText.setStyle("-fx-fill: #171a1d; -fx-font-size: 14px; -fx-font-family: Arial;");
-        AnchorPane.setTopAnchor(panHelpText, 200.0);
+        AnchorPane.setTopAnchor(panHelpText, 170.0);
         AnchorPane.setLeftAnchor(panHelpText, 30.0);
         panHelpText.wrappingWidthProperty().bind(helpAnchorPane.widthProperty().subtract(60));
         helpAnchorPane.getChildren().add(panHelpText);
@@ -390,10 +422,18 @@ public class previewPopUpController {
         // Add change inspection color instruction
         Text colorHelpText = new Text("- To change the inspection color for the model, click the droplet button.");
         colorHelpText.setStyle("-fx-fill: #171a1d; -fx-font-size: 14px; -fx-font-family: Arial;");
-        AnchorPane.setTopAnchor(colorHelpText, 260.0);
+        AnchorPane.setTopAnchor(colorHelpText, 215.0);
         AnchorPane.setLeftAnchor(colorHelpText, 30.0);
         colorHelpText.wrappingWidthProperty().bind(helpAnchorPane.widthProperty().subtract(60));
         helpAnchorPane.getChildren().add(colorHelpText);
+
+        // Add change inspection color instruction
+        Text resetHelpText = new Text("- To reset the orientation, click the backward pointing arrow.");
+        resetHelpText.setStyle("-fx-fill: #171a1d; -fx-font-size: 14px; -fx-font-family: Arial;");
+        AnchorPane.setTopAnchor(resetHelpText, 270.0);
+        AnchorPane.setLeftAnchor(resetHelpText, 30.0);
+        resetHelpText.wrappingWidthProperty().bind(helpAnchorPane.widthProperty().subtract(60));
+        helpAnchorPane.getChildren().add(resetHelpText);
 
 
         // Add close btn
@@ -424,6 +464,20 @@ public class previewPopUpController {
         previewModelAnchorPane.getChildren().remove(helpPopUp);
     }
 
+    @FXML
+    private void resetViewBtnClicked(Event event) {
+        // Center the model
+        positionX.bind(previewModelAnchorPane.widthProperty().divide(2));
+        positionY.bind(previewModelAnchorPane.heightProperty().divide(2));
+
+        // Reset the rotation angle
+        angleX.set(0.0);
+        angleY.set(0.0);
+
+        // Reset the models distance from the camera
+        previewModelSubScene.getRoot().setTranslateZ(originalDistance);
+    }
+
     /*************************************************** UTILITY METHODS **********************************************/
 
     /**
@@ -431,9 +485,8 @@ public class previewPopUpController {
      *
      * @param  meshGroup a JavaFX Group
      * @param  scene     a JavaFX SubScene
-     * @param  stage     a JavaFX Stage
      */
-    public void initMouseControl(Group meshGroup, SubScene scene, Stage stage) {
+    public void initMouseControl(Group meshGroup, SubScene scene) {
         Rotate xRotate;
         Rotate yRotate;
         meshGroup.getTransforms().addAll(
@@ -445,6 +498,7 @@ public class previewPopUpController {
         yRotate.angleProperty().bind(angleY);
         meshGroup.translateXProperty().bind(positionX);
         meshGroup.translateYProperty().bind(positionY);
+        originalDistance = meshGroup.getTranslateZ();
 
         scene.setOnMousePressed(event -> {
             if (event.getButton() == MouseButton.PRIMARY) {
@@ -460,13 +514,16 @@ public class previewPopUpController {
                 angleX.set(anchorAngleX - (anchorY - event.getSceneY()));
                 angleY.set(anchorAngleY + anchorX - event.getSceneX());
             } else if (event.getButton() == MouseButton.SECONDARY) {
+                positionX.unbind();
+                positionY.unbind();
+
                 positionX.set(event.getX());
                 positionY.set(event.getY());
             }
 
         });
 
-        stage.addEventHandler(ScrollEvent.SCROLL, event -> {
+        scene.getParent().addEventHandler(ScrollEvent.SCROLL, event -> {
             double delta = event.getDeltaY();
             meshGroup.translateZProperty().set(meshGroup.getTranslateZ() - delta);
         });

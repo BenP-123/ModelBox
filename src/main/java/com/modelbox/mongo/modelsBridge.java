@@ -106,7 +106,8 @@ public class modelsBridge {
             previewRoot = app.viewLoader.load();
             app.previewPopUpView = app.viewLoader.getController();
 
-            // Set the id of the previewModelSubScene to be equal to the model id
+            // Set the id of the previewModelAnchorPane to be equal to the model id
+            app.previewPopUpView.previewInfoAnchorPane.setId(modelId);
             app.previewPopUpView.previewModelAnchorPane.setId(modelId);
 
             // Load the model document and add the model file to the interactive preview panel
@@ -122,7 +123,7 @@ public class modelsBridge {
             app.previewPopUpView.previewModelSubScene.setCamera(camera);
             app.previewPopUpView.previewModelSubScene.widthProperty().bind(app.previewPopUpView.previewModelAnchorPane.widthProperty());
             app.previewPopUpView.previewModelSubScene.heightProperty().bind(app.previewPopUpView.previewModelAnchorPane.heightProperty());
-            app.previewPopUpView.initMouseControl(previewModelGroup, app.previewPopUpView.previewModelSubScene, (Stage) app.myModelsView.myModelsAnchorPane.getScene().getWindow());
+            app.previewPopUpView.initMouseControl(previewModelGroup, app.previewPopUpView.previewModelSubScene);
 
             // Set the static attributes
             app.previewPopUpView.modelTypeText.setText(FilenameUtils.getExtension(model.get("modelName").asString().getValue()).toUpperCase());
@@ -186,6 +187,9 @@ public class modelsBridge {
                     }
                 }
             }
+
+            app.previewPopUpView.positionX.bind(app.previewPopUpView.previewModelAnchorPane.widthProperty().divide(2));
+            app.previewPopUpView.positionY.bind(app.previewPopUpView.previewModelAnchorPane.heightProperty().divide(2));
 
             // Actually launch the preview pop-up
             app.myModelsView.myModelsAnchorPane.getChildren().add(previewRoot);

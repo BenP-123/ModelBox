@@ -7,6 +7,7 @@ import com.modelbox.controllers.auth.createAccountController;
 import com.modelbox.controllers.dashboardController;
 import com.modelbox.controllers.auth.forgotPasswordController;
 import com.modelbox.controllers.auth.loginController;
+import com.modelbox.controllers.myModels.comparePopUpController;
 import com.modelbox.controllers.myModels.myModelsController;
 import com.modelbox.controllers.myModels.previewPopUpController;
 import com.modelbox.controllers.myModels.sharePopUpController;
@@ -37,6 +38,7 @@ public class app extends Application{
     public static dashboardController dashboard;
     public static myModelsController myModelsView;
     public static previewPopUpController previewPopUpView;
+    public static comparePopUpController comparePopUpView;
     public static sharePopUpController sharePopUpView;
     public static uploadModelsController uploadModelsView;
     public static verifyModelsController verifyModelsView;

@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.SubScene?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="compareRootAnchorPane" prefHeight="350.0" prefWidth="750.0" style="-fx-background-color: #ffffff; -fx-background-radius: 15;" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="125.0" AnchorPane.rightAnchor="125.0" AnchorPane.topAnchor="100.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.modelbox.controllers.myModels.comparePopUpController">
+    <children>
+      <AnchorPane fx:id="compareModelAnchorPane1" layoutX="385.0" layoutY="10.0" prefWidth="375.0" style="-fx-background-color: #eeeeee; -fx-background-radius: 15 0 0 15;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <SubScene fx:id="compareModelSubScene1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <root>
+                  <Region />
+               </root>
+            </SubScene>
+            <HBox alignment="CENTER_LEFT" prefWidth="200.0" style="-fx-background-color: #181a1d; -fx-background-radius: 15 0 15 0;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Text fx:id="modelName1" fill="#55b0ff" strokeType="OUTSIDE" strokeWidth="0.0" text="Model name" wrappingWidth="215.0">
+                     <font>
+                        <Font name="Arial" size="16.0" />
+                     </font>
+                  </Text>
+               </children>
+               <padding>
+                  <Insets bottom="13.0" left="25.0" right="13.0" top="13.0" />
+               </padding>
+            </HBox>
+            <Button fx:id="downloadModelBtn1" contentDisplay="GRAPHIC_ONLY" layoutX="332.0" layoutY="15.0" mnemonicParsing="false" onAction="#downloadModelBtnClicked" style="-fx-background-color: none;" text="Button" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="15.0">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../images/download-btn.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+               </padding>
+            </Button>
+            <Button fx:id="zoomOutBtn1" contentDisplay="GRAPHIC_ONLY" layoutX="332.0" layoutY="315.0" mnemonicParsing="false" onAction="#zoomOutBtn1Clicked" style="-fx-background-color: none;" text="Button" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="50.0">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../images/zoom-out-btn.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+               </padding>
+            </Button>
+            <Button fx:id="zoomInBtn1" contentDisplay="GRAPHIC_ONLY" layoutX="303.0" layoutY="318.0" mnemonicParsing="false" onAction="#zoomInBtn1Clicked" style="-fx-background-color: none;" text="Button" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="85.0">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../images/zoom-in-btn.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+               </padding>
+            </Button>
+            <Button fx:id="changeColorBtn1" contentDisplay="GRAPHIC_ONLY" layoutX="268.0" layoutY="318.0" mnemonicParsing="false" onAction="#changeColorBtn1Clicked" style="-fx-background-color: none;" text="Button" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="120.0">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../images/color-btn.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+               </padding>
+            </Button>
+            <Button fx:id="helpBtn1" contentDisplay="GRAPHIC_ONLY" layoutX="332.0" layoutY="315.0" mnemonicParsing="false" onAction="#helpBtn1Clicked" style="-fx-background-color: none;" text="Button" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="15.0">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../images/help-btn.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+               </padding>
+            </Button>
+            <Button id="changeColorBtn" fx:id="resetViewBtn1" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#resetViewBtn1Clicked" style="-fx-background-color: none;" text="Button" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="155.0">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../images/reset-btn.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+               </padding>
+            </Button>
+         </children>
+      </AnchorPane>
+        <AnchorPane id="previewModelAnchorPane" fx:id="compareModelAnchorPane2" prefWidth="375.0" style="-fx-background-color: #eeeeee; -fx-background-radius: 0 15 15 0;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <SubScene fx:id="compareModelSubScene2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <root>
+                <Region />
+              </root>
+            </SubScene>
+            <HBox alignment="CENTER_LEFT" prefWidth="200.0" style="-fx-background-color: #181a1d; -fx-background-radius: 0 0 15 0;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Text fx:id="modelName2" fill="#55b0ff" strokeType="OUTSIDE" strokeWidth="0.0" text="Model name" wrappingWidth="215.0">
+                     <font>
+                        <Font name="Arial" size="16.0" />
+                     </font>
+                  </Text>
+               </children>
+               <padding>
+                  <Insets bottom="13.0" left="25.0" right="13.0" top="13.0" />
+               </padding>
+            </HBox>
+            <Button fx:id="closeCompareBtn" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#closeCompareBtnClicked" style="-fx-background-color: none;" text="Button" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="10.0">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../images/delete-btn.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+               </padding>
+            </Button>
+            <Button fx:id="downloadModelBtn2" contentDisplay="GRAPHIC_ONLY" layoutX="332.0" layoutY="15.0" mnemonicParsing="false" onAction="#downloadModelBtnClicked" style="-fx-background-color: none;" text="Button" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="15.0">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../images/download-btn.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+               </padding>
+            </Button>
+            <Button fx:id="zoomOutBtn2" contentDisplay="GRAPHIC_ONLY" layoutX="332.0" layoutY="315.0" mnemonicParsing="false" onAction="#zoomOutBtn2Clicked" style="-fx-background-color: none;" text="Button" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="50.0">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../images/zoom-out-btn.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+               </padding>
+            </Button>
+            <Button fx:id="zoomInBtn2" contentDisplay="GRAPHIC_ONLY" layoutX="303.0" layoutY="318.0" mnemonicParsing="false" onAction="#zoomInBtn2Clicked" style="-fx-background-color: none;" text="Button" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="85.0">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../images/zoom-in-btn.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+               </padding>
+            </Button>
+            <Button fx:id="changeColorBtn2" contentDisplay="GRAPHIC_ONLY" layoutX="268.0" layoutY="318.0" mnemonicParsing="false" onAction="#changeColorBtn2Clicked" style="-fx-background-color: none;" text="Button" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="120.0">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../images/color-btn.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+               </padding>
+            </Button>
+            <Button fx:id="helpBtn2" contentDisplay="GRAPHIC_ONLY" layoutX="332.0" layoutY="315.0" mnemonicParsing="false" onAction="#helpBtn2Clicked" style="-fx-background-color: none;" text="Button" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="15.0">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../images/help-btn.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+               </padding>
+            </Button>
+            <Button id="changeColorBtn" fx:id="resetViewBtn2" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#resetViewBtn2Clicked" style="-fx-background-color: none;" text="Button" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="155.0">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../images/reset-btn.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+               </padding>
+            </Button>
+         </children></AnchorPane>
+      <Line fx:id="dividerLine" endX="375.0" endY="349.0" startX="375.0" startY="1.0" stroke="#171a1d" />
+    </children>
+</AnchorPane>

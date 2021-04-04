@@ -24,6 +24,7 @@ import javafx.scene.shape.MeshView;
 import javafx.scene.shape.TriangleMesh;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import org.bson.BsonDocument;
 
 import java.nio.file.Files;
@@ -39,7 +40,10 @@ public class myModelsController {
     @FXML public AnchorPane myModelsAnchorPane;
     @FXML public AnchorPane loadingAnchorPane;
     @FXML public TextField modelSearchField;
-    private int checkboxCount = 0;
+    private Boolean isComparisonToolActive = false;
+    public int checkboxCount = 0;
+    private String firstSelectedModelId;
+    private String secondSelectedModelId;
 
     /**
      * Handles the search query specified by the user
@@ -116,11 +120,25 @@ public class myModelsController {
      */
     @FXML
     private void compareModelsBtnClicked(Event event) {
-        /*
-        for (int i = 0; i < myModelsFlowPane.getChildren().size(); i++) {
-            // For each model card activate (make visible) the checkbox to compare two models.
-            ((StackPane) myModelsFlowPane.getChildren().get(i))
-        }*/
+
+        if (isComparisonToolActive) {
+            isComparisonToolActive = false;
+            checkboxCount = 0;
+            for (int i = 0; i < myModelsFlowPane.getChildren().size(); i++) {
+                // Uncheck each checkbox and remove visibility
+                ((CheckBox) myModelsFlowPane.getChildren().get(i).lookup("#checkbox")).setSelected(false);
+                myModelsFlowPane.getChildren().get(i).lookup("#checkbox").setVisible(false);
+            }
+        } else {
+            isComparisonToolActive = true;
+            checkboxCount = 0;
+            for (int i = 0; i < myModelsFlowPane.getChildren().size(); i++) {
+                // Uncheck each checkbox and add visibility
+                ((CheckBox) myModelsFlowPane.getChildren().get(i).lookup("#checkbox")).setSelected(false);
+                myModelsFlowPane.getChildren().get(i).lookup("#checkbox").setVisible(true);
+            }
+        }
+
     }
 
     /**
@@ -186,6 +204,9 @@ public class myModelsController {
 
             // Create a hidden checkbox for each model card generated for use when comparing two models
             CheckBox compareCheckbox = new CheckBox();
+            compareCheckbox.setId("checkbox");
+            compareCheckbox.setTranslateX(10);
+            compareCheckbox.setTranslateY(-6.5);
             compareCheckbox.setVisible(false);
             compareCheckbox.setStyle("-fx-background-color: transparent; -fx-border-color: #181a1d; -fx-border-radius: 5;");
             compareCheckbox.setOnAction(compareCheckboxClicked);
@@ -356,27 +377,85 @@ public class myModelsController {
          */
         @Override
         public void handle(ActionEvent event) {
-            StackPane currentModel = (StackPane) ((CheckBox) event.getSource()).getParent();
-            checkboxCount++;
+            CheckBox currentCheckbox = (CheckBox) event.getSource();
+            StackPane currentModel = (StackPane) (currentCheckbox).getParent();
 
-            if (checkboxCount == 2) {
-                // Load a share pop-up window
-                try {
-                    checkboxCount = 0;
-                    Parent shareRoot = null;
+            if (currentCheckbox.isSelected()) {
+                if (checkboxCount == 0) {
+                    firstSelectedModelId = currentModel.getId();
+                    checkboxCount++;
+                } else if (checkboxCount == 1) {
+                    secondSelectedModelId = currentModel.getId();
+                    checkboxCount++;
+                }
 
-                    app.viewLoader = new FXMLLoader(getClass().getResource("/views/myModels/sharePopUp.fxml"));
-                    shareRoot = app.viewLoader.load();
-                    app.sharePopUpView = app.viewLoader.getController();
+                if (checkboxCount == 2) {
+                    // Load a share pop-up window
+                    try {
+                        checkboxCount = 0;
+                        Parent compareRoot = null;
 
-                    // Set the id of the shareRootAnchorPane to be equal to the model id
-                    app.sharePopUpView.shareRootAnchorPane.setId(currentModel.getId());
+                        app.viewLoader = new FXMLLoader(getClass().getResource("/views/myModels/comparePopUp.fxml"));
+                        compareRoot = app.viewLoader.load();
+                        app.comparePopUpView = app.viewLoader.getController();
 
-                    // Actually launch the share pop-up
-                    app.myModelsView.myModelsAnchorPane.getChildren().add(shareRoot);
-                } catch (Exception exception) {
-                    // Handle errors
-                    exception.printStackTrace();
+                        // Set the id of the compareModelSubScene1 to be equal to the first model id
+                        app.comparePopUpView.compareModelAnchorPane1.setId(firstSelectedModelId);
+
+                        // Set the id of the compareModelSubScene2 to be equal to the second model id
+                        app.comparePopUpView.compareModelAnchorPane2.setId(secondSelectedModelId);
+
+                        // Load the first model document and add the model file to the interactive preview panel
+                        int model1Index = app.dashboard.getDocumentIndexByModelID(app.dashboard.dbModelsList, firstSelectedModelId);
+                        BsonDocument model1 = app.dashboard.dbModelsList.get(model1Index).asDocument();
+                        app.dashboard.stlImporter.read(DataURLs.builder(model1.get("modelFile").asBinary().getData()).withBase64Data(true).withMediaType("model/stl").build());
+                        TriangleMesh currentModel1Mesh = app.dashboard.stlImporter.getImport();
+                        MeshView currentModel1MeshView = new MeshView(currentModel1Mesh);
+                        Group compareModel1Group = new Group(currentModel1MeshView);
+                        app.comparePopUpView.compareModelSubScene1.setRoot(compareModel1Group);
+                        Camera camera1 = new PerspectiveCamera();
+                        app.comparePopUpView.compareModelSubScene1.setCamera(camera1);
+                        app.comparePopUpView.compareModelSubScene1.widthProperty().bind(app.comparePopUpView.compareModelAnchorPane1.widthProperty());
+                        app.comparePopUpView.compareModelSubScene1.heightProperty().bind(app.comparePopUpView.compareModelAnchorPane1.heightProperty());
+                        app.comparePopUpView.initMouseControlModel1(compareModel1Group, app.comparePopUpView.compareModelSubScene1);
+                        app.comparePopUpView.modelName1.setText(model1.get("modelName").asString().getValue());
+
+                        // Load the second model document and add the model file to the interactive preview panel
+                        int model2Index = app.dashboard.getDocumentIndexByModelID(app.dashboard.dbModelsList, secondSelectedModelId);
+                        BsonDocument model2 = app.dashboard.dbModelsList.get(model2Index).asDocument();
+                        app.dashboard.stlImporter.read(DataURLs.builder(model2.get("modelFile").asBinary().getData()).withBase64Data(true).withMediaType("model/stl").build());
+                        TriangleMesh currentModel2Mesh = app.dashboard.stlImporter.getImport();
+                        MeshView currentModel2MeshView = new MeshView(currentModel2Mesh);
+                        Group compareModel2Group = new Group(currentModel2MeshView);
+                        app.comparePopUpView.compareModelSubScene2.setRoot(compareModel2Group);
+                        Camera camera2 = new PerspectiveCamera();
+                        app.comparePopUpView.compareModelSubScene2.setCamera(camera2);
+                        app.comparePopUpView.compareModelSubScene2.widthProperty().bind(app.comparePopUpView.compareModelAnchorPane2.widthProperty());
+                        app.comparePopUpView.compareModelSubScene2.heightProperty().bind(app.comparePopUpView.compareModelAnchorPane2.heightProperty());
+                        app.comparePopUpView.initMouseControlModel2(compareModel2Group, app.comparePopUpView.compareModelSubScene2);
+                        app.comparePopUpView.modelName2.setText(model2.get("modelName").asString().getValue());
+
+                        app.comparePopUpView.dividerLine.startXProperty().bind(app.comparePopUpView.compareRootAnchorPane.widthProperty().divide(2));
+                        app.comparePopUpView.dividerLine.endXProperty().bind(app.comparePopUpView.compareRootAnchorPane.widthProperty().divide(2));
+                        app.comparePopUpView.dividerLine.endYProperty().bind(app.comparePopUpView.compareRootAnchorPane.heightProperty().subtract(1));
+
+                        app.comparePopUpView.compareModelAnchorPane1.minWidthProperty().bind(app.comparePopUpView.compareRootAnchorPane.widthProperty().divide(2));
+                        app.comparePopUpView.compareModelAnchorPane1.maxWidthProperty().bind(app.comparePopUpView.compareRootAnchorPane.widthProperty().divide(2));
+                        app.comparePopUpView.compareModelAnchorPane2.minWidthProperty().bind(app.comparePopUpView.compareRootAnchorPane.widthProperty().divide(2));
+                        app.comparePopUpView.compareModelAnchorPane2.maxWidthProperty().bind(app.comparePopUpView.compareRootAnchorPane.widthProperty().divide(2));
+
+                        app.comparePopUpView.positionX1.bind(app.comparePopUpView.compareModelAnchorPane1.widthProperty().divide(2));
+                        app.comparePopUpView.positionY1.bind(app.comparePopUpView.compareModelAnchorPane1.heightProperty().divide(2));
+
+                        app.comparePopUpView.positionX2.bind(app.comparePopUpView.compareModelAnchorPane2.widthProperty().divide(2));
+                        app.comparePopUpView.positionY2.bind(app.comparePopUpView.compareModelAnchorPane2.heightProperty().divide(2));
+
+                        // Actually launch the comparison pop-up
+                        app.myModelsView.myModelsAnchorPane.getChildren().add(compareRoot);
+                    } catch (Exception exception) {
+                        // Handle errors
+                        exception.printStackTrace();
+                    }
                 }
             }
         }
