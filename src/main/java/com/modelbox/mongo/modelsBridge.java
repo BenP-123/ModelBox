@@ -28,6 +28,8 @@ import static java.lang.Integer.parseInt;
 public class modelsBridge {
 
     private String shareModelStatus;
+    public static Text heading = new Text();
+    public static Text subHeading = new Text();
 
     public String getShareModelStatus() {
         return shareModelStatus;
@@ -332,19 +334,19 @@ public class modelsBridge {
             // Set the id of the shareRootAnchorPane to be equal to the model id
             app.sharePopUpView.shareRootAnchorPane.setId(modelId);
 
+            heading.setWrappingWidth(315);
+            heading.setStyle("-fx-fill: #007be8; -fx-font-size: 16px; -fx-font-family: Arial; -fx-padding: 0; -fx-background-insets: 0");
+            subHeading.setWrappingWidth(315);
+            subHeading.setStyle("-fx-fill: #181a1d; -fx-font-size: 14px; -fx-font-family: Arial; -fx-padding: 0; -fx-background-insets: 0");
+
             if (modelCollaborators.isEmpty()) {
                 // Display a message saying there are no collaborators
                 VBox noCollaboratorsMessage = new VBox();
                 noCollaboratorsMessage.setSpacing(10);
                 noCollaboratorsMessage.setPrefWidth(315);
 
-                Text heading = new Text("No collaborators yet!");
-                heading.setWrappingWidth(315);
-                heading.setStyle("-fx-fill: #007be8; -fx-font-size: 16px; -fx-font-family: Arial; -fx-padding: 0; -fx-background-insets: 0");
-
-                Text subHeading = new Text("To start sharing this model with others, add a collaborator.");
-                subHeading.setWrappingWidth(315);
-                subHeading.setStyle("-fx-fill: #181a1d; -fx-font-size: 14px; -fx-font-family: Arial; -fx-padding: 0; -fx-background-insets: 0");
+                heading.setText("No collaborators yet!");
+                subHeading.setText("To start sharing this model with others, add a collaborator.");
 
                 noCollaboratorsMessage.getChildren().addAll(heading, subHeading);
 
@@ -368,6 +370,7 @@ public class modelsBridge {
                         displayName.setStyle("-fx-fill: #007be8; -fx-font-size: 14px; -fx-font-family: Arial; -fx-padding: 0; -fx-background-insets: 0");
 
                         Text emailAddress = new Text(collaborator.asDocument().get("emailAddress").asString().getValue());
+
                         emailAddress.setWrappingWidth(315);
                         emailAddress.setStyle("-fx-fill: #181a1d; -fx-font-size: 14px; -fx-font-family: Arial; -fx-padding: 0; -fx-background-insets: 0");
 

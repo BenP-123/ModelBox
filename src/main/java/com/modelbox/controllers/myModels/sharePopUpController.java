@@ -1,6 +1,7 @@
 package com.modelbox.controllers.myModels;
 
 import com.modelbox.app;
+import com.modelbox.mongo.modelsBridge;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -54,6 +55,9 @@ public class sharePopUpController {
         AnchorPane currentSharePanel = (AnchorPane) ((Button) event.getSource()).getParent().getParent().getParent();
 
         // Share the model with another user in the database
+
+        modelsBridge.heading.setText("Congratulations!");
+        modelsBridge.subHeading.setText("You've added your first collaborator!");
         BsonDocument shareModelConfiguration = new BsonDocument()
                 .append("modelId", new BsonObjectId(new ObjectId(currentSharePanel.getId())))
                 .append("recipientEmail", new BsonString(collaboratorEmailTextField.getText()))
