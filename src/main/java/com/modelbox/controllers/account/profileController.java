@@ -103,7 +103,7 @@ public class profileController {
         try {
             if (editProfileBtn.getText().equals("Edit profile")) {
                 editProfileBtn.setText("Update profile");
-                editProfileBtn.setStyle("-fx-background-color: #55ffa7;");
+                editProfileBtn.setStyle("-fx-background-color: green;");
                 displayNameTextField.setEditable(true);
                 firstNameTextField.setEditable(true);
                 lastNameTextField.setEditable(true);

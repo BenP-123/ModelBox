@@ -15,6 +15,7 @@ import org.bson.BsonDocument;
 import org.bson.BsonValue;
 
 import java.io.ByteArrayInputStream;
+import java.util.Base64;
 
 public class usersBridge {
 
@@ -95,7 +96,8 @@ public class usersBridge {
             if (currentUserDocument.get("profilePicture") == null){
                 app.profileView.profilePictureImage.setFill(new ImagePattern(new Image(String.valueOf(getClass().getResource("/images/empty-profile-pic.png")))));
             } else {
-                app.profileView.profilePictureImage.setFill(new ImagePattern(new Image(new ByteArrayInputStream(currentUserDocument.get("profilePicture").asBinary().getData()))));
+                byte[] decodedProfilePicture = Base64.getDecoder().decode(currentUserDocument.get("profilePicture").asBinary().getData());
+                app.profileView.profilePictureImage.setFill(new ImagePattern(new Image(new ByteArrayInputStream(decodedProfilePicture))));
             }
             app.profileView.loadingAnchorPane.setVisible(false);
             app.profileView.profileContentAnchorPane.setVisible(true);
@@ -112,7 +114,8 @@ public class usersBridge {
             if (currentUserDocument.get("profilePicture") == null){
                 app.settingsView.settingsPictureImage.setFill(new ImagePattern(new Image(String.valueOf(getClass().getResource("/images/empty-profile-pic.png")))));
             } else {
-                app.settingsView.settingsPictureImage.setFill(new ImagePattern(new Image(new ByteArrayInputStream(currentUserDocument.get("profilePicture").asBinary().getData()))));
+                byte[] decodedProfilePicture = Base64.getDecoder().decode(currentUserDocument.get("profilePicture").asBinary().getData());
+                app.settingsView.settingsPictureImage.setFill(new ImagePattern(new Image(new ByteArrayInputStream(decodedProfilePicture))));
             }
             app.settingsView.loadingAnchorPane.setVisible(false);
             app.settingsView.settingsContentAnchorPane.setVisible(true);
