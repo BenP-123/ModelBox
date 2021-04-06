@@ -57,7 +57,7 @@ public class sharePopUpController {
         // Share the model with another user in the database
 
         modelsBridge.heading.setText("Congratulations!");
-        modelsBridge.subHeading.setText("You've added your first collaborator!");
+        modelsBridge.subHeading.setText("You've added your first collaborator for this model!");
         BsonDocument shareModelConfiguration = new BsonDocument()
                 .append("modelId", new BsonObjectId(new ObjectId(currentSharePanel.getId())))
                 .append("recipientEmail", new BsonString(collaboratorEmailTextField.getText()))

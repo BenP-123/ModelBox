@@ -2,14 +2,19 @@ package com.modelbox.mongo;
 
 import com.github.robtimus.net.protocol.data.DataURLs;
 import com.modelbox.app;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.HPos;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Camera;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.control.Button;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.MeshView;
@@ -362,7 +367,7 @@ public class modelsBridge {
                 for (BsonValue collaborator : modelCollaborators) {
                     if (app.dashboard.getCollaboratorRoleByModelID(app.dashboard.dbModelsList, modelId, collaborator.asDocument().get("owner_id").asString().getValue()).equals("Editor")) {
                         // Display Editor
-                        VBox collaboratorInfo = new VBox();
+                        GridPane collaboratorInfo = new GridPane();
                         collaboratorInfo.setPrefWidth(315);
 
                         Text displayName = new Text(collaborator.asDocument().get("displayName").asString().getValue());
@@ -378,18 +383,32 @@ public class modelsBridge {
                         permissions.setWrappingWidth(315);
                         permissions.setStyle("-fx-fill: #181a1d; -fx-font-size: 14px; -fx-font-family: Arial; -fx-padding: 0; -fx-background-insets: 0");
 
-                        collaboratorInfo.getChildren().addAll(displayName, emailAddress, permissions);
+                        //Remove Button
+                        Button deleteModelBtn = new Button("Remove");
+                        deleteModelBtn.setStyle("-fx-background-color: #007be8; -fx-background-radius: 5 5 5 5; -fx-text-fill: white;");
+                        deleteModelBtn.setOnAction(handleDeleteCollaborator);
+
+                        //Gridpane Setup for elements
+                        GridPane.setConstraints(displayName, 0,0);
+                        GridPane.setConstraints(emailAddress, 0, 1);
+                        GridPane.setConstraints(permissions, 0, 2);
+                        GridPane.setConstraints(deleteModelBtn, 1, 2);
+                        ColumnConstraints colConstraints = new ColumnConstraints();
+                        colConstraints.setPrefWidth(240);
+                        GridPane.setHalignment(deleteModelBtn, HPos.RIGHT);
+                        collaboratorInfo.getColumnConstraints().add(colConstraints);
+                        collaboratorInfo.getChildren().addAll(displayName, emailAddress, permissions, deleteModelBtn);
 
                         Line separator = new Line();
                         separator.setStartX(0);
-                        separator.setEndX(275);
+                        separator.setEndX(300);
                         separator.setStroke(Color.color(0.0941, 0.1019, 0.1137));
                         separator.setStrokeWidth(1.25);
                         app.sharePopUpView.collaboratorsVBox.getChildren().add(collaboratorInfo);
                         app.sharePopUpView.collaboratorsVBox.getChildren().add(separator);
                     } else {
                         // Display Viewer
-                        VBox collaboratorInfo = new VBox();
+                        GridPane collaboratorInfo = new GridPane();
                         collaboratorInfo.setPrefWidth(315);
 
                         Text displayName = new Text(collaborator.asDocument().get("displayName").asString().getValue());
@@ -404,11 +423,25 @@ public class modelsBridge {
                         permissions.setWrappingWidth(315);
                         permissions.setStyle("-fx-fill: #181a1d; -fx-font-size: 14px; -fx-font-family: Arial; -fx-padding: 0; -fx-background-insets: 0");
 
-                        collaboratorInfo.getChildren().addAll(displayName, emailAddress, permissions);
+                        //Remove Btn
+                        Button deleteModelBtn = new Button("Remove");
+                        deleteModelBtn.setStyle("-fx-background-color: #007be8; -fx-background-radius: 5 5 5 5; -fx-text-fill: white;");
+                        deleteModelBtn.setOnAction(handleDeleteCollaborator);
+
+                        //Gridpane Setup for elements
+                        GridPane.setConstraints(displayName, 0,0);
+                        GridPane.setConstraints(emailAddress, 0, 1);
+                        GridPane.setConstraints(permissions, 0, 2);
+                        GridPane.setConstraints(deleteModelBtn, 1, 2);
+                        ColumnConstraints colConstraints = new ColumnConstraints();
+                        colConstraints.setPrefWidth(240);
+                        GridPane.setHalignment(deleteModelBtn, HPos.RIGHT);
+                        collaboratorInfo.getColumnConstraints().add(colConstraints);
+                        collaboratorInfo.getChildren().addAll(displayName, emailAddress, permissions, deleteModelBtn);
 
                         Line separator = new Line();
                         separator.setStartX(0);
-                        separator.setEndX(275);
+                        separator.setEndX(300);
                         separator.setStroke(Color.color(0.0941, 0.1019, 0.1137));
                         separator.setStrokeWidth(1.25);
                         app.sharePopUpView.collaboratorsVBox.getChildren().add(collaboratorInfo);
@@ -475,4 +508,28 @@ public class modelsBridge {
         Date result = new Date(millis);
         return format.format(result);
     }
+
+    EventHandler<ActionEvent> handleDeleteCollaborator = new EventHandler<ActionEvent>() {
+
+        /**
+         * If the model is a shared model with another user, the owner removes the user from the sharing list.
+         *
+         * @param event a JavaFX ActionEvent
+         */
+        @Override
+        public void handle(ActionEvent event) {
+            //Gets the model Information
+            GridPane gridPane = (GridPane) ((Button) event.getSource()).getParent();
+            VBox currentModel = (VBox) (gridPane).getParent();
+
+            BsonDocument modelDocument = app.dashboard.dbModelsList.get(app.dashboard.getDocumentIndexByModelID(app.dashboard.dbModelsList, currentModel.getId())).asDocument();
+
+            if (modelDocument.get("isShared").asBoolean().getValue() && modelDocument.get("owner_id").asString().getValue().equals(app.users.ownerId)) {
+                // Remove this user from the collaboration
+                String functionCall = String.format("ModelBox.Models.terminateModelCollaboration('%s');", currentModel.getId());
+                app.mongoApp.eval(functionCall);
+            }
+        }
+    };
 }
+

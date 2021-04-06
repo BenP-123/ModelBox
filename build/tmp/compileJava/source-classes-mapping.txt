@@ -1,5 +1,3 @@
-com/modelbox/mongo/errorBridge.java
- com.modelbox.mongo.errorBridge
 com/modelbox/controllers/dashboardController.java
  com.modelbox.controllers.dashboardController
 com/modelbox/controllers/myModels/myModelsController.java
@@ -31,8 +29,8 @@ com/modelbox/controllers/myModels/comparePopUpController.java
  com.modelbox.controllers.myModels.comparePopUpController$2
  com.modelbox.controllers.myModels.comparePopUpController$3
  com.modelbox.controllers.myModels.comparePopUpController$4
-com/modelbox/controllers/auth/createAccountController.java
- com.modelbox.controllers.auth.createAccountController
+com/modelbox/mongo/errorBridge.java
+ com.modelbox.mongo.errorBridge
 com/modelbox/mongo/usersBridge.java
  com.modelbox.mongo.usersBridge
 com/modelbox/controllers/auth/loginController.java
@@ -45,8 +43,11 @@ com/modelbox/controllers/uploadModels/verifyModelsController.java
  com.modelbox.controllers.uploadModels.verifyModelsController
  com.modelbox.controllers.uploadModels.verifyModelsController$1
  com.modelbox.controllers.uploadModels.verifyModelsController$2
+com/modelbox/controllers/auth/createAccountController.java
+ com.modelbox.controllers.auth.createAccountController
 com/modelbox/mongo/modelsBridge.java
  com.modelbox.mongo.modelsBridge
+ com.modelbox.mongo.modelsBridge$1
 com/modelbox/app.java
  com.modelbox.app
 com/modelbox/controllers/myModels/sharePopUpController.java
