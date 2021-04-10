@@ -1,18 +1,13 @@
 package com.modelbox.mongo;
 
 import com.modelbox.app;
-import javafx.geometry.HPos;
-import javafx.geometry.VPos;
-import javafx.scene.control.Separator;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import org.bson.BsonArray;
 import org.bson.BsonDocument;
-import org.bson.BsonValue;
 
 import java.io.ByteArrayInputStream;
 import java.util.Base64;

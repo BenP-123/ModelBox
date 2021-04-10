@@ -98,7 +98,7 @@ public class previewPopUpController {
             app.dashboard.dashViewsAnchorPane.getChildren().setAll(root);
 
             // Asynchronously populate the my models view and show appropriate nodes when ready
-            String functionCall = String.format("ModelBox.Models.getCurrentUserModels();");
+            String functionCall = "ModelBox.Models.getCurrentUserModels();";
             app.mongoApp.eval(functionCall);
         } catch (Exception exception) {
             exception.printStackTrace();

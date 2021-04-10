@@ -9,10 +9,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -24,8 +22,8 @@ import javafx.scene.shape.MeshView;
 import javafx.scene.shape.TriangleMesh;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import org.bson.BsonDocument;
+import org.bson.BsonValue;
 
 import java.nio.file.Files;
 
@@ -40,11 +38,13 @@ public class myModelsController {
     @FXML public AnchorPane myModelsAnchorPane;
     @FXML public AnchorPane loadingAnchorPane;
     @FXML public TextField modelSearchField;
+    @FXML public ImageView compareModelsBtnIcon;
+    @FXML public ChoiceBox<String> filterModelsChoiceBox;
     private Boolean isComparisonToolActive = false;
     public int checkboxCount = 0;
     private String firstSelectedModelId;
     private String secondSelectedModelId;
-
+    
     /**
      * Handles the search query specified by the user
      *
@@ -83,21 +83,43 @@ public class myModelsController {
             loadingAnchorPane.setVisible(true);
 
             // Start the search
-            String functionCall = String.format("ModelBox.Models.getCurrentUserModelSearch('%s');", modelSearchField.getText());
-            app.mongoApp.eval(functionCall);
+            myModelsFlowPane.getChildren().clear();
+            for (BsonValue model : app.dashboard.dbModelsList) {
+                if (!model.asDocument().get("modelName").asString().getValue().matches("(?i).*" + modelSearchField.getText() + ".*")) {
+                    myModelsFlowPane.getChildren().remove(myModelsFlowPane.lookup("#" + model.asDocument().get("_id").asObjectId().getValue().toHexString()));
+                } else {
+                    addMyModelsPreviewCard(model.asDocument());
+                }
+            }
+
+            if (myModelsFlowPane.getChildren().isEmpty()) {
+                loadingAnchorPane.setVisible(false);
+                myModelsScrollPane.setVisible(false);
+                modelSearchField.setText("");
+                myModelsToolBar.setVisible(false);
+                noModelsBtn.setVisible(false);
+                noModelSearchResultsBtn.setVisible(true);
+            } else {
+                noModelSearchResultsBtn.setVisible(false);
+                noModelsBtn.setVisible(false);
+                loadingAnchorPane.setVisible(false);
+                myModelsFlowPane.minHeightProperty().bind(myModelsScrollPane.heightProperty());
+                myModelsToolBar.setVisible(true);
+                myModelsScrollPane.setVisible(true);
+            }
+
         } catch (Exception exception) {
             exception.printStackTrace();
         }
-
     }
 
     /**
-     * Handles clearing the search query specified by the user and refreshing the view
+     * Handles getting the latest models from the database that the current user has access to
      *
      * @param  event a JavaFX Event
      */
     @FXML
-    private void cancelSearchModelBtnClicked(Event event) {
+    private void refreshModelsBtnClicked(Event event) {
         try {
             // Show my models view
             app.viewLoader = new FXMLLoader(getClass().getResource("/views/myModels/myModels.fxml"));
@@ -114,6 +136,37 @@ public class myModelsController {
     }
 
     /**
+     * Handles clearing the search query specified by the user and refreshing the view
+     *
+     * @param  event a JavaFX Event
+     */
+    @FXML
+    private void cancelSearchModelBtnClicked(Event event) {
+        try {
+            myModelsToolBar.setVisible(false);
+            noModelsBtn.setVisible(false);
+            myModelsScrollPane.setVisible(false);
+            loadingAnchorPane.setVisible(true);
+
+            myModelsFlowPane.getChildren().clear();
+            for (BsonValue model : app.dashboard.dbModelsList) {
+                addMyModelsPreviewCard(model.asDocument());
+            }
+
+            noModelSearchResultsBtn.setVisible(false);
+            noModelsBtn.setVisible(false);
+            loadingAnchorPane.setVisible(false);
+            myModelsFlowPane.minHeightProperty().bind(myModelsScrollPane.heightProperty());
+            modelSearchField.setText("");
+            filterModelsChoiceBox.setValue("Show all models");
+            myModelsToolBar.setVisible(true);
+            myModelsScrollPane.setVisible(true);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    /**
      * Handles showing a checkbox on each model card to compare two selected models
      *
      * @param  event a JavaFX Event
@@ -123,6 +176,7 @@ public class myModelsController {
 
         if (isComparisonToolActive) {
             isComparisonToolActive = false;
+            compareModelsBtnIcon.setImage(new Image(String.valueOf(getClass().getResource("/images/compare-model-btn.png"))));
             checkboxCount = 0;
             for (int i = 0; i < myModelsFlowPane.getChildren().size(); i++) {
                 // Uncheck each checkbox and remove visibility
@@ -131,6 +185,7 @@ public class myModelsController {
             }
         } else {
             isComparisonToolActive = true;
+            compareModelsBtnIcon.setImage(new Image(String.valueOf(getClass().getResource("/images/compare-model-btn-active.png"))));
             checkboxCount = 0;
             for (int i = 0; i < myModelsFlowPane.getChildren().size(); i++) {
                 // Uncheck each checkbox and add visibility
@@ -138,7 +193,6 @@ public class myModelsController {
                 myModelsFlowPane.getChildren().get(i).lookup("#checkbox").setVisible(true);
             }
         }
-
     }
 
     /**

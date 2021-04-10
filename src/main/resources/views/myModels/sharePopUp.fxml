@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -26,18 +29,22 @@
                      <font>
                         <Font name="Arial" size="15.0" />
                      </font>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
                   </TextField>
                   <TextField id="collaboratorEmailTextField" fx:id="collaboratorEmailTextField" alignment="CENTER" prefHeight="35.0" prefWidth="315.0" promptText="Add a collaborator's email" style="-fx-background-color: none; -fx-border-color: #ffffff; -fx-border-radius: 4px; -fx-padding: 3px 6px 3px 10px; -fx-focus-color: #ffffff; -fx-faint-focus-color: #ffffff; -fx-text-fill: #868686;">
                      <font>
                         <Font name="Arial" size="15.0" />
                      </font>
                   </TextField>
+                  <ChoiceBox id="addPermissionsChoiceBox" fx:id="addPermissionsChoiceBox" prefHeight="35.0" prefWidth="315.0" />
                   <Button id="editProfileBtn" fx:id="addCollaboratorBtn" alignment="CENTER" mnemonicParsing="false" onAction="#addCollaboratorBtnClicked" prefHeight="35.0" prefWidth="315.0" style="-fx-background-color: #007be8; -fx-background-radius: 5 5 5 5;" text="Add collaborator" textFill="WHITE">
                      <font>
                         <Font name="Arial" size="14.0" />
                      </font>
                      <VBox.margin>
-                        <Insets bottom="50.0" />
+                        <Insets />
                      </VBox.margin>
                   </Button>
                </children>
@@ -55,6 +62,57 @@
                   <VBox fx:id="collaboratorsVBox" alignment="TOP_LEFT" prefWidth="315.0" spacing="10.0" style="-fx-background-color: transparent; -fx-padding: 0;" />
                </content>
             </ScrollPane>
+            <VBox fx:id="removeCollaboratorPopUp" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <AnchorPane fx:id="deleteConfirmationPopUp" prefWidth="325.0" style="-fx-background-color: #171a1d; -fx-background-radius: 15px;">
+                           <children>
+                              <HBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                                       <children>
+                                          <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Are you sure you want to remove this collaborator?" textAlignment="CENTER" wrappingWidth="275.0">
+                                             <font>
+                                                <Font name="Arial" size="22.0" />
+                                             </font>
+                                             <VBox.margin>
+                                                <Insets bottom="15.0" top="35.0" />
+                                             </VBox.margin>
+                                          </Text>
+                                          <Button fx:id="removeConfirmationBtn" contentDisplay="TEXT_ONLY" graphicTextGap="0.0" maxHeight="35.0" minHeight="35.0" mnemonicParsing="false" onAction="#removeConfirmationBtnClicked" prefHeight="35.0" prefWidth="225.0" style="-fx-background-color: red; -fx-background-radius: 5 5 5 5;" text="Yes, remove access!" textFill="WHITE">
+                                             <font>
+                                                <Font name="Arial Bold" size="14.0" />
+                                             </font>
+                                             <VBox.margin>
+                                                <Insets bottom="45.0" top="20.0" />
+                                             </VBox.margin>
+                                          </Button>
+                                       </children>
+                                       <HBox.margin>
+                                          <Insets top="20.0" />
+                                       </HBox.margin>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <Button id="closePreviewBtn" fx:id="closeConfirmationBtn" contentDisplay="GRAPHIC_ONLY" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#closeConfirmationBtnClicked" style="-fx-background-color: none;" text="Button" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
+                                 <graphic>
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../images/delete-btn.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <padding>
+                                    <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+                                 </padding>
+                              </Button>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
             <Button id="closeShareBtn" fx:id="closeShareBtn" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#closeShareBtnClicked" style="-fx-background-color: none;" text="Button" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="10.0">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
@@ -69,4 +127,7 @@
             </Button>
          </children></AnchorPane>
     </children>
+   <stylesheets>
+      <URL value="@../../css/choiceBox.css" />
+   </stylesheets>
 </AnchorPane>
