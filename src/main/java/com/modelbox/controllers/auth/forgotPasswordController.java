@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 
 public class forgotPasswordController {
 
@@ -18,6 +19,10 @@ public class forgotPasswordController {
     @FXML public AnchorPane sendResetEmailPrompt;
     @FXML public AnchorPane passwordResetInstructions;
     @FXML public TextField forgotPasswordErrorField;
+    @FXML public Text forgotPasswordHeading;
+    @FXML public Text forgotPasswordSubHeading;
+    @FXML public Text logInPromptText;
+
 
     /**
      * Handles resetting the user's password when the reset password button is clicked

@@ -123,6 +123,21 @@ public class authBridge {
         }
     }
 
+    public void handleChangeCurrentUserPassword() {
+        try {
+            app.viewLoader = new FXMLLoader(getClass().getResource("/views/auth/forgotPassword.fxml"));
+            Parent root = app.viewLoader.load();
+            app.forgotPasswordView = app.viewLoader.getController();
+            app.forgotPasswordView.forgotPasswordHeading.setText("Change your password");
+            app.forgotPasswordView.forgotPasswordSubHeading.setText("Let us help you update your account password. Please enter your information below.");
+            app.forgotPasswordView.logInPromptText.setText("Already like your password?");
+            app.dashboard.logOutBtn.getScene().setRoot(root);
+        } catch (Exception exception) {
+            // Handle errors
+            exception.printStackTrace();
+        }
+    }
+
     public void handleSendPasswordResetEmail() {
         try {
             if (forgotPasswordStatus.equals("success")) {

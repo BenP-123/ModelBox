@@ -20,7 +20,7 @@ public class settingsController {
     @FXML private AnchorPane accountSecurityAnchorPane;
     @FXML private AnchorPane changeEmailAnchorPane;
     @FXML public Circle settingsPictureImage;
-    @FXML private TextField newEmailField;
+    @FXML private TextField changeAccountEmailField;
     @FXML private TextField changeEmailErrorField;
     @FXML private Button changeEmailButton;
     @FXML private Button deleteAccountBtn;
@@ -74,7 +74,7 @@ public class settingsController {
         changeEmailAnchorPane.setVisible(true);
         changeEmailErrorField.setVisible(false);
         deleteAccountErrorField.setVisible(false);
-        newEmailField.setText("");
+        changeAccountEmailField.setText("");
 
         app.settingsView.changeEmailBtn.setStyle("-fx-background-color: #D3D3D3; -fx-border-color: #868686; -fx-border-radius: 0 0 5 5; -fx-alignment: center-left;");
         app.settingsView.accountSettingsBtn.setStyle("-fx-background-color: transparent; -fx-border-color: #868686; -fx-border-radius: 5 5 0 0; -fx-alignment: center-left;");
@@ -95,8 +95,21 @@ public class settingsController {
 
     private void changeCurrentUserEmail(){
         try {
-
+            changeEmailErrorField.setVisible(false);
+            String functionCall = String.format("ModelBox.Auth.changeCurrentUserEmail('%s');", changeAccountEmailField.getText());
+            app.mongoApp.eval(functionCall);
         } catch(Exception exception){
+            // Handle errors
+            exception.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void changePasswordBtnClicked(){
+        try {
+            String functionCall = "ModelBox.Auth.changeCurrentUserPassword();";
+            app.mongoApp.eval(functionCall);
+        } catch (Exception exception){
             // Handle errors
             exception.printStackTrace();
         }

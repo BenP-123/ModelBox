@@ -26,6 +26,7 @@ import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.*;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.DrawMode;
 import javafx.scene.shape.MeshView;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
@@ -62,6 +63,8 @@ public class previewPopUpController {
     @FXML public Button saveAttributesBtn;
     @FXML public ScrollPane collaboratorsScrollPane;
     @FXML public VBox collaboratorsVBox;
+    @FXML public ImageView wireMeshBtnIcon;
+    private Boolean isWireMeshToolActive = false;
 
     @FXML
     private void saveAttributesBtnClicked(Event event) {
@@ -476,6 +479,19 @@ public class previewPopUpController {
 
         // Reset the models distance from the camera
         previewModelSubScene.getRoot().setTranslateZ(originalDistance);
+    }
+
+    @FXML
+    private void wireMeshBtnClicked(Event event) {
+        if (isWireMeshToolActive) {
+            isWireMeshToolActive = false;
+            wireMeshBtnIcon.setImage(new Image(String.valueOf(getClass().getResource("/images/wire-mesh-btn.png"))));
+            ((MeshView) ((Group) previewModelSubScene.getRoot()).getChildren().get(0)).setDrawMode(DrawMode.FILL);
+        } else {
+            isWireMeshToolActive = true;
+            wireMeshBtnIcon.setImage(new Image(String.valueOf(getClass().getResource("/images/wire-mesh-btn-active.png"))));
+            ((MeshView) ((Group) previewModelSubScene.getRoot()).getChildren().get(0)).setDrawMode(DrawMode.LINE);
+        }
     }
 
     /*************************************************** UTILITY METHODS **********************************************/

@@ -24,6 +24,7 @@ import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.*;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.DrawMode;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.MeshView;
 import javafx.scene.text.Text;
@@ -63,12 +64,16 @@ public class comparePopUpController {
     @FXML public AnchorPane compareModelAnchorPane1;
     @FXML public Text modelName1;
     @FXML public SubScene compareModelSubScene1;
+    @FXML public ImageView wireMeshBtn1Icon;
 
     @FXML public AnchorPane compareModelAnchorPane2;
     @FXML public Text modelName2;
     @FXML public SubScene compareModelSubScene2;
+    @FXML public ImageView wireMeshBtn2Icon;
     @FXML public AnchorPane compareRootAnchorPane;
     @FXML public Line dividerLine;
+    private Boolean isWireMesh1ToolActive = false;
+    private Boolean isWireMesh2ToolActive = false;
 
     /**
      * Closes and removes the comparison pop-up from view
@@ -86,6 +91,7 @@ public class comparePopUpController {
             app.myModelsView.myModelsFlowPane.getChildren().get(i).lookup("#checkbox").setVisible(false);
         }
 
+        app.myModelsView.compareModelsBtnIcon.setImage(new Image(String.valueOf(getClass().getResource("/images/compare-model-btn.png"))));
         app.myModelsView.myModelsAnchorPane.getChildren().remove(currentComparison);
     }
 
@@ -782,6 +788,33 @@ public class comparePopUpController {
         // Reset the models distance from the camera
         compareModelSubScene2.getRoot().setTranslateZ(originalDistance2);
     }
+
+    @FXML
+    private void wireMeshBtn1Clicked(Event event) {
+        if (isWireMesh1ToolActive) {
+            isWireMesh1ToolActive = false;
+            wireMeshBtn1Icon.setImage(new Image(String.valueOf(getClass().getResource("/images/wire-mesh-btn.png"))));
+            ((MeshView) ((Group) compareModelSubScene1.getRoot()).getChildren().get(0)).setDrawMode(DrawMode.FILL);
+        } else {
+            isWireMesh1ToolActive = true;
+            wireMeshBtn1Icon.setImage(new Image(String.valueOf(getClass().getResource("/images/wire-mesh-btn-active.png"))));
+            ((MeshView) ((Group) compareModelSubScene1.getRoot()).getChildren().get(0)).setDrawMode(DrawMode.LINE);
+        }
+    }
+
+    @FXML
+    private void wireMeshBtn2Clicked(Event event) {
+        if (isWireMesh2ToolActive) {
+            isWireMesh2ToolActive = false;
+            wireMeshBtn2Icon.setImage(new Image(String.valueOf(getClass().getResource("/images/wire-mesh-btn.png"))));
+            ((MeshView) ((Group) compareModelSubScene2.getRoot()).getChildren().get(0)).setDrawMode(DrawMode.FILL);
+        } else {
+            isWireMesh2ToolActive = true;
+            wireMeshBtn2Icon.setImage(new Image(String.valueOf(getClass().getResource("/images/wire-mesh-btn-active.png"))));
+            ((MeshView) ((Group) compareModelSubScene2.getRoot()).getChildren().get(0)).setDrawMode(DrawMode.LINE);
+        }
+    }
+
 
     /*************************************************** UTILITY METHODS **********************************************/
 
