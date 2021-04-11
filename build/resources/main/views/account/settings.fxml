@@ -150,46 +150,17 @@
                                           <Font name="Arial" size="22.0" />
                                        </font>
                                     </Text>
-                                    <PasswordField fx:id="changeOldPassField" layoutX="25.0" layoutY="86.0" prefHeight="25.0" prefWidth="300.0" promptText="Old password" style="-fx-padding: 8px; -fx-faint-focus-color: transparent; -fx-focus-color: #C4C4C4; -fx-background-color: #ffffff; -fx-border-color: #C4C4C4; -fx-border-radius: 4px;" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="80.0">
+                                    <Text fill="#17181a" strokeType="OUTSIDE" strokeWidth="0.0" text="If you change your password, please keep in mind the following:" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="55.0">
                                        <font>
                                           <Font name="Arial" size="14.0" />
                                        </font>
-                                       <padding>
-                                          <Insets left="10.0" />
-                                       </padding>
-                                    </PasswordField>
-                                    <PasswordField fx:id="changeNewPassField" layoutX="261.0" layoutY="109.0" prefHeight="25.0" prefWidth="300.0" promptText="New password" style="-fx-padding: 8px; -fx-faint-focus-color: transparent; -fx-focus-color: #C4C4C4; -fx-background-color: #ffffff; -fx-border-color: #C4C4C4; -fx-border-radius: 4px;" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="155.0">
+                                    </Text>
+                                    <Text fill="#17181a" strokeType="OUTSIDE" strokeWidth="0.0" text="- Your account will only be accessible using the new password that you provide." AnchorPane.leftAnchor="36.0" AnchorPane.topAnchor="80.0">
                                        <font>
                                           <Font name="Arial" size="14.0" />
                                        </font>
-                                       <padding>
-                                          <Insets left="10.0" />
-                                       </padding>
-                                    </PasswordField>
-                                    <Text fill="#17181a" layoutX="25.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Old password" wrappingWidth="215.0" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="55.0">
-                                       <font>
-                                          <Font name="Arial" size="15.0" />
-                                       </font>
                                     </Text>
-                                    <Text fill="#17181a" layoutX="261.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="New password" wrappingWidth="215.0" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="130.0">
-                                       <font>
-                                          <Font name="Arial" size="15.0" />
-                                       </font>
-                                    </Text>
-                                    <PasswordField fx:id="changeConfirmPassField" layoutX="25.0" layoutY="230.0" prefHeight="25.0" prefWidth="300.0" promptText="Confirm password" style="-fx-padding: 8px; -fx-faint-focus-color: transparent; -fx-focus-color: #C4C4C4; -fx-background-color: #ffffff; -fx-border-color: #C4C4C4; -fx-border-radius: 4px;" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="230.0">
-                                       <font>
-                                          <Font name="Arial" size="14.0" />
-                                       </font>
-                                       <padding>
-                                          <Insets left="10.0" />
-                                       </padding>
-                                    </PasswordField>
-                                    <Text fill="#17181a" layoutX="25.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Confirm password" wrappingWidth="215.0" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="205.0">
-                                       <font>
-                                          <Font name="Arial" size="15.0" />
-                                       </font>
-                                    </Text>
-                                    <Button fx:id="updatePasswordBtn" layoutX="25.0" layoutY="285.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: #007be8; -fx-background-radius: 5 5 5 5;" text="Update password" textFill="WHITE" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="290.0">
+                                    <Button fx:id="changePasswordBtn" layoutX="25.0" layoutY="285.0" mnemonicParsing="false" onAction="#changePasswordBtnClicked" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: #007be8; -fx-background-radius: 5 5 5 5;" text="Yes, reset my password!" textFill="WHITE" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="115.0">
                                        <font>
                                           <Font name="Arial" size="14.0" />
                                        </font>
@@ -203,12 +174,22 @@
                                           <Font name="Arial" size="22.0" />
                                        </font>
                                     </Text>
-                                    <Button fx:id="changeEmailButton" contentDisplay="TEXT_ONLY" graphicTextGap="0.0" layoutX="25.0" layoutY="139.0" mnemonicParsing="false" onAction="#changeEmailButtonClicked" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: #007be8; -fx-background-radius: 5 5 5 5;" text="Change email" textFill="WHITE" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="139.0">
+                                    <Button fx:id="changeEmailButton" contentDisplay="TEXT_ONLY" graphicTextGap="0.0" layoutX="25.0" layoutY="139.0" mnemonicParsing="false" onAction="#changeEmailButtonClicked" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: #007be8; -fx-background-radius: 5 5 5 5;" text="Change email" textFill="WHITE" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="300.0">
                                        <font>
                                           <Font name="Arial" size="14.0" />
                                        </font>
                                     </Button>
-                                    <TextField fx:id="newEmailField" layoutX="25.0" layoutY="82.0" onKeyPressed="#changeEmailEnterKeyPressed" prefHeight="25.0" prefWidth="300.0" promptText="New email" style="-fx-padding: 8px; -fx-faint-focus-color: transparent; -fx-focus-color: #C4C4C4; -fx-background-color: #ffffff; -fx-border-color: #C4C4C4; -fx-border-radius: 4px;" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="82.0">
+                                    <Text fill="#17181a" strokeType="OUTSIDE" strokeWidth="0.0" text="If you change your email, please keep in mind the following:" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="55.0">
+                                       <font>
+                                          <Font name="Arial" size="14.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fill="#17181a" strokeType="OUTSIDE" strokeWidth="0.0" text="- Your account will only be accessible using the new email that you provide." AnchorPane.leftAnchor="36.0" AnchorPane.topAnchor="80.0">
+                                       <font>
+                                          <Font name="Arial" size="14.0" />
+                                       </font>
+                                    </Text>
+                                    <TextField fx:id="changeAccountEmailField" layoutX="25.0" layoutY="82.0" onKeyPressed="#changeEmailEnterKeyPressed" prefHeight="25.0" prefWidth="300.0" promptText="New email address" style="-fx-padding: 8px; -fx-faint-focus-color: transparent; -fx-focus-color: #C4C4C4; -fx-background-color: #ffffff; -fx-border-color: #C4C4C4; -fx-border-radius: 4px;" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="175.0">
                                        <font>
                                           <Font name="Arial" size="14.0" />
                                        </font>
@@ -216,16 +197,29 @@
                                           <Insets left="10.0" />
                                        </padding>
                                     </TextField>
-                                    <Text fill="#17181a" layoutX="25.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter new email" wrappingWidth="225.0" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="57.0">
+                                    <Text fill="#17181a" layoutX="25.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type your new account email address:" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="150.0">
                                        <font>
                                           <Font name="Arial" size="15.0" />
                                        </font>
                                     </Text>
-                                    <TextField id="changeEmailErrorField" fx:id="changeEmailErrorField" alignment="CENTER" editable="false" layoutX="34.0" layoutY="194.0" prefHeight="38.0" prefWidth="482.0" style="-fx-background-color: #ffffff; -fx-border-color: red; -fx-border-radius: 5px; -fx-padding: 8px;" text="Error" visible="false" AnchorPane.leftAnchor="34.0" AnchorPane.topAnchor="194.0">
+                                    <TextField id="changeEmailErrorField" fx:id="changeEmailErrorField" alignment="CENTER" editable="false" layoutX="34.0" layoutY="194.0" prefHeight="38.0" prefWidth="482.0" style="-fx-background-color: #ffffff; -fx-border-color: red; -fx-border-radius: 5px; -fx-padding: 8px;" text="Error" visible="false" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="105.0">
                                        <font>
                                           <Font name="Arial" size="14.0" />
                                        </font>
                                     </TextField>
+                                    <Text fill="#17181a" layoutX="35.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type your password to confirm and continue:" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="220.0">
+                                       <font>
+                                          <Font name="Arial" size="15.0" />
+                                       </font>
+                                    </Text>
+                                    <PasswordField fx:id="changeEmailPasswordField" prefHeight="25.0" prefWidth="300.0" promptText="Password" style="-fx-padding: 8px; -fx-faint-focus-color: transparent; -fx-focus-color: #C4C4C4; -fx-background-color: #ffffff; -fx-border-color: #C4C4C4; -fx-border-radius: 4px;" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="245.0">
+                                       <font>
+                                          <Font name="Arial" size="14.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets left="10.0" />
+                                       </padding>
+                                    </PasswordField>
                                  </children>
                               </AnchorPane>
                               <TextField id="displayNameTextField" fx:id="displayNameTextField" editable="false" style="-fx-background-color: #ffffff;" text="Kermit the Frog" AnchorPane.leftAnchor="54.0" AnchorPane.topAnchor="2.0">

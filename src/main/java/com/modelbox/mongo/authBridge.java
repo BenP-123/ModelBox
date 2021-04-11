@@ -11,6 +11,7 @@ public class authBridge {
     private String forgotPasswordStatus;
     private String createAccountStatus;
     private String deleteAccountStatus;
+    private String changeEmailStatus;
 
     public String getLogInStatus() {
         return logInStatus;
@@ -26,6 +27,10 @@ public class authBridge {
 
     public String getDeleteAccountStatus() {
         return deleteAccountStatus;
+    }
+
+    public String getChangeEmailStatus() {
+        return changeEmailStatus;
     }
 
     public void setLogInStatus(String status) {
@@ -44,6 +49,10 @@ public class authBridge {
         deleteAccountStatus = status;
     }
 
+    public void setChangeEmailStatus(String status) {
+        changeEmailStatus = status;
+    }
+
     public void handleLogInCurrentUser(String ownerID, String email, String password) {
         try {
             if (logInStatus.equals("success")) {
@@ -53,8 +62,12 @@ public class authBridge {
                 String displayName = prefs.get("displayName", "null");
                 String firstName = prefs.get("firstName", "null");
                 String lastName = prefs.get("lastName", "null");
+                String oldOwnerId = prefs.get("owner_id", "null");
                 if (!displayName.equals("null") && !firstName.equals("null") && !lastName.equals("null")) {
                     String functionCall = String.format("ModelBox.Auth.initializeNewUser('%s', '%s', '%s');", displayName, firstName, lastName);
+                    app.mongoApp.eval(functionCall);
+                } else if (!oldOwnerId.equals("null")) {
+                    String functionCall = String.format("ModelBox.Auth.initializeNewEmail('%s', '%s');", oldOwnerId, email);
                     app.mongoApp.eval(functionCall);
                 } else {
                     setUpMyModelsView();
@@ -79,6 +92,19 @@ public class authBridge {
             prefs.remove("displayName");
             prefs.remove("firstName");
             prefs.remove("lastName");
+
+            setUpMyModelsView();
+        } catch (Exception exception) {
+            // Handle errors
+            exception.printStackTrace();
+        }
+
+    }
+
+    public void handleInitializeNewEmail(){
+        try {
+            Preferences prefs = Preferences.userRoot().node("/com/modelbox");
+            prefs.remove("owner_id");
 
             setUpMyModelsView();
         } catch (Exception exception) {
@@ -121,6 +147,34 @@ public class authBridge {
             // Handle errors
             exception.printStackTrace();
         }
+    }
+
+    public void handleChangeCurrentUserEmail() {
+        try {
+            if (changeEmailStatus.equals("success")) {
+                app.viewLoader = new FXMLLoader(getClass().getResource("/views/auth/createAccount.fxml"));
+                Parent root = app.viewLoader.load();
+                app.createAccountView = app.viewLoader.getController();
+                app.createAccountView.confirmSubHeading1.setText("Your email address has been successfully changed. You must confirm your email address before using ModelBox.");
+                app.createAccountView.confirmSubHeading2.setText("Please check your email for a confirmation link. Once confirmed, log in on this device to complete your email change.");
+                app.createAccountView.createAccountForm.setVisible(false);
+                app.createAccountView.createAccountInstructions.setVisible(true);
+                app.dashboard.logOutBtn.getScene().setRoot(root);
+            } else {
+                Preferences prefs = Preferences.userRoot().node("/com/modelbox");
+                prefs.remove("owner_id");
+
+                app.settingsView.changeEmailErrorField.setText(changeEmailStatus);
+                app.settingsView.changeEmailErrorField.setVisible(true);
+
+                // Clear the form and let the user try again
+                app.settingsView.changeAccountEmailField.setText("");
+                app.settingsView.changeEmailPasswordField.setText("");
+            }
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+
     }
 
     public void handleChangeCurrentUserPassword() {

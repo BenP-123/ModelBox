@@ -93,6 +93,18 @@
                   <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                </padding>
             </Button>
+            <Button id="changeColorBtn" fx:id="wireMeshBtn1" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#wireMeshBtn1Clicked" style="-fx-background-color: none;" text="Button" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="190.0">
+               <graphic>
+                  <ImageView fx:id="wireMeshBtn1Icon" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../images/wire-mesh-btn.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+               </padding>
+            </Button>
             <Button id="changeColorBtn" fx:id="resetViewBtn1" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#resetViewBtn1Clicked" style="-fx-background-color: none;" text="Button" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="155.0">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
@@ -191,6 +203,18 @@
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../images/help-btn.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+               </padding>
+            </Button>
+            <Button id="changeColorBtn" fx:id="wireMeshBtn2" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#wireMeshBtn2Clicked" style="-fx-background-color: none;" text="Button" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="190.0">
+               <graphic>
+                  <ImageView fx:id="wireMeshBtn2Icon" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../images/wire-mesh-btn.png" />
                      </image>
                   </ImageView>
                </graphic>

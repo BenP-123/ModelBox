@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 
 import java.util.prefs.Preferences;
 
@@ -25,6 +26,8 @@ public class createAccountController {
     @FXML public AnchorPane createAccountInstructions;
     @FXML public TextField createAccountErrorField;
     @FXML private Button loginBtn;
+    @FXML public Text confirmSubHeading1;
+    @FXML public Text confirmSubHeading2;
 
     /**
      * Handles the creation of a user account when the create account button is clicked

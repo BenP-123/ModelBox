@@ -4,11 +4,14 @@ import com.modelbox.app;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
+
+import java.util.prefs.Preferences;
 
 public class settingsController {
 
@@ -20,8 +23,9 @@ public class settingsController {
     @FXML private AnchorPane accountSecurityAnchorPane;
     @FXML private AnchorPane changeEmailAnchorPane;
     @FXML public Circle settingsPictureImage;
-    @FXML private TextField changeAccountEmailField;
-    @FXML private TextField changeEmailErrorField;
+    @FXML public TextField changeAccountEmailField;
+    @FXML public PasswordField changeEmailPasswordField;
+    @FXML public TextField changeEmailErrorField;
     @FXML private Button changeEmailButton;
     @FXML private Button deleteAccountBtn;
     @FXML public TextField deleteAccountEmailField;
@@ -75,6 +79,7 @@ public class settingsController {
         changeEmailErrorField.setVisible(false);
         deleteAccountErrorField.setVisible(false);
         changeAccountEmailField.setText("");
+        changeEmailPasswordField.setText("");
 
         app.settingsView.changeEmailBtn.setStyle("-fx-background-color: #D3D3D3; -fx-border-color: #868686; -fx-border-radius: 0 0 5 5; -fx-alignment: center-left;");
         app.settingsView.accountSettingsBtn.setStyle("-fx-background-color: transparent; -fx-border-color: #868686; -fx-border-radius: 5 5 0 0; -fx-alignment: center-left;");
@@ -96,7 +101,12 @@ public class settingsController {
     private void changeCurrentUserEmail(){
         try {
             changeEmailErrorField.setVisible(false);
-            String functionCall = String.format("ModelBox.Auth.changeCurrentUserEmail('%s');", changeAccountEmailField.getText());
+
+            // Save the current user's owner_id for future manipulation
+            Preferences prefs = Preferences.userRoot().node("/com/modelbox");
+            prefs.put("owner_id", app.users.ownerId);
+
+            String functionCall = String.format("ModelBox.Auth.changeCurrentUserEmail('%s', '%s');", changeAccountEmailField.getText(), changeEmailPasswordField.getText());
             app.mongoApp.eval(functionCall);
         } catch(Exception exception){
             // Handle errors
