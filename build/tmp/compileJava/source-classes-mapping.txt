@@ -7,30 +7,30 @@ com/modelbox/controllers/myModels/myModelsController.java
  com.modelbox.controllers.myModels.myModelsController$3
  com.modelbox.controllers.myModels.myModelsController$4
  com.modelbox.controllers.myModels.myModelsController$5
-com/modelbox/controllers/uploadModels/uploadModelsController.java
- com.modelbox.controllers.uploadModels.uploadModelsController
+com/modelbox/mongo/errorBridge.java
+ com.modelbox.mongo.errorBridge
 com/modelbox/controllers/auth/forgotPasswordController.java
  com.modelbox.controllers.auth.forgotPasswordController
 com/modelbox/controllers/account/settingsController.java
  com.modelbox.controllers.account.settingsController
-com/modelbox/init.java
- com.modelbox.init
-com/modelbox/controllers/myModels/sharePopUpController.java
- com.modelbox.controllers.myModels.sharePopUpController
 com/modelbox/controllers/account/profileController.java
  com.modelbox.controllers.account.profileController
+com/modelbox/mongo/authBridge.java
+ com.modelbox.mongo.authBridge
+com/modelbox/init.java
+ com.modelbox.init
 com/modelbox/controllers/auth/accountDeletedController.java
  com.modelbox.controllers.auth.accountDeletedController
-com/modelbox/controllers/uploadModels/editPopUpController.java
- com.modelbox.controllers.uploadModels.editPopUpController
+com/modelbox/mongo/modelsBridge.java
+ com.modelbox.mongo.modelsBridge
 com/modelbox/controllers/myModels/comparePopUpController.java
  com.modelbox.controllers.myModels.comparePopUpController
  com.modelbox.controllers.myModels.comparePopUpController$1
  com.modelbox.controllers.myModels.comparePopUpController$2
  com.modelbox.controllers.myModels.comparePopUpController$3
  com.modelbox.controllers.myModels.comparePopUpController$4
-com/modelbox/mongo/errorBridge.java
- com.modelbox.mongo.errorBridge
+com/modelbox/controllers/auth/createAccountController.java
+ com.modelbox.controllers.auth.createAccountController
 com/modelbox/mongo/usersBridge.java
  com.modelbox.mongo.usersBridge
 com/modelbox/controllers/auth/loginController.java
@@ -39,15 +39,15 @@ com/modelbox/controllers/myModels/previewPopUpController.java
  com.modelbox.controllers.myModels.previewPopUpController
  com.modelbox.controllers.myModels.previewPopUpController$1
  com.modelbox.controllers.myModels.previewPopUpController$2
+com/modelbox/controllers/myModels/sharePopUpController.java
+ com.modelbox.controllers.myModels.sharePopUpController
+com/modelbox/controllers/uploadModels/uploadModelsController.java
+ com.modelbox.controllers.uploadModels.uploadModelsController
 com/modelbox/controllers/uploadModels/verifyModelsController.java
  com.modelbox.controllers.uploadModels.verifyModelsController
  com.modelbox.controllers.uploadModels.verifyModelsController$1
  com.modelbox.controllers.uploadModels.verifyModelsController$2
-com/modelbox/mongo/modelsBridge.java
- com.modelbox.mongo.modelsBridge
-com/modelbox/controllers/auth/createAccountController.java
- com.modelbox.controllers.auth.createAccountController
-com/modelbox/mongo/authBridge.java
- com.modelbox.mongo.authBridge
+com/modelbox/controllers/uploadModels/editPopUpController.java
+ com.modelbox.controllers.uploadModels.editPopUpController
 com/modelbox/app.java
  com.modelbox.app

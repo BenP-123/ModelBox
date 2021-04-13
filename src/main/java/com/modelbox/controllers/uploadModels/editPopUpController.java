@@ -3,6 +3,7 @@ package com.modelbox.controllers.uploadModels;
 import com.modelbox.app;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.SubScene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -20,6 +21,10 @@ public class editPopUpController {
     @FXML public AnchorPane editInfoAnchorPane;
     @FXML public AnchorPane loadingAnchorPane;
     @FXML public Button saveAttributesBtn;
+    @FXML public AnchorPane editRootAnchorPane;
+    @FXML public Button closeEditPaneBtn;
+    @FXML public AnchorPane editModelAnchorPane;
+    @FXML public SubScene editModelSubScene;
 
     /**
      * Closes and removes the edit pop-up from view

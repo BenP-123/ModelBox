@@ -145,6 +145,34 @@
             </HBox>
          </children>
       </AnchorPane>
+      <AnchorPane fx:id="deleteModelConfirmationPopUp" layoutX="306.0" layoutY="235.0" prefHeight="200.0" prefWidth="408.0" style="-fx-background-color: #ffffff; -fx-background-radius: 15px; -fx-border-color: red; -fx-border-radius: 8 8 8 8;" visible="false">
+         <children>
+            <VBox alignment="CENTER" layoutX="48.0" layoutY="36.0" prefHeight="112.0" prefWidth="306.0" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="48.0" AnchorPane.rightAnchor="48.0" AnchorPane.topAnchor="36.0">
+               <children>
+                  <Text fx:id="deleterModelPopUpText" strokeType="OUTSIDE" strokeWidth="0.0" text="Are you sure you want to delete this model?" textAlignment="CENTER" wrappingWidth="275.0">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Text>
+                  <HBox alignment="CENTER" prefHeight="111.0" prefWidth="333.0">
+                     <children>
+                        <Button fx:id="deleteModelYesBtn" contentDisplay="TEXT_ONLY" graphicTextGap="0.0" mnemonicParsing="false" onAction="#deleteModelYesBtnClicked" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: red; -fx-background-radius: 5 5 5 5;" text="Yes" textFill="WHITE">
+                           <font>
+                              <Font name="Arial Bold" size="14.0" />
+                           </font>
+                        </Button>
+                        <VBox prefHeight="53.0" prefWidth="35.0" />
+                        <Button fx:id="deleteModelNoBtn" contentDisplay="TEXT_ONLY" graphicTextGap="0.0" mnemonicParsing="false" onAction="#deleteModelNoBtnClicked" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: red; -fx-background-radius: 5 5 5 5;" text="No" textFill="WHITE">
+                           <font>
+                              <Font name="Arial Bold" size="14.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
    </children>
    <stylesheets>
       <URL value="@../../css/myModelsCheckBox.css" />

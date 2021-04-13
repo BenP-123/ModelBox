@@ -172,7 +172,7 @@
                                     <Font name="Arial" size="28.0" />
                                  </font>
                               </Text>
-                              <Text fill="#757575" strokeType="OUTSIDE" strokeWidth="0.0" text="Your account has been successfully created. You must confirm your email address before using ModelBox." wrappingWidth="400.0" AnchorPane.bottomAnchor="338.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="225.0">
+                              <Text fx:id="confirmSubHeading1" fill="#757575" strokeType="OUTSIDE" strokeWidth="0.0" text="Your account has been successfully created. You must confirm your email address before using ModelBox." wrappingWidth="400.0" AnchorPane.bottomAnchor="338.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="225.0">
                                  <font>
                                     <Font name="Arial" size="14.0" />
                                  </font>
@@ -187,7 +187,7 @@
                                     <Font name="Arial" size="13.0" />
                                  </font>
                               </Button>
-                              <Text fill="#757575" layoutX="50.0" layoutY="295.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please check your email for a confirmation link. Once confirmed, log in on this device to initialize your account." wrappingWidth="400.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="275.0">
+                              <Text fx:id="confirmSubHeading2" fill="#757575" layoutX="50.0" layoutY="295.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please check your email for a confirmation link. Once confirmed, log in on this device to initialize your account." wrappingWidth="400.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="275.0">
                                  <font>
                                     <Font name="Arial" size="14.0" />
                                  </font>

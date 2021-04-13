@@ -44,7 +44,10 @@ public class myModelsController {
     public int checkboxCount = 0;
     private String firstSelectedModelId;
     private String secondSelectedModelId;
-    
+    @FXML private AnchorPane deleteModelConfirmationPopUp;
+    @FXML private Text deleterModelPopUpText;
+
+
     /**
      * Handles the search query specified by the user
      *
@@ -345,46 +348,82 @@ public class myModelsController {
         }
     }
 
+
+    /**
+     *
+     * Delete model confirmation no button clicked
+     * and hides the delete model confirmation popup
+     *
+     * @param event a JavaFX Event
+     */
+    @FXML
+    private void deleteModelNoBtnClicked(Event event){
+        deleteModelConfirmationPopUp.setVisible(false);
+    }
+
+    /**
+     * If the model is a shared model, the user removes themselves from the collaboration.
+     * Otherwise, the model is not shared and therefore is deleted from the my models view
+     * and removes the corresponding model from the database.
+     *
+     * @param event a JavaFX Event
+     */
+    @FXML
+    private void deleteModelYesBtnClicked(Event event) {
+        AnchorPane currentModel = (AnchorPane) ((Button) event.getSource()).getParent().getParent().getParent();
+
+        BsonDocument modelDocument = app.dashboard.dbModelsList.get(app.dashboard.getDocumentIndexByModelID(app.dashboard.dbModelsList, currentModel.getId())).asDocument();
+
+        // Remove the model from the myModels view no matter what
+        myModelsFlowPane.getChildren().remove(currentModel);
+        app.dashboard.dbModelsList.remove(
+                app.dashboard.dbModelsList.get(
+                        app.dashboard.getDocumentIndexByModelID(
+                                app.dashboard.dbModelsList, currentModel.getId()
+                        )
+                )
+        );
+
+        loadingAnchorPane.setVisible(true);
+        noModelsBtn.setVisible(false);
+        myModelsScrollPane.setVisible(false);
+
+        if (modelDocument.get("isShared").asBoolean().getValue() && !modelDocument.get("owner_id").asString().getValue().equals(app.users.ownerId)) {
+            // Remove this user from the collaboration
+            String functionCall = String.format("ModelBox.Models.terminateModelCollaboration('%s');", currentModel.getId());
+            app.mongoApp.eval(functionCall);
+        } else {
+            // Delete the model from the database
+            String functionCall = String.format("ModelBox.Models.deleteCurrentUserModel('%s');", currentModel.getId());
+            app.mongoApp.eval(functionCall);
+        }
+        deleteModelConfirmationPopUp.setVisible(false);
+    }
+
     /********************************************* PREVIEW CARD HANDLERS **********************************************/
 
     EventHandler<ActionEvent> deleteModelBtnClicked = new EventHandler<ActionEvent>() {
 
         /**
-         * If the model is a shared model, the user removes themselves from the collaboration.
-         * Otherwise, the model is not shared and therefore is deleted from the my models view
-         * and removes the corresponding model from the database.
+         *
+         * Displays the delete model confirmation popup
+         * and sets the popup id to the models id
          *
          * @param event a JavaFX ActionEvent
          */
         @Override
         public void handle(ActionEvent event) {
             StackPane currentModel = (StackPane) ((Button) event.getSource()).getParent();
+            BsonDocument modelCollection = app.dashboard.dbModelsList.get(app.dashboard.getDocumentIndexByModelID(app.dashboard.dbModelsList, currentModel.getId())).asDocument();
 
-            BsonDocument modelDocument = app.dashboard.dbModelsList.get(app.dashboard.getDocumentIndexByModelID(app.dashboard.dbModelsList, currentModel.getId())).asDocument();
-
-            // Remove the model from the myModels view no matter what
-            myModelsFlowPane.getChildren().remove(currentModel);
-            app.dashboard.dbModelsList.remove(
-                    app.dashboard.dbModelsList.get(
-                            app.dashboard.getDocumentIndexByModelID(
-                                    app.dashboard.dbModelsList, currentModel.getId()
-                            )
-                    )
-            );
-
-            loadingAnchorPane.setVisible(true);
-            noModelsBtn.setVisible(false);
-            myModelsScrollPane.setVisible(false);
-
-            if (modelDocument.get("isShared").asBoolean().getValue() && !modelDocument.get("owner_id").asString().getValue().equals(app.users.ownerId)) {
-                // Remove this user from the collaboration
-                String functionCall = String.format("ModelBox.Models.terminateModelCollaboration('%s');", currentModel.getId());
-                app.mongoApp.eval(functionCall);
-            } else {
-                // Delete the model from the database
-                String functionCall = String.format("ModelBox.Models.deleteCurrentUserModel('%s');", currentModel.getId());
-                app.mongoApp.eval(functionCall);
-            }
+           if(modelCollection.get("isShared").asBoolean().getValue() && !modelCollection.get("owner_id").asString().getValue().equals(app.users.ownerId)){
+                deleterModelPopUpText.setText("Are you sure you want to leave this model collaboration?");
+           }
+           else{
+                deleterModelPopUpText.setText("Are you sure you want to delete this model?");
+           }
+            deleteModelConfirmationPopUp.setVisible(true);
+            deleteModelConfirmationPopUp.setId(((Button) event.getSource()).getParent().getId());
         }
     };
 
