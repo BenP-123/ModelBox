@@ -3,13 +3,11 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.SubScene?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Region?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -18,21 +16,21 @@
     <children>
         <AnchorPane id="editInfoAnchorPane" fx:id="editInfoAnchorPane" prefWidth="375.0" style="-fx-background-color: #171a1d; -fx-background-radius: 15  0 0 15;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-            <Text fill="WHITE" layoutX="56.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit Attributes" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="25.0">
-               <font>
-                  <Font name="Arial" size="20.0" />
-               </font>
-            </Text>
+                <Text fill="WHITE" layoutX="56.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit Attributes" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="25.0">
+                    <font>
+                        <Font name="Arial" size="20.0" />
+                    </font>
+                </Text>
                 <Text fill="#55b0ff" layoutX="32.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Model Name:" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="65.0">
                     <font>
                         <Font name="Arial" size="14.0" />
                     </font>
                 </Text>
-            <TextField id="modelNameTextField" fx:id="modelNameTextField" layoutX="120.0" layoutY="19.0" style="-fx-background-color: none; -fx-border-color: #ffffff; -fx-border-radius: 3px; -fx-padding: 3px 6px 3px 6px; -fx-focus-color: #ffffff; -fx-faint-focus-color: #ffffff; -fx-text-fill: #C4C4C4;" text="Model Name" AnchorPane.leftAnchor="120.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="60.0">
-               <font>
-                  <Font name="Arial" size="14.0" />
-               </font>
-            </TextField>
+                <TextField id="modelNameTextField" fx:id="modelNameTextField" layoutX="120.0" layoutY="19.0" style="-fx-background-color: none; -fx-border-color: #ffffff; -fx-border-radius: 3px; -fx-padding: 3px 6px 3px 6px; -fx-focus-color: #ffffff; -fx-faint-focus-color: #ffffff; -fx-text-fill: #C4C4C4;" text="Model Name" AnchorPane.leftAnchor="120.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="60.0">
+                    <font>
+                        <Font name="Arial" size="14.0" />
+                    </font>
+                </TextField>
                 <Text fill="#55b0ff" layoutX="15.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Model Type:" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="100.0">
                     <font>
                         <Font name="Arial" size="14.0" />
@@ -44,32 +42,19 @@
                     </font>
                 </Text>
                 <Line endX="150.0" layoutX="95.0" layoutY="70.0" stroke="WHITE" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="90.0" />
-            <Button id="editProfileBtn" fx:id="saveAttributesBtn" alignment="CENTER" mnemonicParsing="false" onAction="#saveAttributesBtnClicked" prefHeight="35.0" prefWidth="315.0" style="-fx-background-color: #007be8; -fx-background-radius: 5 5 5 5;" text="Save attributes" textFill="WHITE" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="30.0">
-               <font>
-                  <Font name="Arial" size="14.0" />
-               </font>
-            </Button>
+                <Button id="editProfileBtn" fx:id="saveAttributesBtn" alignment="CENTER" mnemonicParsing="false" onAction="#saveAttributesBtnClicked" prefHeight="35.0" prefWidth="315.0" style="-fx-background-color: #007be8; -fx-background-radius: 5 5 5 5;" text="Save attributes" textFill="WHITE" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="30.0">
+                    <font>
+                        <Font name="Arial" size="14.0" />
+                    </font>
+                </Button>
             </children></AnchorPane>
-      <AnchorPane id="editInfoAnchorPane" fx:id="loadingAnchorPane" layoutX="10.0" layoutY="10.0" prefWidth="375.0" style="-fx-background-color: #171a1d; -fx-background-radius: 15  0 0 15;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <StackPane prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <ProgressIndicator translateY="5.0" />
-                  <Text fill="#55b0ff" strokeType="OUTSIDE" strokeWidth="0.0" text="Loading..." translateY="-60.0">
-                     <font>
-                        <Font name="Arial" size="24.0" />
-                     </font>
-                  </Text>
-               </children></StackPane>
-         </children>
-      </AnchorPane>
-      <AnchorPane fx:id="editModelAnchorPane" maxHeight="350.0" maxWidth="375.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="375.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <SubScene fx:id="editModelSubScene" height="350.0" width="375.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-              <root>
-                <Region />
-              </root>
-            </SubScene>
+        <AnchorPane fx:id="editModelAnchorPane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-radius: 0 15 15 0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="375.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <SubScene fx:id="editModelSubScene" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <root>
+                        <Region />
+                    </root>
+                </SubScene>
                 <Button id="closeEditPaneBtn" fx:id="closeEditPaneBtn" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#closeEditPaneBtnClicked" style="-fx-background-color: none;" text="Button" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="10.0">
                     <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
@@ -81,11 +66,11 @@
                     <padding>
                         <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                     </padding>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
+                    <opaqueInsets>
+                        <Insets />
+                    </opaqueInsets>
                 </Button>
-         </children>
-      </AnchorPane>
+            </children>
+        </AnchorPane>
     </children>
 </AnchorPane>

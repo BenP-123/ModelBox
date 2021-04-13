@@ -1,6 +1,8 @@
 package com.modelbox.controllers.uploadModels;
 
 import com.modelbox.app;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.SubScene;
@@ -14,17 +16,13 @@ import org.bson.BsonString;
 import org.bson.Document;
 
 public class editPopUpController {
-
-    @FXML public StackPane editModelStackPane;
+    @FXML public AnchorPane editModelAnchorPane;
+    @FXML public SubScene editModelSubScene;
     @FXML public TextField modelNameTextField;
     @FXML public Text modelTypeText;
     @FXML public AnchorPane editInfoAnchorPane;
     @FXML public AnchorPane loadingAnchorPane;
     @FXML public Button saveAttributesBtn;
-    @FXML public AnchorPane editRootAnchorPane;
-    @FXML public Button closeEditPaneBtn;
-    @FXML public AnchorPane editModelAnchorPane;
-    @FXML public SubScene editModelSubScene;
 
     /**
      * Closes and removes the edit pop-up from view

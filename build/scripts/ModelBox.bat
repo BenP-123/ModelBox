@@ -67,7 +67,7 @@ goto fail
 :execute
 @rem Setup the command line
 
-set CLASSPATH=%APP_HOME%\lib\ModelBox-1.0.jar;%APP_HOME%\lib\bson-4.2.2.jar;%APP_HOME%\lib\commons-io-2.8.0.jar;%APP_HOME%\lib\jaxb-api-2.4.0-b180830.0359.jar;%APP_HOME%\lib\data-url-1.0.jar;%APP_HOME%\lib\jimStlMeshImporterJFX.jar;%APP_HOME%\lib\javafx-fxml-15.0.1-mac.jar;%APP_HOME%\lib\javafx-web-15.0.1-mac.jar;%APP_HOME%\lib\javafx-controls-15.0.1-mac.jar;%APP_HOME%\lib\javafx-controls-15.0.1.jar;%APP_HOME%\lib\javafx-media-15.0.1-mac.jar;%APP_HOME%\lib\javafx-media-15.0.1.jar;%APP_HOME%\lib\javafx-graphics-15.0.1-mac.jar;%APP_HOME%\lib\javafx-graphics-15.0.1.jar;%APP_HOME%\lib\javafx-base-15.0.1-mac.jar;%APP_HOME%\lib\javafx-base-15.0.1.jar;%APP_HOME%\lib\javax.activation-api-1.2.0.jar
+set CLASSPATH=%APP_HOME%\lib\ModelBox-1.0.jar;%APP_HOME%\lib\bson-4.2.2.jar;%APP_HOME%\lib\commons-io-2.8.0.jar;%APP_HOME%\lib\jaxb-api-2.4.0-b180830.0359.jar;%APP_HOME%\lib\data-url-1.0.jar;%APP_HOME%\lib\jimStlMeshImporterJFX.jar;%APP_HOME%\lib\javafx-fxml-15.0.1-win.jar;%APP_HOME%\lib\javafx-web-15.0.1-win.jar;%APP_HOME%\lib\javafx-controls-15.0.1-win.jar;%APP_HOME%\lib\javafx-controls-15.0.1.jar;%APP_HOME%\lib\javafx-media-15.0.1-win.jar;%APP_HOME%\lib\javafx-media-15.0.1.jar;%APP_HOME%\lib\javafx-graphics-15.0.1-win.jar;%APP_HOME%\lib\javafx-graphics-15.0.1.jar;%APP_HOME%\lib\javafx-base-15.0.1-win.jar;%APP_HOME%\lib\javafx-base-15.0.1.jar;%APP_HOME%\lib\javax.activation-api-1.2.0.jar
 
 
 @rem Execute ModelBox

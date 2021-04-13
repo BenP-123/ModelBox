@@ -12,13 +12,13 @@ import javafx.scene.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.shape.MeshView;
 import javafx.scene.shape.TriangleMesh;
 import org.apache.commons.io.FilenameUtils;
 import org.bson.BsonDocument;
-
-import java.util.Stack;
 
 public class verifyModelsController {
 
@@ -90,9 +90,12 @@ public class verifyModelsController {
         editModelBtn.setOnAction(editModelBtnClicked);
 
         // Add the mesh to the model card group
-        StackPane modelCardGroup = new StackPane(modelMeshView);
-        modelCardGroup.setCenterShape(true);
-        SubScene modelSubScene = new SubScene(modelCardGroup, 150, 250, true, null);
+        Group modelCardGroup = new Group(modelMeshView);
+        SubScene modelSubScene = new SubScene(modelCardGroup, 150, 250);
+
+        // Center the model in the sub-scene of the card
+        modelCardGroup.setTranslateX(75);
+        modelCardGroup.setTranslateY(125);
 
         // Add the camera to the sub-scene
         Camera camera = new PerspectiveCamera();
@@ -100,15 +103,13 @@ public class verifyModelsController {
 
         // Manipulate the features of the model card and the arrangement of its internals
         StackPane modelMeshPane = new StackPane(modelSubScene, cancelUploadBtn, editModelBtn);
-        modelSubScene.heightProperty().bind(modelMeshPane.heightProperty());
-        modelSubScene.widthProperty().bind(modelMeshPane.widthProperty());
-
         modelMeshPane.setId(model.get("_id").asObjectId().getValue().toHexString());
         modelMeshPane.setStyle("-fx-background-color: #eeeeee; -fx-background-radius: 8 8 8 8");
         modelMeshPane.setMinWidth(150);
         modelMeshPane.setMinHeight(250);
         modelMeshPane.setMaxWidth(150);
         modelMeshPane.setMaxHeight(250);
+        StackPane.setAlignment(modelSubScene, Pos.CENTER);
         StackPane.setAlignment(cancelUploadBtn, Pos.TOP_RIGHT);
         StackPane.setAlignment(editModelBtn, Pos.BOTTOM_RIGHT);
 
@@ -190,13 +191,16 @@ public class verifyModelsController {
             // Create the model in JavaFX
             TriangleMesh currentModelMesh = app.dashboard.stlImporter.getImport();
             MeshView currentModelMeshView = new MeshView(currentModelMesh);
-            StackPane editModelGroup = new StackPane();
+
+            StackPane editModelGroup = new StackPane(currentModelMeshView);
+            editModelGroup.setStyle("-fx-background-radius: 0 15 15 0; -fx-background-color: #eeeeee");
             editModelGroup.setCenterShape(true);
-            editModelGroup.getChildren().add(currentModelMeshView);
+            app.editPopUpView.editModelSubScene.setRoot(editModelGroup);
+            Camera camera = new PerspectiveCamera();
+            app.editPopUpView.editModelSubScene.setCamera(camera);
 
             app.editPopUpView.editModelSubScene.widthProperty().bind(app.editPopUpView.editModelAnchorPane.widthProperty());
             app.editPopUpView.editModelSubScene.heightProperty().bind(app.editPopUpView.editModelAnchorPane.heightProperty());
-            app.editPopUpView.editModelSubScene.setRoot(editModelGroup);
 
             // Set the modelNameText and modelTypeText labels
             String currentModelName = app.dashboard.verifyModelsList.get(modelIndex).asDocument().get("modelName").asString().getValue();
