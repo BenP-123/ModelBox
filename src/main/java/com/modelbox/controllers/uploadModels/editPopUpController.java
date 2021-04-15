@@ -21,7 +21,6 @@ public class editPopUpController {
     @FXML public TextField modelNameTextField;
     @FXML public Text modelTypeText;
     @FXML public AnchorPane editInfoAnchorPane;
-    @FXML public AnchorPane loadingAnchorPane;
     @FXML public Button saveAttributesBtn;
 
     /**
@@ -44,7 +43,6 @@ public class editPopUpController {
     private void saveAttributesBtnClicked(Event event) {
         AnchorPane currentEditInfoPane = (AnchorPane) ((Button) event.getSource()).getParent();
         editInfoAnchorPane.setVisible(false);
-        loadingAnchorPane.setVisible(true);
 
         int currentModelIndex = app.dashboard.getDocumentIndexByModelID(app.dashboard.verifyModelsList, currentEditInfoPane.getId());
         BsonDocument currentModelDocument = app.dashboard.verifyModelsList.get(currentModelIndex).asDocument();
@@ -55,7 +53,6 @@ public class editPopUpController {
         app.dashboard.verifyModelsList.remove(currentModelIndex);
         app.dashboard.verifyModelsList.add(currentModelDocument);
 
-        loadingAnchorPane.setVisible(false);
         editInfoAnchorPane.setVisible(true);
 
         app.verifyModelsView.verifyModelsAnchorPane.getChildren().remove(currentEditInfoPane.getParent());

@@ -86,12 +86,28 @@ public class modelsBridge {
                             }
                         }
                     } else if (newValue.equals("Owned by me")) {
+                        app.myModelsView.myModelsFlowPane.getChildren().clear();
+                        for (BsonValue model : app.dashboard.dbModelsList) {
+                            if (!model.asDocument().get("modelName").asString().getValue().matches("(?i).*" + app.myModelsView.modelSearchField.getText() + ".*")) {
+                                app.myModelsView.myModelsFlowPane.getChildren().remove(app.myModelsView.myModelsFlowPane.lookup("#" + model.asDocument().get("_id").asObjectId().getValue().toHexString()));
+                            } else {
+                                app.myModelsView.addMyModelsPreviewCard(model.asDocument());
+                            }
+                        }
                         for (BsonValue model : app.dashboard.dbModelsList) {
                             if (!model.asDocument().get("owner_id").asString().getValue().equals(app.users.ownerId)) {
                                 app.myModelsView.myModelsFlowPane.getChildren().remove(app.myModelsView.myModelsFlowPane.lookup("#" + model.asDocument().get("_id").asObjectId().getValue().toHexString()));
                             }
                         }
                     } else if (newValue.equals("Shared with me")) {
+                        app.myModelsView.myModelsFlowPane.getChildren().clear();
+                        for (BsonValue model : app.dashboard.dbModelsList) {
+                            if (!model.asDocument().get("modelName").asString().getValue().matches("(?i).*" + app.myModelsView.modelSearchField.getText() + ".*")) {
+                                app.myModelsView.myModelsFlowPane.getChildren().remove(app.myModelsView.myModelsFlowPane.lookup("#" + model.asDocument().get("_id").asObjectId().getValue().toHexString()));
+                            } else {
+                                app.myModelsView.addMyModelsPreviewCard(model.asDocument());
+                            }
+                        }
                         for (BsonValue model : app.dashboard.dbModelsList) {
                             if (model.asDocument().get("owner_id").asString().getValue().equals(app.users.ownerId)) {
                                 app.myModelsView.myModelsFlowPane.getChildren().remove(app.myModelsView.myModelsFlowPane.lookup("#" + model.asDocument().get("_id").asObjectId().getValue().toHexString()));

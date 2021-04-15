@@ -94,6 +94,22 @@ public class myModelsController {
                     addMyModelsPreviewCard(model.asDocument());
                 }
             }
+            try {
+                if (filterModelsChoiceBox.getSelectionModel().getSelectedItem().equals("Owned by me")) {
+                    for (BsonValue model : app.dashboard.dbModelsList) {
+                        if (!model.asDocument().get("owner_id").asString().getValue().equals(app.users.ownerId)) {
+                            myModelsFlowPane.getChildren().remove(myModelsFlowPane.lookup("#" + model.asDocument().get("_id").asObjectId().getValue().toHexString()));
+                        }
+                    }
+                } else if (filterModelsChoiceBox.getSelectionModel().getSelectedItem().equals("Shared with me")) {
+                    for (BsonValue model : app.dashboard.dbModelsList) {
+                        if (model.asDocument().get("owner_id").asString().getValue().equals(app.users.ownerId)) {
+                            myModelsFlowPane.getChildren().remove(myModelsFlowPane.lookup("#" + model.asDocument().get("_id").asObjectId().getValue().toHexString()));
+                        }
+                    }
+                }
+            }
+            catch(Exception e){ }
 
             if (myModelsFlowPane.getChildren().isEmpty()) {
                 loadingAnchorPane.setVisible(false);
