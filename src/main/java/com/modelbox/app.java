@@ -25,6 +25,9 @@ import javafx.scene.web.WebEngine;
 import javafx.stage.Stage;
 import netscape.javascript.JSObject;
 
+import java.io.IOException;
+import java.util.prefs.Preferences;
+
 public class app extends Application{
 
     public static JSObject mongoApp;
@@ -48,8 +51,13 @@ public class app extends Application{
     public static modelsBridge models;
     public static usersBridge users;
     public static errorBridge errors;
+    public static Preferences userPrefs;
+    public static Boolean viewMode;
+    public static Boolean defaultView = false;
 
-    public app() {
+    public app() throws IOException {
+        userPrefs = Preferences.userRoot().node("/com/modelbox");
+        viewMode = userPrefs.getBoolean("viewMode", defaultView);
         viewLoader = new FXMLLoader(getClass().getResource("/views/auth/createAccount.fxml"));
         mongoEngine = new WebEngine();
         mongoEngine.setJavaScriptEnabled(true);
@@ -73,7 +81,7 @@ public class app extends Application{
 
                     Parent root = viewLoader.load();
                     app.createAccountView = viewLoader.getController();
-
+                    app.createAccountView.createAccountDarkMode();
                     stage.getIcons().add(new Image(app.class.getResourceAsStream("/images/modelboxLogo.png")));
                     stage.setScene(new Scene(root, 1000, 650));
                     stage.setMinWidth(1000);

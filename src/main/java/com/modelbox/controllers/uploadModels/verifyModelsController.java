@@ -17,14 +17,18 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.MeshView;
 import javafx.scene.shape.TriangleMesh;
+import javafx.scene.text.Text;
 import org.apache.commons.io.FilenameUtils;
 import org.bson.BsonDocument;
+
 
 public class verifyModelsController {
 
     @FXML public ScrollPane verifyModelsScrollPane;
     @FXML public FlowPane verifyModelsFlowPane;
     @FXML public AnchorPane verifyModelsAnchorPane;
+    @FXML public Text verifyModelsTextHeading;
+
 
     /**
      *	Uploads the selected and verified models to the database and generates the preview cards on the my models view
@@ -39,6 +43,7 @@ public class verifyModelsController {
             Parent root = app.viewLoader.load();
             app.myModelsView = app.viewLoader.getController();
             app.dashboard.dashViewsAnchorPane.getChildren().setAll(root);
+            app.dashboard.myModelsDarkMode();
 
             // Store models to the database and asynchronously populate the my models view
             BsonDocument modelsToUpload = new BsonDocument().append("modelsToInsert", app.dashboard.verifyModelsList);

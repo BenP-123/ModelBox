@@ -15,6 +15,10 @@ import javafx.scene.text.Text;
 public class forgotPasswordController {
 
     @FXML public TextField emailField;
+    @FXML public AnchorPane forgotPassPane;
+    @FXML public Text emailAddressLabel;
+    @FXML public Text asterixOne;
+    @FXML public Button sendEmailLoginBtn;
     @FXML private Button loginBtn;
     @FXML public AnchorPane sendResetEmailPrompt;
     @FXML public AnchorPane passwordResetInstructions;
@@ -72,11 +76,29 @@ public class forgotPasswordController {
             app.viewLoader = new FXMLLoader(getClass().getResource("/views/auth/login.fxml"));
             Parent root = app.viewLoader.load();
             app.loginView = app.viewLoader.getController();
+            app.loginView.loginDarkMode();
             loginBtn.getScene().setRoot(root);
         } catch (Exception exception){
             // Handle errors
             exception.printStackTrace();
         }
     }
+
+    public void forgotPasswordDarkMode(){
+        if(app.viewMode){
+            app.forgotPasswordView.forgotPasswordHeading.setStyle("-fx-fill: white");
+            app.forgotPasswordView.forgotPasswordSubHeading.setStyle("-fx-fill: white");
+            app.forgotPasswordView.asterixOne.setStyle("-fx-fill: white");
+            app.forgotPasswordView.emailAddressLabel.setStyle("-fx-fill: white");
+            app.forgotPasswordView.sendResetEmailPrompt.setStyle("-fx-background-color: #17181a");
+        }else{
+            app.forgotPasswordView.forgotPasswordHeading.setStyle("-fx-fill: black");
+            app.forgotPasswordView.forgotPasswordSubHeading.setStyle("-fx-fill: black");
+            app.forgotPasswordView.asterixOne.setStyle("-fx-fill: black");
+            app.forgotPasswordView.emailAddressLabel.setStyle("-fx-fill: black");
+            app.forgotPasswordView.sendResetEmailPrompt.setStyle("-fx-background-color: none");
+        }
+    }
+
 
 }

@@ -38,12 +38,17 @@
                      <children>
                         <AnchorPane fx:id="createAccountForm" prefWidth="450.0">
                            <children>
-                                <Text fill="#17181a" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to ModelBox" wrappingWidth="500.0" AnchorPane.bottomAnchor="528.71875" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="90.0">
+                              <Text fx:id="asterixOne" fill="#757575" layoutX="183.0" layoutY="212.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="200.0">
+                                 <font>
+                                    <Font name="Arial" size="14.0" />
+                                 </font>
+                              </Text>
+                                <Text fx:id="welcomeTxtBox" fill="#17181a" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to ModelBox" wrappingWidth="500.0" AnchorPane.bottomAnchor="528.71875" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="90.0">
                                  <font>
                                     <Font name="Arial" size="28.0" />
                                  </font>
                                 </Text>
-                              <Text fill="#757575" strokeType="OUTSIDE" strokeWidth="0.0" text="See how ModelBox can help you efficiently manage your 3D models and give you more time to bring your 3D creations to life." wrappingWidth="400.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="135.0">
+                              <Text fx:id="welcomeMsgTxtBox" fill="#757575" strokeType="OUTSIDE" strokeWidth="0.0" text="See how ModelBox can help you efficiently manage your 3D models and give you more time to bring your 3D creations to life." wrappingWidth="400.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="135.0">
                                  <font>
                                     <Font name="Arial" size="14.0" />
                                  </font>
@@ -64,17 +69,17 @@
                                     <Insets left="10.0" />
                                  </padding>
                               </TextField>
-                              <Text fill="#17181a" layoutX="30.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First name" wrappingWidth="205.0" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="200.0">
+                              <Text fx:id="fnameTxtBox" fill="#17181a" layoutX="30.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First name" wrappingWidth="205.0" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="200.0">
                                  <font>
                                     <Font name="Arial" size="15.0" />
                                  </font>
                               </Text>
-                              <Text fill="#17181a" layoutX="60.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last name" wrappingWidth="205.0" AnchorPane.leftAnchor="295.0" AnchorPane.topAnchor="200.0">
+                              <Text fx:id="lastnameTxtBox" fill="#17181a" layoutX="60.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last name" wrappingWidth="205.0" AnchorPane.leftAnchor="295.0" AnchorPane.topAnchor="200.0">
                                  <font>
                                     <Font name="Arial" size="15.0" />
                                  </font>
                               </Text>
-                              <Text fill="#17181a" layoutX="60.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email address" wrappingWidth="200.0" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="285.0">
+                              <Text fx:id="emailAddressTxtBox" fill="#17181a" layoutX="60.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email address" wrappingWidth="200.0" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="285.0">
                                  <font>
                                     <Font name="Arial" size="15.0" />
                                  </font>
@@ -103,12 +108,12 @@
                                     <Insets left="10.0" />
                                  </padding>
                               </PasswordField>
-                              <Text fill="#17181a" layoutX="73.0" layoutY="343.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" wrappingWidth="205.0" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="370.0">
+                              <Text fx:id="passwordTxt" fill="#17181a" layoutX="73.0" layoutY="343.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" wrappingWidth="205.0" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="370.0">
                                  <font>
                                     <Font name="Arial" size="15.0" />
                                  </font>
                               </Text>
-                              <Text fill="#17181a" layoutX="323.0" layoutY="343.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Confirm Password" wrappingWidth="205.0" AnchorPane.leftAnchor="295.0" AnchorPane.topAnchor="370.0">
+                              <Text fx:id="confirmPwordText" fill="#17181a" layoutX="323.0" layoutY="343.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Confirm Password" wrappingWidth="205.0" AnchorPane.leftAnchor="295.0" AnchorPane.topAnchor="370.0">
                                  <font>
                                     <Font name="Arial" size="15.0" />
                                  </font>
@@ -128,27 +133,22 @@
                                     <Font name="Arial" size="13.0" />
                                  </font>
                               </Button>
-                              <Text fill="#757575" layoutX="183.0" layoutY="212.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="200.0">
+                              <Text fx:id="asterixTwo" fill="#757575" layoutX="60.0" layoutY="223.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*" AnchorPane.leftAnchor="285.0" AnchorPane.topAnchor="200.0">
                                  <font>
                                     <Font name="Arial" size="14.0" />
                                  </font>
                               </Text>
-                              <Text fill="#757575" layoutX="60.0" layoutY="223.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*" AnchorPane.leftAnchor="285.0" AnchorPane.topAnchor="200.0">
+                              <Text fx:id="asterixThree" fill="#757575" layoutX="60.0" layoutY="223.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="285.0">
                                  <font>
                                     <Font name="Arial" size="14.0" />
                                  </font>
                               </Text>
-                              <Text fill="#757575" layoutX="60.0" layoutY="223.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="285.0">
+                              <Text fx:id="asterixFour" fill="#757575" layoutX="60.0" layoutY="308.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="370.0">
                                  <font>
                                     <Font name="Arial" size="14.0" />
                                  </font>
                               </Text>
-                              <Text fill="#757575" layoutX="60.0" layoutY="308.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="370.0">
-                                 <font>
-                                    <Font name="Arial" size="14.0" />
-                                 </font>
-                              </Text>
-                              <Text fill="#757575" layoutX="295.0" layoutY="223.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*" AnchorPane.leftAnchor="285.0" AnchorPane.topAnchor="370.0">
+                              <Text fx:id="asterixFive" fill="#757575" layoutX="295.0" layoutY="223.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*" AnchorPane.leftAnchor="285.0" AnchorPane.topAnchor="370.0">
                                  <font>
                                     <Font name="Arial" size="14.0" />
                                  </font>

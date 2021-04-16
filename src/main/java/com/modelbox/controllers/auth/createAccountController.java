@@ -17,17 +17,52 @@ import java.util.prefs.Preferences;
 
 public class createAccountController {
 
-    @FXML public TextField firstNameField;
-    @FXML public TextField lastNameField;
-    @FXML public TextField emailField;
-    @FXML public PasswordField passField;
-    @FXML public PasswordField confirmPassField;
-    @FXML public AnchorPane createAccountForm;
-    @FXML public AnchorPane createAccountInstructions;
-    @FXML public TextField createAccountErrorField;
-    @FXML private Button loginBtn;
-    @FXML public Text confirmSubHeading1;
-    @FXML public Text confirmSubHeading2;
+    @FXML
+    public TextField firstNameField;
+    @FXML
+    public TextField lastNameField;
+    @FXML
+    public TextField emailField;
+    @FXML
+    public PasswordField passField;
+    @FXML
+    public PasswordField confirmPassField;
+    @FXML
+    public AnchorPane createAccountForm;
+    @FXML
+    public AnchorPane createAccountInstructions;
+    @FXML
+    public TextField createAccountErrorField;
+    @FXML
+    public Text asterixOne;
+    @FXML
+    public Text welcomeTxtBox;
+    @FXML
+    public Text welcomeMsgTxtBox;
+    @FXML
+    public Text fnameTxtBox;
+    @FXML
+    public Text lastnameTxtBox;
+    @FXML
+    public Text emailAddressTxtBox;
+    @FXML
+    public Text passwordTxt;
+    @FXML
+    public Text confirmPwordText;
+    @FXML
+    public Text asterixTwo;
+    @FXML
+    public Text asterixThree;
+    @FXML
+    public Text asterixFour;
+    @FXML
+    public Text asterixFive;
+    @FXML
+    private Button loginBtn;
+    @FXML
+    public Text confirmSubHeading1;
+    @FXML
+    public Text confirmSubHeading2;
 
     /**
      * Handles the creation of a user account when the create account button is clicked
@@ -42,11 +77,11 @@ public class createAccountController {
     /**
      * Handles the creation of a user account when the enter key is pressed on the last field
      *
-     * @param  event    a JavaFX KeyEvent
+     * @param event a JavaFX KeyEvent
      */
     @FXML
     private void createAccountEnterKeyPressed(KeyEvent event) {
-        if(event.getCode().equals((KeyCode.ENTER))) {
+        if (event.getCode().equals((KeyCode.ENTER))) {
             createNewUserAccount();
         }
     }
@@ -54,7 +89,6 @@ public class createAccountController {
     /**
      * Attempts to create a new user account using the information provided in the createAccount view
      * and modifies the view accordingly to handle errors
-     *
      */
     private void createNewUserAccount() {
         try {
@@ -67,7 +101,7 @@ public class createAccountController {
             String functionCall = String.format("ModelBox.Auth.registerNewUser('%s', '%s', '%s', '%s', '%s');",
                     firstNameField.getText(), lastNameField.getText(), emailField.getText(), passField.getText(), confirmPassField.getText());
             app.mongoApp.eval(functionCall);
-        } catch(Exception exception){
+        } catch (Exception exception) {
             // Handle errors
             exception.printStackTrace();
         }
@@ -76,7 +110,7 @@ public class createAccountController {
     /**
      * Handles the UI redirect to the log in view
      *
-     * @param  event a JavaFX Event
+     * @param event a JavaFX Event
      */
     @FXML
     private void loginBtnClicked(Event event) {
@@ -84,10 +118,44 @@ public class createAccountController {
             app.viewLoader = new FXMLLoader(getClass().getResource("/views/auth/login.fxml"));
             Parent root = app.viewLoader.load();
             app.loginView = app.viewLoader.getController();
+            app.loginView.loginDarkMode();
             loginBtn.getScene().setRoot(root);
-        } catch (Exception exception){
+        } catch (Exception exception) {
             // Handle errors
             exception.printStackTrace();
+        }
+    }
+
+    public void createAccountDarkMode() {
+        if (app.viewMode) {
+            app.createAccountView.welcomeTxtBox.setStyle("-fx-fill: white");
+            app.createAccountView.welcomeMsgTxtBox.setStyle("-fx-fill: white");
+            app.createAccountView.fnameTxtBox.setStyle("-fx-fill: white");
+            app.createAccountView.asterixOne.setStyle("-fx-fill: white");
+            app.createAccountView.asterixTwo.setStyle("-fx-fill: white");
+            app.createAccountView.lastnameTxtBox.setStyle("-fx-fill: white");
+            app.createAccountView.emailAddressTxtBox.setStyle("-fx-fill: white");
+            app.createAccountView.asterixThree.setStyle("-fx-fill: white");
+            app.createAccountView.passwordTxt.setStyle("-fx-fill: white");
+            app.createAccountView.asterixFour.setStyle("-fx-fill: white");
+            app.createAccountView.confirmPwordText.setStyle("-fx-fill: white");
+            app.createAccountView.asterixFive.setStyle("-fx-fill: white");
+            app.createAccountView.createAccountForm.setStyle("-fx-background-color: #17181a");
+            app.createAccountView.createAccountErrorField.setStyle("-fx-background-color: #17181a; -fx-border-color: red;-fx-border-radius: 5px; -fx-padding: 8px; -fx-text-fill: white");
+        } else {
+            app.createAccountView.welcomeTxtBox.setStyle("-fx-fill: black");
+            app.createAccountView.welcomeMsgTxtBox.setStyle("-fx-fill: black");
+            app.createAccountView.fnameTxtBox.setStyle("-fx-fill: black");
+            app.createAccountView.asterixOne.setStyle("-fx-fill: black");
+            app.createAccountView.asterixTwo.setStyle("-fx-fill: black");
+            app.createAccountView.lastnameTxtBox.setStyle("-fx-fill: black");
+            app.createAccountView.emailAddressTxtBox.setStyle("-fx-fill: black");
+            app.createAccountView.asterixThree.setStyle("-fx-fill: black");
+            app.createAccountView.passwordTxt.setStyle("-fx-fill: black");
+            app.createAccountView.asterixFour.setStyle("-fx-fill: black");
+            app.createAccountView.confirmPwordText.setStyle("-fx-fill: black");
+            app.createAccountView.asterixFive.setStyle("-fx-fill: black");
+            app.createAccountView.createAccountErrorField.setStyle("-fx-background-color: #ffffff; -fx-border-color: red;-fx-border-radius: 5px; -fx-padding: 8px; -fx-text-fill: black");
         }
     }
 }

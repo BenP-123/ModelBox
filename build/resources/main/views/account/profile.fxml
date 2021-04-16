@@ -16,7 +16,7 @@
 
 <AnchorPane id="profileAnchorPane" fx:id="profileAnchorPane" prefHeight="610.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.modelbox.controllers.account.profileController">
    <children>
-      <Text id="profileTextHeading" fill="#17181a" strokeType="OUTSIDE" strokeWidth="0.0" text="Profile" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="30.0">
+      <Text id="profileTextHeading" fx:id="profileHeader" fill="#17181a" strokeType="OUTSIDE" strokeWidth="0.0" text="Profile" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="30.0">
          <font>
             <Font name="Arial" size="30.0" />
          </font>

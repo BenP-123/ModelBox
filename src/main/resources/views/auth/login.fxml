@@ -39,19 +39,19 @@
          <children>
             <VBox alignment="CENTER" style="-fx-background-color: #ffffff;">
                <children>
-                  <AnchorPane prefHeight="650.0">
+                  <AnchorPane fx:id="loginPane" prefHeight="650.0">
                      <children>
-                        <Text fill="#17181a" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome back." wrappingWidth="500.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="125.0">
+                        <Text fx:id="welcomeHeader" fill="#17181a" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome back." wrappingWidth="500.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="125.0">
                            <font>
                               <Font name="Arial" size="28.0" />
                            </font>
                         </Text>
-                        <Text fill="#757575" strokeType="OUTSIDE" strokeWidth="0.0" text="Log in with your credentials to accelerate your productivity and intuitively manage all your 3D models." wrappingWidth="400.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="175.0">
+                        <Text fx:id="welcomeHeaderTwo" fill="#757575" strokeType="OUTSIDE" strokeWidth="0.0" text="Log in with your credentials to accelerate your productivity and intuitively manage all your 3D models." wrappingWidth="400.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="175.0">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>
                         </Text>
-                        <Text fill="#17181a" layoutX="60.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email address" wrappingWidth="200.0" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="240.0">
+                        <Text fx:id="emailAddressLabel" fill="#17181a" layoutX="60.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email address" wrappingWidth="200.0" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="240.0">
                            <font>
                               <Font name="Arial" size="15.0" />
                            </font>
@@ -72,7 +72,7 @@
                               <Insets left="10.0" />
                            </padding>
                         </PasswordField>
-                        <Text fill="#17181a" layoutX="73.0" layoutY="343.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" wrappingWidth="215.0" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="320.0">
+                        <Text fx:id="passwordLabel" fill="#17181a" layoutX="73.0" layoutY="343.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" wrappingWidth="215.0" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="320.0">
                            <font>
                               <Font name="Arial" size="15.0" />
                            </font>
@@ -97,17 +97,17 @@
                               <Font name="Arial" size="13.0" />
                            </font>
                         </Button>
-                        <Text fill="#757575" strokeType="OUTSIDE" strokeWidth="0.0" text="* = Required" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="425.0">
+                        <Text fx:id="requiredLabel" fill="#757575" strokeType="OUTSIDE" strokeWidth="0.0" text="* = Required" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="425.0">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>
                         </Text>
-                        <Text fill="#757575" strokeType="OUTSIDE" strokeWidth="0.0" text="*" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="320.0">
+                        <Text fx:id="asterixTwo" fill="#757575" strokeType="OUTSIDE" strokeWidth="0.0" text="*" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="320.0">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>
                         </Text>
-                        <Text fill="#757575" layoutX="60.0" layoutY="343.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="240.0">
+                        <Text fx:id="asterixOne" fill="#757575" layoutX="60.0" layoutY="343.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="240.0">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>

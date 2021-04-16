@@ -9,19 +9,24 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Text;
 
 import java.util.prefs.Preferences;
 
 public class settingsController {
 
-    @FXML private Button accountSettingsBtn;
-    @FXML private Button accountSecurityBtn;
-    @FXML private Button changeEmailBtn;
+    @FXML public AnchorPane settingsAnchorPane;
+    @FXML public Text settingsTextHeading;
+    @FXML public HBox settingsHbox;
+    @FXML public Button accountSettingsBtn;
+    @FXML public Button accountSecurityBtn;
+    @FXML public Button changeEmailBtn;
     @FXML public TextField displayNameTextField;
-    @FXML private AnchorPane accountSettingsAnchorPane;
-    @FXML private AnchorPane accountSecurityAnchorPane;
-    @FXML private AnchorPane changeEmailAnchorPane;
+    @FXML public AnchorPane accountSettingsAnchorPane;
+    @FXML public AnchorPane accountSecurityAnchorPane;
+    @FXML public AnchorPane changeEmailAnchorPane;
     @FXML public Circle settingsPictureImage;
     @FXML public TextField changeAccountEmailField;
     @FXML public PasswordField changeEmailPasswordField;
@@ -33,6 +38,22 @@ public class settingsController {
     @FXML public AnchorPane settingsContentAnchorPane;
     @FXML public AnchorPane loadingAnchorPane;
     @FXML public AnchorPane deleteConfirmationPopUp;
+    @FXML public Text personalAccountTextLabel;
+    @FXML public Text deleteAccountTxt;
+    @FXML public Text confirmDeleteTxt;
+    @FXML public Text typenameAcctTxt;
+    @FXML public Text actionUndoneTxt;
+    @FXML public Text accountDataTxt;
+    @FXML public Text collaboratorsTxt;
+    @FXML public Text changePasswordTxt;
+    @FXML public Text passwordNoticeOne;
+    @FXML public Text passwordNoticeTwo;
+    @FXML public Text changeEmailHeader;
+    @FXML public Text changeEmailNoticeOne;
+    @FXML public Text changeEmailNoticeTwo;
+    @FXML public Text changeEmailNewEmailTxt;
+    @FXML public Text changeEmailNewPassword;
+    @FXML public Text changeEmailNewPasswordTwo;
 
     /**
      *   Sets the account settings pane as visible

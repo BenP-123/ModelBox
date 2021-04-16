@@ -6,6 +6,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import org.bson.*;
 import java.io.File;
@@ -13,6 +16,9 @@ import java.nio.file.Files;
 
 public class uploadModelsController {
 
+    @FXML public Text uploadModelsTextHeading;
+    @FXML public AnchorPane uploadModelsAnchorPane;
+    @FXML public ImageView browseModelsBtnIcon;
     private FileChooser modelFileChooser;
     @FXML private Button browseModelsBtn;
 
@@ -48,6 +54,7 @@ public class uploadModelsController {
                 app.viewLoader = new FXMLLoader(getClass().getResource("/views/uploadModels/verifyModels.fxml"));
                 Parent root = app.viewLoader.load();
                 app.verifyModelsView = app.viewLoader.getController();
+                app.dashboard.uploadVerifyDarkMode();
 
                 app.dashboard.verifyModelsList.clear();
                 // Add the models to the verifyModelsList
@@ -68,6 +75,7 @@ public class uploadModelsController {
                     app.verifyModelsView.addVerifyModelsPreviewCard(modelDocument);
                 }
                 app.verifyModelsView.verifyModelsFlowPane.minHeightProperty().bind(app.verifyModelsView.verifyModelsScrollPane.heightProperty());
+
 
                 // Show the verifyModels view
                 app.dashboard.dashViewsAnchorPane.getChildren().setAll(root);

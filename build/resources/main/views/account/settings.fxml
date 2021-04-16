@@ -56,7 +56,7 @@
                               </Button>
                               <AnchorPane id="accountSettingsAnchorPane" fx:id="accountSettingsAnchorPane" prefHeight="400.0" prefWidth="582.0" style="-fx-background-color: #ffffff;" visible="false" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="275.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="25.0">
                                  <children>
-                                    <Text layoutX="10.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Delete account" wrappingWidth="151.81364365729615" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="15.0">
+                                    <Text fx:id="deleteAccountTxt" layoutX="10.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Delete account" wrappingWidth="151.81364365729615" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="15.0">
                                        <font>
                                           <Font name="Arial" size="22.0" />
                                        </font>
@@ -66,12 +66,12 @@
                                           <Font name="Arial" size="14.0" />
                                        </font>
                                     </Button>
-                                    <Text fill="#17181a" layoutX="25.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="If you delete your account, please keep in mind the following:" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="55.0">
+                                    <Text fx:id="confirmDeleteTxt" fill="#17181a" layoutX="25.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="If you delete your account, please keep in mind the following:" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="55.0">
                                        <font>
                                           <Font name="Arial" size="14.0" />
                                        </font>
                                     </Text>
-                                    <Text fill="#17181a" layoutX="272.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type your account email address to continue:" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="230.0">
+                                    <Text fx:id="typenameAcctTxt" fill="#17181a" layoutX="272.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type your account email address to continue:" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="230.0">
                                        <font>
                                           <Font name="Arial" size="15.0" />
                                        </font>
@@ -81,17 +81,17 @@
                                           <Font name="Arial" size="14.0" />
                                        </font>
                                     </TextField>
-                                    <Text fill="#17181a" layoutX="36.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- This action cannot be undone." AnchorPane.leftAnchor="36.0" AnchorPane.topAnchor="80.0">
+                                    <Text fx:id="actionUndoneTxt" fill="#17181a" layoutX="36.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- This action cannot be undone." AnchorPane.leftAnchor="36.0" AnchorPane.topAnchor="80.0">
                                        <font>
                                           <Font name="Arial" size="14.0" />
                                        </font>
                                     </Text>
-                                    <Text fill="#17181a" layoutX="36.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- Your account data will be permanently deleted, including your profile information and all stored 3D models." wrappingWidth="525.0" AnchorPane.leftAnchor="36.0" AnchorPane.topAnchor="100.0">
+                                    <Text fx:id="accountDataTxt" fill="#17181a" layoutX="36.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- Your account data will be permanently deleted, including your profile information and all stored 3D models." wrappingWidth="525.0" AnchorPane.leftAnchor="36.0" AnchorPane.topAnchor="100.0">
                                        <font>
                                           <Font name="Arial" size="14.0" />
                                        </font>
                                     </Text>
-                                    <Text fill="#17181a" layoutX="36.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- Collaborators of your 3D models will no longer be able to access the models that you have shared with them." wrappingWidth="525.0" AnchorPane.leftAnchor="36.0" AnchorPane.topAnchor="140.0">
+                                    <Text fx:id="collaboratorsTxt" fill="#17181a" layoutX="36.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- Collaborators of your 3D models will no longer be able to access the models that you have shared with them." wrappingWidth="525.0" AnchorPane.leftAnchor="36.0" AnchorPane.topAnchor="140.0">
                                        <font>
                                           <Font name="Arial" size="14.0" />
                                        </font>
@@ -145,17 +145,17 @@
                               </AnchorPane>
                               <AnchorPane id="accountSecurityAnchorPane" fx:id="accountSecurityAnchorPane" prefHeight="400.0" prefWidth="582.0" style="-fx-background-color: #ffffff;" visible="false" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="275.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="25.0">
                                  <children>
-                                    <Text fill="#17181a" strokeType="OUTSIDE" strokeWidth="0.0" text="Change password" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="15.0">
+                                    <Text fx:id="changePasswordTxt" fill="#17181a" strokeType="OUTSIDE" strokeWidth="0.0" text="Change password" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="15.0">
                                        <font>
                                           <Font name="Arial" size="22.0" />
                                        </font>
                                     </Text>
-                                    <Text fill="#17181a" strokeType="OUTSIDE" strokeWidth="0.0" text="If you change your password, please keep in mind the following:" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="55.0">
+                                    <Text fx:id="passwordNoticeOne" fill="#17181a" strokeType="OUTSIDE" strokeWidth="0.0" text="If you change your password, please keep in mind the following:" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="55.0">
                                        <font>
                                           <Font name="Arial" size="14.0" />
                                        </font>
                                     </Text>
-                                    <Text fill="#17181a" strokeType="OUTSIDE" strokeWidth="0.0" text="- Your account will only be accessible using the new password that you provide." AnchorPane.leftAnchor="36.0" AnchorPane.topAnchor="80.0">
+                                    <Text fx:id="passwordNoticeTwo" fill="#17181a" strokeType="OUTSIDE" strokeWidth="0.0" text="- Your account will only be accessible using the new password that you provide." AnchorPane.leftAnchor="36.0" AnchorPane.topAnchor="80.0">
                                        <font>
                                           <Font name="Arial" size="14.0" />
                                        </font>
@@ -169,7 +169,7 @@
                               </AnchorPane>
                               <AnchorPane id="changeEmailAnchorPane" fx:id="changeEmailAnchorPane" prefHeight="400.0" prefWidth="582.0" style="-fx-background-color: #ffffff;" visible="false" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="275.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="25.0">
                                  <children>
-                                    <Text layoutX="10.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Change email" wrappingWidth="151.81364365729615" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="15.0">
+                                    <Text fx:id="changeEmailHeader" layoutX="10.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Change email" wrappingWidth="151.81364365729615" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="15.0">
                                        <font>
                                           <Font name="Arial" size="22.0" />
                                        </font>
@@ -179,12 +179,12 @@
                                           <Font name="Arial" size="14.0" />
                                        </font>
                                     </Button>
-                                    <Text fill="#17181a" strokeType="OUTSIDE" strokeWidth="0.0" text="If you change your email, please keep in mind the following:" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="55.0">
+                                    <Text fx:id="changeEmailNoticeOne" fill="#17181a" strokeType="OUTSIDE" strokeWidth="0.0" text="If you change your email, please keep in mind the following:" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="55.0">
                                        <font>
                                           <Font name="Arial" size="14.0" />
                                        </font>
                                     </Text>
-                                    <Text fill="#17181a" strokeType="OUTSIDE" strokeWidth="0.0" text="- Your account will only be accessible using the new email that you provide." AnchorPane.leftAnchor="36.0" AnchorPane.topAnchor="80.0">
+                                    <Text fx:id="changeEmailNoticeTwo" fill="#17181a" strokeType="OUTSIDE" strokeWidth="0.0" text="- Your account will only be accessible using the new email that you provide." AnchorPane.leftAnchor="36.0" AnchorPane.topAnchor="80.0">
                                        <font>
                                           <Font name="Arial" size="14.0" />
                                        </font>
@@ -197,7 +197,7 @@
                                           <Insets left="10.0" />
                                        </padding>
                                     </TextField>
-                                    <Text fill="#17181a" layoutX="25.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type your new account email address:" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="150.0">
+                                    <Text fx:id="changeEmailNewEmailTxt" fill="#17181a" layoutX="25.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type your new account email address:" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="150.0">
                                        <font>
                                           <Font name="Arial" size="15.0" />
                                        </font>
@@ -207,7 +207,7 @@
                                           <Font name="Arial" size="14.0" />
                                        </font>
                                     </TextField>
-                                    <Text fill="#17181a" layoutX="35.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type your new password:" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="220.0">
+                                    <Text fx:id="changeEmailNewPassword" fill="#17181a" layoutX="35.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type your new password:" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="220.0">
                                        <font>
                                           <Font name="Arial" size="15.0" />
                                        </font>
@@ -220,7 +220,7 @@
                                           <Insets left="10.0" />
                                        </padding>
                                     </PasswordField>
-                                    <Text fill="#17181a" layoutX="32.0" layoutY="118.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- You may change your password, or keep your old password." AnchorPane.leftAnchor="36.0" AnchorPane.topAnchor="100.0">
+                                    <Text fx:id="changeEmailNewPasswordTwo" fill="#17181a" layoutX="32.0" layoutY="118.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- You may change your password, or keep your old password." AnchorPane.leftAnchor="36.0" AnchorPane.topAnchor="100.0">
                                        <font>
                                           <Font name="Arial" size="14.0" />
                                        </font>
@@ -249,7 +249,7 @@
             </HBox>
             <AnchorPane id="loadingAnchorPane" fx:id="loadingAnchorPane" style="-fx-background-color: #ffffff; -fx-border-color: #c4c4c4; -fx-border-style: dashed; -fx-border-width: 2; -fx-border-radius: 15 15 15 15;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <HBox fx:id="settingsHbox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                            <children>

@@ -40,6 +40,9 @@ public class myModelsController {
     @FXML public TextField modelSearchField;
     @FXML public ImageView compareModelsBtnIcon;
     @FXML public ChoiceBox<String> filterModelsChoiceBox;
+    @FXML public Text myModelsTextHeading;
+    @FXML public Text loadingBar;
+    @FXML public HBox myModelsHBox;
     private Boolean isComparisonToolActive = false;
     public int checkboxCount = 0;
     private String firstSelectedModelId;
@@ -145,6 +148,10 @@ public class myModelsController {
             Parent root = app.viewLoader.load();
             app.myModelsView = app.viewLoader.getController();
             app.dashboard.dashViewsAnchorPane.getChildren().setAll(root);
+
+            if(app.myModelsView != null){
+                app.dashboard.myModelsDarkMode();
+            }
 
             // Asynchronously populate the my models view and show appropriate nodes when ready
             String functionCall = String.format("ModelBox.Models.getCurrentUserModels();");

@@ -9,14 +9,24 @@ import javafx.scene.control.*;
 import javafx.fxml.FXML;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-
-import javax.swing.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 
 public class loginController {
 
     @FXML public TextField loginErrorField;
     @FXML public TextField emailField;
     @FXML public PasswordField passField;
+    @FXML public AnchorPane loginAnchorPane;
+    @FXML public AnchorPane loginPane;
+    @FXML  public Text welcomeHeader;
+    @FXML public Text welcomeHeaderTwo;
+    @FXML public Text emailAddressLabel;
+    @FXML public Text passwordLabel;
+    @FXML  public Button loginBtn;
+    @FXML public Text requiredLabel;
+    @FXML public Text asterixTwo;
+    @FXML public Text asterixOne;
     @FXML private Button forgotPassBtn;
     @FXML private Button createAccountBtn;
     @FXML private CheckBox checkBox;
@@ -70,6 +80,7 @@ public class loginController {
             app.viewLoader = new FXMLLoader(getClass().getResource("/views/auth/forgotPassword.fxml"));
             Parent root = app.viewLoader.load();
             app.forgotPasswordView = app.viewLoader.getController();
+            app.forgotPasswordView.forgotPasswordDarkMode();
             forgotPassBtn.getScene().setRoot(root);
         } catch (Exception exception){
             // Handle errors
@@ -88,6 +99,7 @@ public class loginController {
             app.viewLoader = new FXMLLoader(getClass().getResource("/views/auth/createAccount.fxml"));
             Parent root = app.viewLoader.load();
             app.createAccountView = app.viewLoader.getController();
+            app.createAccountView.createAccountDarkMode();
             createAccountBtn.getScene().setRoot(root);
         } catch (Exception exception){
             // Handle errors
@@ -111,6 +123,29 @@ public class loginController {
             passField.setText(passwordPlainTxt.getText());
             passField.setVisible(true);
             passwordPlainTxt.setVisible(false);
+    }
+
+    public void loginDarkMode(){
+        if(app.viewMode){
+            app.loginView.welcomeHeader.setStyle("-fx-fill: white");
+            app.loginView.welcomeHeaderTwo.setStyle("-fx-fill: white");
+            app.loginView.asterixOne.setStyle("-fx-fill: white");
+            app.loginView.emailAddressLabel.setStyle("-fx-fill: white");
+            app.loginView.asterixTwo.setStyle("-fx-fill: white");
+            app.loginView.passwordLabel.setStyle("-fx-fill: white");
+            app.loginView.loginPane.setStyle("-fx-background-color: #17181a");
+            app.loginView.checkBox.setStyle("-fx-text-fill: white");
+            app.loginView.loginErrorField.setStyle("-fx-background-color: #17181a; -fx-border-color: red;-fx-border-radius: 5px; -fx-padding: 8px; -fx-text-fill: #ffffff");
+        }else{
+            app.loginView.welcomeHeader.setStyle("-fx-fill: black");
+            app.loginView.welcomeHeaderTwo.setStyle("-fx-fill: black");
+            app.loginView.asterixOne.setStyle("-fx-fill: black");
+            app.loginView.emailAddressLabel.setStyle("-fx-fill: black");
+            app.loginView.asterixTwo.setStyle("-fx-fill: black");
+            app.loginView.passwordLabel.setStyle("-fx-fill: black");
+            app.loginView.loginPane.setStyle("-fx-background-color: none");
+            app.loginView.loginErrorField.setStyle("-fx-background-color: #ffffff; -fx-border-color: red;-fx-border-radius: 5px; -fx-padding: 8px; -fx-text-fill: black");
+        }
     }
 
 }

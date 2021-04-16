@@ -127,6 +127,15 @@ public class authBridge {
             app.myModelsView = app.viewLoader.getController();
             app.dashboard.dashViewsAnchorPane.getChildren().setAll(myModelsRoot);
 
+            if(app.viewMode){
+                app.dashboard.toggleDarkMode();
+                app.dashboard.darkModeBtn.setVisible(false);
+                app.dashboard.lightModeBtn.setVisible(true);
+            }else{
+                app.dashboard.toggleDarkMode();
+                app.dashboard.darkModeBtn.setVisible(true);
+                app.dashboard.lightModeBtn.setVisible(false);
+            }
             // Asynchronously populate the my models view and show appropriate nodes when ready
             String functionCall = String.format("ModelBox.Models.getCurrentUserModels();");
             app.mongoApp.eval(functionCall);
@@ -142,6 +151,7 @@ public class authBridge {
             app.viewLoader = new FXMLLoader(getClass().getResource("/views/auth/login.fxml"));
             Parent root = app.viewLoader.load();
             app.loginView = app.viewLoader.getController();
+            app.loginView.loginDarkMode();
             app.dashboard.logOutBtn.getScene().setRoot(root);
         } catch (Exception exception) {
             // Handle errors
@@ -155,6 +165,7 @@ public class authBridge {
                 app.viewLoader = new FXMLLoader(getClass().getResource("/views/auth/createAccount.fxml"));
                 Parent root = app.viewLoader.load();
                 app.createAccountView = app.viewLoader.getController();
+                app.createAccountView.createAccountDarkMode();
                 app.createAccountView.confirmSubHeading1.setText("Your email address has been successfully changed. You must confirm your email address before using ModelBox.");
                 app.createAccountView.confirmSubHeading2.setText("Please check your email for a confirmation link. Once confirmed, log in on this device to complete your email change.");
                 app.createAccountView.createAccountForm.setVisible(false);

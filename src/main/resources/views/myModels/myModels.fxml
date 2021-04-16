@@ -120,13 +120,13 @@
             <Font name="Arial" size="14.0" />
          </font>
       </Button>
-      <AnchorPane id="loadingAnchorPane" fx:id="loadingAnchorPane" layoutX="10.0" layoutY="10.0" style="-fx-background-color: #ffffff; -fx-border-color: #c4c4c4; -fx-border-style: dashed; -fx-border-width: 2; -fx-border-radius: 15 15 15 15;" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="100.0">
+      <AnchorPane id="loadingAnchorPane" fx:id="loadingAnchorPane" layoutX="74.0" layoutY="108.0" prefHeight="442.0" prefWidth="866.0" style="-fx-background-color: #ffffff; -fx-border-color: #c4c4c4; -fx-border-style: dashed; -fx-border-width: 2; -fx-border-radius: 15 15 15 15;" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="74.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="108.0">
          <children>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <HBox fx:id="myModelsHBox" alignment="CENTER" layoutX="9.0" layoutY="8.0" prefHeight="424.0" prefWidth="850.0" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="6.0">
                <children>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Loading...">
+                        <Text fx:id="loadingBar" strokeType="OUTSIDE" strokeWidth="0.0" text="Loading...">
                            <font>
                               <Font name="Arial" size="26.0" />
                            </font>
