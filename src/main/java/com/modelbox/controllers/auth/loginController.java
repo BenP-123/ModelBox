@@ -32,6 +32,11 @@ public class loginController {
     @FXML private CheckBox checkBox;
     @FXML private TextField passwordPlainTxt;
 
+    private String whiteText = "-fx-fill: white";
+    private String blackText = "-fx-fill: black";
+    private String textFields = "-fx-background-color: transparent; -fx-border-color: white; -fx-border-radius: 4px; -fx-padding: 8px; -fx-text-fill: white";
+    private String textFieldsDefault = "-fx-background-color: #ffffff; -fx-border-color: #C4C4C4; -fx-border-radius: 4px; -fx-padding: 8px; -fx-text-fill: black; -fx-faint-focus-color: transparent";
+
 
     /**
      * Handles the user login when the login button is clicked
@@ -127,22 +132,27 @@ public class loginController {
 
     public void loginDarkMode(){
         if(app.viewMode){
-            app.loginView.welcomeHeader.setStyle("-fx-fill: white");
-            app.loginView.welcomeHeaderTwo.setStyle("-fx-fill: white");
-            app.loginView.asterixOne.setStyle("-fx-fill: white");
-            app.loginView.emailAddressLabel.setStyle("-fx-fill: white");
-            app.loginView.asterixTwo.setStyle("-fx-fill: white");
-            app.loginView.passwordLabel.setStyle("-fx-fill: white");
+            app.loginView.emailField.setStyle(textFields);
+            app.loginView.passField.setStyle(textFields);
+            app.loginView.passwordPlainTxt.setStyle(textFields);
+            app.loginView.welcomeHeader.setStyle(whiteText);
+            app.loginView.welcomeHeaderTwo.setStyle(whiteText);
+            app.loginView.asterixOne.setStyle(whiteText);
+            app.loginView.emailAddressLabel.setStyle(whiteText);
+            app.loginView.asterixTwo.setStyle(whiteText);
+            app.loginView.passwordLabel.setStyle(whiteText);
             app.loginView.loginPane.setStyle("-fx-background-color: #17181a");
-            app.loginView.checkBox.setStyle("-fx-text-fill: white");
             app.loginView.loginErrorField.setStyle("-fx-background-color: #17181a; -fx-border-color: red;-fx-border-radius: 5px; -fx-padding: 8px; -fx-text-fill: #ffffff");
         }else{
-            app.loginView.welcomeHeader.setStyle("-fx-fill: black");
-            app.loginView.welcomeHeaderTwo.setStyle("-fx-fill: black");
-            app.loginView.asterixOne.setStyle("-fx-fill: black");
-            app.loginView.emailAddressLabel.setStyle("-fx-fill: black");
-            app.loginView.asterixTwo.setStyle("-fx-fill: black");
-            app.loginView.passwordLabel.setStyle("-fx-fill: black");
+            app.loginView.passwordPlainTxt.setStyle(textFieldsDefault);
+            app.loginView.emailField.setStyle(textFieldsDefault);
+            app.loginView.passField.setStyle(textFieldsDefault);
+            app.loginView.welcomeHeader.setStyle(blackText);
+            app.loginView.welcomeHeaderTwo.setStyle(blackText);
+            app.loginView.asterixOne.setStyle(blackText);
+            app.loginView.emailAddressLabel.setStyle(blackText);
+            app.loginView.asterixTwo.setStyle(blackText);
+            app.loginView.passwordLabel.setStyle(blackText);
             app.loginView.loginPane.setStyle("-fx-background-color: none");
             app.loginView.loginErrorField.setStyle("-fx-background-color: #ffffff; -fx-border-color: red;-fx-border-radius: 5px; -fx-padding: 8px; -fx-text-fill: black");
         }

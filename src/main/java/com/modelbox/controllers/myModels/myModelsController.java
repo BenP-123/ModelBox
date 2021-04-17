@@ -47,8 +47,8 @@ public class myModelsController {
     public int checkboxCount = 0;
     private String firstSelectedModelId;
     private String secondSelectedModelId;
-    @FXML private AnchorPane deleteModelConfirmationPopUp;
-    @FXML private Text deleterModelPopUpText;
+    @FXML public AnchorPane deleteModelConfirmationPopUp;
+    @FXML public Text deleterModelPopUpText;
 
 
     /**
@@ -288,6 +288,7 @@ public class myModelsController {
             compareCheckbox.setTranslateX(10);
             compareCheckbox.setTranslateY(-6.5);
             compareCheckbox.setVisible(false);
+
             compareCheckbox.setStyle("-fx-background-color: transparent; -fx-border-color: #181a1d; -fx-border-radius: 5;");
             compareCheckbox.setOnAction(compareCheckboxClicked);
 
@@ -362,6 +363,12 @@ public class myModelsController {
                 modelMeshPane.getChildren().add(shareModelBtn);
                 StackPane.setAlignment(shareModelBtn, Pos.BOTTOM_RIGHT);
                 shareModelBtn.setTranslateX(-60);
+            }
+
+            if(app.viewMode){
+                modelMeshPane.setStyle("-fx-background-color:  #171a1d; -fx-border-color: white; -fx-border-radius: 2px; -fx-background-radius: 15 15 15 15");
+            }else{
+                modelMeshPane.setStyle("-fx-background-color: #eeeeee;  -fx-background-radius: 8 8 8 8");
             }
 
             myModelsFlowPane.getChildren().add(modelMeshPane);

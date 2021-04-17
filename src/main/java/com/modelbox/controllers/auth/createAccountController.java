@@ -63,6 +63,11 @@ public class createAccountController {
     public Text confirmSubHeading1;
     @FXML
     public Text confirmSubHeading2;
+    private String whiteText = "-fx-fill: white";
+    private String blackText = "-fx-fill: black";
+    private String textFields = "-fx-background-color: transparent; -fx-border-color: white; -fx-border-radius: 4px; -fx-padding: 8px; -fx-text-fill: white";
+    private String textFieldsDefault = "-fx-background-color: #ffffff; -fx-border-color: #C4C4C4; -fx-border-radius: 4px; -fx-padding: 8px; -fx-text-fill: black; -fx-faint-focus-color: transparent";
+
 
     /**
      * Handles the creation of a user account when the create account button is clicked
@@ -128,33 +133,45 @@ public class createAccountController {
 
     public void createAccountDarkMode() {
         if (app.viewMode) {
-            app.createAccountView.welcomeTxtBox.setStyle("-fx-fill: white");
-            app.createAccountView.welcomeMsgTxtBox.setStyle("-fx-fill: white");
-            app.createAccountView.fnameTxtBox.setStyle("-fx-fill: white");
-            app.createAccountView.asterixOne.setStyle("-fx-fill: white");
-            app.createAccountView.asterixTwo.setStyle("-fx-fill: white");
-            app.createAccountView.lastnameTxtBox.setStyle("-fx-fill: white");
-            app.createAccountView.emailAddressTxtBox.setStyle("-fx-fill: white");
-            app.createAccountView.asterixThree.setStyle("-fx-fill: white");
-            app.createAccountView.passwordTxt.setStyle("-fx-fill: white");
-            app.createAccountView.asterixFour.setStyle("-fx-fill: white");
-            app.createAccountView.confirmPwordText.setStyle("-fx-fill: white");
-            app.createAccountView.asterixFive.setStyle("-fx-fill: white");
+            app.createAccountView.firstNameField.setStyle(textFields);
+            app.createAccountView.lastNameField.setStyle(textFields);
+            app.createAccountView.emailField.setStyle(textFields);
+            app.createAccountView.passField.setStyle(textFields);
+            app.createAccountView.confirmPassField.setStyle(textFields);
+
+            app.createAccountView.welcomeTxtBox.setStyle(whiteText);
+            app.createAccountView.welcomeMsgTxtBox.setStyle(whiteText);
+            app.createAccountView.fnameTxtBox.setStyle(whiteText);
+            app.createAccountView.asterixOne.setStyle(whiteText);
+            app.createAccountView.asterixTwo.setStyle(whiteText);
+            app.createAccountView.lastnameTxtBox.setStyle(whiteText);
+            app.createAccountView.emailAddressTxtBox.setStyle(whiteText);
+            app.createAccountView.asterixThree.setStyle(whiteText);
+            app.createAccountView.passwordTxt.setStyle(whiteText);
+            app.createAccountView.asterixFour.setStyle(whiteText);
+            app.createAccountView.confirmPwordText.setStyle(whiteText);
+            app.createAccountView.asterixFive.setStyle(whiteText);
             app.createAccountView.createAccountForm.setStyle("-fx-background-color: #17181a");
             app.createAccountView.createAccountErrorField.setStyle("-fx-background-color: #17181a; -fx-border-color: red;-fx-border-radius: 5px; -fx-padding: 8px; -fx-text-fill: white");
         } else {
-            app.createAccountView.welcomeTxtBox.setStyle("-fx-fill: black");
-            app.createAccountView.welcomeMsgTxtBox.setStyle("-fx-fill: black");
-            app.createAccountView.fnameTxtBox.setStyle("-fx-fill: black");
-            app.createAccountView.asterixOne.setStyle("-fx-fill: black");
-            app.createAccountView.asterixTwo.setStyle("-fx-fill: black");
-            app.createAccountView.lastnameTxtBox.setStyle("-fx-fill: black");
-            app.createAccountView.emailAddressTxtBox.setStyle("-fx-fill: black");
-            app.createAccountView.asterixThree.setStyle("-fx-fill: black");
-            app.createAccountView.passwordTxt.setStyle("-fx-fill: black");
-            app.createAccountView.asterixFour.setStyle("-fx-fill: black");
-            app.createAccountView.confirmPwordText.setStyle("-fx-fill: black");
-            app.createAccountView.asterixFive.setStyle("-fx-fill: black");
+            app.createAccountView.firstNameField.setStyle(textFieldsDefault);
+            app.createAccountView.lastNameField.setStyle(textFieldsDefault);
+            app.createAccountView.emailField.setStyle(textFieldsDefault);
+            app.createAccountView.passField.setStyle(textFieldsDefault);
+            app.createAccountView.confirmPassField.setStyle(textFieldsDefault);
+
+            app.createAccountView.welcomeTxtBox.setStyle(blackText);
+            app.createAccountView.welcomeMsgTxtBox.setStyle(blackText);
+            app.createAccountView.fnameTxtBox.setStyle(blackText);
+            app.createAccountView.asterixOne.setStyle(blackText);
+            app.createAccountView.asterixTwo.setStyle(blackText);
+            app.createAccountView.lastnameTxtBox.setStyle(blackText);
+            app.createAccountView.emailAddressTxtBox.setStyle(blackText);
+            app.createAccountView.asterixThree.setStyle(blackText);
+            app.createAccountView.passwordTxt.setStyle(blackText);
+            app.createAccountView.asterixFour.setStyle(blackText);
+            app.createAccountView.confirmPwordText.setStyle(blackText);
+            app.createAccountView.asterixFive.setStyle(blackText);
             app.createAccountView.createAccountErrorField.setStyle("-fx-background-color: #ffffff; -fx-border-color: red;-fx-border-radius: 5px; -fx-padding: 8px; -fx-text-fill: black");
         }
     }
