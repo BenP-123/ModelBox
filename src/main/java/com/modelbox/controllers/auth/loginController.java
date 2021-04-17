@@ -157,5 +157,4 @@ public class loginController {
             app.loginView.loginErrorField.setStyle("-fx-background-color: #ffffff; -fx-border-color: red;-fx-border-radius: 5px; -fx-padding: 8px; -fx-text-fill: black");
         }
     }
-
 }

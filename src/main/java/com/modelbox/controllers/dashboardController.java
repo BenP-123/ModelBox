@@ -40,9 +40,11 @@ public class dashboardController {
     @FXML public Button lightModeBtn;
     @FXML public Button darkModeBtn;
     @FXML public AnchorPane menuBarAnchorPane;
+    private String bgColorWhite = "-fx-background-color:  white";
     private String darkModeBackground = "-fx-background-color: #17181a";
     private String whiteText = "-fx-fill: white";
     private String blackText = "-fx-fill: black";
+    private String bgColorBlack = "-fx-background-color: #17181a";
     private String textFields = "-fx-background-color: transparent; -fx-border-color: white; -fx-border-radius: 4px; -fx-padding: 8px; -fx-text-fill: white";
     private String textFieldsDefault = "-fx-background-color: #ffffff; -fx-border-color: #C4C4C4; -fx-border-radius: 4px; -fx-padding: 8px; -fx-text-fill: black; -fx-faint-focus-color: transparent";
     private String deletionPopupDefault = "-fx-background-color: #ffffff; -fx-background-radius: 15px; -fx-border-color: red; -fx-border-radius: 15 15 15 15; -fx-text-fill: black";
@@ -266,6 +268,8 @@ public class dashboardController {
         return role;
     }
 
+    /*************************************************** CSS Styling Methods **********************************************/
+
     public void darkModeBtnClicked(ActionEvent actionEvent) {
         app.userPrefs.putBoolean("viewMode", true);
         app.viewMode = app.userPrefs.getBoolean("viewMode", app.defaultView);
@@ -312,7 +316,7 @@ public class dashboardController {
             app.dashboard.navigationMenuPane.setStyle("-fx-background-color:   #171a1d; -fx-background-radius: 0 0 25 0 ");
             app.dashboard.accountMenuPane.setStyle("-fx-background-color:   #171a1d; -fx-background-radius: 0 0 0 25");
         } else {
-            app.dashboard.dashViewsAnchorPane.setStyle("-fx-background-color: white");
+            app.dashboard.dashViewsAnchorPane.setStyle(bgColorWhite);
             app.dashboard.dashboardAnchorPane.setStyle("-fx-background-color:   #ffffff");
             app.dashboard.navigationMenuPane.setStyle("-fx-background-color:  #17181a; -fx-background-radius: 0 0 25 0 ");
             app.dashboard.accountMenuPane.setStyle("-fx-background-color:  #17181a; -fx-background-radius: 0 0 0 25");
@@ -349,7 +353,7 @@ public class dashboardController {
     public void uploadModelsDarkMode(){
         if(app.viewMode){
             app.uploadModelsView.uploadModelsTextHeading.setStyle(whiteText);
-            app.uploadModelsView.uploadModelsAnchorPane.setStyle("-fx-background-color: #17181a");
+            app.uploadModelsView.uploadModelsAnchorPane.setStyle(bgColorBlack);
             app.uploadModelsView.browseModelsBtnIcon.setStyle("-fx-background-color: #17181a; -fx-border-radius: 15 15 15 15; -fx-border-style: dashed; -fx-border-width: 2; -fx-border-color: #c4c4c4");
         }else{
             app.uploadModelsView.uploadModelsTextHeading.setStyle(blackText);
@@ -362,9 +366,9 @@ public class dashboardController {
     public void uploadVerifyDarkMode(){
         if(app.viewMode){
             app.verifyModelsView.verifyModelsTextHeading.setStyle(whiteText);
-            app.verifyModelsView.verifyModelsAnchorPane.setStyle("-fx-background-color: #17181a");
-            app.verifyModelsView.verifyModelsScrollPane.setStyle("-fx-background-color: #17181a");
-            app.verifyModelsView.verifyModelsFlowPane.setStyle("-fx-background-color: #17181a");
+            app.verifyModelsView.verifyModelsAnchorPane.setStyle(bgColorBlack);
+            app.verifyModelsView.verifyModelsScrollPane.setStyle(bgColorBlack);
+            app.verifyModelsView.verifyModelsFlowPane.setStyle(bgColorBlack);
         }else{
             app.verifyModelsView.verifyModelsTextHeading.setStyle(blackText);
             app.verifyModelsView.verifyModelsAnchorPane.setStyle("-fx-background-color: none");
@@ -376,12 +380,12 @@ public class dashboardController {
     public void settingsDarkMode(){
         if(app.viewMode){
             //Delete Account
-            app.settingsView.settingsAnchorPane.setStyle("-fx-background-color:  #17181a");
-            app.settingsView.settingsHbox.setStyle("-fx-background-color: #17181a");
+            app.settingsView.settingsAnchorPane.setStyle(bgColorBlack);
+            app.settingsView.settingsHbox.setStyle(bgColorBlack);
             app.settingsView.settingsTextHeading.setStyle(whiteText);
-            app.settingsView.accountSettingsAnchorPane.setStyle("-fx-background-color: #17181a");
-            app.settingsView.accountSecurityAnchorPane.setStyle("-fx-background-color: #17181a");
-            app.settingsView.changeEmailAnchorPane.setStyle("-fx-background-color: #17181a");
+            app.settingsView.accountSettingsAnchorPane.setStyle(bgColorBlack);
+            app.settingsView.accountSecurityAnchorPane.setStyle(bgColorBlack);
+            app.settingsView.changeEmailAnchorPane.setStyle(bgColorBlack);
             app.settingsView.displayNameTextField.setStyle("-fx-text-fill: white; -fx-background-color: #17181a");
             app.settingsView.personalAccountTextLabel.setStyle(whiteText);
             app.settingsView.deleteAccountTxt.setStyle(whiteText);
@@ -413,12 +417,12 @@ public class dashboardController {
 
         }else{
             //Default View -- Delete Account
-            app.settingsView.settingsAnchorPane.setStyle("-fx-background-color:  white");
-            app.settingsView.settingsHbox.setStyle("-fx-background-color: white");
+            app.settingsView.settingsAnchorPane.setStyle(bgColorWhite);
+            app.settingsView.settingsHbox.setStyle(bgColorWhite);
             app.settingsView.settingsTextHeading.setStyle(blackText);
-            app.settingsView.accountSettingsAnchorPane.setStyle("-fx-background-color: white");
-            app.settingsView.accountSecurityAnchorPane.setStyle("-fx-background-color: white");
-            app.settingsView.changeEmailAnchorPane.setStyle("-fx-background-color: white");
+            app.settingsView.accountSettingsAnchorPane.setStyle(bgColorWhite);
+            app.settingsView.accountSecurityAnchorPane.setStyle(bgColorWhite);
+            app.settingsView.changeEmailAnchorPane.setStyle(bgColorWhite);
             app.settingsView.displayNameTextField.setStyle("-fx-text-fill: black; -fx-background-color: white");
             app.settingsView.personalAccountTextLabel.setStyle(blackText);
             app.settingsView.deleteAccountTxt.setStyle(blackText);

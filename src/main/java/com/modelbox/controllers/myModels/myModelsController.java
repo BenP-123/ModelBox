@@ -307,7 +307,6 @@ public class myModelsController {
             // Manipulate the features of the model card and the arrangement of its internals
             StackPane modelMeshPane = new StackPane(modelSubScene, deleteModelBtn, previewModelBtn, downloadModelBtn, compareCheckbox);
             modelMeshPane.setId(model.get("_id").asObjectId().getValue().toHexString());
-            modelMeshPane.setStyle("-fx-background-color: #eeeeee; -fx-background-radius: 8 8 8 8");
             modelMeshPane.setMinWidth(150);
             modelMeshPane.setMinHeight(250);
             modelMeshPane.setMaxWidth(150);
@@ -366,7 +365,7 @@ public class myModelsController {
             }
 
             if(app.viewMode){
-                modelMeshPane.setStyle("-fx-background-color:  #171a1d; -fx-border-color: white; -fx-border-radius: 2px; -fx-background-radius: 15 15 15 15");
+                modelMeshPane.setStyle("-fx-background-color:  #171a1d; -fx-border-color: white; -fx-border-radius: 2px; fx-background-radius: 8 8 8 8");
             }else{
                 modelMeshPane.setStyle("-fx-background-color: #eeeeee;  -fx-background-radius: 8 8 8 8");
             }
