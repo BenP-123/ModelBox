@@ -16,16 +16,16 @@
 
 <AnchorPane id="profileAnchorPane" fx:id="profileAnchorPane" prefHeight="610.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.modelbox.controllers.account.profileController">
    <children>
-      <Text id="profileTextHeading" fx:id="profileHeader" fill="#17181a" strokeType="OUTSIDE" strokeWidth="0.0" text="Profile" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="30.0">
+      <Text id="profileTextHeading" fill="#17181a" strokeType="OUTSIDE" strokeWidth="0.0" text="Profile" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="30.0">
          <font>
             <Font name="Arial" size="30.0" />
          </font>
       </Text>
-      <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="100.0">
+      <AnchorPane id="profileAnchorSubPane" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="100.0">
          <children>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <HBox id="profileHBox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <VBox alignment="CENTER" prefHeight="450.0" prefWidth="910.0">
+                  <VBox id="profileVBox" alignment="CENTER" prefHeight="450.0" prefWidth="910.0">
                      <children>
                         <AnchorPane id="profileContentAnchorPane" fx:id="profileContentAnchorPane" prefHeight="450.0" prefWidth="910.0" visible="false">
                            <children>
@@ -38,8 +38,8 @@
                                     </ImageView>
                                  </graphic>
                               </Button>
-                              <Circle fx:id="profilePictureImage" radius="100.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="15.0" />
-                              <Button id="addProfilePictureBtn" fx:id="addProfilePictureBtn" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" mnemonicParsing="false" onAction="#addProfilePictureBtnClicked" prefHeight="200.0" prefWidth="200.0" style="-fx-background-radius: 50%; -fx-background-color: #171a1d;" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="15.0">
+                              <Circle id="profilePictureImage" fx:id="profilePictureImage" radius="100.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="15.0" />
+                              <Button id="addProfilePictureBtn" fx:id="addProfilePictureBtn" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" mnemonicParsing="false" onAction="#addProfilePictureBtnClicked" prefHeight="200.0" prefWidth="200.0" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="15.0">
                                  <graphic>
                                     <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -48,17 +48,17 @@
                                     </ImageView>
                                  </graphic>
                               </Button>
-                              <Button id="editProfileBtn" fx:id="editProfileBtn" alignment="CENTER" mnemonicParsing="false" onAction="#editProfileBtnClicked" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: #007be8; -fx-background-radius: 5 5 5 5;" text="Edit profile" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="250.0">
+                              <Button id="editProfileBtn" fx:id="editProfileBtn" alignment="CENTER" mnemonicParsing="false" onAction="#editProfileBtnClicked" prefHeight="35.0" prefWidth="200.0" text="Edit profile" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="250.0">
                                  <font>
                                     <Font name="Arial" size="14.0" />
                                  </font>
                               </Button>
-                              <Text id="displayNameTextLabel" fx:id="displayNameTextLabel" fill="#17181a" strokeType="OUTSIDE" strokeWidth="0.0" text="Display name" wrappingWidth="500.0" AnchorPane.leftAnchor="290.0" AnchorPane.topAnchor="15.0">
+                              <Text id="displayNameTextLabel" fill="#17181a" strokeType="OUTSIDE" strokeWidth="0.0" text="Display name" wrappingWidth="500.0" AnchorPane.leftAnchor="290.0" AnchorPane.topAnchor="15.0">
                                  <font>
                                     <Font name="Arial" size="15.0" />
                                  </font>
                               </Text>
-                              <TextField id="firstNameTextField" fx:id="firstNameTextField" editable="false" prefHeight="25.0" prefWidth="235.0" promptText="First name" style="-fx-padding: 8px; -fx-faint-focus-color: transparent; -fx-focus-color: #C4C4C4; -fx-background-color: #ffffff; -fx-border-color: #C4C4C4; -fx-border-radius: 4px;" text="Kermit" AnchorPane.leftAnchor="290.0" AnchorPane.topAnchor="120.0">
+                              <TextField id="firstNameTextField" fx:id="firstNameTextField" editable="false" prefHeight="25.0" prefWidth="235.0" promptText="First name" AnchorPane.leftAnchor="290.0" AnchorPane.topAnchor="120.0">
                                  <font>
                                     <Font name="Arial" size="14.0" />
                                  </font>
@@ -66,7 +66,7 @@
                                     <Insets left="10.0" />
                                  </padding>
                               </TextField>
-                              <TextField id="lastNameTextField" fx:id="lastNameTextField" editable="false" prefHeight="25.0" prefWidth="235.0" promptText="Last name" style="-fx-padding: 8px; -fx-faint-focus-color: transparent; -fx-focus-color: #C4C4C4; -fx-background-color: #ffffff; -fx-border-color: #C4C4C4; -fx-border-radius: 4px;" text="the Frog" AnchorPane.leftAnchor="555.0" AnchorPane.topAnchor="120.0">
+                              <TextField id="lastNameTextField" fx:id="lastNameTextField" editable="false" prefHeight="25.0" prefWidth="235.0" promptText="Last name" AnchorPane.leftAnchor="555.0" AnchorPane.topAnchor="120.0">
                                  <font>
                                     <Font name="Arial" size="14.0" />
                                  </font>
@@ -74,27 +74,27 @@
                                     <Insets left="10.0" />
                                  </padding>
                               </TextField>
-                              <Text id="firstNameTextLabel" fx:id="firstNameTextLabel" fill="#17181a" strokeType="OUTSIDE" strokeWidth="0.0" text="First name" wrappingWidth="235.0" AnchorPane.leftAnchor="290.0" AnchorPane.topAnchor="95.0">
+                              <Text id="firstNameTextLabel" fill="#17181a" strokeType="OUTSIDE" strokeWidth="0.0" text="First name" wrappingWidth="235.0" AnchorPane.leftAnchor="290.0" AnchorPane.topAnchor="95.0">
                                  <font>
                                     <Font name="Arial" size="15.0" />
                                  </font>
                               </Text>
-                              <Text id="lastNameTextLabel" fx:id="lastNameTextLabel" fill="#17181a" strokeType="OUTSIDE" strokeWidth="0.0" text="Last name" wrappingWidth="235.0" AnchorPane.leftAnchor="555.0" AnchorPane.topAnchor="95.0">
+                              <Text id="lastNameTextLabel" fill="#17181a" strokeType="OUTSIDE" strokeWidth="0.0" text="Last name" wrappingWidth="235.0" AnchorPane.leftAnchor="555.0" AnchorPane.topAnchor="95.0">
                                  <font>
                                     <Font name="Arial" size="15.0" />
                                  </font>
                               </Text>
-                              <Text id="bioTextLabel" fx:id="bioTextLabel" fill="#17181a" layoutX="290.0" layoutY="194.5791015625" strokeType="OUTSIDE" strokeWidth="0.0" text="Bio" wrappingWidth="500.0" AnchorPane.leftAnchor="290.0" AnchorPane.topAnchor="181.0">
+                              <Text id="bioTextLabel" fill="#17181a" layoutX="290.0" layoutY="194.5791015625" strokeType="OUTSIDE" strokeWidth="0.0" text="Bio" wrappingWidth="500.0" AnchorPane.leftAnchor="290.0" AnchorPane.topAnchor="181.0">
                                  <font>
                                     <Font name="Arial" size="15.0" />
                                  </font>
                               </Text>
-                              <TextArea id="bioTextArea" fx:id="bioTextArea" editable="false" layoutX="290.0" layoutY="209.0" prefHeight="80.0" prefWidth="500.0" promptText="Add a bio" style="-fx-faint-focus-color: transparent; -fx-focus-color: transparent; -fx-border-color: #C4C4C4; -fx-border-radius: 4px; -fx-padding: 8px; -fx-wrap-text: true; -fx-background-color: #ffffff;" AnchorPane.leftAnchor="290.0" AnchorPane.topAnchor="209.0">
+                              <TextArea id="bioTextArea" fx:id="bioTextArea" editable="false" layoutX="290.0" layoutY="209.0" prefHeight="80.0" prefWidth="500.0" promptText="Add a bio" AnchorPane.leftAnchor="290.0" AnchorPane.topAnchor="209.0">
                                  <font>
                                     <Font name="Arial" size="14.0" />
                                  </font>
                               </TextArea>
-                              <TextField id="displayNameTextField" fx:id="displayNameTextField" editable="false" prefHeight="25.0" prefWidth="500.0" promptText="Display name" style="-fx-padding: 8px; -fx-faint-focus-color: transparent; -fx-focus-color: #C4C4C4; -fx-background-color: #ffffff; -fx-border-color: #C4C4C4; -fx-border-radius: 4px;" text="Kermit the Frog" AnchorPane.leftAnchor="290.0" AnchorPane.topAnchor="40.0">
+                              <TextField id="displayNameTextField" fx:id="displayNameTextField" editable="false" prefHeight="25.0" prefWidth="500.0" promptText="Display name" AnchorPane.leftAnchor="290.0" AnchorPane.topAnchor="40.0">
                                  <font>
                                     <Font name="Arial" size="14.0" />
                                  </font>
@@ -108,13 +108,13 @@
                   </VBox>
                </children>
             </HBox>
-            <AnchorPane id="loadingAnchorPane" fx:id="loadingAnchorPane" style="-fx-background-color: #ffffff; -fx-border-color: #c4c4c4; -fx-border-style: dashed; -fx-border-width: 2; -fx-border-radius: 15 15 15 15;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane id="loadingAnchorPane" fx:id="loadingAnchorPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <HBox id="loadingHBox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                        <VBox id="loadingVBox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Loading...">
+                              <Text id="loadingText" strokeType="OUTSIDE" strokeWidth="0.0" text="Loading...">
                                  <font>
                                     <Font name="Arial" size="26.0" />
                                  </font>
@@ -122,7 +122,7 @@
                                     <Insets bottom="25.0" />
                                  </VBox.margin>
                               </Text>
-                              <ProgressIndicator>
+                              <ProgressIndicator id="loadingProgressIndicator">
                                  <VBox.margin>
                                     <Insets bottom="50.0" />
                                  </VBox.margin>

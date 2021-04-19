@@ -1,0 +1,673 @@
+/*--------------------------------------------------- dashboard.fxml -------------------------------------------------*/
+
+#dashboardAnchorPane {
+    -fx-background-color: #ffffff;
+}
+
+#dashboardAnchorPane > #menuBarAnchorPane {
+    -fx-background-color: #17181a;
+}
+
+#dashboardAnchorPane > #menuBarAnchorPane > #navigationMenuBtn {
+    -fx-background-color: none;
+}
+
+#dashboardAnchorPane > #menuBarAnchorPane > #notificationsBtn {
+    -fx-background-color: none;
+}
+
+#dashboardAnchorPane > #menuBarAnchorPane > #accountMenuBtn {
+    -fx-background-color: none;
+    -fx-background-insets: 0;
+}
+
+#dashboardAnchorPane > #dashViewsAnchorPane {
+    -fx-background-color: #ffffff;
+}
+
+#dashboardAnchorPane > #navigationMenuPane {
+    -fx-background-color: #17181a;
+    -fx-background-radius: 0 0 25 0;
+}
+
+#dashboardAnchorPane > #navigationMenuPane > #myModelsBtn {
+    -fx-background-color: none;
+}
+
+#dashboardAnchorPane > #navigationMenuPane > #uploadModelsBtn {
+    -fx-background-color: none;
+}
+
+#dashboardAnchorPane > #notificationsAnchorPane {
+    -fx-background-color: #17181a;
+    -fx-background-radius: 0 0 0 25;
+}
+
+#dashboardAnchorPane > #notificationsAnchorPane > #notificationsScrollPane {
+    -fx-background: #17181a;
+    -fx-border-color: #17181a;
+    -fx-padding: 0;
+}
+
+#dashboardAnchorPane > #notificationsAnchorPane > #notificationsScrollPane > #notificationsVBox {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+#dashboardAnchorPane > #accountMenuPane {
+    -fx-background-color: #17181a;
+    -fx-background-radius: 0 0 0 25;
+}
+
+#dashboardAnchorPane > #accountMenuPane > #displayNameTextField {
+    -fx-background-color: #17181a;
+    -fx-text-inner-color: #55b0ff;
+}
+
+#dashboardAnchorPane > #accountMenuPane > #emailAddressTextField {
+    -fx-background-color: #17181a;
+    -fx-text-inner-color: #bababa;
+}
+
+#dashboardAnchorPane > #accountMenuPane > #accountProfileBtn {
+    -fx-background-color: none;
+}
+
+#dashboardAnchorPane > #accountMenuPane > #accountSettingsBtn {
+    -fx-background-color: none;
+}
+
+#dashboardAnchorPane > #accountMenuPane > #logOutBtn {
+    -fx-background-color: none;
+    -fx-background-radius: 5 5 5 5;
+    -fx-border-color: #bababa;
+    -fx-border-radius: 5 5 5 5;
+}
+
+/*---------------------------------------------------- myModels.fxml -------------------------------------------------*/
+
+#myModelsAnchorPane {
+    -fx-background-color: #ffffff;
+}
+
+#myModelsAnchorPane > #myModelsTextHeading {
+    -fx-fill: #17181a;
+}
+
+#myModelsAnchorPane > #myModelsToolBar > #modelSearchField {
+    -fx-padding: 8px 8px 8px 12px;
+    -fx-faint-focus-color: transparent;
+    -fx-focus-color: #C4C4C4;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #C4C4C4;
+    -fx-border-radius: 5px;
+}
+
+#myModelsAnchorPane > #myModelsScrollPane {
+    -fx-background: #ffffff;
+    -fx-background-color: transparent;
+}
+
+#myModelsAnchorPane > #myModelsScrollPane > #myModelsFlowPane {
+    -fx-background-color: #ffffff;
+}
+
+#myModelsAnchorPane > #noModelsBtn {
+    -fx-background-color: #ffffff;
+    -fx-border-radius: 15 15 15 15;
+    -fx-border-style: dashed;
+    -fx-border-width: 2;
+    -fx-border-color: #c4c4c4;
+}
+
+#myModelsAnchorPane > #noModelSearchResultsBtn {
+    -fx-background-color: #ffffff;
+    -fx-border-radius: 15 15 15 15;
+    -fx-border-style: dashed;
+    -fx-border-width: 2;
+    -fx-border-color: #c4c4c4;
+}
+
+#loadingAnchorPane {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 15 15 15 15;
+    -fx-border-color: #c4c4c4;
+    -fx-border-style: dashed;
+    -fx-border-width: 2;
+    -fx-border-radius: 15 15 15 15;
+}
+
+#loadingAnchorPane > #loadingHBox {
+    -fx-background-radius: 15 15 15 15;
+    -fx-background-color: #ffffff;
+}
+
+#loadingAnchorPane > #loadingHBox > #loadingVBox{
+    -fx-background-radius: 15 15 15 15;
+    -fx-background-color: #ffffff;
+}
+
+#loadingAnchorPane > #loadingHBox > #loadingVBox > #loadingText{
+    -fx-fill: #17181a;
+}
+
+#loadingAnchorPane > #loadingHBox > #loadingVBox > #loadingProgressIndicator {
+    -fx-progress-color: #55b0ff;
+}
+
+/* Background color of the control itself */
+#filterModelsChoiceBox {
+    -fx-background-color: #171a1d;
+    -fx-border-color: #171a1d;
+    -fx-background-radius: 5 5 5 5;
+    -fx-border-radius: 5 5 5 5;
+    -fx-mark-color: white;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+    -fx-padding: 0;
+    -fx-background-insets: 0;
+}
+
+/* Selected item text on the control itself */
+#filterModelsChoiceBox > .label {
+    -fx-text-fill: #55b0ff;
+    -fx-font-size: 14px;
+    -fx-font-family: Arial;
+    -fx-padding: 0;
+    -fx-background-insets: 0;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+}
+
+/* Background color of the whole context menu */
+#filterModelsChoiceBox .context-menu {
+    -fx-background-color: #171a1d;
+    -fx-pref-width: 175;
+    -fx-padding: 0;
+    -fx-background-radius: 5 5 5 5;
+    -fx-background-insets: 0 4 0 0;
+}
+
+/* Focused item in the list */
+#filterModelsChoiceBox .menu-item:focused {
+    -fx-background-color: white;
+    -fx-background-insets: 0 4 0 0;
+    -fx-background-radius: 5 5 5 5;
+}
+
+/* Text of non-focused items in the list */
+#filterModelsChoiceBox .menu-item > .label {
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-family: Arial;
+    -fx-padding: 0;
+    -fx-background-insets: 0;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+    -fx-background-radius: 5 5 5 5;
+    -fx-pref-height: 35;
+}
+
+/* Text of focused item in the list */
+#filterModelsChoiceBox .menu-item:focused > .label {
+    -fx-text-fill: #007be8;
+    -fx-font-size: 14px;
+    -fx-font-family: Arial;
+    -fx-padding: 0;
+    -fx-background-insets: 0;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+    -fx-background-radius: 5 5 5 5;
+    -fx-pref-height: 35;
+}
+
+.check-box .box {
+    -fx-background-color: white;
+    -fx-border-color: #181a1d;
+    -fx-border-radius: 3px;
+    -fx-padding: 4px;
+}
+
+.check-box > .box > .mark {
+    -fx-padding: 4px;
+}
+
+.check-box:selected .mark {
+    -fx-background-color: white;
+}
+
+.check-box:selected .box {
+    -fx-background-color: #55b0ff;
+}
+
+/*--------------------------------------------------- uploadModels.fxml ----------------------------------------------*/
+
+#uploadModelsAnchorPane {
+    -fx-background-color: #ffffff;
+}
+
+#uploadModelsAnchorPane > #uploadModelsTextHeading {
+    -fx-fill: #17181a;
+}
+
+#uploadModelsAnchorPane > #browseModelsBtn {
+    -fx-background-color: #ffffff;
+    -fx-border-radius: 15 15 15 15;
+    -fx-border-style: dashed;
+    -fx-border-width: 2;
+    -fx-border-color: #c4c4c4;
+}
+
+/*--------------------------------------------------- verifyModels.fxml ----------------------------------------------*/
+
+#verifyModelsAnchorPane {
+    -fx-background-color: #ffffff;
+}
+
+#verifyModelsAnchorPane > #verifyModelsTextHeading {
+    -fx-fill: #17181a;
+}
+
+#verifyModelsAnchorPane > #uploadModelsBtn {
+    -fx-background-color: #007be8;
+    -fx-background-radius: 5 5 5 5;
+}
+
+#verifyModelsAnchorPane > #verifyModelsScrollPane {
+    -fx-background: #ffffff;
+    -fx-background-color: transparent;
+}
+
+#verifyModelsAnchorPane > #verifyModelsScrollPane > #verifyModelsFlowPane {
+    -fx-background-color: #ffffff;
+}
+
+/*---------------------------------------------------- profile.fxml --------------------------------------------------*/
+
+#profileAnchorPane {
+    -fx-background-color: #ffffff;
+}
+
+#profileAnchorPane > #profileTextHeading {
+    -fx-fill: #17181a;
+}
+
+#profileAnchorPane > #profileAnchorSubPane {
+    -fx-background-color: #ffffff;
+}
+
+#profileAnchorPane > #profileAnchorSubPane > #profileHBox {
+    -fx-background-color: #ffffff;
+}
+
+#profileAnchorPane > #profileAnchorSubPane > #profileHBox > #profileVBox {
+    -fx-background-color: #ffffff;
+}
+
+#profileAnchorPane > #profileAnchorSubPane > #profileHBox > #profileVBox > #profileContentAnchorPane {
+    -fx-background-color: #ffffff;
+}
+
+#profileAnchorPane > #profileAnchorSubPane > #profileHBox > #profileVBox > #profileContentAnchorPane > #displayNameTextLabel {
+    -fx-fill: #17181a;
+}
+
+#profileAnchorPane > #profileAnchorSubPane > #profileHBox > #profileVBox > #profileContentAnchorPane > #firstNameTextLabel {
+    -fx-fill: #17181a;
+}
+
+#profileAnchorPane > #profileAnchorSubPane > #profileHBox > #profileVBox > #profileContentAnchorPane > #lastNameTextLabel {
+    -fx-fill: #17181a;
+}
+
+#profileAnchorPane > #profileAnchorSubPane > #profileHBox > #profileVBox > #profileContentAnchorPane > #bioTextLabel {
+    -fx-fill: #17181a;
+}
+
+#profileAnchorPane > #profileAnchorSubPane > #profileHBox > #profileVBox > #profileContentAnchorPane > #profilePictureImage {
+    -fx-stroke: #17181a;
+}
+
+#profileAnchorPane > #profileAnchorSubPane > #profileHBox > #profileVBox > #profileContentAnchorPane > #addProfilePictureBtn {
+    -fx-background-radius: 50%;
+    -fx-background-color: #17181a;
+}
+
+#profileAnchorPane > #profileAnchorSubPane > #profileHBox > #profileVBox > #profileContentAnchorPane > #editProfileBtn {
+    -fx-background-color: #007be8;
+    -fx-background-radius: 5 5 5 5;
+    -fx-border-width: 1px;
+    -fx-border-color: transparent;
+    -fx-border-radius: 5px;
+    -fx-fill: #17181a;
+}
+
+#profileAnchorPane > #profileAnchorSubPane > #profileHBox > #profileVBox > #profileContentAnchorPane > #displayNameTextField {
+    -fx-padding: 8px;
+    -fx-faint-focus-color: transparent;
+    -fx-focus-color: #C4C4C4;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #C4C4C4;
+    -fx-border-radius: 4px;
+}
+
+#profileAnchorPane > #profileAnchorSubPane > #profileHBox > #profileVBox > #profileContentAnchorPane > #firstNameTextField {
+    -fx-padding: 8px;
+    -fx-faint-focus-color: transparent;
+    -fx-focus-color: #C4C4C4;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #C4C4C4;
+    -fx-border-radius: 4px;
+}
+
+#profileAnchorPane > #profileAnchorSubPane > #profileHBox > #profileVBox > #profileContentAnchorPane > #lastNameTextField {
+    -fx-padding: 8px;
+    -fx-faint-focus-color: transparent;
+    -fx-focus-color: #C4C4C4;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #C4C4C4;
+    -fx-border-radius: 4px;
+}
+
+#profileAnchorPane > #profileAnchorSubPane > #profileHBox > #profileVBox > #profileContentAnchorPane > #bioTextArea {
+    -fx-faint-focus-color: transparent;
+    -fx-focus-color: transparent;
+    -fx-border-color: #C4C4C4;
+    -fx-border-radius: 4px;
+    -fx-padding: 8px;
+    -fx-wrap-text: true;
+    -fx-background-color: #ffffff;
+}
+
+#profileAnchorPane > #profileAnchorSubPane > #profileHBox > #profileVBox > #profileContentAnchorPane > #bioTextArea .content {
+    -fx-background-color: #ffffff;
+}
+
+#profileAnchorPane > #profileAnchorSubPane > #profileHBox > #profileVBox > #profileContentAnchorPane > #bioTextArea .viewport {
+    -fx-background-color: #ffffff;
+}
+
+/*---------------------------------------------------- settings.fxml -------------------------------------------------*/
+
+#settingsAnchorPane {
+    -fx-background-color: #ffffff;
+}
+
+#settingsAnchorPane > #settingsTextHeading {
+    -fx-fill: #17181a;
+}
+
+#settingsAnchorPane > #settingsAnchorSubPane {
+    -fx-background-color: #ffffff;
+}
+
+#settingsAnchorPane > #settingsAnchorSubPane > #settingsHBox {
+    -fx-background-color: #ffffff;
+}
+
+#settingsAnchorPane > #settingsAnchorSubPane > #settingsHBox > #settingsVBox {
+    -fx-background-color: #ffffff;
+}
+
+#settingsAnchorPane > #settingsAnchorSubPane > #settingsHBox > #settingsVBox > #settingsContentAnchorPane {
+    -fx-background-color: #ffffff;
+}
+
+#settingsAnchorPane > #settingsAnchorSubPane > #settingsHBox > #settingsVBox > #settingsContentAnchorPane > #settingsPictureImage {
+    -fx-stroke: #17181a;
+}
+
+#settingsAnchorPane > #settingsAnchorSubPane > #settingsHBox > #settingsVBox > #settingsContentAnchorPane > #displayNameTextField {
+    -fx-background-color: none;
+    -fx-text-fill: #17181a;
+}
+
+#settingsAnchorPane > #settingsAnchorSubPane > #settingsHBox > #settingsVBox > #settingsContentAnchorPane > #personalAccountTextLabel {
+    -fx-fill: #17181a;
+}
+
+#settingsAnchorPane > #settingsAnchorSubPane > #settingsHBox > #settingsVBox > #settingsContentAnchorPane > #changeEmailAnchorPane {
+    -fx-background-color: #ffffff;
+}
+
+#settingsAnchorPane > #settingsAnchorSubPane > #settingsHBox > #settingsVBox > #settingsContentAnchorPane > #changePasswordAnchorPane {
+    -fx-background-color: #ffffff;
+}
+
+#settingsAnchorPane > #settingsAnchorSubPane > #settingsHBox > #settingsVBox > #settingsContentAnchorPane > #deleteAccountAnchorPane {
+    -fx-background-color: #ffffff;
+}
+
+#settingsAnchorPane > #settingsAnchorSubPane > #settingsHBox > #settingsVBox > #settingsContentAnchorPane > #changeEmailAnchorPane > #changeEmailHeadingText {
+    -fx-fill: #17181a;
+}
+
+#settingsAnchorPane > #settingsAnchorSubPane > #settingsHBox > #settingsVBox > #settingsContentAnchorPane > #changeEmailAnchorPane > #changeEmailNoticeHeading {
+    -fx-fill: #17181a;
+}
+
+#settingsAnchorPane > #settingsAnchorSubPane > #settingsHBox > #settingsVBox > #settingsContentAnchorPane > #changeEmailAnchorPane > #changeEmailNotice1 {
+    -fx-fill: #17181a;
+}
+
+#settingsAnchorPane > #settingsAnchorSubPane > #settingsHBox > #settingsVBox > #settingsContentAnchorPane > #changeEmailAnchorPane > #changeEmailNotice2 {
+    -fx-fill: #17181a;
+}
+
+#settingsAnchorPane > #settingsAnchorSubPane > #settingsHBox > #settingsVBox > #settingsContentAnchorPane > #changeEmailAnchorPane > #changeEmailErrorField {
+    -fx-text-fill: #17181a;
+}
+
+#settingsAnchorPane > #settingsAnchorSubPane > #settingsHBox > #settingsVBox > #settingsContentAnchorPane > #changeEmailAnchorPane > #changeEmailNewEmailTxt {
+    -fx-fill: #17181a;
+}
+
+#settingsAnchorPane > #settingsAnchorSubPane > #settingsHBox > #settingsVBox > #settingsContentAnchorPane > #changeEmailAnchorPane > #changeAccountEmailField {
+    -fx-padding: 8px;
+    -fx-faint-focus-color: transparent;
+    -fx-focus-color: #C4C4C4;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #C4C4C4;
+    -fx-border-radius: 4px;
+    -fx-text-fill: #17181a;
+}
+
+#settingsAnchorPane > #settingsAnchorSubPane > #settingsHBox > #settingsVBox > #settingsContentAnchorPane > #changeEmailAnchorPane > #changeEmailPasswordTxt {
+    -fx-fill: #17181a;
+}
+
+#settingsAnchorPane > #settingsAnchorSubPane > #settingsHBox > #settingsVBox > #settingsContentAnchorPane > #changeEmailAnchorPane > #changeEmailPasswordField {
+    -fx-padding: 8px;
+    -fx-faint-focus-color: transparent;
+    -fx-focus-color: #C4C4C4;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #C4C4C4;
+    -fx-border-radius: 4px;
+    -fx-text-fill: #17181a;
+}
+
+#settingsAnchorPane > #settingsAnchorSubPane > #settingsHBox > #settingsVBox > #settingsContentAnchorPane > #changePasswordAnchorPane > #changePasswordHeadingText {
+    -fx-fill: #17181a;
+}
+
+#settingsAnchorPane > #settingsAnchorSubPane > #settingsHBox > #settingsVBox > #settingsContentAnchorPane > #changePasswordAnchorPane > #changePasswordNoticeHeading {
+    -fx-fill: #17181a;
+}
+
+#settingsAnchorPane > #settingsAnchorSubPane > #settingsHBox > #settingsVBox > #settingsContentAnchorPane > #changePasswordAnchorPane > #changePasswordNotice1 {
+    -fx-fill: #17181a;
+}
+
+#settingsAnchorPane > #settingsAnchorSubPane > #settingsHBox > #settingsVBox > #settingsContentAnchorPane > #deleteAccountAnchorPane > #deleteAccountHeadingText {
+    -fx-fill: #17181a;
+}
+
+#settingsAnchorPane > #settingsAnchorSubPane > #settingsHBox > #settingsVBox > #settingsContentAnchorPane > #deleteAccountAnchorPane > #deleteAccountNoticeHeading {
+    -fx-fill: #17181a;
+}
+
+#settingsAnchorPane > #settingsAnchorSubPane > #settingsHBox > #settingsVBox > #settingsContentAnchorPane > #deleteAccountAnchorPane > #deleteAccountNotice1 {
+    -fx-fill: #17181a;
+}
+
+#settingsAnchorPane > #settingsAnchorSubPane > #settingsHBox > #settingsVBox > #settingsContentAnchorPane > #deleteAccountAnchorPane > #deleteAccountNotice2 {
+    -fx-fill: #17181a;
+}
+
+#settingsAnchorPane > #settingsAnchorSubPane > #settingsHBox > #settingsVBox > #settingsContentAnchorPane > #deleteAccountAnchorPane > #deleteAccountNotice3 {
+    -fx-fill: #17181a;
+}
+
+#settingsAnchorPane > #settingsAnchorSubPane > #settingsHBox > #settingsVBox > #settingsContentAnchorPane > #deleteAccountAnchorPane > #deleteAccountEmailText {
+    -fx-fill: #17181a;
+}
+
+#settingsAnchorPane > #settingsAnchorSubPane > #settingsHBox > #settingsVBox > #settingsContentAnchorPane > #deleteAccountAnchorPane > #deleteAccountErrorField {
+    -fx-background-color: #ffffff;
+    -fx-border-color: red;
+    -fx-border-radius: 5px;
+    -fx-padding: 8px;
+    -fx-text-fill: #17181a;
+}
+
+#settingsAnchorPane > #settingsAnchorSubPane > #settingsHBox > #settingsVBox > #settingsContentAnchorPane > #deleteAccountAnchorPane > #deleteAccountEmailField {
+    -fx-padding: 8px;
+    -fx-faint-focus-color: transparent;
+    -fx-focus-color: #C4C4C4;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #C4C4C4;
+    -fx-border-radius: 4px;
+}
+/*--------------------------------------------------- sharePopUp.fxml ------------------------------------------------*/
+
+/* Background color of the control itself */
+#addPermissionsChoiceBox {
+    -fx-background-color: #eeeeee;
+    -fx-border-color: #eeeeee;
+    -fx-background-radius: 5 5 5 5;
+    -fx-border-radius: 5 5 5 5;
+    -fx-mark-color: #171a1d;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+    -fx-padding: 0;
+    -fx-background-insets: 0;
+}
+
+/* Selected item text on the control itself */
+#addPermissionsChoiceBox > .label {
+    -fx-text-fill: #007be8;
+    -fx-font-size: 14px;
+    -fx-font-family: Arial;
+    -fx-padding: 0;
+    -fx-background-insets: 0;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+}
+
+/* Background color of the whole context menu */
+#addPermissionsChoiceBox .context-menu {
+    -fx-background-color: #eeeeee;
+    -fx-pref-width: 315;
+    -fx-padding: 0;
+    -fx-background-radius: 5 5 5 5;
+    -fx-background-insets: 0 4 0 0;
+}
+
+/* Focused item in the list */
+#addPermissionsChoiceBox .menu-item:focused {
+    -fx-background-color: #171a1d;
+    -fx-background-radius: 5 5 5 5;
+    -fx-background-insets: 0 4 0 0;
+}
+
+/* Text of non-focused items in the list */
+#addPermissionsChoiceBox .menu-item > .label {
+    -fx-text-fill: #171a1d;
+    -fx-font-size: 14px;
+    -fx-font-family: Arial;
+    -fx-padding: 0;
+    -fx-background-insets: 0;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+    -fx-background-radius: 5 5 5 5;
+    -fx-pref-height: 35;
+}
+
+/* Text of focused item in the list */
+#addPermissionsChoiceBox .menu-item:focused > .label {
+    -fx-text-fill: #007be8;
+    -fx-font-size: 14px;
+    -fx-font-family: Arial;
+    -fx-padding: 0;
+    -fx-background-insets: 0;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+    -fx-background-radius: 5 5 5 5;
+    -fx-pref-height: 35;
+}
+
+/* Background color of the control itself */
+#changePermissionsChoiceBox {
+    -fx-background-color: white;
+    -fx-border-color: white;
+    -fx-background-radius: 5 5 5 5;
+    -fx-border-radius: 5 5 5 5;
+    -fx-mark-color: #171a1d;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+    -fx-padding: 0;
+    -fx-background-insets: 0;
+}
+
+/* Selected item text on the control itself */
+#changePermissionsChoiceBox > .label {
+    -fx-text-fill: #007be8;
+    -fx-font-size: 14px;
+    -fx-font-family: Arial;
+    -fx-padding: 0;
+    -fx-background-insets: 0;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+}
+
+/* Background color of the whole context menu */
+#changePermissionsChoiceBox .context-menu {
+    -fx-background-color: white;
+    -fx-pref-width: 115;
+    -fx-padding: 0;
+    -fx-background-radius: 5 5 5 5;
+    -fx-background-insets: 0 4 0 0;
+}
+
+/* Focused item in the list */
+#changePermissionsChoiceBox .menu-item:focused {
+    -fx-background-color: #171a1d;
+    -fx-background-insets: 0 4 0 0;
+    -fx-background-radius: 5 5 5 5;
+}
+
+/* Text of non-focused items in the list */
+#changePermissionsChoiceBox .menu-item > .label {
+    -fx-text-fill: #171a1d;
+    -fx-font-size: 14px;
+    -fx-font-family: Arial;
+    -fx-padding: 0;
+    -fx-background-insets: 0;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+    -fx-background-radius: 5 5 5 5;
+    -fx-pref-height: 35;
+}
+
+/* Text of focused item in the list */
+#changePermissionsChoiceBox .menu-item:focused > .label {
+    -fx-text-fill: #007be8;
+    -fx-font-size: 14px;
+    -fx-font-family: Arial;
+    -fx-padding: 0;
+    -fx-background-insets: 0;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+    -fx-background-radius: 5 5 5 5;
+    -fx-pref-height: 35;
+}

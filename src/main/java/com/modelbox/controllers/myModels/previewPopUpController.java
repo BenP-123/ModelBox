@@ -100,10 +100,6 @@ public class previewPopUpController {
             app.myModelsView = app.viewLoader.getController();
             app.dashboard.dashViewsAnchorPane.getChildren().setAll(root);
 
-            if(app.myModelsView != null){
-                app.dashboard.myModelsDarkMode();
-            }
-
             // Asynchronously populate the my models view and show appropriate nodes when ready
             String functionCall = "ModelBox.Models.getCurrentUserModels();";
             app.mongoApp.eval(functionCall);

@@ -52,12 +52,11 @@ public class app extends Application{
     public static usersBridge users;
     public static errorBridge errors;
     public static Preferences userPrefs;
-    public static Boolean viewMode;
-    public static Boolean defaultView = false;
+    public static Boolean isDarkModeActive = false;
 
     public app() throws IOException {
         userPrefs = Preferences.userRoot().node("/com/modelbox");
-        viewMode = userPrefs.getBoolean("viewMode", defaultView);
+        isDarkModeActive = userPrefs.getBoolean("darkModeActiveStatus", isDarkModeActive);
         viewLoader = new FXMLLoader(getClass().getResource("/views/auth/createAccount.fxml"));
         mongoEngine = new WebEngine();
         mongoEngine.setJavaScriptEnabled(true);
@@ -81,7 +80,6 @@ public class app extends Application{
 
                     Parent root = viewLoader.load();
                     app.createAccountView = viewLoader.getController();
-                    app.createAccountView.createAccountDarkMode();
                     stage.getIcons().add(new Image(app.class.getResourceAsStream("/images/modelboxLogo.png")));
                     stage.setScene(new Scene(root, 1000, 650));
                     stage.setMinWidth(1000);

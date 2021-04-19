@@ -1,24 +1,20 @@
 package com.modelbox.controllers;
 
 import com.modelbox.app;
-import com.sun.javafx.css.StyleManager;
-import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.fxml.FXML;
-
-import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import com.interactivemesh.jfx.importer.stl.StlMeshImporter;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Line;
 import org.bson.BsonArray;
 import org.bson.BsonValue;
 
@@ -37,20 +33,9 @@ public class dashboardController {
     @FXML public TextField displayNameTextField;
     @FXML public TextField emailAddressTextField;
     @FXML public Button logOutBtn;
-    @FXML public Button lightModeBtn;
-    @FXML public Button darkModeBtn;
     @FXML public AnchorPane menuBarAnchorPane;
-    private String bgColorWhite = "-fx-background-color:  white";
-    private String darkModeBackground = "-fx-background-color: #17181a";
-    private String whiteText = "-fx-fill: white";
-    private String blackText = "-fx-fill: black";
-    private String bgColorBlack = "-fx-background-color: #17181a";
-    private String textFields = "-fx-background-color: transparent; -fx-border-color: white; -fx-border-radius: 4px; -fx-padding: 8px; -fx-text-fill: white";
-    private String textFieldsDefault = "-fx-background-color: #ffffff; -fx-border-color: #C4C4C4; -fx-border-radius: 4px; -fx-padding: 8px; -fx-text-fill: black; -fx-faint-focus-color: transparent";
-    private String deletionPopupDefault = "-fx-background-color: #ffffff; -fx-background-radius: 15px; -fx-border-color: red; -fx-border-radius: 15 15 15 15; -fx-text-fill: black";
-    private String deletionPopup = "-fx-background-color: #17181a; -fx-background-radius: 15px; -fx-border-color: red; -fx-border-radius: 15 15 15 15; -fx-text-fill: white";
-
-
+    @FXML public ToggleSwitch darkModeToggleSwitch;
+    @FXML public Line dashboardLine;
 
     /**
      * Constructs a dashboardController object
@@ -135,7 +120,6 @@ public class dashboardController {
             Parent root = app.viewLoader.load();
             app.myModelsView = app.viewLoader.getController();
             app.dashboard.dashViewsAnchorPane.getChildren().setAll(root);
-            app.dashboard.myModelsDarkMode();
 
             // Asynchronously populate the my models view and show appropriate nodes when ready
             String functionCall = String.format("ModelBox.Models.getCurrentUserModels();");
@@ -160,9 +144,6 @@ public class dashboardController {
             Parent root = app.viewLoader.load();
             app.uploadModelsView = app.viewLoader.getController();
             app.dashboard.dashViewsAnchorPane.getChildren().setAll(root);
-
-            uploadModelsDarkMode();
-
         } catch (Exception exception) {
             exception.printStackTrace();
         }
@@ -182,7 +163,6 @@ public class dashboardController {
             app.viewLoader = new FXMLLoader(getClass().getResource("/views/account/profile.fxml"));
             Parent root = app.viewLoader.load();
             app.profileView = app.viewLoader.getController();
-            app.dashboard.profileDarkMode();
             app.dashboard.dashViewsAnchorPane.getChildren().setAll(root);
 
             // Load data
@@ -209,7 +189,6 @@ public class dashboardController {
             Parent root = app.viewLoader.load();
             app.settingsView = app.viewLoader.getController();
             app.dashboard.dashViewsAnchorPane.getChildren().setAll(root);
-            app.dashboard.settingsDarkMode();
 
             // Load data
             String functionCall = String.format("ModelBox.Users.getCurrentUserSettings();");
@@ -266,217 +245,5 @@ public class dashboardController {
             }
         }
         return role;
-    }
-
-    /*************************************************** CSS Styling Methods **********************************************/
-
-    public void darkModeBtnClicked(ActionEvent actionEvent) {
-        app.userPrefs.putBoolean("viewMode", true);
-        app.viewMode = app.userPrefs.getBoolean("viewMode", app.defaultView);
-        app.dashboard.darkModeBtn.setVisible(false);
-        app.dashboard.lightModeBtn.setVisible(true);
-        toggleDarkMode();
-    }
-
-    public void lightModeBtnClicked(ActionEvent actionEvent) {
-        app.userPrefs.putBoolean("viewMode", false);
-        app.viewMode = app.userPrefs.getBoolean("viewMode", app.defaultView);
-        app.dashboard.lightModeBtn.setVisible(false);
-        app.dashboard.darkModeBtn.setVisible(true);
-        toggleDarkMode();
-    }
-
-    public void toggleDarkMode(){
-        dashBoardDarkMode();
-
-        if(app.myModelsView !=null) {
-            myModelsDarkMode();
-        }
-        if(app.settingsView != null){
-            settingsDarkMode();
-        }
-        if(app.myModelsView != null){
-            myModelsDarkMode();
-        }
-        if(app.uploadModelsView != null){
-            uploadModelsDarkMode();
-        }
-        if(app.verifyModelsView != null){
-            uploadVerifyDarkMode();
-        }
-        if(app.profileView != null){
-            profileDarkMode();
-        }
-    }
-
-    private void dashBoardDarkMode() {
-        if (app.viewMode) {
-            app.dashboard.dashViewsAnchorPane.setStyle(darkModeBackground);
-            app.dashboard.dashboardAnchorPane.setStyle(darkModeBackground);
-            app.dashboard.navigationMenuPane.setStyle("-fx-background-color:   #171a1d; -fx-background-radius: 0 0 25 0 ");
-            app.dashboard.accountMenuPane.setStyle("-fx-background-color:   #171a1d; -fx-background-radius: 0 0 0 25");
-        } else {
-            app.dashboard.dashViewsAnchorPane.setStyle(bgColorWhite);
-            app.dashboard.dashboardAnchorPane.setStyle("-fx-background-color:   #ffffff");
-            app.dashboard.navigationMenuPane.setStyle("-fx-background-color:  #17181a; -fx-background-radius: 0 0 25 0 ");
-            app.dashboard.accountMenuPane.setStyle("-fx-background-color:  #17181a; -fx-background-radius: 0 0 0 25");
-        }
-    }
-
-    public void myModelsDarkMode(){
-        if (app.viewMode) {
-            app.myModelsView.deleteModelConfirmationPopUp.setStyle(deletionPopup);
-            app.myModelsView.deleterModelPopUpText.setStyle(whiteText);
-            app.myModelsView.modelSearchField.setStyle(textFields);
-            app.myModelsView.myModelsAnchorPane.setStyle(darkModeBackground);
-            app.myModelsView.myModelsTextHeading.setStyle("-fx-fill: #ffffff");
-            app.myModelsView.myModelsHBox.setStyle(darkModeBackground);
-            app.myModelsView.loadingBar.setStyle("-fx-fill: #ffffff");
-            app.myModelsView.myModelsScrollPane.setStyle(darkModeBackground);
-            app.myModelsView.myModelsFlowPane.setStyle(darkModeBackground);
-            app.myModelsView.loadingAnchorPane.setStyle("-fx-background-color: #17181a; -fx-border-color:  #c4c4c4; -fx-border-style: dashed; -fx-border-width: 2; -fx-border-radius: 15 15 15 15");
-            app.myModelsView.filterModelsChoiceBox.setStyle("-fx-border-color: white; -fx-border-width: 1px");
-        }else{
-            app.myModelsView.modelSearchField.setStyle(textFieldsDefault);
-            app.myModelsView.myModelsAnchorPane.setStyle("-fx-background-color:   #ffffff");
-            app.myModelsView.myModelsTextHeading.setStyle(blackText);
-            app.myModelsView.myModelsHBox.setStyle("-fx-background-color:  #ffffff");
-            app.myModelsView.loadingBar.setStyle(blackText);
-            app.myModelsView.myModelsFlowPane.setStyle("-fx-background-color:  #ffffff");
-            app.myModelsView.myModelsScrollPane.setStyle("-fx-background-color: #ffffff");
-            app.myModelsView.loadingAnchorPane.setStyle("-fx-background-color: #ffffff;  -fx-border-color:  #c4c4c4; -fx-border-style: dashed; -fx-border-width: 2; -fx-border-radius: 15 15 15 15");
-            app.myModelsView.filterModelsChoiceBox.setStyle("-fx-border-color: none; -fx-border-width: 0");
-        }
-
-    }
-
-    public void uploadModelsDarkMode(){
-        if(app.viewMode){
-            app.uploadModelsView.uploadModelsTextHeading.setStyle(whiteText);
-            app.uploadModelsView.uploadModelsAnchorPane.setStyle(bgColorBlack);
-            app.uploadModelsView.browseModelsBtnIcon.setStyle("-fx-background-color: #17181a; -fx-border-radius: 15 15 15 15; -fx-border-style: dashed; -fx-border-width: 2; -fx-border-color: #c4c4c4");
-        }else{
-            app.uploadModelsView.uploadModelsTextHeading.setStyle(blackText);
-            app.uploadModelsView.uploadModelsAnchorPane.setStyle("-fx-background-color: #ffffff");
-            app.uploadModelsView.browseModelsBtnIcon.setStyle("-fx-background-color: none; -fx-border-radius: 15 15 15 15; -fx-border-style: dashed; -fx-border-width: 2; -fx-border-color: #c4c4c4");
-        }
-
-    }
-
-    public void uploadVerifyDarkMode(){
-        if(app.viewMode){
-            app.verifyModelsView.verifyModelsTextHeading.setStyle(whiteText);
-            app.verifyModelsView.verifyModelsAnchorPane.setStyle(bgColorBlack);
-            app.verifyModelsView.verifyModelsScrollPane.setStyle(bgColorBlack);
-            app.verifyModelsView.verifyModelsFlowPane.setStyle(bgColorBlack);
-        }else{
-            app.verifyModelsView.verifyModelsTextHeading.setStyle(blackText);
-            app.verifyModelsView.verifyModelsAnchorPane.setStyle("-fx-background-color: none");
-            app.verifyModelsView.verifyModelsScrollPane.setStyle("-fx-background-color: #ffffff");
-            app.verifyModelsView.verifyModelsFlowPane.setStyle("-fx-background-color:  #ffffff");
-        }
-    }
-
-    public void settingsDarkMode(){
-        if(app.viewMode){
-            //Delete Account
-            app.settingsView.settingsAnchorPane.setStyle(bgColorBlack);
-            app.settingsView.settingsHbox.setStyle(bgColorBlack);
-            app.settingsView.settingsTextHeading.setStyle(whiteText);
-            app.settingsView.accountSettingsAnchorPane.setStyle(bgColorBlack);
-            app.settingsView.accountSecurityAnchorPane.setStyle(bgColorBlack);
-            app.settingsView.changeEmailAnchorPane.setStyle(bgColorBlack);
-            app.settingsView.displayNameTextField.setStyle("-fx-text-fill: white; -fx-background-color: #17181a");
-            app.settingsView.personalAccountTextLabel.setStyle(whiteText);
-            app.settingsView.deleteAccountTxt.setStyle(whiteText);
-            app.settingsView.confirmDeleteTxt.setStyle(whiteText);
-            app.settingsView.typenameAcctTxt.setStyle(whiteText);
-            app.settingsView.accountDataTxt.setStyle(whiteText);
-            app.settingsView.collaboratorsTxt.setStyle(whiteText);
-            app.settingsView.actionUndoneTxt.setStyle(whiteText);
-            app.settingsView.deleteAccountEmailField.setStyle(textFields);
-            app.settingsView.changeAccountEmailField.setStyle(textFields);
-            app.settingsView.changeEmailPasswordField.setStyle(textFields);
-
-            //Change Account Password
-            app.settingsView.accountSettingsBtn.setStyle("-fx-background-color:none; -fx-border-color: #868686; -fx-text-fill: white; -fx-border-radius: 5 5 0 0; -fx-alignment: center-left");
-            app.settingsView.accountSecurityBtn.setStyle("-fx-background-color:none; -fx-border-color: #868686; -fx-text-fill: white; -fx-border-radius: 5 5 0 0; -fx-alignment: center-left");
-            app.settingsView.changeEmailBtn.setStyle("-fx-background-color:none; -fx-border-color:  #868686; -fx-text-fill: white; -fx-border-radius: 0 0 5 5; -fx-alignment: center-left");
-            app.settingsView.changePasswordTxt.setStyle(whiteText);
-            app.settingsView.passwordNoticeOne.setStyle(whiteText);
-            app.settingsView.passwordNoticeTwo.setStyle(whiteText);
-
-            //Change Account Email
-            app.settingsView.changeEmailHeader.setStyle(whiteText);
-            app.settingsView.changeEmailNoticeOne.setStyle(whiteText);
-            app.settingsView.changeEmailNoticeTwo.setStyle(whiteText);
-            app.settingsView.changeEmailNewEmailTxt.setStyle(whiteText);
-            app.settingsView.changeEmailNewPassword.setStyle(whiteText);
-            app.settingsView.changeEmailNewPasswordTwo.setStyle(whiteText);
-
-
-        }else{
-            //Default View -- Delete Account
-            app.settingsView.settingsAnchorPane.setStyle(bgColorWhite);
-            app.settingsView.settingsHbox.setStyle(bgColorWhite);
-            app.settingsView.settingsTextHeading.setStyle(blackText);
-            app.settingsView.accountSettingsAnchorPane.setStyle(bgColorWhite);
-            app.settingsView.accountSecurityAnchorPane.setStyle(bgColorWhite);
-            app.settingsView.changeEmailAnchorPane.setStyle(bgColorWhite);
-            app.settingsView.displayNameTextField.setStyle("-fx-text-fill: black; -fx-background-color: white");
-            app.settingsView.personalAccountTextLabel.setStyle(blackText);
-            app.settingsView.deleteAccountTxt.setStyle(blackText);
-            app.settingsView.confirmDeleteTxt.setStyle(blackText);
-            app.settingsView.typenameAcctTxt.setStyle(blackText);
-            app.settingsView.accountDataTxt.setStyle(blackText);
-            app.settingsView.collaboratorsTxt.setStyle(blackText);
-            app.settingsView.actionUndoneTxt.setStyle(blackText);
-            app.settingsView.deleteAccountEmailField.setStyle(textFieldsDefault);
-            app.settingsView.changeAccountEmailField.setStyle(textFieldsDefault);
-            app.settingsView.changeEmailPasswordField.setStyle(textFieldsDefault);
-
-            //Change Account Password
-            app.settingsView.accountSettingsBtn.setStyle("-fx-background-color:none; -fx-border-color: #868686; -fx-text-fill: black; -fx-border-radius: 5 5 0 0; -fx-alignment: center-left");
-            app.settingsView.accountSecurityBtn.setStyle("-fx-background-color:none; -fx-border-color: #868686; -fx-text-fill: black; -fx-border-radius: 5 5 0 0; -fx-alignment: center-left");
-            app.settingsView.changeEmailBtn.setStyle("-fx-background-color:none; -fx-border-color:  #868686; -fx-text-fill: black; -fx-border-radius: 0 0 5 5; -fx-alignment: center-left");
-            app.settingsView.changePasswordTxt.setStyle(blackText);
-            app.settingsView.passwordNoticeOne.setStyle(blackText);
-            app.settingsView.passwordNoticeTwo.setStyle(blackText);
-
-            //Change Account Email
-            app.settingsView.changeEmailHeader.setStyle(blackText);
-            app.settingsView.changeEmailNoticeOne.setStyle(blackText);
-            app.settingsView.changeEmailNoticeTwo.setStyle(blackText);
-            app.settingsView.changeEmailNewEmailTxt.setStyle(blackText);
-            app.settingsView.changeEmailNewPassword.setStyle(blackText);
-            app.settingsView.changeEmailNewPasswordTwo.setStyle(blackText);
-        }
-    }
-
-    public void profileDarkMode(){
-        if(app.viewMode) {
-            app.profileView.profileHeader.setStyle(whiteText); 
-            app.profileView.displayNameTextLabel.setStyle(whiteText);
-            app.profileView.firstNameTextLabel.setStyle(whiteText);
-            app.profileView.lastNameTextLabel.setStyle(whiteText);
-            app.profileView.bioTextLabel.setStyle(whiteText);
-
-            app.profileView.firstNameTextField.setStyle(textFields);
-            app.profileView.lastNameTextField.setStyle(textFields);
-            app.profileView.displayNameTextField.setStyle(textFields);
-            app.profileView.bioTextArea.setStyle(textFields);
-
-        }else{
-            app.profileView.profileHeader.setStyle(blackText);
-            app.profileView.displayNameTextLabel.setStyle(blackText);
-            app.profileView.firstNameTextLabel.setStyle(blackText);
-            app.profileView.lastNameTextLabel.setStyle(blackText);
-            app.profileView.bioTextLabel.setStyle(blackText);
-
-            app.profileView.firstNameTextField.setStyle(textFieldsDefault);
-            app.profileView.lastNameTextField.setStyle(textFieldsDefault);
-            app.profileView.displayNameTextField.setStyle(textFieldsDefault);
-            app.profileView.bioTextArea.setStyle(textFieldsDefault);
-            }
     }
 }

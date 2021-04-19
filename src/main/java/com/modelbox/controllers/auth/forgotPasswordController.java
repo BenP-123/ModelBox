@@ -16,8 +16,6 @@ public class forgotPasswordController {
 
     @FXML public TextField emailField;
     @FXML public AnchorPane forgotPassPane;
-    @FXML public Text emailAddressLabel;
-    @FXML public Text asterixOne;
     @FXML public Button sendEmailLoginBtn;
     @FXML private Button loginBtn;
     @FXML public AnchorPane sendResetEmailPrompt;
@@ -26,13 +24,6 @@ public class forgotPasswordController {
     @FXML public Text forgotPasswordHeading;
     @FXML public Text forgotPasswordSubHeading;
     @FXML public Text logInPromptText;
-
-    private String whiteText = "-fx-fill: white";
-    private String blackText = "-fx-fill: black";
-    private String textFields = "-fx-background-color: transparent; -fx-border-color: white; -fx-border-radius: 4px; -fx-padding: 8px; -fx-text-fill: white";
-    private String textFieldsDefault = "-fx-background-color: #ffffff; -fx-border-color: #C4C4C4; -fx-border-radius: 4px; -fx-padding: 8px; -fx-text-fill: black; -fx-faint-focus-color: transparent";
-
-
 
     /**
      * Handles resetting the user's password when the reset password button is clicked
@@ -82,30 +73,10 @@ public class forgotPasswordController {
             app.viewLoader = new FXMLLoader(getClass().getResource("/views/auth/login.fxml"));
             Parent root = app.viewLoader.load();
             app.loginView = app.viewLoader.getController();
-            app.loginView.loginDarkMode();
             loginBtn.getScene().setRoot(root);
         } catch (Exception exception){
             // Handle errors
             exception.printStackTrace();
         }
     }
-
-    public void forgotPasswordDarkMode(){
-        if(app.viewMode){
-            app.forgotPasswordView.emailField.setStyle(textFields);
-            app.forgotPasswordView.forgotPasswordHeading.setStyle(whiteText);
-            app.forgotPasswordView.forgotPasswordSubHeading.setStyle(whiteText);
-            app.forgotPasswordView.asterixOne.setStyle(whiteText);
-            app.forgotPasswordView.emailAddressLabel.setStyle(whiteText);
-            app.forgotPasswordView.sendResetEmailPrompt.setStyle("-fx-background-color: #17181a");
-        }else{
-            app.forgotPasswordView.forgotPasswordHeading.setStyle(blackText);
-            app.forgotPasswordView.forgotPasswordSubHeading.setStyle(blackText);
-            app.forgotPasswordView.asterixOne.setStyle(blackText);
-            app.forgotPasswordView.emailAddressLabel.setStyle(blackText);
-            app.forgotPasswordView.sendResetEmailPrompt.setStyle("-fx-background-color: none");
-        }
-    }
-
-
 }

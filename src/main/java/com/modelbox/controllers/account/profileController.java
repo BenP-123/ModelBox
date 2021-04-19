@@ -10,7 +10,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
-import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 
 import java.io.ByteArrayInputStream;
@@ -30,11 +29,6 @@ public class profileController {
     @FXML public Button cancelProfileUploadBtn;
     @FXML public AnchorPane profileContentAnchorPane;
     @FXML public AnchorPane loadingAnchorPane;
-    @FXML public Text displayNameTextLabel;
-    @FXML public Text firstNameTextLabel;
-    @FXML public Text lastNameTextLabel;
-    @FXML public Text bioTextLabel;
-    @FXML public Text profileHeader;
     private FileChooser profilePictureFileChooser;
     private File newPictureFile;
     private byte[] profilePic;
@@ -109,7 +103,11 @@ public class profileController {
         try {
             if (editProfileBtn.getText().equals("Edit profile")) {
                 editProfileBtn.setText("Update profile");
-                editProfileBtn.setStyle("-fx-background-color: green;");
+                if (app.isDarkModeActive) {
+                    editProfileBtn.setStyle("-fx-border-color: green;");
+                } else {
+                    editProfileBtn.setStyle("-fx-background-color: green;");
+                }
                 displayNameTextField.setEditable(true);
                 firstNameTextField.setEditable(true);
                 lastNameTextField.setEditable(true);

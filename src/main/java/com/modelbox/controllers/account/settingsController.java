@@ -9,102 +9,85 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
-import javafx.scene.text.Text;
 
 import java.util.prefs.Preferences;
 
 public class settingsController {
 
     @FXML public AnchorPane settingsAnchorPane;
-    @FXML public Text settingsTextHeading;
-    @FXML public HBox settingsHbox;
-    @FXML public Button accountSettingsBtn;
-    @FXML public Button accountSecurityBtn;
-    @FXML public Button changeEmailBtn;
+    @FXML public Button deleteAccountTabBtn;
+    @FXML public Button changePasswordTabBtn;
+    @FXML public Button changeEmailTabBtn;
     @FXML public TextField displayNameTextField;
-    @FXML public AnchorPane accountSettingsAnchorPane;
-    @FXML public AnchorPane accountSecurityAnchorPane;
+    @FXML public AnchorPane deleteAccountAnchorPane;
+    @FXML public AnchorPane changePasswordAnchorPane;
     @FXML public AnchorPane changeEmailAnchorPane;
     @FXML public Circle settingsPictureImage;
     @FXML public TextField changeAccountEmailField;
     @FXML public PasswordField changeEmailPasswordField;
     @FXML public TextField changeEmailErrorField;
-    @FXML private Button changeEmailButton;
-    @FXML private Button deleteAccountBtn;
     @FXML public TextField deleteAccountEmailField;
     @FXML public TextField deleteAccountErrorField;
     @FXML public AnchorPane settingsContentAnchorPane;
     @FXML public AnchorPane loadingAnchorPane;
     @FXML public AnchorPane deleteConfirmationPopUp;
-    @FXML public Text personalAccountTextLabel;
-    @FXML public Text deleteAccountTxt;
-    @FXML public Text confirmDeleteTxt;
-    @FXML public Text typenameAcctTxt;
-    @FXML public Text actionUndoneTxt;
-    @FXML public Text accountDataTxt;
-    @FXML public Text collaboratorsTxt;
-    @FXML public Text changePasswordTxt;
-    @FXML public Text passwordNoticeOne;
-    @FXML public Text passwordNoticeTwo;
-    @FXML public Text changeEmailHeader;
-    @FXML public Text changeEmailNoticeOne;
-    @FXML public Text changeEmailNoticeTwo;
-    @FXML public Text changeEmailNewEmailTxt;
-    @FXML public Text changeEmailNewPassword;
-    @FXML public Text changeEmailNewPasswordTwo;
 
     /**
-     *   Sets the account settings pane as visible
+     *   Sets the change email pane as visible.
      *
      *   @param event a JavaFX Event
      */
     @FXML
-    private void accountSettingsBtnClicked(Event event) {
-        accountSecurityAnchorPane.setVisible(false);
-        changeEmailAnchorPane.setVisible(false);
-        accountSettingsAnchorPane.setVisible(true);
-        changeEmailErrorField.setVisible(false);
-        deleteAccountErrorField.setVisible(false);
-        deleteAccountEmailField.setText("");
-
-        app.settingsView.accountSettingsBtn.setStyle("-fx-background-color: #D3D3D3; -fx-border-color: #868686; -fx-border-radius: 5 5 0 0; -fx-alignment: center-left;");
-        app.settingsView.accountSecurityBtn.setStyle("-fx-background-color: transparent; -fx-border-color: #868686; -fx-border-radius: 0 0 0 0; -fx-alignment: center-left;");
-        app.settingsView.changeEmailBtn.setStyle("-fx-background-color: transparent; -fx-border-color: #868686; -fx-border-radius: 0 0 5 5; -fx-alignment: center-left;");
-    }
-
-    /**
-     *   Sets the account security pane as visible.
-     *
-     *   @param event a JavaFX Event
-     */
-    @FXML
-    private void accountSecurityBtnClicked(Event event) {
-        accountSettingsAnchorPane.setVisible(false);
-        changeEmailAnchorPane.setVisible(false);
-        accountSecurityAnchorPane.setVisible(true);
-        changeEmailErrorField.setVisible(false);
-        deleteAccountErrorField.setVisible(false);
-
-        app.settingsView.accountSecurityBtn.setStyle("-fx-background-color: #D3D3D3; -fx-border-color: #868686; -fx-border-radius: 0 0 0 0; -fx-alignment: center-left;");
-        app.settingsView.accountSettingsBtn.setStyle("-fx-background-color: transparent; -fx-border-color: #868686; -fx-border-radius: 5 5 0 0; -fx-alignment: center-left;");
-        app.settingsView.changeEmailBtn.setStyle("-fx-background-color: transparent; -fx-border-color: #868686; -fx-border-radius:  0 0 5 5; -fx-alignment: center-left;");
-    }
-
-    @FXML
-    private void changeEmailBtnClicked(Event event) {
-        accountSecurityAnchorPane.setVisible(false);
-        accountSettingsAnchorPane.setVisible(false);
+    private void changeEmailTabBtnClicked(Event event) {
+        changePasswordAnchorPane.setVisible(false);
+        deleteAccountAnchorPane.setVisible(false);
         changeEmailAnchorPane.setVisible(true);
         changeEmailErrorField.setVisible(false);
         deleteAccountErrorField.setVisible(false);
         changeAccountEmailField.setText("");
         changeEmailPasswordField.setText("");
 
-        app.settingsView.changeEmailBtn.setStyle("-fx-background-color: #D3D3D3; -fx-border-color: #868686; -fx-border-radius: 0 0 5 5; -fx-alignment: center-left;");
-        app.settingsView.accountSettingsBtn.setStyle("-fx-background-color: transparent; -fx-border-color: #868686; -fx-border-radius: 5 5 0 0; -fx-alignment: center-left;");
-        app.settingsView.accountSecurityBtn.setStyle("-fx-background-color: transparent; -fx-border-color: #868686; -fx-border-radius: 0 0 0 0; -fx-alignment: center-left;");
+        app.settingsView.changeEmailTabBtn.setStyle("-fx-background-color: #eeeeee; -fx-border-color: #868686; -fx-background-radius: 5 5 0 0; -fx-border-radius: 5 5 0 0; -fx-alignment: center-left;");
+        app.settingsView.deleteAccountTabBtn.setStyle("-fx-background-color: transparent; -fx-border-color: #868686; -fx-border-radius: 0 0 5 5; -fx-alignment: center-left;");
+        app.settingsView.changePasswordTabBtn.setStyle("-fx-background-color: transparent; -fx-border-color: #868686; -fx-border-radius: 0 0 0 0; -fx-alignment: center-left;");
+    }
+
+    /**
+     *   Sets the change password pane as visible.
+     *
+     *   @param event a JavaFX Event
+     */
+    @FXML
+    private void changePasswordTabBtnClicked(Event event) {
+        deleteAccountAnchorPane.setVisible(false);
+        changeEmailAnchorPane.setVisible(false);
+        changePasswordAnchorPane.setVisible(true);
+        changeEmailErrorField.setVisible(false);
+        deleteAccountErrorField.setVisible(false);
+
+        app.settingsView.changePasswordTabBtn.setStyle("-fx-background-color: #eeeeee; -fx-border-color: #868686; -fx-border-radius: 0 0 0 0; -fx-alignment: center-left;");
+        app.settingsView.deleteAccountTabBtn.setStyle("-fx-background-color: transparent; -fx-border-color: #868686; -fx-border-radius: 0 0 5 5; -fx-alignment: center-left;");
+        app.settingsView.changeEmailTabBtn.setStyle("-fx-background-color: transparent; -fx-border-color: #868686; -fx-border-radius:  5 5 0 0; -fx-alignment: center-left;");
+    }
+
+    /**
+     *   Sets the delete account pane as visible
+     *
+     *   @param event a JavaFX Event
+     */
+    @FXML
+    private void deleteAccountTabBtnClicked(Event event) {
+        changePasswordAnchorPane.setVisible(false);
+        changeEmailAnchorPane.setVisible(false);
+        deleteAccountAnchorPane.setVisible(true);
+        changeEmailErrorField.setVisible(false);
+        deleteAccountErrorField.setVisible(false);
+        deleteAccountEmailField.setText("");
+
+        app.settingsView.deleteAccountTabBtn.setStyle("-fx-background-color: #eeeeee; -fx-border-color: #868686; -fx-background-radius: 0 0 5 5; -fx-border-radius: 0 0 5 5; -fx-alignment: center-left;");
+        app.settingsView.changePasswordTabBtn.setStyle("-fx-background-color: transparent; -fx-border-color: #868686; -fx-border-radius: 0 0 0 0; -fx-alignment: center-left;");
+        app.settingsView.changeEmailTabBtn.setStyle("-fx-background-color: transparent; -fx-border-color: #868686; -fx-border-radius: 5 5 0 0; -fx-alignment: center-left;");
     }
 
     @FXML

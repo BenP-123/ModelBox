@@ -140,6 +140,6 @@
       </HBox>
    </children>
    <stylesheets>
-      <URL value="@../../css/loginCheckBox.css" />
+      <URL value="@../../css/login-view.css" />
    </stylesheets>
 </AnchorPane>

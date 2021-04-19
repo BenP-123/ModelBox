@@ -127,7 +127,4 @@
             </Button>
          </children></AnchorPane>
     </children>
-   <stylesheets>
-      <URL value="@../../css/choiceBox.css" />
-   </stylesheets>
 </AnchorPane>

@@ -74,7 +74,9 @@ public class usersBridge {
             BsonDocument currentUserDocument = BsonDocument.parse(currentUserProfile);
 
             app.profileView.editProfileBtn.setText("Edit profile");
-            app.profileView.editProfileBtn.setStyle("-fx-background-color: #007be8;");
+            if (!app.isDarkModeActive) {
+                app.profileView.editProfileBtn.setStyle("-fx-background-color: #007be8;");
+            }
             app.profileView.displayNameTextField.setEditable(false);
             app.profileView.firstNameTextField.setEditable(false);
             app.profileView.lastNameTextField.setEditable(false);
@@ -112,6 +114,7 @@ public class usersBridge {
                 byte[] decodedProfilePicture = Base64.getDecoder().decode(currentUserDocument.get("profilePicture").asBinary().getData());
                 app.settingsView.settingsPictureImage.setFill(new ImagePattern(new Image(new ByteArrayInputStream(decodedProfilePicture))));
             }
+            app.settingsView.changeEmailTabBtn.setStyle("-fx-background-color: #eeeeee; -fx-border-color: #868686; -fx-background-radius: 5 5 0 0; -fx-border-radius: 5 5 0 0; -fx-alignment: center-left;");
             app.settingsView.loadingAnchorPane.setVisible(false);
             app.settingsView.settingsContentAnchorPane.setVisible(true);
         } catch (Exception exception) {

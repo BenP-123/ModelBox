@@ -14,14 +14,14 @@
             <Font name="Arial" size="30.0" />
          </font>
       </Text>
-      <Button id="uploadModelsBtn" fx:id="uploadModelsBtn" alignment="CENTER" mnemonicParsing="false" onAction="#uploadModelsBtnClicked" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: #007be8; -fx-background-radius: 5 5 5 5;" text="Upload Models" textFill="WHITE" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="90.0">
+      <Button id="uploadModelsBtn" fx:id="uploadModelsBtn" alignment="CENTER" mnemonicParsing="false" onAction="#uploadModelsBtnClicked" prefHeight="35.0" prefWidth="150.0" text="Upload Models" textFill="WHITE" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="90.0">
          <font>
             <Font name="Arial" size="14.0" />
          </font>
       </Button>
-      <ScrollPane id="myModelsScrollPane" fx:id="verifyModelsScrollPane" fitToWidth="true" hbarPolicy="NEVER" layoutX="10.0" layoutY="10.0" style="-fx-background-color: #ffffff;" vbarPolicy="NEVER" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="100.0">
+      <ScrollPane id="verifyModelsScrollPane" fx:id="verifyModelsScrollPane" fitToWidth="true" hbarPolicy="NEVER" layoutX="10.0" layoutY="10.0" vbarPolicy="NEVER" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="100.0">
          <content>
-            <FlowPane id="myModelsFlowPane" fx:id="verifyModelsFlowPane" columnHalignment="CENTER" hgap="25.0" maxHeight="-Infinity" maxWidth="Infinity" prefWidth="880.0" style="-fx-background-color: #ffffff;" vgap="25.0" />
+            <FlowPane id="verifyModelsFlowPane" fx:id="verifyModelsFlowPane" columnHalignment="CENTER" hgap="25.0" maxHeight="-Infinity" maxWidth="Infinity" prefWidth="880.0" vgap="25.0" />
          </content>
       </ScrollPane>
    </children>

@@ -54,8 +54,6 @@ public class uploadModelsController {
                 app.viewLoader = new FXMLLoader(getClass().getResource("/views/uploadModels/verifyModels.fxml"));
                 Parent root = app.viewLoader.load();
                 app.verifyModelsView = app.viewLoader.getController();
-                app.dashboard.uploadVerifyDarkMode();
-
                 app.dashboard.verifyModelsList.clear();
                 // Add the models to the verifyModelsList
                 for (File model : app.dashboard.browseModelsList) {

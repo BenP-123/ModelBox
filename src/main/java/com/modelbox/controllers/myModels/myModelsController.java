@@ -40,15 +40,12 @@ public class myModelsController {
     @FXML public TextField modelSearchField;
     @FXML public ImageView compareModelsBtnIcon;
     @FXML public ChoiceBox<String> filterModelsChoiceBox;
-    @FXML public Text myModelsTextHeading;
-    @FXML public Text loadingBar;
-    @FXML public HBox myModelsHBox;
     private Boolean isComparisonToolActive = false;
     public int checkboxCount = 0;
     private String firstSelectedModelId;
     private String secondSelectedModelId;
     @FXML public AnchorPane deleteModelConfirmationPopUp;
-    @FXML public Text deleterModelPopUpText;
+    @FXML public Text deleteModelPopUpText;
 
 
     /**
@@ -148,10 +145,6 @@ public class myModelsController {
             Parent root = app.viewLoader.load();
             app.myModelsView = app.viewLoader.getController();
             app.dashboard.dashViewsAnchorPane.getChildren().setAll(root);
-
-            if(app.myModelsView != null){
-                app.dashboard.myModelsDarkMode();
-            }
 
             // Asynchronously populate the my models view and show appropriate nodes when ready
             String functionCall = String.format("ModelBox.Models.getCurrentUserModels();");
@@ -307,6 +300,7 @@ public class myModelsController {
             // Manipulate the features of the model card and the arrangement of its internals
             StackPane modelMeshPane = new StackPane(modelSubScene, deleteModelBtn, previewModelBtn, downloadModelBtn, compareCheckbox);
             modelMeshPane.setId(model.get("_id").asObjectId().getValue().toHexString());
+            modelMeshPane.setStyle("-fx-background-color: #eeeeee;  -fx-background-radius: 8 8 8 8");
             modelMeshPane.setMinWidth(150);
             modelMeshPane.setMinHeight(250);
             modelMeshPane.setMaxWidth(150);
@@ -362,12 +356,6 @@ public class myModelsController {
                 modelMeshPane.getChildren().add(shareModelBtn);
                 StackPane.setAlignment(shareModelBtn, Pos.BOTTOM_RIGHT);
                 shareModelBtn.setTranslateX(-60);
-            }
-
-            if(app.viewMode){
-                modelMeshPane.setStyle("-fx-background-color:  #171a1d; -fx-border-color: white; -fx-border-radius: 2px; fx-background-radius: 8 8 8 8");
-            }else{
-                modelMeshPane.setStyle("-fx-background-color: #eeeeee;  -fx-background-radius: 8 8 8 8");
             }
 
             myModelsFlowPane.getChildren().add(modelMeshPane);
@@ -446,13 +434,14 @@ public class myModelsController {
             BsonDocument modelCollection = app.dashboard.dbModelsList.get(app.dashboard.getDocumentIndexByModelID(app.dashboard.dbModelsList, currentModel.getId())).asDocument();
 
            if(modelCollection.get("isShared").asBoolean().getValue() && !modelCollection.get("owner_id").asString().getValue().equals(app.users.ownerId)){
-                deleterModelPopUpText.setText("Are you sure you want to leave this model collaboration?");
+                deleteModelPopUpText.setText("Are you sure you want to leave this model collaboration?");
            }
            else{
-                deleterModelPopUpText.setText("Are you sure you want to delete this model?");
+                deleteModelPopUpText.setText("Are you sure you want to delete this model?");
            }
-            deleteModelConfirmationPopUp.setVisible(true);
-            deleteModelConfirmationPopUp.setId(((Button) event.getSource()).getParent().getId());
+
+           deleteModelConfirmationPopUp.setVisible(true);
+           deleteModelConfirmationPopUp.setId(((Button) event.getSource()).getParent().getId());
         }
     };
 

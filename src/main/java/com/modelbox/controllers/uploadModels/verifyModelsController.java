@@ -43,7 +43,6 @@ public class verifyModelsController {
             Parent root = app.viewLoader.load();
             app.myModelsView = app.viewLoader.getController();
             app.dashboard.dashViewsAnchorPane.getChildren().setAll(root);
-            app.dashboard.myModelsDarkMode();
 
             // Store models to the database and asynchronously populate the my models view
             BsonDocument modelsToUpload = new BsonDocument().append("modelsToInsert", app.dashboard.verifyModelsList);

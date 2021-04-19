@@ -15,7 +15,7 @@
             <Font name="Arial" size="30.0" />
          </font>
       </Text>
-      <Button id="browseModelsBtn" fx:id="browseModelsBtn" alignment="CENTER" contentDisplay="TOP" graphicTextGap="20.0" mnemonicParsing="false" onAction="#browseModelsBtnClicked" style="-fx-background-color: none; -fx-border-radius: 15 15 15 15; -fx-border-style: dashed; -fx-border-width: 2; -fx-border-color: #c4c4c4;" text="Browse for 3D models. Supports .stl" textAlignment="CENTER" textFill="#868686" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="100.0">
+      <Button id="browseModelsBtn" fx:id="browseModelsBtn" alignment="CENTER" contentDisplay="TOP" graphicTextGap="20.0" mnemonicParsing="false" onAction="#browseModelsBtnClicked" text="Browse for 3D models. Supports .stl" textAlignment="CENTER" textFill="#868686" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="100.0">
          <graphic>
             <ImageView id="browseModelsBtnIcon" fx:id="browseModelsBtnIcon" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
