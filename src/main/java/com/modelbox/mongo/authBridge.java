@@ -126,7 +126,7 @@ public class authBridge {
                 app.dashboard.darkModeToggleSwitch.setSwitchedOnProperty(true);
             } else {
                 app.dashboard.dashboardAnchorPane.getStylesheets().add("@../../css/light-mode.css");
-                app.dashboard.darkModeToggleSwitch.setSwitchedOnProperty(true);
+                app.dashboard.darkModeToggleSwitch.setSwitchedOnProperty(false);
             }
 
             app.loginView.emailField.getScene().setRoot(root);
