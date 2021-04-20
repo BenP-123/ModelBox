@@ -11,6 +11,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
+import org.bson.BsonBinary;
+import org.bson.BsonDocument;
+import org.bson.BsonString;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -120,12 +123,15 @@ public class profileController {
                 loadingAnchorPane.setVisible(true);
 
                 // Set data
-                String profilePictureData = "";
+                BsonDocument updateProfileConfiguration = new BsonDocument();
+                updateProfileConfiguration.append("displayName", new BsonString(displayNameTextField.getText()));
+                updateProfileConfiguration.append("firstName", new BsonString(firstNameTextField.getText()));
+                updateProfileConfiguration.append("lastName", new BsonString(lastNameTextField.getText()));
+                updateProfileConfiguration.append("profileBio", new BsonString(bioTextArea.getText()));
                 if (profilePic != null) {
-                    byte[] encodedProfilePic = Base64.getEncoder().encode(profilePic);
-                    profilePictureData = new String(encodedProfilePic);
+                    updateProfileConfiguration.append("profilePicture", new BsonBinary(profilePic));
                 }
-                String functionCall = String.format("ModelBox.Users.setCurrentUserProfile('%s', '%s', '%s', '%s', '%s');", displayNameTextField.getText(), firstNameTextField.getText(), lastNameTextField.getText(), bioTextArea.getText(), profilePictureData);
+                String functionCall = String.format("ModelBox.Users.setCurrentUserProfile('%s');", updateProfileConfiguration.toJson());
                 app.mongoApp.eval(functionCall);
             }
         } catch (Exception exception) {
