@@ -64,7 +64,7 @@ public class ToggleSwitch extends Parent {
                 app.dashboard.dashboardAnchorPane.getStylesheets().remove(0);
                 app.dashboard.dashboardAnchorPane.getStylesheets().add("@../../css/dark-mode.css");
             } else {
-                app.userPrefs.putBoolean("darkModeActiveStatus", false);
+                app.userPrefs.remove("darkModeActiveStatus");
 
                 app.dashboard.dashboardAnchorPane.getStylesheets().remove(0);
                 app.dashboard.dashboardAnchorPane.getStylesheets().add("@../../css/light-mode.css");
