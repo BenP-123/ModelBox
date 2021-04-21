@@ -94,7 +94,7 @@ public class usersBridge {
                 app.profileView.profilePictureImage.setFill(new ImagePattern(new Image(String.valueOf(getClass().getResource("/images/empty-profile-pic.png")))));
             } else {
                 byte[] decodedProfilePicture = currentUserDocument.get("profilePicture").asBinary().getData();
-                app.profileView.profilePictureImage.setFill(new ImagePattern(new Image(new ByteArrayInputStream(decodedProfilePicture))));
+                app.profileView.profilePictureImage.setFill(new ImagePattern(new Image(new ByteArrayInputStream(decodedProfilePicture)), 0, 0, 1, 1, true));
             }
             app.profileView.loadingAnchorPane.setVisible(false);
             app.profileView.profileContentAnchorPane.setVisible(true);
@@ -112,7 +112,7 @@ public class usersBridge {
                 app.settingsView.settingsPictureImage.setFill(new ImagePattern(new Image(String.valueOf(getClass().getResource("/images/empty-profile-pic.png")))));
             } else {
                 byte[] decodedProfilePicture = currentUserDocument.get("profilePicture").asBinary().getData();
-                app.settingsView.settingsPictureImage.setFill(new ImagePattern(new Image(new ByteArrayInputStream(decodedProfilePicture))));
+                app.settingsView.settingsPictureImage.setFill(new ImagePattern(new Image(new ByteArrayInputStream(decodedProfilePicture)), 0, 0, 1, 1, true));
             }
             app.settingsView.changeEmailTabBtn.setStyle("-fx-background-color: #eeeeee; -fx-border-color: #868686; -fx-background-radius: 5 5 0 0; -fx-border-radius: 5 5 0 0; -fx-alignment: center-left;");
             app.settingsView.loadingAnchorPane.setVisible(false);

@@ -26,13 +26,12 @@ import javafx.stage.Stage;
 import netscape.javascript.JSObject;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.prefs.Preferences;
 
 public class app extends Application{
 
     public static JSObject mongoApp;
-    private WebEngine mongoEngine;
+    private final WebEngine mongoEngine;
     public static FXMLLoader viewLoader;
     public static accountDeletedController accountDeletedView;
     public static loginController loginView;
@@ -55,7 +54,7 @@ public class app extends Application{
     public static Preferences userPrefs;
     public static Boolean isDarkModeActive = false;
 
-    public app() throws IOException {
+    public app() {
         userPrefs = Preferences.userRoot().node("/com/modelbox");
         isDarkModeActive = userPrefs.getBoolean("darkModeActiveStatus", isDarkModeActive);
         viewLoader = new FXMLLoader(getClass().getResource("/views/auth/login.fxml"));
@@ -68,8 +67,7 @@ public class app extends Application{
     }
 
     @Override
-    public void start(Stage stage) throws Exception {
-        mongoEngine.setUserDataDirectory(null);
+    public void start(Stage stage) {
         mongoEngine.getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue == Worker.State.SUCCEEDED) {
                 try {
