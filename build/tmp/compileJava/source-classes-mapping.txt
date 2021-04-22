@@ -13,12 +13,12 @@ com/modelbox/controllers/auth/forgotPasswordController.java
  com.modelbox.controllers.auth.forgotPasswordController
 com/modelbox/controllers/account/settingsController.java
  com.modelbox.controllers.account.settingsController
-com/modelbox/init.java
- com.modelbox.init
-com/modelbox/mongo/authBridge.java
- com.modelbox.mongo.authBridge
 com/modelbox/controllers/account/profileController.java
  com.modelbox.controllers.account.profileController
+com/modelbox/mongo/authBridge.java
+ com.modelbox.mongo.authBridge
+com/modelbox/init.java
+ com.modelbox.init
 com/modelbox/controllers/ToggleSwitch.java
  com.modelbox.controllers.ToggleSwitch
 com/modelbox/controllers/auth/accountDeletedController.java
@@ -31,8 +31,8 @@ com/modelbox/controllers/myModels/comparePopUpController.java
  com.modelbox.controllers.myModels.comparePopUpController$2
  com.modelbox.controllers.myModels.comparePopUpController$3
  com.modelbox.controllers.myModels.comparePopUpController$4
-com/modelbox/app.java
- com.modelbox.app
+com/modelbox/mongo/errorBridge.java
+ com.modelbox.mongo.errorBridge
 com/modelbox/mongo/usersBridge.java
  com.modelbox.mongo.usersBridge
 com/modelbox/controllers/auth/loginController.java
@@ -45,11 +45,11 @@ com/modelbox/controllers/uploadModels/verifyModelsController.java
  com.modelbox.controllers.uploadModels.verifyModelsController
  com.modelbox.controllers.uploadModels.verifyModelsController$1
  com.modelbox.controllers.uploadModels.verifyModelsController$2
-com/modelbox/mongo/modelsBridge.java
- com.modelbox.mongo.modelsBridge
 com/modelbox/controllers/auth/createAccountController.java
  com.modelbox.controllers.auth.createAccountController
-com/modelbox/mongo/errorBridge.java
- com.modelbox.mongo.errorBridge
+com/modelbox/mongo/modelsBridge.java
+ com.modelbox.mongo.modelsBridge
+com/modelbox/app.java
+ com.modelbox.app
 com/modelbox/controllers/myModels/sharePopUpController.java
  com.modelbox.controllers.myModels.sharePopUpController

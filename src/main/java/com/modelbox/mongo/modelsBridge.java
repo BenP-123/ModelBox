@@ -17,6 +17,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.bson.*;
 import org.bson.types.ObjectId;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -57,8 +58,10 @@ public class modelsBridge {
                 app.myModelsView.loadingAnchorPane.setVisible(false);
                 app.myModelsView.myModelsFlowPane.minHeightProperty().bind(app.myModelsView.myModelsScrollPane.heightProperty());
                 app.myModelsView.myModelsToolBar.setVisible(true);
+
                 app.myModelsView.filterModelsChoiceBox.setValue("Show all models");
                 app.myModelsView.filterModelsChoiceBox.getItems().addAll("Show all models", "Owned by me", "Shared with me");
+
                 app.myModelsView.filterModelsChoiceBox.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
                     app.myModelsView.myModelsToolBar.setVisible(false);
                     app.myModelsView.noModelsBtn.setVisible(false);
@@ -145,13 +148,23 @@ public class modelsBridge {
         app.mongoApp.eval(functionCall);
     }
 
-    public void handleDeleteCurrentUserModel() {
+    public void handleDeleteCurrentUserModel() throws IOException {
+        app.viewLoader = new FXMLLoader(getClass().getResource("/views/myModels/myModels.fxml"));
+        Parent root = app.viewLoader.load();
+        app.myModelsView = app.viewLoader.getController();
+        app.dashboard.dashViewsAnchorPane.getChildren().setAll(root);
+
         // Asynchronously populate the my models view and show appropriate nodes when ready
         String functionCall = "ModelBox.Models.getCurrentUserModels();";
         app.mongoApp.eval(functionCall);
     }
 
-    public void handleTerminateModelCollaboration() {
+    public void handleTerminateModelCollaboration() throws IOException {
+        app.viewLoader = new FXMLLoader(getClass().getResource("/views/myModels/myModels.fxml"));
+        Parent root = app.viewLoader.load();
+        app.myModelsView = app.viewLoader.getController();
+        app.dashboard.dashViewsAnchorPane.getChildren().setAll(root);
+
         // Asynchronously populate the my models view and show appropriate nodes when ready
         String functionCall = "ModelBox.Models.getCurrentUserModels();";
         app.mongoApp.eval(functionCall);
