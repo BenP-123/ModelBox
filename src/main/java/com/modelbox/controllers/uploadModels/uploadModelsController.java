@@ -59,6 +59,7 @@ public class uploadModelsController {
                 app.dashboard.verifyModelsList.clear();
 
                 // Add the models to the verifyModelsList
+                ArrayList<String> invalidModels = new ArrayList<>();
                 for (File model : app.dashboard.browseModelsList) {
                     byte[] data = Files.readAllBytes(model.toPath());
                     if (data.length/1024 > 10000) {
@@ -80,11 +81,25 @@ public class uploadModelsController {
                         app.verifyModelsView.addVerifyModelsPreviewCard(modelDocument);
                     }
                 }
-                app.verifyModelsView.verifyModelsFlowPane.minHeightProperty().bind(app.verifyModelsView.verifyModelsScrollPane.heightProperty());
 
+                if (!invalidModels.isEmpty()) {
+                    String invalidPopUpText = "";
+                    for (String invalidModel : invalidModels) {
+                        invalidPopUpText += invalidModel;
+                    }
+                    invalidPopUpText += "file size limit of 10MB was exceeded.";
+                    app.verifyModelsView.removedModelsText.setText(invalidPopUpText);
+                    app.verifyModelsView.removedModelsPopup.setVisible(true);
+                }
 
-                // Show the verifyModels view
-                app.dashboard.dashViewsAnchorPane.getChildren().setAll(root);
+                if (app.dashboard.verifyModelsList.isEmpty()) {
+                    browseModelsBtn.setText("The selected models exceed the 10MB file size limit. Please try again!");
+                } else {
+                    app.verifyModelsView.verifyModelsFlowPane.minHeightProperty().bind(app.verifyModelsView.verifyModelsScrollPane.heightProperty());
+
+                    // Show the verifyModels view
+                    app.dashboard.dashViewsAnchorPane.getChildren().setAll(root);
+                }
             }
         } catch (NullPointerException nullException){
             // No models were selected for upload
