@@ -13,6 +13,8 @@ import javafx.stage.FileChooser;
 import org.bson.*;
 import java.io.File;
 import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.List;
 
 public class uploadModelsController {
 
@@ -55,22 +57,28 @@ public class uploadModelsController {
                 Parent root = app.viewLoader.load();
                 app.verifyModelsView = app.viewLoader.getController();
                 app.dashboard.verifyModelsList.clear();
+
                 // Add the models to the verifyModelsList
                 for (File model : app.dashboard.browseModelsList) {
-                    BsonDocument modelDocument = new BsonDocument("_id", new BsonObjectId());
-                    try {
-                        modelDocument.append("owner_id", new BsonString(app.users.ownerId));
-                        modelDocument.append("collaborators", new BsonArray());
-                        modelDocument.append("modelName", new BsonString(model.getName()));
-                        byte[] data = Files.readAllBytes(model.toPath());
-                        modelDocument.append("modelFile", new BsonBinary(data));
-                        modelDocument.append("isShared", new BsonBoolean(false));
-                    } catch (Exception exception) {
-                        // Handle errors
-                        exception.printStackTrace();
+                    byte[] data = Files.readAllBytes(model.toPath());
+                    if (data.length/1024 > 10000) {
+                        // Adding list of filenames that are invalid to the pop-up text
+                        invalidModels.add(model.getName() + " is " + app.models.getModelSize(data.length) + ", ");
+                    } else {
+                        BsonDocument modelDocument = new BsonDocument("_id", new BsonObjectId());
+                        try {
+                            modelDocument.append("owner_id", new BsonString(app.users.ownerId));
+                            modelDocument.append("collaborators", new BsonArray());
+                            modelDocument.append("modelName", new BsonString(model.getName()));
+                            modelDocument.append("modelFile", new BsonBinary(data));
+                            modelDocument.append("isShared", new BsonBoolean(false));
+                        } catch (Exception exception) {
+                            // Handle errors
+                            exception.printStackTrace();
+                        }
+                        app.dashboard.verifyModelsList.add(modelDocument);
+                        app.verifyModelsView.addVerifyModelsPreviewCard(modelDocument);
                     }
-                    app.dashboard.verifyModelsList.add(modelDocument);
-                    app.verifyModelsView.addVerifyModelsPreviewCard(modelDocument);
                 }
                 app.verifyModelsView.verifyModelsFlowPane.minHeightProperty().bind(app.verifyModelsView.verifyModelsScrollPane.heightProperty());
 

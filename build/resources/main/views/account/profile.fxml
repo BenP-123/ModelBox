@@ -89,7 +89,7 @@
                                     <Font name="Arial" size="15.0" />
                                  </font>
                               </Text>
-                              <TextArea id="bioTextArea" fx:id="bioTextArea" editable="false" layoutX="290.0" layoutY="209.0" prefHeight="80.0" prefWidth="500.0" promptText="Add a bio" AnchorPane.leftAnchor="290.0" AnchorPane.topAnchor="209.0">
+                              <TextArea id="bioTextArea" fx:id="bioTextArea" editable="false" layoutX="290.0" layoutY="209.0" prefHeight="80.0" prefWidth="500.0" promptText="Add a bio (max 150 characters)" AnchorPane.leftAnchor="290.0" AnchorPane.topAnchor="209.0">
                                  <font>
                                     <Font name="Arial" size="14.0" />
                                  </font>

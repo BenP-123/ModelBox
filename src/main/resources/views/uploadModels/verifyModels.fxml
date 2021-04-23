@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -24,5 +28,30 @@
             <FlowPane id="verifyModelsFlowPane" fx:id="verifyModelsFlowPane" columnHalignment="CENTER" hgap="25.0" maxHeight="-Infinity" maxWidth="Infinity" prefWidth="880.0" vgap="25.0" />
          </content>
       </ScrollPane>
+      <AnchorPane id="deleteModelConfirmationPopUp" fx:id="removedModelsPopup" layoutX="306.0" layoutY="215.0" prefHeight="200.0" prefWidth="408.0" style="-fx-background-color: #17181a; -fx-background-radius: 15px; -fx-border-color: #007be8; -fx-border-width: 2px; -fx-border-radius: 15px;" visible="false">
+         <children>
+            <VBox id="deleteModelVBox" alignment="CENTER" layoutX="48.0" layoutY="36.0" prefHeight="112.0" prefWidth="306.0" spacing="35.0" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="48.0" AnchorPane.rightAnchor="48.0" AnchorPane.topAnchor="36.0">
+               <children>
+                  <Text id="removeModelsText" fx:id="removedModelsText" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #ffffff;" textAlignment="CENTER" wrappingWidth="275.0">
+                     <font>
+                        <Font name="Arial" size="14.0" />
+                     </font>
+                  </Text>
+               </children>
+            </VBox>
+            <Button id="closeConfirmationBtn" contentDisplay="GRAPHIC_ONLY" layoutX="365.0" layoutY="16.0" mnemonicParsing="false" onAction="#closeRemovedModelsBtnClicked" style="-fx-background-color: none;" text="Button" AnchorPane.bottomAnchor="155.0" AnchorPane.rightAnchor="5.0">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../images/delete-btn.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+               </padding>
+            </Button>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

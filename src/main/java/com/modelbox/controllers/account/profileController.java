@@ -123,6 +123,11 @@ public class profileController {
                 profileContentAnchorPane.setVisible(false);
                 loadingAnchorPane.setVisible(true);
 
+                if(bioTextArea.getText().length() > 150){
+                    String maxBio = bioTextArea.getText().substring(0,150);
+                    bioTextArea.setText(maxBio);
+                }
+
                 // Set data
                 BsonDocument updateProfileConfiguration = new BsonDocument();
                 updateProfileConfiguration.append("displayName", new BsonString(displayNameTextField.getText()));

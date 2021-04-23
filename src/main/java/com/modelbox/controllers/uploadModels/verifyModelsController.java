@@ -28,7 +28,8 @@ public class verifyModelsController {
     @FXML public FlowPane verifyModelsFlowPane;
     @FXML public AnchorPane verifyModelsAnchorPane;
     @FXML public Text verifyModelsTextHeading;
-
+    @FXML public AnchorPane removedModelsPopup;
+    @FXML public Text removedModelsText;
 
     /**
      *	Uploads the selected and verified models to the database and generates the preview cards on the my models view
@@ -120,6 +121,10 @@ public class verifyModelsController {
         //Add the model card to the view
         verifyModelsFlowPane.getChildren().add(modelMeshPane);
 
+    }
+    @FXML
+    public void closeRemovedModelsBtnClicked(Event event){
+        removedModelsPopup.setVisible(false);
     }
 
     /********************************************* PREVIEW CARD HANDLERS **********************************************/
