@@ -38,7 +38,12 @@
                                     </ImageView>
                                  </graphic>
                               </Button>
-                              <Circle id="profilePictureImage" fx:id="profilePictureImage" radius="100.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="15.0" />
+                              <Circle id="profilePictureCircle" fx:id="profilePictureCircle" radius="100.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="15.0" />
+                              <HBox id="profilePictureHBox" fx:id="profilePictureHBox" alignment="CENTER" maxHeight="200.0" maxWidth="200.0" minHeight="200.0" minWidth="200.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="15.0">
+                                 <children>
+                                    <ImageView id="profilePictureImageView" fx:id="profilePictureImageView" fitHeight="200.0" pickOnBounds="true" preserveRatio="true" />
+                                 </children>
+                              </HBox>
                               <Button id="addProfilePictureBtn" fx:id="addProfilePictureBtn" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" mnemonicParsing="false" onAction="#addProfilePictureBtnClicked" prefHeight="200.0" prefWidth="200.0" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="15.0">
                                  <graphic>
                                     <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">

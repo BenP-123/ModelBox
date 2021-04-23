@@ -401,9 +401,11 @@ public class myModelsController {
                 )
         );
 
-        loadingAnchorPane.setVisible(true);
         noModelsBtn.setVisible(false);
         myModelsScrollPane.setVisible(false);
+        myModelsToolBar.setVisible(false);
+        deleteModelConfirmationPopUp.setVisible(false);
+        loadingAnchorPane.setVisible(true);
 
         if (modelDocument.get("isShared").asBoolean().getValue() && !modelDocument.get("owner_id").asString().getValue().equals(app.users.ownerId)) {
             // Remove this user from the collaboration
@@ -414,7 +416,6 @@ public class myModelsController {
             String functionCall = String.format("ModelBox.Models.deleteCurrentUserModel('%s');", currentModel.getId());
             app.mongoApp.eval(functionCall);
         }
-        deleteModelConfirmationPopUp.setVisible(false);
     }
 
     /********************************************* PREVIEW CARD HANDLERS **********************************************/

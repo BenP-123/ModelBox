@@ -9,7 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.ImagePattern;
+import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import org.bson.BsonBinary;
@@ -19,7 +19,6 @@ import org.bson.BsonString;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.nio.file.Files;
-import java.util.Base64;
 
 public class profileController {
 
@@ -28,11 +27,14 @@ public class profileController {
     @FXML public TextField firstNameTextField;
     @FXML public TextField lastNameTextField;
     @FXML public TextArea bioTextArea;
-    @FXML public Circle profilePictureImage;
+    @FXML public Circle profilePictureCircle;
+    @FXML public HBox profilePictureHBox;
+    @FXML public ImageView profilePictureImageView;
     @FXML public Button addProfilePictureBtn;
     @FXML public Button cancelProfileUploadBtn;
     @FXML public AnchorPane profileContentAnchorPane;
     @FXML public AnchorPane loadingAnchorPane;
+
     private FileChooser profilePictureFileChooser;
     private File newPictureFile;
     private byte[] profilePic;
@@ -56,7 +58,7 @@ public class profileController {
         // Display the users image without uploading it to the database
         ByteArrayInputStream pictureData = new ByteArrayInputStream(profilePic);
         Image profilePicture = new Image(pictureData);
-        profilePictureImage.setFill(new ImagePattern(profilePicture));
+        profilePictureImageView.setImage(profilePicture);
     }
 
     /**
@@ -77,7 +79,10 @@ public class profileController {
         }
 
         // Show users image before uploading
-        profilePictureImage.setVisible(true);
+        profilePictureCircle.setVisible(true);
+        profilePictureHBox.setVisible(true);
+        profilePictureHBox.setClip(new Circle(profilePictureHBox.getWidth()/2, 100, 100));
+        profilePictureImageView.setVisible(true);
         addProfilePictureBtn.setVisible(false);
 
         // Show the cancel upload image button
@@ -92,7 +97,9 @@ public class profileController {
     @FXML
     private void cancelProfileUploadBtn(Event event){
         profilePic = null;
-        profilePictureImage.setVisible(false);
+        profilePictureCircle.setVisible(false);
+        profilePictureHBox.setVisible(false);
+        profilePictureImageView.setVisible(false);
         cancelProfileUploadBtn.setVisible(false);
         addProfilePictureBtn.setVisible(true);
     }
@@ -116,7 +123,9 @@ public class profileController {
                 firstNameTextField.setEditable(true);
                 lastNameTextField.setEditable(true);
                 bioTextArea.setEditable(true);
-                profilePictureImage.setVisible(false);
+                profilePictureCircle.setVisible(false);
+                profilePictureHBox.setVisible(false);
+                profilePictureImageView.setVisible(false);
                 addProfilePictureBtn.setVisible(true);
 
             } else {

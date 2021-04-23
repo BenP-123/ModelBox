@@ -4,6 +4,7 @@ import com.modelbox.app;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import org.bson.BsonArray;
@@ -72,7 +73,6 @@ public class usersBridge {
     public void handleGetCurrentUserProfile(String currentUserProfile) {
         try {
             BsonDocument currentUserDocument = BsonDocument.parse(currentUserProfile);
-
             app.profileView.editProfileBtn.setText("Edit profile");
             if (!app.isDarkModeActive) {
                 app.profileView.editProfileBtn.setStyle("-fx-background-color: #007be8;");
@@ -81,7 +81,10 @@ public class usersBridge {
             app.profileView.firstNameTextField.setEditable(false);
             app.profileView.lastNameTextField.setEditable(false);
             app.profileView.bioTextArea.setEditable(false);
-            app.profileView.profilePictureImage.setVisible(true);
+            app.profileView.profilePictureCircle.setVisible(true);
+            app.profileView.profilePictureHBox.setVisible(true);
+            app.profileView.profilePictureHBox.setClip(new Circle(app.profileView.profilePictureHBox.getWidth()/2, 100, 100));
+            app.profileView.profilePictureImageView.setVisible(true);
             app.profileView.addProfilePictureBtn.setVisible(false);
             app.profileView.cancelProfileUploadBtn.setVisible(false);
 
@@ -91,10 +94,10 @@ public class usersBridge {
             String profileBioText = currentUserDocument.get("profileBio") == null ? "" : currentUserDocument.get("profileBio").asString().getValue();
             app.profileView.bioTextArea.setText(profileBioText);
             if (currentUserDocument.get("profilePicture") == null){
-                app.profileView.profilePictureImage.setFill(new ImagePattern(new Image(String.valueOf(getClass().getResource("/images/empty-profile-pic.png")))));
+                app.profileView.profilePictureImageView.setImage(new Image(String.valueOf(getClass().getResource("/images/empty-profile-pic.png"))));
             } else {
                 byte[] decodedProfilePicture = currentUserDocument.get("profilePicture").asBinary().getData();
-                app.profileView.profilePictureImage.setFill(new ImagePattern(new Image(new ByteArrayInputStream(decodedProfilePicture)), 0, 0, 1, 1, true));
+                app.profileView.profilePictureImageView.setImage(new Image(new ByteArrayInputStream(decodedProfilePicture)));
             }
             app.profileView.loadingAnchorPane.setVisible(false);
             app.profileView.profileContentAnchorPane.setVisible(true);
@@ -109,10 +112,12 @@ public class usersBridge {
 
             app.settingsView.displayNameTextField.setText(currentUserDocument.get("displayName").asString().getValue());
             if (currentUserDocument.get("profilePicture") == null){
-                app.settingsView.settingsPictureImage.setFill(new ImagePattern(new Image(String.valueOf(getClass().getResource("/images/empty-profile-pic.png")))));
+                app.settingsView.settingsPictureHBox.setClip(new Circle(app.settingsView.settingsPictureHBox.getWidth()/2, 25, 25));
+                app.settingsView.settingsPictureImageView.setImage(new Image(String.valueOf(getClass().getResource("/images/empty-profile-pic.png"))));
             } else {
                 byte[] decodedProfilePicture = currentUserDocument.get("profilePicture").asBinary().getData();
-                app.settingsView.settingsPictureImage.setFill(new ImagePattern(new Image(new ByteArrayInputStream(decodedProfilePicture)), 0, 0, 1, 1, true));
+                app.settingsView.settingsPictureHBox.setClip(new Circle(app.settingsView.settingsPictureHBox.getWidth()/2, 25, 25));
+                app.settingsView.settingsPictureImageView.setImage(new Image(new ByteArrayInputStream(decodedProfilePicture)));
             }
             app.settingsView.changeEmailTabBtn.setStyle("-fx-background-color: #eeeeee; -fx-border-color: #868686; -fx-background-radius: 5 5 0 0; -fx-border-radius: 5 5 0 0; -fx-alignment: center-left;");
             app.settingsView.loadingAnchorPane.setVisible(false);

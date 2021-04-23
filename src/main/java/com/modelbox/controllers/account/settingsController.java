@@ -6,9 +6,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
 
 import java.util.prefs.Preferences;
@@ -23,7 +25,9 @@ public class settingsController {
     @FXML public AnchorPane deleteAccountAnchorPane;
     @FXML public AnchorPane changePasswordAnchorPane;
     @FXML public AnchorPane changeEmailAnchorPane;
-    @FXML public Circle settingsPictureImage;
+    @FXML public Circle settingsPictureCircle;
+    @FXML public HBox settingsPictureHBox;
+    @FXML public ImageView settingsPictureImageView;
     @FXML public TextField changeAccountEmailField;
     @FXML public PasswordField changeEmailPasswordField;
     @FXML public TextField changeEmailErrorField;

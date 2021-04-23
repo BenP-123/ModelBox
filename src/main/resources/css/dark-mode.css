@@ -338,7 +338,7 @@
     -fx-fill: #ffffff;
 }
 
-#profileAnchorPane > #profileAnchorSubPane > #profileHBox > #profileVBox > #profileContentAnchorPane > #profilePictureImage {
+#profileAnchorPane > #profileAnchorSubPane > #profileHBox > #profileVBox > #profileContentAnchorPane > #profilePictureCircle {
     -fx-stroke: #ffffff;
 }
 
@@ -431,7 +431,7 @@
     -fx-background-color: #17181a;
 }
 
-#settingsAnchorPane > #settingsAnchorSubPane > #settingsHBox > #settingsVBox > #settingsContentAnchorPane > #settingsPictureImage {
+#settingsAnchorPane > #settingsAnchorSubPane > #settingsHBox > #settingsVBox > #settingsContentAnchorPane > #settingsPictureCircle {
     -fx-stroke: #ffffff;
 }
 
