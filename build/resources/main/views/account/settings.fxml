@@ -240,7 +240,12 @@
                                     <Font name="Arial" size="14.0" />
                                  </font>
                               </Text>
-                              <Circle id="settingsPictureImage" fx:id="settingsPictureImage" radius="25.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              <Circle id="settingsPictureCircle" fx:id="settingsPictureCircle" radius="25.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              <HBox id="settingsPictureHBox" fx:id="settingsPictureHBox" alignment="CENTER" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" prefHeight="50.0" prefWidth="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <ImageView id="settingsPictureImageView" fx:id="settingsPictureImageView" fitHeight="50.0" pickOnBounds="true" preserveRatio="true" />
+                                 </children>
+                              </HBox>
                            </children>
                         </AnchorPane>
                      </children>
