@@ -1,20 +1,11 @@
 package com.modelbox;
 
-import com.modelbox.controllers.account.profileController;
-import com.modelbox.controllers.account.settingsController;
-import com.modelbox.controllers.auth.accountDeletedController;
-import com.modelbox.controllers.auth.createAccountController;
-import com.modelbox.controllers.dashboardController;
-import com.modelbox.controllers.auth.forgotPasswordController;
-import com.modelbox.controllers.auth.loginController;
+import com.modelbox.controllers.account.*;
+import com.modelbox.controllers.auth.*;
 import com.modelbox.controllers.myModels.*;
-import com.modelbox.controllers.uploadModels.editPopUpController;
-import com.modelbox.controllers.uploadModels.uploadModelsController;
-import com.modelbox.controllers.uploadModels.verifyModelsController;
-import com.modelbox.mongo.authBridge;
-import com.modelbox.mongo.errorBridge;
-import com.modelbox.mongo.modelsBridge;
-import com.modelbox.mongo.usersBridge;
+import com.modelbox.controllers.uploadModels.*;
+import com.modelbox.controllers.dashboardController;
+import com.modelbox.mongo.*;
 import javafx.application.Application;
 import javafx.concurrent.Worker;
 import javafx.fxml.FXMLLoader;
@@ -24,10 +15,11 @@ import javafx.scene.image.Image;
 import javafx.scene.web.WebEngine;
 import javafx.stage.Stage;
 import netscape.javascript.JSObject;
-
-import java.io.File;
 import java.util.prefs.Preferences;
 
+/**
+ * Configures the JavaFX application and opens the view for the user
+ */
 public class app extends Application{
 
     public static JSObject mongoApp;
@@ -54,6 +46,9 @@ public class app extends Application{
     public static Preferences userPrefs;
     public static Boolean isDarkModeActive = false;
 
+    /**
+     * Constructs and initializes a JavaFX app
+     */
     public app() {
         userPrefs = Preferences.userRoot().node("/com/modelbox");
         isDarkModeActive = userPrefs.getBoolean("darkModeActiveStatus", isDarkModeActive);
@@ -66,6 +61,10 @@ public class app extends Application{
         errors = new errorBridge();
     }
 
+    /**
+     * Prepares and launches the JavaFX application for further interaction
+     * @param stage a JavaFX Stage containing the current instance of the app
+     */
     @Override
     public void start(Stage stage) {
         mongoEngine.getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) -> {

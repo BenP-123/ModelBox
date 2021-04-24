@@ -12,9 +12,11 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
-
 import java.util.prefs.Preferences;
 
+/**
+ * Provides a JavaFX controller implementation for the createAccount.fxml view
+ */
 public class createAccountController {
 
     @FXML public TextField firstNameField;
@@ -31,7 +33,6 @@ public class createAccountController {
 
     /**
      * Handles the creation of a user account when the create account button is clicked
-     *
      * @param event a JavaFX Event
      */
     @FXML
@@ -41,7 +42,6 @@ public class createAccountController {
 
     /**
      * Handles the creation of a user account when the enter key is pressed on the last field
-     *
      * @param event a JavaFX KeyEvent
      */
     @FXML
@@ -52,8 +52,7 @@ public class createAccountController {
     }
 
     /**
-     * Attempts to create a new user account using the information provided in the createAccount view
-     * and modifies the view accordingly to handle errors
+     * Creates a new user account using the information provided and modifies the view accordingly
      */
     private void createNewUserAccount() {
         try {
@@ -67,14 +66,12 @@ public class createAccountController {
                     firstNameField.getText(), lastNameField.getText(), emailField.getText(), passField.getText(), confirmPassField.getText());
             app.mongoApp.eval(functionCall);
         } catch (Exception exception) {
-            // Handle errors
             exception.printStackTrace();
         }
     }
 
     /**
-     * Handles the UI redirect to the log in view
-     *
+     * Handles the UI redirect to the 'Log In' view
      * @param event a JavaFX Event
      */
     @FXML
@@ -85,7 +82,6 @@ public class createAccountController {
             app.loginView = app.viewLoader.getController();
             loginBtn.getScene().setRoot(root);
         } catch (Exception exception) {
-            // Handle errors
             exception.printStackTrace();
         }
     }

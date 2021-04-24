@@ -15,11 +15,13 @@ import javafx.stage.FileChooser;
 import org.bson.BsonBinary;
 import org.bson.BsonDocument;
 import org.bson.BsonString;
-
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.nio.file.Files;
 
+/**
+ * Provides a JavaFX controller implementation for the profile.fxml view
+ */
 public class profileController {
 
     @FXML public Button editProfileBtn;
@@ -40,8 +42,7 @@ public class profileController {
     private byte[] profilePic;
 
     /**
-     *   Constructs the profileController object
-     *
+     * Constructs and initializes the profileController object
      */
     public profileController() {
         profilePictureFileChooser = new FileChooser();
@@ -50,9 +51,8 @@ public class profileController {
     }
 
     /**
-     *   User selects an image to be previewed
-     *
-     *   @param  profilePic  a byte[] containing the file contents of the user's picture
+     * Previews the selected image provided by the user
+     * @param profilePic a byte[] containing the file contents of the user's picture
      */
     private void previewUsersImage(byte[] profilePic) {
         // Display the users image without uploading it to the database
@@ -62,9 +62,8 @@ public class profileController {
     }
 
     /**
-     *   User selects an image to be previewed
-     *
-     *   @param  event  a JavaFX Event
+     * Opens a file browser allowing the user to select a picture for upload
+     * @param event a JavaFX Event
      */
     @FXML
     private void addProfilePictureBtnClicked(Event event){
@@ -73,8 +72,7 @@ public class profileController {
             newPictureFile = profilePictureFileChooser.showOpenDialog(editProfileBtn.getScene().getWindow());
             profilePic = Files.readAllBytes(newPictureFile.toPath());
             previewUsersImage(profilePic);
-        }catch (Exception exception) {
-            // Handle errors
+        } catch (Exception exception) {
             exception.printStackTrace();
         }
 
@@ -90,9 +88,8 @@ public class profileController {
     }
 
     /**
-     *   Cancels the users profile Upload and sets the upload button to true
-     *
-     *   @param  event  a JavaFX Event
+     * Cancels the profile picture upload and allows the user to select a new picture
+     * @param event a JavaFX Event
      */
     @FXML
     private void cancelProfileUploadBtn(Event event){
@@ -105,9 +102,8 @@ public class profileController {
     }
 
     /**
-     *	Allows all the fields in the profile page to be edited
-     *
-     *  @param  event a JavaFX Event
+     * Allows all the fields on the 'Profile' view to be editable/savable
+     * @param event a JavaFX Event
      */
     @FXML
     private void editProfileBtnClicked(Event event) {
@@ -150,7 +146,6 @@ public class profileController {
                 app.mongoApp.eval(functionCall);
             }
         } catch (Exception exception) {
-            // Handle errors
             exception.printStackTrace();
         }
 

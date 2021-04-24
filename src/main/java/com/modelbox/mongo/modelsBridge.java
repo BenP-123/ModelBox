@@ -16,31 +16,43 @@ import javafx.scene.text.Text;
 import org.apache.commons.io.FilenameUtils;
 import org.bson.*;
 import org.bson.types.ObjectId;
-
-import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static java.lang.Integer.parseInt;
 
+/**
+ * Provides a connection mechanism to handle model-related callbacks from Javascript calls made in a JavaFX WebEngine
+ * @see com.modelbox.app#mongoApp
+ */
 public class modelsBridge {
 
     private String shareModelStatus;
 
+    /**
+     * Gets the status of sharing a model
+     * @return the String containing the status of sharing a model
+     */
     public String getShareModelStatus() {
         return shareModelStatus;
     }
 
+    /**
+     * Sets the status of sharing a model
+     * @param status the String containing the current status of sharing a model
+     */
     public void setShareModelStatus(String status) {
         shareModelStatus = status;
     }
 
+    /**
+     * Prepares and populates the appropriate fields on the 'My Models' view and shows the app's 'My Models' view
+     * @param currentUserModels a serialized BSON array containing database information to be shown
+     */
     public void handleGetCurrentUserModels(String currentUserModels) {
         try {
             app.dashboard.dbModelsList = BsonArray.parse(currentUserModels);
-
-            // Clear all the UI cards from the myModelsFlowPane on the myModelsView
             app.myModelsView.myModelsFlowPane.getChildren().clear();
 
             if (app.dashboard.dbModelsList.isEmpty()) {
@@ -142,34 +154,41 @@ public class modelsBridge {
         }
     }
 
-    public void handleUploadCurrentUserModels() {
-        // Asynchronously populate the my models view and show appropriate nodes when ready
-        String functionCall = "ModelBox.Models.getCurrentUserModels();";
-        app.mongoApp.eval(functionCall);
+    /**
+     * Prepares the UI after a user has deleted a model from their account
+     */
+    public void handleDeleteCurrentUserModel() {
+        refreshCurrentUserModels();
     }
 
-    public void handleDeleteCurrentUserModel() throws IOException {
-        app.viewLoader = new FXMLLoader(getClass().getResource("/views/myModels/myModels.fxml"));
-        Parent root = app.viewLoader.load();
-        app.myModelsView = app.viewLoader.getController();
-        app.dashboard.dashViewsAnchorPane.getChildren().setAll(root);
-
-        // Asynchronously populate the my models view and show appropriate nodes when ready
-        String functionCall = "ModelBox.Models.getCurrentUserModels();";
-        app.mongoApp.eval(functionCall);
+    /**
+     * Prepares the UI after a user has removed themselves from a shared model collaboration
+     */
+    public void handleTerminateModelCollaboration() {
+        refreshCurrentUserModels();
     }
 
-    public void handleTerminateModelCollaboration() throws IOException {
-        app.viewLoader = new FXMLLoader(getClass().getResource("/views/myModels/myModels.fxml"));
-        Parent root = app.viewLoader.load();
-        app.myModelsView = app.viewLoader.getController();
-        app.dashboard.dashViewsAnchorPane.getChildren().setAll(root);
+    /**
+     * Loads and refreshes the appropriate fields on the 'My Models' view
+     */
+    private void refreshCurrentUserModels() {
+        try {
+            app.viewLoader = new FXMLLoader(getClass().getResource("/views/myModels/myModels.fxml"));
+            Parent root = app.viewLoader.load();
+            app.myModelsView = app.viewLoader.getController();
+            app.dashboard.dashViewsAnchorPane.getChildren().setAll(root);
 
-        // Asynchronously populate the my models view and show appropriate nodes when ready
-        String functionCall = "ModelBox.Models.getCurrentUserModels();";
-        app.mongoApp.eval(functionCall);
+            String functionCall = "ModelBox.Models.getCurrentUserModels();";
+            app.mongoApp.eval(functionCall);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
     }
 
+    /**
+     * Prepares and populates the appropriate fields on the 'Share with others' view after a collaborator has been added
+     * @param newModelCollaborator a serialized BSON document containing database information to be shown
+     */
     public void handleShareCurrentUserModel(String newModelCollaborator) {
         if (shareModelStatus.equals("success")) {
             BsonDocument collaborator = BsonDocument.parse(newModelCollaborator);
@@ -201,7 +220,6 @@ public class modelsBridge {
             }
             changePermissionsChoiceBox.getItems().addAll("Viewer", "Editor", "Remove");
 
-            // GridPane configuration
             GridPane.setConstraints(displayName, 0, 0);
             GridPane.setConstraints(emailAddress, 0, 1);
             GridPane.setConstraints(changePermissionsChoiceBox, 1, 0);
@@ -224,8 +242,12 @@ public class modelsBridge {
         }
     }
 
+    /**
+     * Prepares and populates the appropriate fields on the 'Inspect your model' pop-up and subsequently shows the pop-up
+     * @param modelId the specific identifier for the selected model
+     * @param currentModelCollaborators a serialized BSON array containing database information to be shown
+     */
     public void handleGetCurrentModelPreview(String modelId, String currentModelCollaborators) {
-        // Load a preview pop-up window
         try {
             BsonArray modelCollaborators = BsonArray.parse(currentModelCollaborators);
             Parent previewRoot;
@@ -234,7 +256,6 @@ public class modelsBridge {
             previewRoot = app.viewLoader.load();
             app.previewPopUpView = app.viewLoader.getController();
 
-            // Set the id of the previewModelAnchorPane to be equal to the model id
             app.previewPopUpView.previewInfoAnchorPane.setId(modelId);
             app.previewPopUpView.previewModelAnchorPane.setId(modelId);
 
@@ -401,15 +422,17 @@ public class modelsBridge {
 
             app.previewPopUpView.positionX.bind(app.previewPopUpView.previewModelAnchorPane.widthProperty().divide(2));
             app.previewPopUpView.positionY.bind(app.previewPopUpView.previewModelAnchorPane.heightProperty().divide(2));
-
-            // Actually launch the preview pop-up
             app.myModelsView.myModelsAnchorPane.getChildren().add(previewRoot);
         } catch (Exception exception) {
-            // Handle errors
             exception.printStackTrace();
         }
     }
 
+    /**
+     * Determines if the current app user is an editor for a specific model
+     * @param modelCollaborators a BSON array containing information on all the collaborators for the current model
+     * @return a boolean flag that indicates if the current user is an editor for a specific model
+     */
     private boolean isUserAnEditor(BsonArray modelCollaborators) {
         boolean isEditor = false;
 
@@ -423,8 +446,12 @@ public class modelsBridge {
         return isEditor;
     }
 
+    /**
+     * Prepares and populates the appropriate fields on the 'Share with others' pop-up and subsequently shows the pop-up
+     * @param modelId the specific identifier for the selected model
+     * @param currentModelCollaborators a serialized BSON array containing database information to be shown
+     */
     public void handleGetCurrentModelCollaborators(String modelId, String currentModelCollaborators) {
-        // Load a share pop-up window
         try {
             BsonArray modelCollaborators = BsonArray.parse(currentModelCollaborators);
             Parent shareRoot;
@@ -508,11 +535,14 @@ public class modelsBridge {
             // Actually launch the share pop-up
             app.myModelsView.myModelsAnchorPane.getChildren().add(shareRoot);
         } catch (Exception exception) {
-            // Handle errors
             exception.printStackTrace();
         }
     }
 
+    /**
+     * Creates and displays a message in place of a list collaborators that indicates that there are no collaborators
+     * for the specific model
+     */
     public void displayNoCollaborators() {
         VBox noCollaboratorsMessage = new VBox();
         noCollaboratorsMessage.setSpacing(10);
@@ -536,6 +566,11 @@ public class modelsBridge {
         app.sharePopUpView.collaboratorsVBox.getChildren().add(separator);
     }
 
+    /**
+     * Gets the file size for a provided 3D model in terms of KB or MB
+     * @param bytes the number of bytes that a 3D file has
+     * @return a String that cleanly shows the file size of a 3D model
+     */
     public String getModelSize(int bytes){
         String modelSizeString;
         bytes /= 1024;
@@ -549,6 +584,11 @@ public class modelsBridge {
         return modelSizeString;
     }
 
+    /**
+     * Gets the upload date for a provided 3D model
+     * @param modelId the specific identifier for a given model
+     * @return a String that cleanly shows the date the model was uploaded
+     */
     public String getModelTimestamp(String modelId){
         long millis = parseInt(modelId.substring(0,8), 16);
         millis *= 1000;

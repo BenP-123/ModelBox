@@ -13,23 +13,35 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
+/**
+ * Provides a simple UI implementation for a toggle switch, which is our component to turn dark mode on and off
+ */
 public class ToggleSwitch extends Parent {
 
     private BooleanProperty switchedOn = new SimpleBooleanProperty(false);
-
     private TranslateTransition translateAnimation = new TranslateTransition(Duration.seconds(0.25));
     private FillTransition fillAnimation = new FillTransition(Duration.seconds(0.25));
-
     private ParallelTransition animation = new ParallelTransition(translateAnimation, fillAnimation);
 
+    /**
+     * Sets the status of the switch to the provided value
+     * @param state the desired boolean value for the toggle component
+     */
     public void setSwitchedOnProperty(Boolean state) {
         switchedOn.setValue(state);
     }
 
+    /**
+     * Gets the status of the switch
+     * @return the BooleanProperty that holds the internal state of the toggle component
+     */
     public BooleanProperty switchedOnProperty() {
         return switchedOn;
     }
 
+    /**
+     * Constructs and initializes a ToggleSwitch object
+     */
     public ToggleSwitch() {
         Rectangle background = new Rectangle(40, 20);
         background.setArcWidth(20);

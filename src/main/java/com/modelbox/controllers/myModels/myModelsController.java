@@ -24,10 +24,11 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import org.bson.BsonDocument;
 import org.bson.BsonValue;
-
 import java.nio.file.Files;
 
-
+/**
+ * Provides a JavaFX controller implementation for the myModels.fxml view
+ */
 public class myModelsController {
 
     @FXML public HBox myModelsToolBar;
@@ -40,18 +41,16 @@ public class myModelsController {
     @FXML public TextField modelSearchField;
     @FXML public ImageView compareModelsBtnIcon;
     @FXML public ChoiceBox<String> filterModelsChoiceBox;
+    @FXML public AnchorPane deleteModelConfirmationPopUp;
+    @FXML public Text deleteModelPopUpText;
     private Boolean isComparisonToolActive = false;
     public int checkboxCount = 0;
     private String firstSelectedModelId;
     private String secondSelectedModelId;
-    @FXML public AnchorPane deleteModelConfirmationPopUp;
-    @FXML public Text deleteModelPopUpText;
-
 
     /**
-     * Handles the search query specified by the user
-     *
-     * @param  event a JavaFX Event
+     * Handles the search query specified by the user, on button click
+     * @param event a JavaFX Event
      */
     @FXML
     private void searchModelBtnClicked(Event event) {
@@ -63,8 +62,7 @@ public class myModelsController {
     }
 
     /**
-     * Handles the search query specified by the user
-     *
+     * Handles the search query specified by the user, on key press
      * @param  event a JavaFX Event
      */
     @FXML
@@ -78,6 +76,9 @@ public class myModelsController {
         }
     }
 
+    /**
+     * Searches through uploaded models given the query specified by the user
+     */
     private void searchForModels() {
         try {
             myModelsToolBar.setVisible(false);
@@ -94,22 +95,20 @@ public class myModelsController {
                     addMyModelsPreviewCard(model.asDocument());
                 }
             }
-            try {
-                if (filterModelsChoiceBox.getSelectionModel().getSelectedItem().equals("Owned by me")) {
-                    for (BsonValue model : app.dashboard.dbModelsList) {
-                        if (!model.asDocument().get("owner_id").asString().getValue().equals(app.users.ownerId)) {
-                            myModelsFlowPane.getChildren().remove(myModelsFlowPane.lookup("#" + model.asDocument().get("_id").asObjectId().getValue().toHexString()));
-                        }
+
+            if (filterModelsChoiceBox.getSelectionModel().getSelectedItem().equals("Owned by me")) {
+                for (BsonValue model : app.dashboard.dbModelsList) {
+                    if (!model.asDocument().get("owner_id").asString().getValue().equals(app.users.ownerId)) {
+                        myModelsFlowPane.getChildren().remove(myModelsFlowPane.lookup("#" + model.asDocument().get("_id").asObjectId().getValue().toHexString()));
                     }
-                } else if (filterModelsChoiceBox.getSelectionModel().getSelectedItem().equals("Shared with me")) {
-                    for (BsonValue model : app.dashboard.dbModelsList) {
-                        if (model.asDocument().get("owner_id").asString().getValue().equals(app.users.ownerId)) {
-                            myModelsFlowPane.getChildren().remove(myModelsFlowPane.lookup("#" + model.asDocument().get("_id").asObjectId().getValue().toHexString()));
-                        }
+                }
+            } else if (filterModelsChoiceBox.getSelectionModel().getSelectedItem().equals("Shared with me")) {
+                for (BsonValue model : app.dashboard.dbModelsList) {
+                    if (model.asDocument().get("owner_id").asString().getValue().equals(app.users.ownerId)) {
+                        myModelsFlowPane.getChildren().remove(myModelsFlowPane.lookup("#" + model.asDocument().get("_id").asObjectId().getValue().toHexString()));
                     }
                 }
             }
-            catch(Exception e){ }
 
             if (myModelsFlowPane.getChildren().isEmpty()) {
                 loadingAnchorPane.setVisible(false);
@@ -126,7 +125,6 @@ public class myModelsController {
                 myModelsToolBar.setVisible(true);
                 myModelsScrollPane.setVisible(true);
             }
-
         } catch (Exception exception) {
             exception.printStackTrace();
         }
@@ -134,19 +132,16 @@ public class myModelsController {
 
     /**
      * Handles getting the latest models from the database that the current user has access to
-     *
-     * @param  event a JavaFX Event
+     * @param event a JavaFX Event
      */
     @FXML
     private void refreshModelsBtnClicked(Event event) {
         try {
-            // Show my models view
             app.viewLoader = new FXMLLoader(getClass().getResource("/views/myModels/myModels.fxml"));
             Parent root = app.viewLoader.load();
             app.myModelsView = app.viewLoader.getController();
             app.dashboard.dashViewsAnchorPane.getChildren().setAll(root);
 
-            // Asynchronously populate the my models view and show appropriate nodes when ready
             String functionCall = String.format("ModelBox.Models.getCurrentUserModels();");
             app.mongoApp.eval(functionCall);
         } catch (Exception exception) {
@@ -155,9 +150,8 @@ public class myModelsController {
     }
 
     /**
-     * Handles clearing the search query specified by the user and refreshing the view
-     *
-     * @param  event a JavaFX Event
+     * Handles clearing the search query specified by the user and refreshing the 'My Models' view
+     * @param event a JavaFX Event
      */
     @FXML
     private void cancelSearchModelBtnClicked(Event event) {
@@ -187,12 +181,10 @@ public class myModelsController {
 
     /**
      * Handles showing a checkbox on each model card to compare two selected models
-     *
-     * @param  event a JavaFX Event
+     * @param event a JavaFX Event
      */
     @FXML
     private void compareModelsBtnClicked(Event event) {
-
         if (isComparisonToolActive) {
             isComparisonToolActive = false;
             compareModelsBtnIcon.setImage(new Image(String.valueOf(getClass().getResource("/images/compare-model-btn.png"))));
@@ -215,14 +207,12 @@ public class myModelsController {
     }
 
     /**
-     * Handles the UI redirect to the upload models view
-     *
-     * @param  event a JavaFX Event
+     * Handles the UI redirect to the 'Upload Models' view
+     * @param event a JavaFX Event
      */
     @FXML
     private void noModelsBtnClicked(Event event) {
         try {
-            // Show upload models view
             app.viewLoader = new FXMLLoader(getClass().getResource("/views/uploadModels/uploadModels.fxml"));
             Parent root = app.viewLoader.load();
             app.uploadModelsView = app.viewLoader.getController();
@@ -234,8 +224,7 @@ public class myModelsController {
 
     /**
      * Populates the UI with a single preview card for all of a user's uploaded 3D models
-     *
-     * @param model a Document containing all the information for a 3D model
+     * @param model a BSON document containing all the information for a 3D model
      */
     public void addMyModelsPreviewCard(BsonDocument model) {
         try {
@@ -367,10 +356,7 @@ public class myModelsController {
 
 
     /**
-     *
-     * Delete model confirmation no button clicked
-     * and hides the delete model confirmation popup
-     *
+     * Removes the delete model confirmation pop-up from the view
      * @param event a JavaFX Event
      */
     @FXML
@@ -379,10 +365,8 @@ public class myModelsController {
     }
 
     /**
-     * If the model is a shared model, the user removes themselves from the collaboration.
-     * Otherwise, the model is not shared and therefore is deleted from the my models view
-     * and removes the corresponding model from the database.
-     *
+     * If the model is a shared model, the user removes themselves from the collaboration. Otherwise, the model is
+     * deleted from the database.
      * @param event a JavaFX Event
      */
     @FXML
@@ -418,15 +402,10 @@ public class myModelsController {
         }
     }
 
-    /********************************************* PREVIEW CARD HANDLERS **********************************************/
-
     EventHandler<ActionEvent> deleteModelBtnClicked = new EventHandler<ActionEvent>() {
 
         /**
-         *
-         * Displays the delete model confirmation popup
-         * and sets the popup id to the models id
-         *
+         * Displays the delete model confirmation pop-up
          * @param event a JavaFX ActionEvent
          */
         @Override
@@ -449,8 +428,7 @@ public class myModelsController {
     EventHandler<ActionEvent> previewModelBtnClicked = new EventHandler<ActionEvent>() {
 
         /**
-         * Opens a preview pop-up panel for the user to interact with and learn more about a specific model
-         *
+         * Opens a preview pop-up for the user to interact with and learn more about a specific model
          * @param event a JavaFX ActionEvent
          */
         @Override
@@ -466,8 +444,7 @@ public class myModelsController {
     EventHandler<ActionEvent> shareModelBtnClicked = new EventHandler<ActionEvent>() {
 
         /**
-         * Opens a share pop-up panel for the user to share and edit permissions for a specific model
-         *
+         * Opens a share pop-up for the user to share and edit collaborator permissions for a specific model
          * @param event a JavaFX ActionEvent
          */
         @Override
@@ -483,8 +460,7 @@ public class myModelsController {
     EventHandler<ActionEvent> compareCheckboxClicked = new EventHandler<ActionEvent>() {
 
         /**
-         * Opens a share pop-up panel for the user to share and edit permissions for a specific model
-         *
+         * Opens a comparison pop-up for the user if two checkboxes are active
          * @param event a JavaFX ActionEvent
          */
         @Override
@@ -502,7 +478,6 @@ public class myModelsController {
                 }
 
                 if (checkboxCount == 2) {
-                    // Load a share pop-up window
                     try {
                         checkboxCount = 0;
                         Parent compareRoot = null;
@@ -562,10 +537,8 @@ public class myModelsController {
                         app.comparePopUpView.positionX2.bind(app.comparePopUpView.compareModelAnchorPane2.widthProperty().divide(2));
                         app.comparePopUpView.positionY2.bind(app.comparePopUpView.compareModelAnchorPane2.heightProperty().divide(2));
 
-                        // Actually launch the comparison pop-up
                         app.myModelsView.myModelsAnchorPane.getChildren().add(compareRoot);
                     } catch (Exception exception) {
-                        // Handle errors
                         exception.printStackTrace();
                     }
                 }
@@ -576,8 +549,7 @@ public class myModelsController {
     EventHandler<ActionEvent> downloadModelBtnClicked = new EventHandler<ActionEvent>() {
 
         /**
-         * Downloads (really saves) the selected model to the users local computer
-         *
+         * Downloads the selected model to the user's computer
          * @param event a JavaFX ActionEvent
          */
         @Override

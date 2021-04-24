@@ -15,6 +15,9 @@ import org.bson.BsonObjectId;
 import org.bson.BsonString;
 import org.bson.types.ObjectId;
 
+/**
+ * Provides a JavaFX controller implementation for the sharePopUp.fxml view
+ */
 public class sharePopUpController {
 
     @FXML public AnchorPane shareRootAnchorPane;
@@ -30,8 +33,7 @@ public class sharePopUpController {
     public String currentCollaborator;
 
     /**
-     * Closes and removes the share pop-up from view
-     *
+     * Closes and removes the share pop-up from the dashboard view
      * @param event a JavaFX Event
      */
     @FXML
@@ -40,13 +42,12 @@ public class sharePopUpController {
             AnchorPane currentSharePanel = (AnchorPane) ((Button) event.getSource()).getParent().getParent();
             app.myModelsView.myModelsAnchorPane.getChildren().remove(currentSharePanel);
 
-            // Refresh the my models view
+            // Refresh the 'My Models' view
             app.viewLoader = new FXMLLoader(getClass().getResource("/views/myModels/myModels.fxml"));
             Parent root = app.viewLoader.load();
             app.myModelsView = app.viewLoader.getController();
             app.dashboard.dashViewsAnchorPane.getChildren().setAll(root);
 
-            // Asynchronously populate the my models view and show appropriate nodes when ready
             String functionCall = "ModelBox.Models.getCurrentUserModels();";
             app.mongoApp.eval(functionCall);
         } catch (Exception exception) {
@@ -54,6 +55,10 @@ public class sharePopUpController {
         }
     }
 
+    /**
+     * Adds a specified collaborator to the selected model
+     * @param event a JavaFX Event
+     */
     @FXML
     private void addCollaboratorBtnClicked(Event event) {
         AnchorPane currentSharePanel = (AnchorPane) ((Button) event.getSource()).getParent().getParent().getParent();
@@ -67,6 +72,10 @@ public class sharePopUpController {
         app.mongoApp.eval(functionCall);
     }
 
+    /**
+     * Closes and removes the confirmation pop-up that is shown when changing an existing collaborator's permissions
+     * @param event a JavaFX Event
+     */
     @FXML
     @SuppressWarnings("unchecked")
     private void closeConfirmationBtnClicked(Event event) {
@@ -82,6 +91,10 @@ public class sharePopUpController {
         confirmationPopUp.setVisible(false);
     }
 
+    /**
+     * Removes an existing collaborator from a specific model
+     * @param event a JavaFX Event
+     */
     @FXML
     private void removeConfirmationBtnClicked(Event event) {
         VBox confirmationPopUp = (VBox) ((Button) event.getSource()).getParent().getParent().getParent().getParent().getParent();

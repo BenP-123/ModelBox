@@ -10,8 +10,10 @@ import javafx.fxml.FXML;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Text;
 
+/**
+ * Provides a JavaFX controller implementation for the login.fxml view
+ */
 public class loginController {
 
     @FXML public TextField loginErrorField;
@@ -19,7 +21,7 @@ public class loginController {
     @FXML public PasswordField passField;
     @FXML public AnchorPane loginAnchorPane;
     @FXML public AnchorPane loginPane;
-    @FXML  public Button loginBtn;
+    @FXML public Button loginBtn;
     @FXML private Button forgotPassBtn;
     @FXML private Button createAccountBtn;
     @FXML private CheckBox checkBox;
@@ -27,8 +29,7 @@ public class loginController {
 
     /**
      * Handles the user login when the login button is clicked
-     *
-     * @param  event    a JavaFX Event
+     * @param event a JavaFX Event
      */
     @FXML
     private void loginBtnClicked(Event event) {
@@ -37,8 +38,7 @@ public class loginController {
 
     /**
      * Handles the user login when the enter key is pressed on the last field
-     *
-     * @param  event  a JavaFX KeyEvent
+     * @param event a JavaFX KeyEvent
      */
     @FXML
     private void loginEnterKeyPressed(KeyEvent event) {
@@ -49,22 +49,19 @@ public class loginController {
 
     /**
      * Logs the user in and redirects the user to the dashboard
-     *
      */
     public void loginCurrentUser() {
         try {
             String functionCall = String.format("ModelBox.Auth.logInCurrentUser('%s', '%s');", emailField.getText(), passField.getText());
             app.mongoApp.eval(functionCall);
         } catch(Exception exception){
-            // Handle errors
             exception.printStackTrace();
         }
     }
 
     /**
-     * Handles the UI redirect to the forgot password view
-     *
-     * @param  event    a JavaFX Event
+     * Handles the UI redirect to the 'Forgot Password' view
+     * @param event a JavaFX Event
      */
     @FXML
     private void forgotPassBtnClicked(Event event) {
@@ -74,15 +71,13 @@ public class loginController {
             app.forgotPasswordView = app.viewLoader.getController();
             forgotPassBtn.getScene().setRoot(root);
         } catch (Exception exception){
-            // Handle errors
             exception.printStackTrace();
         }
     }
 
     /**
-     * Handles the UI redirect to the create account view
-     *
-     * @param  event    a JavaFX Event
+     * Handles the UI redirect to the 'Create Account' view
+     * @param event a JavaFX Event
      */
     @FXML
     private void createAccountBtnClicked(Event event) {
@@ -92,7 +87,6 @@ public class loginController {
             app.createAccountView = app.viewLoader.getController();
             createAccountBtn.getScene().setRoot(root);
         } catch (Exception exception){
-            // Handle errors
             exception.printStackTrace();
         }
     }
@@ -100,18 +94,17 @@ public class loginController {
 
     /**
      * Toggles the visibility of the entered password from masked to plain text.
-     *
-     * @param  actionEvent   a JavaFX Event
+     * @param event a JavaFX ActionEvent
      */
-    public void checkBoxSelected(ActionEvent actionEvent) {
-            if (checkBox.isSelected()) {
-                passwordPlainTxt.setText(passField.getText());
-                passwordPlainTxt.setVisible(true);
-                passField.setVisible(false);
-                return;
-            }
+    public void checkBoxSelected(ActionEvent event) {
+        if (checkBox.isSelected()) {
+            passwordPlainTxt.setText(passField.getText());
+            passwordPlainTxt.setVisible(true);
+            passField.setVisible(false);
+        } else {
             passField.setText(passwordPlainTxt.getText());
-            passField.setVisible(true);
             passwordPlainTxt.setVisible(false);
+            passField.setVisible(true);
+        }
     }
 }

@@ -1,20 +1,19 @@
 package com.modelbox.controllers.uploadModels;
 
 import com.modelbox.app;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.SubScene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import org.bson.BsonDocument;
 import org.bson.BsonString;
-import org.bson.Document;
 
+/**
+ * Provides a JavaFX controller implementation for the editPopUp.fxml view
+ */
 public class editPopUpController {
     @FXML public AnchorPane editModelAnchorPane;
     @FXML public SubScene editModelSubScene;
@@ -24,8 +23,7 @@ public class editPopUpController {
     @FXML public Button saveAttributesBtn;
 
     /**
-     * Closes and removes the edit pop-up from view
-     *
+     * Closes and removes the edit pop-up from the 'Verify Models' view
      * @param event a JavaFX Event
      */
     @FXML
@@ -35,8 +33,7 @@ public class editPopUpController {
     }
 
     /**
-     * Closes and removes the edit pop-up from view
-     *
+     * Saves any modified attributes to the selected document prior to being uploaded to the database
      * @param event a JavaFX Event
      */
     @FXML

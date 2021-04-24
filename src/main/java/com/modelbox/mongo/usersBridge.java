@@ -3,20 +3,25 @@ package com.modelbox.mongo;
 import com.modelbox.app;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import org.bson.BsonArray;
 import org.bson.BsonDocument;
-
 import java.io.ByteArrayInputStream;
-import java.util.Base64;
 
+/**
+ * Provides a connection mechanism to handle user-related callbacks from Javascript calls made in a JavaFX WebEngine
+ * @see com.modelbox.app#mongoApp
+ */
 public class usersBridge {
 
     public String ownerId;
 
+    /**
+     * Prepares and populates the appropriate fields on the account menu and shows the app's account menu
+     * @param currentUserAccountMenu a serialized BSON document containing database information to be shown
+     */
     public void handleGetCurrentUserAccountMenu(String currentUserAccountMenu) {
         try {
             BsonDocument currentUserDocument = BsonDocument.parse(currentUserAccountMenu);
@@ -30,36 +35,22 @@ public class usersBridge {
         }
     }
 
+    /**
+     * Prepares and populates the appropriate fields on the notifications pane and subsequently shows the pane
+     * @param currentUserNotifications a serialized BSON array containing database information to be shown
+     */
     public void handleGetCurrentUserNotifications(String currentUserNotifications) {
         try {
             BsonArray userNotifications = BsonArray.parse(currentUserNotifications);
-
             app.dashboard.notificationsVBox.getChildren().clear();
-
             if (userNotifications.isEmpty()) {
                 Text noNotifications = new Text("No notifications yet!");
-                noNotifications.setWrappingWidth(250);
-                noNotifications.setStyle("-fx-fill: #ffffff; -fx-font-size: 14px; -fx-font-family: Arial; -fx-padding: 0; -fx-background-insets: 0");
-
-                Line separator = new Line();
-                separator.setStartX(0);
-                separator.setEndX(275);
-                separator.setStroke(Color.WHITE);
-                separator.setStrokeWidth(1.25);
-                app.dashboard.notificationsVBox.getChildren().add(noNotifications);
+                Line separator = addNotificationToPane(noNotifications);
                 app.dashboard.notificationsVBox.getChildren().add(1, separator);
             } else {
                 for (int i = userNotifications.size() - 1; i >= 0; i--) {
                     Text notificationMessage = new Text(userNotifications.get(i).asString().getValue());
-                    notificationMessage.setWrappingWidth(250);
-                    notificationMessage.setStyle("-fx-fill: #ffffff; -fx-font-size: 14px; -fx-font-family: Arial; -fx-padding: 0; -fx-background-insets: 0");
-
-                    Line separator = new Line();
-                    separator.setStartX(0);
-                    separator.setEndX(275);
-                    separator.setStroke(Color.WHITE);
-                    separator.setStrokeWidth(1.25);
-                    app.dashboard.notificationsVBox.getChildren().add(notificationMessage);
+                    Line separator = addNotificationToPane(notificationMessage);
                     app.dashboard.notificationsVBox.getChildren().add(separator);
                 }
             }
@@ -70,6 +61,29 @@ public class usersBridge {
         }
     }
 
+    /**
+     * Creates and appends a notification message on the notifications pane
+     * @param notificationMessage the desired Text that the notification should contain
+     * @return the JavaFX Line that will act as a divider after the notification text
+     */
+    private Line addNotificationToPane(Text notificationMessage) {
+        notificationMessage.setWrappingWidth(250);
+        notificationMessage.setStyle("-fx-fill: #ffffff; -fx-font-size: 14px; -fx-font-family: Arial; -fx-padding: 0; -fx-background-insets: 0");
+
+        Line separator = new Line();
+        separator.setStartX(0);
+        separator.setEndX(275);
+        separator.setStroke(Color.WHITE);
+        separator.setStrokeWidth(1.25);
+        app.dashboard.notificationsVBox.getChildren().add(notificationMessage);
+
+        return separator;
+    }
+
+    /**
+     * Prepares and populates the appropriate fields on the 'Profile' view and shows the app's 'Profile' view
+     * @param currentUserProfile a serialized BSON document containing database information to be shown
+     */
     public void handleGetCurrentUserProfile(String currentUserProfile) {
         try {
             BsonDocument currentUserDocument = BsonDocument.parse(currentUserProfile);
@@ -106,6 +120,10 @@ public class usersBridge {
         }
     }
 
+    /**
+     * Prepares and populates the appropriate fields on the 'Settings' view and shows the app's 'Settings' view
+     * @param currentUserSettings a serialized BSON document containing database information to be shown
+     */
     public void handleGetCurrentUserSettings(String currentUserSettings) {
         try {
             BsonDocument currentUserDocument = BsonDocument.parse(currentUserSettings);

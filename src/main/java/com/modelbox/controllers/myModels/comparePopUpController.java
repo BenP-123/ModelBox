@@ -15,7 +15,6 @@ import javafx.scene.Group;
 import javafx.scene.SubScene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
@@ -30,12 +29,24 @@ import javafx.scene.shape.MeshView;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import org.bson.BsonDocument;
-
 import java.nio.file.Files;
 
+/**
+ * Provides a JavaFX controller implementation for the comparePopUp.fxml view
+ */
 public class comparePopUpController {
+
+    @FXML public AnchorPane compareModelAnchorPane1;
+    @FXML public Text modelName1;
+    @FXML public SubScene compareModelSubScene1;
+    @FXML public ImageView wireMeshBtn1Icon;
+    @FXML public AnchorPane compareModelAnchorPane2;
+    @FXML public Text modelName2;
+    @FXML public SubScene compareModelSubScene2;
+    @FXML public ImageView wireMeshBtn2Icon;
+    @FXML public AnchorPane compareRootAnchorPane;
+    @FXML public Line dividerLine;
 
     private double anchorX1, anchorY1, originalDistance1, originalDistance2;
     private double anchorAngleX1 = 0;
@@ -61,23 +72,11 @@ public class comparePopUpController {
     private final DoubleProperty sat2 = new SimpleDoubleProperty(-1);
     private final DoubleProperty bright2 = new SimpleDoubleProperty(100);
 
-    @FXML public AnchorPane compareModelAnchorPane1;
-    @FXML public Text modelName1;
-    @FXML public SubScene compareModelSubScene1;
-    @FXML public ImageView wireMeshBtn1Icon;
-
-    @FXML public AnchorPane compareModelAnchorPane2;
-    @FXML public Text modelName2;
-    @FXML public SubScene compareModelSubScene2;
-    @FXML public ImageView wireMeshBtn2Icon;
-    @FXML public AnchorPane compareRootAnchorPane;
-    @FXML public Line dividerLine;
     private Boolean isWireMesh1ToolActive = false;
     private Boolean isWireMesh2ToolActive = false;
 
     /**
      * Closes and removes the comparison pop-up from view
-     *
      * @param event a JavaFX Event
      */
     @FXML
@@ -96,8 +95,7 @@ public class comparePopUpController {
     }
 
     /**
-     * Downloads (really saves) the selected model to the users local computer
-     *
+     * Downloads the selected model to the user's computer
      * @param event a JavaFX Event
      */
     @FXML
@@ -121,7 +119,6 @@ public class comparePopUpController {
 
     /**
      * Creates, styles, and shows the color picker pane in the first interactive panel
-     *
      * @param event a JavaFX Event
      */
     @FXML
@@ -267,13 +264,12 @@ public class comparePopUpController {
         AnchorPane.setTopAnchor(closeColorPickerBtn, 15.0);
         AnchorPane.setRightAnchor(closeColorPickerBtn, 10.0);
 
-        // Show the help pop-up
+        // Show the color picker pop-up
         compareModelAnchorPane1.getChildren().add(colorPickerAnchorPane);
     }
 
     /**
      * Creates, styles, and shows the color picker pane in the second interactive panel
-     *
      * @param event a JavaFX Event
      */
     @FXML
@@ -419,13 +415,12 @@ public class comparePopUpController {
         AnchorPane.setTopAnchor(closeColorPickerBtn, 15.0);
         AnchorPane.setRightAnchor(closeColorPickerBtn, 10.0);
 
-        // Show the help pop-up
+        // Show the color picker pop-up
         compareModelAnchorPane2.getChildren().add(colorPickerAnchorPane);
     }
 
     /**
      * Sets HSB color property values when the user changes the first custom color property
-     *
      */
     private void colorChanged1() {
         hue1.set(customColorProperty1.get().getHue());
@@ -435,7 +430,6 @@ public class comparePopUpController {
 
     /**
      * Sets HSB color property values when the user changes the second custom color property
-     *
      */
     private void colorChanged2() {
         hue2.set(customColorProperty2.get().getHue());
@@ -445,7 +439,6 @@ public class comparePopUpController {
 
     /**
      * Updates the first custom color property with the color specified by the user
-     *
      */
     private void updateCustomColor1() {
         Color newColor = Color.hsb(hue1.get(), clamp(sat1.get() / 100),
@@ -455,7 +448,6 @@ public class comparePopUpController {
 
     /**
      * Updates the second custom color property with the color specified by the user
-     *
      */
     private void updateCustomColor2() {
         Color newColor = Color.hsb(hue2.get(), clamp(sat2.get() / 100),
@@ -465,7 +457,6 @@ public class comparePopUpController {
 
     /**
      * Processes a value to be between 0 and 1 for future use
-     *
      * @return a double value between 0 and 1 inclusive
      */
     private double clamp(double value) {
@@ -474,7 +465,6 @@ public class comparePopUpController {
 
     /**
      * Creates a hue gradient for use in a color selection slider
-     *
      * @return a JavaFX LinearGradient
      */
     private LinearGradient createColorSliderGradient() {
@@ -490,31 +480,26 @@ public class comparePopUpController {
 
     /**
      * Closes the color picker pane in the first interactive panel
-     *
      * @param event a JavaFX Event
      */
     @FXML
     private void closeColorPickerBtn1Clicked(Event event) {
-        // Remove color picker anchor pane from window
         AnchorPane colorPickerPopUp = (AnchorPane) ((Button) event.getSource()).getParent();
         compareModelAnchorPane1.getChildren().remove(colorPickerPopUp);
     }
 
     /**
      * Closes the color picker pane in the second interactive panel
-     *
      * @param event a JavaFX Event
      */
     @FXML
     private void closeColorPickerBtn2Clicked(Event event) {
-        // Remove color picker anchor pane from window
         AnchorPane colorPickerPopUp = (AnchorPane) ((Button) event.getSource()).getParent();
         compareModelAnchorPane2.getChildren().remove(colorPickerPopUp);
     }
 
     /**
      * Changes the model color currently in the first interactive panel
-     *
      * @param event a JavaFX Event
      */
     @FXML
@@ -528,7 +513,6 @@ public class comparePopUpController {
 
     /**
      * Changes the model color currently in the second interactive panel
-     *
      * @param event a JavaFX Event
      */
     @FXML
@@ -542,7 +526,6 @@ public class comparePopUpController {
 
     /**
      * Zooms in on the model currently in the first interactive panel
-     *
      * @param event a JavaFX Event
      */
     @FXML
@@ -552,7 +535,6 @@ public class comparePopUpController {
 
     /**
      * Zooms in on the model currently in the second interactive panel
-     *
      * @param event a JavaFX Event
      */
     @FXML
@@ -562,7 +544,6 @@ public class comparePopUpController {
 
     /**
      * Zooms out of the model currently in the first interactive panel
-     *
      * @param event a JavaFX Event
      */
     @FXML
@@ -572,7 +553,6 @@ public class comparePopUpController {
 
     /**
      * Zooms out of the model currently in the second interactive panel
-     *
      * @param event a JavaFX Event
      */
     @FXML
@@ -582,7 +562,6 @@ public class comparePopUpController {
 
     /**
      * Creates, styles, and shows the help pane in the first interactive panel
-     *
      * @param event a JavaFX Event
      */
     @FXML
@@ -660,7 +639,6 @@ public class comparePopUpController {
 
     /**
      * Creates, styles, and shows the help pane in the second interactive panel
-     *
      * @param event a JavaFX Event
      */
     @FXML
@@ -739,28 +717,28 @@ public class comparePopUpController {
 
     /**
      * Closes the help pane in the first interactive panel section
-     *
      * @param event a JavaFX Event
      */
     @FXML
     private void closeHelpBtn1Clicked(Event event) {
-        // Remove help anchor pane from window
         AnchorPane helpPopUp = (AnchorPane) ((Button) event.getSource()).getParent();
         compareModelAnchorPane1.getChildren().remove(helpPopUp);
     }
 
     /**
      * Closes the help pane in the second interactive panel section
-     *
      * @param event a JavaFX Event
      */
     @FXML
     private void closeHelpBtn2Clicked(Event event) {
-        // Remove help anchor pane from window
         AnchorPane helpPopUp = (AnchorPane) ((Button) event.getSource()).getParent();
         compareModelAnchorPane2.getChildren().remove(helpPopUp);
     }
 
+    /**
+     * Sets the orientation in the first interactive preview panel back to the default view
+     * @param event a JavaFX Event
+     */
     @FXML
     private void resetViewBtn1Clicked(Event event) {
         // Center the model
@@ -775,6 +753,10 @@ public class comparePopUpController {
         compareModelSubScene1.getRoot().setTranslateZ(originalDistance1);
     }
 
+    /**
+     * Sets the orientation in the second interactive preview panel back to the default view
+     * @param event a JavaFX Event
+     */
     @FXML
     private void resetViewBtn2Clicked(Event event) {
         // Center the model
@@ -789,6 +771,10 @@ public class comparePopUpController {
         compareModelSubScene2.getRoot().setTranslateZ(originalDistance2);
     }
 
+    /**
+     * Toggles the visibility of the first model's mesh, instead of a solid model
+     * @param event a JavaFX Event
+     */
     @FXML
     private void wireMeshBtn1Clicked(Event event) {
         if (isWireMesh1ToolActive) {
@@ -802,6 +788,10 @@ public class comparePopUpController {
         }
     }
 
+    /**
+     * Toggles the visibility of the second model's mesh, instead of a solid model
+     * @param event a JavaFX Event
+     */
     @FXML
     private void wireMeshBtn2Clicked(Event event) {
         if (isWireMesh2ToolActive) {
@@ -815,14 +805,10 @@ public class comparePopUpController {
         }
     }
 
-
-    /*************************************************** UTILITY METHODS **********************************************/
-
     /**
      * Sets up the functionality for a user to rotate, zoom, and pan the first selected model
-     *
-     * @param  meshGroup a JavaFX Group
-     * @param  scene     a JavaFX SubScene
+     * @param meshGroup a JavaFX Group
+     * @param scene a JavaFX SubScene
      */
     public void initMouseControlModel1(Group meshGroup, SubScene scene) {
         Rotate xRotate1;
@@ -869,9 +855,8 @@ public class comparePopUpController {
 
     /**
      * Sets up the functionality for a user to rotate, zoom, and pan the second selected model
-     *
-     * @param  meshGroup a JavaFX Group
-     * @param  scene     a JavaFX SubScene
+     * @param meshGroup a JavaFX Group
+     * @param scene a JavaFX SubScene
      */
     public void initMouseControlModel2(Group meshGroup, SubScene scene) {
         Rotate xRotate2;
@@ -885,6 +870,7 @@ public class comparePopUpController {
         yRotate2.angleProperty().bind(angleY2);
         meshGroup.translateXProperty().bind(positionX2);
         meshGroup.translateYProperty().bind(positionY2);
+        originalDistance2 = meshGroup.getTranslateZ();
 
         scene.setOnMousePressed(event -> {
             if (event.getButton() == MouseButton.PRIMARY) {

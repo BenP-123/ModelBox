@@ -21,7 +21,9 @@ import javafx.scene.text.Text;
 import org.apache.commons.io.FilenameUtils;
 import org.bson.BsonDocument;
 
-
+/**
+ * Provides a JavaFX controller implementation for the verifyModels.fxml view
+ */
 public class verifyModelsController {
 
     @FXML public ScrollPane verifyModelsScrollPane;
@@ -32,14 +34,12 @@ public class verifyModelsController {
     @FXML public Text removedModelsText;
 
     /**
-     *	Uploads the selected and verified models to the database and generates the preview cards on the my models view
-     *
-     *  @param event a JavaFX Event
+     * Uploads the selected and verified models to the database and generates the preview cards on the 'My Models' view
+     * @param event a JavaFX Event
      */
     @FXML
     private void uploadModelsBtnClicked(Event event){
         try {
-            // Prep the view
             app.viewLoader = new FXMLLoader(getClass().getResource("/views/myModels/myModels.fxml"));
             Parent root = app.viewLoader.load();
             app.myModelsView = app.viewLoader.getController();
@@ -50,16 +50,13 @@ public class verifyModelsController {
             String functionCall = String.format("ModelBox.Models.uploadCurrentUserModels('%s');", modelsToUpload.toJson());
             app.mongoApp.eval(functionCall);
         } catch (Exception exception){
-            // Handle errors
             exception.printStackTrace();
         }
-
     }
 
     /**
-     *	Populates the UI with a single preview card for all of a user's selected 3D models
-     *
-     *  @param  model the 3D model document selected by the user
+     * Appends a single preview card to the 'Verify Models' for a provided 3D model document
+     * @param model the 3D model document selected for upload by the user
      */
     public void addVerifyModelsPreviewCard(BsonDocument model){
         try {
@@ -68,7 +65,6 @@ public class verifyModelsController {
 
             app.dashboard.stlImporter.read(DataURLs.builder(model.get("modelFile").asBinary().getData()).withBase64Data(true).withMediaType("model/stl").build());
         } catch (Exception exception) {
-            // Handle exceptions
             exception.printStackTrace();
         }
 
@@ -118,25 +114,25 @@ public class verifyModelsController {
         StackPane.setAlignment(cancelUploadBtn, Pos.TOP_RIGHT);
         StackPane.setAlignment(editModelBtn, Pos.BOTTOM_RIGHT);
 
-        //Add the model card to the view
         verifyModelsFlowPane.getChildren().add(modelMeshPane);
-
     }
+
+    /**
+     * Removes the pop-up showing the models that exceed the upload file size limit
+     * @param event a JavaFX Event
+     */
     @FXML
     public void closeRemovedModelsBtnClicked(Event event){
         removedModelsPopup.setVisible(false);
     }
 
-    /********************************************* PREVIEW CARD HANDLERS **********************************************/
-
 
     EventHandler<ActionEvent> cancelModelUploadBtnClicked = new EventHandler<ActionEvent>() {
 
         /**
-         *   Deletes a model preview card from the verify models view and removes the model from the list of models to be
-         *   uploaded to the database
-         *
-         *   @param event a JavaFX ActionEvent
+         * Deletes a model preview card from the 'Verify Models' view and removes the model from the list of
+         * models to be uploaded to the database
+         * @param event a JavaFX ActionEvent
          */
         @Override
         public void handle(ActionEvent event) {
@@ -167,22 +163,19 @@ public class verifyModelsController {
     EventHandler<ActionEvent> editModelBtnClicked = new EventHandler<ActionEvent>() {
 
         /**
-         *   Allows the user to edit the attributes of the selected model
-         *
-         *   @param event a JavaFX ActionEvent
+         * Prepares and shows a pop-up that allows the user to edit the attributes of the selected model
+         * @param event a JavaFX ActionEvent
          */
         @Override
         public void handle(ActionEvent event) {
             StackPane currentModel = (StackPane) ((Button) event.getSource()).getParent();
             Parent editRoot = null;
 
-            // Load an edit pop-up window
             try {
                 app.viewLoader = new FXMLLoader(getClass().getResource("/views/uploadModels/editPopUp.fxml"));
                 editRoot = app.viewLoader.load();
                 app.editPopUpView = app.viewLoader.getController();
             } catch (Exception exception) {
-                // Handle errors
                 exception.printStackTrace();
             }
 
@@ -193,7 +186,6 @@ public class verifyModelsController {
             try {
                 app.dashboard.stlImporter.read(DataURLs.builder(currentModelFile).withBase64Data(true).withMediaType("model/stl").build());
             } catch (Exception exception) {
-                // Handle errors
                 exception.printStackTrace();
             }
 
@@ -218,7 +210,6 @@ public class verifyModelsController {
 
             app.editPopUpView.editInfoAnchorPane.setId(currentModel.getId());
 
-            // Actually launch the edit pop-up
             verifyModelsAnchorPane.getChildren().add(editRoot);
         }
     };

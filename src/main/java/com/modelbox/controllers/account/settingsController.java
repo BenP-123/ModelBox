@@ -12,9 +12,11 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
-
 import java.util.prefs.Preferences;
 
+/**
+ * Provides a JavaFX controller implementation for the settings.fxml view
+ */
 public class settingsController {
 
     @FXML public AnchorPane settingsAnchorPane;
@@ -38,9 +40,8 @@ public class settingsController {
     @FXML public AnchorPane deleteConfirmationPopUp;
 
     /**
-     *   Sets the change email pane as visible.
-     *
-     *   @param event a JavaFX Event
+     * Sets the change email pane as visible
+     * @param event a JavaFX Event
      */
     @FXML
     private void changeEmailTabBtnClicked(Event event) {
@@ -58,9 +59,8 @@ public class settingsController {
     }
 
     /**
-     *   Sets the change password pane as visible.
-     *
-     *   @param event a JavaFX Event
+     * Sets the change password pane as visible
+     * @param event a JavaFX Event
      */
     @FXML
     private void changePasswordTabBtnClicked(Event event) {
@@ -76,9 +76,8 @@ public class settingsController {
     }
 
     /**
-     *   Sets the delete account pane as visible
-     *
-     *   @param event a JavaFX Event
+     * Sets the delete account pane as visible
+     * @param event a JavaFX Event
      */
     @FXML
     private void deleteAccountTabBtnClicked(Event event) {
@@ -94,11 +93,19 @@ public class settingsController {
         app.settingsView.changeEmailTabBtn.setStyle("-fx-background-color: transparent; -fx-border-color: #868686; -fx-border-radius: 5 5 0 0; -fx-alignment: center-left;");
     }
 
+    /**
+     * Handles issuing a confirmation email for the new email address when the button is clicked
+     * @param event a JavaFX Event
+     */
     @FXML
     private void changeEmailButtonClicked(Event event) {
         changeCurrentUserEmail();
     }
 
+    /**
+     * Handles issuing a confirmation email for the new email address when the enter key is pressed
+     * @param event a JavaFX KeyEvent
+     */
     @FXML
     private void changeEmailEnterKeyPressed(KeyEvent event) {
         if(event.getCode().equals((KeyCode.ENTER))) {
@@ -106,6 +113,9 @@ public class settingsController {
         }
     }
 
+    /**
+     * Changes the current user's email address
+     */
     private void changeCurrentUserEmail(){
         try {
             changeEmailErrorField.setVisible(false);
@@ -117,28 +127,37 @@ public class settingsController {
             String functionCall = String.format("ModelBox.Auth.changeCurrentUserEmail('%s', '%s');", changeAccountEmailField.getText(), changeEmailPasswordField.getText());
             app.mongoApp.eval(functionCall);
         } catch(Exception exception){
-            // Handle errors
             exception.printStackTrace();
         }
     }
 
+    /**
+     * Logs the user out and redirects the user to use the 'Forgot Password' view to change their password
+     */
     @FXML
     private void changePasswordBtnClicked(){
         try {
             String functionCall = "ModelBox.Auth.changeCurrentUserPassword();";
             app.mongoApp.eval(functionCall);
         } catch (Exception exception){
-            // Handle errors
             exception.printStackTrace();
         }
     }
 
+    /**
+     * Launches a delete account confirmation pop-up to confirm the action before proceeding
+     * @param event a JavaFX event
+     */
     @FXML
     private void deleteAccountBtnClicked(Event event) {
         deleteAccountErrorField.setVisible(false);
         deleteConfirmationPopUp.setVisible(true);
     }
 
+    /**
+     * Launches a delete account confirmation pop-up to confirm the action before proceeding
+     * @param event a JavaFX event
+     */
     @FXML
     private void deleteAccountEnterKeyPressed(KeyEvent event) {
         if(event.getCode().equals((KeyCode.ENTER))) {
@@ -147,25 +166,28 @@ public class settingsController {
         }
     }
 
+    /**
+     * Deletes the current user from the app and schedules all of their data for permanent deletion
+     * @param event a JavaFX event
+     */
     @FXML
     private void deleteConfirmationBtnClicked(Event event) {
-        deleteCurrentUser();
+        try {
+            String functionCall = String.format("ModelBox.Auth.deleteCurrentUser('%s');", deleteAccountEmailField.getText());
+            app.mongoApp.eval(functionCall);
+        } catch(Exception exception){
+            exception.printStackTrace();
+        }
     }
 
+    /**
+     * Closes and removes the delete account confirmation pop-up from view
+     * @param event a JavaFX event
+     */
     @FXML
     private void closeConfirmationBtnClicked(Event event) {
         deleteAccountErrorField.setVisible(false);
         deleteConfirmationPopUp.setVisible(false);
         deleteAccountEmailField.setText("");
-    }
-
-    private void deleteCurrentUser() {
-        try {
-            String functionCall = String.format("ModelBox.Auth.deleteCurrentUser('%s');", deleteAccountEmailField.getText());
-            app.mongoApp.eval(functionCall);
-        } catch(Exception exception){
-            // Handle errors
-            exception.printStackTrace();
-        }
     }
 }

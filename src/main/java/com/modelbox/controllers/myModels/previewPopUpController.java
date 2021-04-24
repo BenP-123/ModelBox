@@ -35,9 +35,11 @@ import org.bson.BsonDocument;
 import org.bson.BsonObjectId;
 import org.bson.BsonString;
 import org.bson.types.ObjectId;
-
 import java.nio.file.Files;
 
+/**
+ * Provides a JavaFX controller implementation for the previewPopUp.fxml view
+ */
 public class previewPopUpController {
 
     private double anchorX, anchorY, originalDistance;
@@ -66,12 +68,15 @@ public class previewPopUpController {
     @FXML public ImageView wireMeshBtnIcon;
     private Boolean isWireMeshToolActive = false;
 
+    /**
+     * Saves any modified attributes to the selected document in the database
+     * @param event a JavaFX Event
+     */
     @FXML
     private void saveAttributesBtnClicked(Event event) {
         try {
             AnchorPane currentPreview = (AnchorPane) ((Button) event.getSource()).getParent();
 
-            // Share the model with another user in the database
             BsonDocument saveModelConfiguration = new BsonDocument()
                     .append("modelId", new BsonObjectId(new ObjectId(currentPreview.getId())))
                     .append("newModelName", new BsonString(modelNameEditorTextField.getText() + ".stl"));
@@ -80,12 +85,10 @@ public class previewPopUpController {
         } catch (Exception exception) {
             exception.printStackTrace();
         }
-
     }
 
     /**
-     * Closes and removes the preview pop-up from view
-     *
+     * Closes and removes the preview pop-up from the dashboard view
      * @param event a JavaFX Event
      */
     @FXML
@@ -94,24 +97,21 @@ public class previewPopUpController {
             AnchorPane currentPreview = (AnchorPane) ((Button) event.getSource()).getParent().getParent();
             app.myModelsView.myModelsAnchorPane.getChildren().remove(currentPreview);
 
-            // Refresh the my models view
+            // Refresh the 'My Models' view
             app.viewLoader = new FXMLLoader(getClass().getResource("/views/myModels/myModels.fxml"));
             Parent root = app.viewLoader.load();
             app.myModelsView = app.viewLoader.getController();
             app.dashboard.dashViewsAnchorPane.getChildren().setAll(root);
 
-            // Asynchronously populate the my models view and show appropriate nodes when ready
             String functionCall = "ModelBox.Models.getCurrentUserModels();";
             app.mongoApp.eval(functionCall);
         } catch (Exception exception) {
             exception.printStackTrace();
         }
-
     }
 
     /**
-     * Downloads (really saves) the selected model to the users local computer
-     *
+     * Downloads the selected model to the user's computer
      * @param event a JavaFX Event
      */
     @FXML
@@ -135,7 +135,6 @@ public class previewPopUpController {
 
     /**
      * Creates, styles, and shows the color picker pane in the preview pop-up
-     *
      * @param event a JavaFX Event
      */
     @FXML
@@ -281,13 +280,12 @@ public class previewPopUpController {
         AnchorPane.setTopAnchor(closeColorPickerBtn, 15.0);
         AnchorPane.setRightAnchor(closeColorPickerBtn, 10.0);
 
-        // Show the help pop-up
+        // Show the color picker pop-up
         previewModelAnchorPane.getChildren().add(colorPickerAnchorPane);
     }
 
     /**
      * Sets HSB color property values when the user changes the custom color property
-     *
      */
     private void colorChanged() {
         hue.set(customColorProperty.get().getHue());
@@ -297,7 +295,6 @@ public class previewPopUpController {
 
     /**
      * Updates the custom color property with the color specified by the user
-     *
      */
     private void updateCustomColor() {
         Color newColor = Color.hsb(hue.get(), clamp(sat.get() / 100),
@@ -307,7 +304,6 @@ public class previewPopUpController {
 
     /**
      * Processes a value to be between 0 and 1 for future use
-     *
      * @return a double value between 0 and 1 inclusive
      */
     private double clamp(double value) {
@@ -316,7 +312,6 @@ public class previewPopUpController {
 
     /**
      * Creates a hue gradient for use in a color selection slider
-     *
      * @return a JavaFX LinearGradient
      */
     private LinearGradient createColorSliderGradient() {
@@ -332,19 +327,16 @@ public class previewPopUpController {
 
     /**
      * Closes the color picker pane in the preview pop-up
-     *
      * @param event a JavaFX Event
      */
     @FXML
     private void closeColorPickerBtnClicked(Event event) {
-        // Remove color picker anchor pane from window
         AnchorPane colorPickerPopUp = (AnchorPane) ((Button) event.getSource()).getParent();
         previewModelAnchorPane.getChildren().remove(colorPickerPopUp);
     }
 
     /**
      * Changes the model color currently in the interactive preview panel
-     *
      * @param event a JavaFX Event
      */
     @FXML
@@ -358,7 +350,6 @@ public class previewPopUpController {
 
     /**
      * Zooms in on the model currently in the interactive preview panel
-     *
      * @param event a JavaFX Event
      */
     @FXML
@@ -368,7 +359,6 @@ public class previewPopUpController {
 
     /**
      * Zooms out of the model currently in the interactive preview panel
-     *
      * @param event a JavaFX Event
      */
     @FXML
@@ -378,7 +368,6 @@ public class previewPopUpController {
 
     /**
      * Creates, styles, and shows the help pane in the preview pop-up
-     *
      * @param event a JavaFX Event
      */
     @FXML
@@ -438,7 +427,6 @@ public class previewPopUpController {
         resetHelpText.wrappingWidthProperty().bind(helpAnchorPane.widthProperty().subtract(60));
         helpAnchorPane.getChildren().add(resetHelpText);
 
-
         // Add close btn
         ImageView closeHelpIcon = new ImageView(new Image("/images/close-btn.png"));
         closeHelpIcon.setFitHeight(30.0);
@@ -457,16 +445,18 @@ public class previewPopUpController {
 
     /**
      * Closes the help pane in the preview pop-up
-     *
      * @param event a JavaFX Event
      */
     @FXML
     private void closeHelpBtnClicked(Event event) {
-        // Remove help anchor pane from window
         AnchorPane helpPopUp = (AnchorPane) ((Button) event.getSource()).getParent();
         previewModelAnchorPane.getChildren().remove(helpPopUp);
     }
 
+    /**
+     * Sets the orientation in the interactive preview panel back to the default view
+     * @param event a JavaFX Event
+     */
     @FXML
     private void resetViewBtnClicked(Event event) {
         // Center the model
@@ -481,6 +471,10 @@ public class previewPopUpController {
         previewModelSubScene.getRoot().setTranslateZ(originalDistance);
     }
 
+    /**
+     * Toggles the visibility of the current model's mesh, instead of a solid model
+     * @param event a JavaFX Event
+     */
     @FXML
     private void wireMeshBtnClicked(Event event) {
         if (isWireMeshToolActive) {
@@ -494,13 +488,10 @@ public class previewPopUpController {
         }
     }
 
-    /*************************************************** UTILITY METHODS **********************************************/
-
     /**
      * Sets up the functionality for a user to rotate, zoom, and pan their model
-     *
-     * @param  meshGroup a JavaFX Group
-     * @param  scene     a JavaFX SubScene
+     * @param meshGroup a JavaFX Group
+     * @param scene a JavaFX SubScene
      */
     public void initMouseControl(Group meshGroup, SubScene scene) {
         Rotate xRotate;

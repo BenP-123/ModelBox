@@ -5,6 +5,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import java.util.prefs.Preferences;
 
+/**
+ * Provides a connection mechanism to handle authentication-related callbacks from Javascript calls made in a JavaFX WebEngine
+ * @see com.modelbox.app#mongoApp
+ */
 public class authBridge {
 
     private String logInStatus;
@@ -13,46 +17,92 @@ public class authBridge {
     private String deleteAccountStatus;
     private String changeEmailStatus;
 
+    /**
+     * Gets the status of logging into the app
+     * @return the String containing the status of logging into the app
+     */
     public String getLogInStatus() {
         return logInStatus;
     }
 
+    /**
+     * Gets the status of issuing a forgot password email
+     * @return the String containing the status of issuing a forgot password email
+     */
     public String getForgotPasswordStatus() {
         return forgotPasswordStatus;
     }
 
+    /**
+     * Gets the status of creating a new account
+     * @return the String containing the status of creating a new account
+     */
     public String getCreateAccountStatus() {
         return createAccountStatus;
     }
 
+    /**
+     * Gets the status of deleting an existing account
+     * @return the String containing the status of deleting an existing account
+     */
     public String getDeleteAccountStatus() {
         return deleteAccountStatus;
     }
 
+    /**
+     * Gets the status of changing the current user's email
+     * @return the String containing the status of changing the current user's email
+     */
     public String getChangeEmailStatus() {
         return changeEmailStatus;
     }
 
+    /**
+     * Sets the status of logging into the app
+     * @param status the String containing the current status of logging into the app
+     */
     public void setLogInStatus(String status) {
         logInStatus = status;
     }
 
+    /**
+     * Sets the status of issuing a forgot password email
+     * @param status the String containing the current status of issuing a forgot password email
+     */
     public void setForgotPasswordStatus(String status) {
         forgotPasswordStatus = status;
     }
 
+    /**
+     * Sets the status of creating a new account
+     * @param status the String containing the current status of creating a new account
+     */
     public void setCreateAccountStatus(String status) {
         createAccountStatus = status;
     }
 
+    /**
+     * Sets the status of deleting an existing account
+     * @param status the String containing the current status of deleting an existing account
+     */
     public void setDeleteAccountStatus(String status) {
         deleteAccountStatus = status;
     }
 
+    /**
+     * Sets the status of changing the current user's email
+     * @param status the String containing the current status of changing the current user's email
+     */
     public void setChangeEmailStatus(String status) {
         changeEmailStatus = status;
     }
 
+    /**
+     * Checks the status of the current user and shows the dashboard if appropriate
+     * @param ownerID the specific identifier for the current user
+     * @param email the email address provided by the user at log in
+     * @param password the password provided by the user at log in
+     */
     public void handleLogInCurrentUser(String ownerID, String email, String password) {
         try {
             if (logInStatus.equals("success")) {
@@ -81,11 +131,13 @@ public class authBridge {
                 app.loginView.passField.setText("");
             }
         } catch (Exception exception) {
-            // Handle errors
             exception.printStackTrace();
         }
     }
 
+    /**
+     * Prepares and populates the dashboard for a new user
+     */
     public void handleInitializeNewUser(){
         try {
             Preferences prefs = Preferences.userRoot().node("/com/modelbox");
@@ -95,29 +147,32 @@ public class authBridge {
 
             setUpMyModelsView();
         } catch (Exception exception) {
-            // Handle errors
             exception.printStackTrace();
         }
 
     }
 
+    /**
+     * Prepares and populates the dashboard for a user who changed their email address
+     */
     public void handleInitializeNewEmail(){
         try {
             Preferences prefs = Preferences.userRoot().node("/com/modelbox");
             prefs.remove("owner_id");
-
             setUpMyModelsView();
         } catch (Exception exception) {
-            // Handle errors
             exception.printStackTrace();
         }
 
     }
 
+    /**
+     * Prepares the dashboard and 'My Models' view and shows the app's 'My Models' view
+     */
     private void setUpMyModelsView() {
         try {
             app.viewLoader = new FXMLLoader(getClass().getResource("/views/dashboard.fxml"));
-            Parent root = (Parent) app.viewLoader.load();
+            Parent root = app.viewLoader.load();
             app.dashboard = app.viewLoader.getController();
             app.dashboard.dashboardLine.endXProperty().bind(app.dashboard.dashboardAnchorPane.widthProperty());
 
@@ -128,24 +183,25 @@ public class authBridge {
                 app.dashboard.dashboardAnchorPane.getStylesheets().add("@../../css/light-mode.css");
                 app.dashboard.darkModeToggleSwitch.setSwitchedOnProperty(false);
             }
-
             app.loginView.emailField.getScene().setRoot(root);
 
             // Show the my models view
             app.viewLoader = new FXMLLoader(getClass().getResource("/views/myModels/myModels.fxml"));
-            Parent myModelsRoot = (Parent) app.viewLoader.load();
+            Parent myModelsRoot = app.viewLoader.load();
             app.myModelsView = app.viewLoader.getController();
             app.dashboard.dashViewsAnchorPane.getChildren().setAll(myModelsRoot);
-            // Asynchronously populate the my models view and show appropriate nodes when ready
-            String functionCall = String.format("ModelBox.Models.getCurrentUserModels();");
+
+            String functionCall = "ModelBox.Models.getCurrentUserModels();";
             app.mongoApp.eval(functionCall);
         } catch (Exception exception) {
-            // Handle errors
             exception.printStackTrace();
         }
 
     }
 
+    /**
+     * Redirects the user to the 'Log In' view after logging out of their account
+     */
     public void handleLogOutCurrentUser() {
         try {
             app.viewLoader = new FXMLLoader(getClass().getResource("/views/auth/login.fxml"));
@@ -153,11 +209,13 @@ public class authBridge {
             app.loginView = app.viewLoader.getController();
             app.dashboard.logOutBtn.getScene().setRoot(root);
         } catch (Exception exception) {
-            // Handle errors
             exception.printStackTrace();
         }
     }
 
+    /**
+     * Redirects the user to a confirmation view after issuing a change email address confirmation
+     */
     public void handleChangeCurrentUserEmail() {
         try {
             if (changeEmailStatus.equals("success")) {
@@ -186,6 +244,9 @@ public class authBridge {
 
     }
 
+    /**
+     * Redirects the user to the 'Forgot Password' view so that they can change their password
+     */
     public void handleChangeCurrentUserPassword() {
         try {
             app.viewLoader = new FXMLLoader(getClass().getResource("/views/auth/forgotPassword.fxml"));
@@ -196,11 +257,13 @@ public class authBridge {
             app.forgotPasswordView.logInPromptText.setText("Already like your password?");
             app.dashboard.logOutBtn.getScene().setRoot(root);
         } catch (Exception exception) {
-            // Handle errors
             exception.printStackTrace();
         }
     }
 
+    /**
+     * Modifies the 'Forgot Password' view accordingly once an email has been provided
+     */
     public void handleSendPasswordResetEmail() {
         try {
             if (forgotPasswordStatus.equals("success")) {
@@ -214,11 +277,13 @@ public class authBridge {
                 app.forgotPasswordView.emailField.setText("");
             }
         } catch (Exception exception) {
-            // Handle errors
             exception.printStackTrace();
         }
     }
 
+    /**
+     * Modifies the 'Create Account' view accordingly once the appropriate information has been provided
+     */
     public void handleRegisterNewUser() {
         try {
             if (createAccountStatus.equals("success")) {
@@ -236,11 +301,14 @@ public class authBridge {
                 app.createAccountView.confirmPassField.setText("");
             }
         } catch (Exception exception) {
-            // Handle errors
             exception.printStackTrace();
         }
     }
 
+    /**
+     * Redirects the user to an account deletion confirmation view if their account was successfully deleted. Otherwise,
+     * the user can attempt to delete their account again.
+     */
     public void handleDeleteCurrentUser() {
         try {
             if (deleteAccountStatus.equals("success")) {
@@ -257,7 +325,6 @@ public class authBridge {
                 app.settingsView.deleteAccountEmailField.setText("");
             }
         } catch (Exception exception) {
-            // Handle errors
             exception.printStackTrace();
         }
     }

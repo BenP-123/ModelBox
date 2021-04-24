@@ -7,13 +7,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 
+/**
+ * Provides a JavaFX controller implementation for the accountDeleted.fxml view
+ */
 public class accountDeletedController {
 
     @FXML private Button createNewAccountBtn;
 
     /**
-     * Handles the UI redirect to the create account view
-     *
+     * Handles the UI redirect to the 'Create Account' view
      * @param event a JavaFX Event
      */
     @FXML
@@ -24,9 +26,7 @@ public class accountDeletedController {
             app.createAccountView = app.viewLoader.getController();
             createNewAccountBtn.getScene().setRoot(root);
         } catch (Exception exception){
-            // Handle errors
             exception.printStackTrace();
         }
     }
-
 }

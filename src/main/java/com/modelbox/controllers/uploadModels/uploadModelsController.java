@@ -14,19 +14,20 @@ import org.bson.*;
 import java.io.File;
 import java.nio.file.Files;
 import java.util.ArrayList;
-import java.util.List;
 
+/**
+ * Provides a JavaFX controller implementation for the uploadModels.fxml view
+ */
 public class uploadModelsController {
 
     @FXML public Text uploadModelsTextHeading;
     @FXML public AnchorPane uploadModelsAnchorPane;
     @FXML public ImageView browseModelsBtnIcon;
-    private FileChooser modelFileChooser;
     @FXML private Button browseModelsBtn;
+    private final FileChooser modelFileChooser;
 
     /**
-     *   Constructs an uploadModelsController object
-     *
+     * Constructs and initializes an uploadModelsController object
      */
     public uploadModelsController() {
         modelFileChooser = new FileChooser();
@@ -35,9 +36,8 @@ public class uploadModelsController {
     }
 
     /**
-     *  Opens a file browser to select local 3D models to upload
-     *
-     *  @param  event a JavaFX Event
+     * Opens a file browser to select local 3D models for upload and modifies the UI accordingly
+     * @param event a JavaFX Event
      */
     @FXML
     private void browseModelsBtnClicked(Event event){
@@ -46,11 +46,7 @@ public class uploadModelsController {
             app.dashboard.browseModelsList.clear();
 
             // Add the selected files to the list
-            app.dashboard.browseModelsList.addAll(
-                    modelFileChooser.showOpenMultipleDialog(
-                            browseModelsBtn.getScene().getWindow()
-                    )
-            );
+            app.dashboard.browseModelsList.addAll(modelFileChooser.showOpenMultipleDialog(browseModelsBtn.getScene().getWindow()));
 
             if (!app.dashboard.browseModelsList.isEmpty()) {
                 app.viewLoader = new FXMLLoader(getClass().getResource("/views/uploadModels/verifyModels.fxml"));
@@ -67,28 +63,24 @@ public class uploadModelsController {
                         invalidModels.add(model.getName() + " is " + app.models.getModelSize(data.length) + ", ");
                     } else {
                         BsonDocument modelDocument = new BsonDocument("_id", new BsonObjectId());
-                        try {
-                            modelDocument.append("owner_id", new BsonString(app.users.ownerId));
-                            modelDocument.append("collaborators", new BsonArray());
-                            modelDocument.append("modelName", new BsonString(model.getName()));
-                            modelDocument.append("modelFile", new BsonBinary(data));
-                            modelDocument.append("isShared", new BsonBoolean(false));
-                        } catch (Exception exception) {
-                            // Handle errors
-                            exception.printStackTrace();
-                        }
+                        modelDocument.append("owner_id", new BsonString(app.users.ownerId));
+                        modelDocument.append("collaborators", new BsonArray());
+                        modelDocument.append("modelName", new BsonString(model.getName()));
+                        modelDocument.append("modelFile", new BsonBinary(data));
+                        modelDocument.append("isShared", new BsonBoolean(false));
+
                         app.dashboard.verifyModelsList.add(modelDocument);
                         app.verifyModelsView.addVerifyModelsPreviewCard(modelDocument);
                     }
                 }
 
                 if (!invalidModels.isEmpty()) {
-                    String invalidPopUpText = "";
+                    StringBuilder invalidPopUpText = new StringBuilder();
                     for (String invalidModel : invalidModels) {
-                        invalidPopUpText += invalidModel;
+                        invalidPopUpText.append(invalidModel);
                     }
-                    invalidPopUpText += "file size limit of 10MB was exceeded.";
-                    app.verifyModelsView.removedModelsText.setText(invalidPopUpText);
+                    invalidPopUpText.append("file size limit of 10MB was exceeded.");
+                    app.verifyModelsView.removedModelsText.setText(invalidPopUpText.toString());
                     app.verifyModelsView.removedModelsPopup.setVisible(true);
                 }
 
@@ -101,11 +93,8 @@ public class uploadModelsController {
                     app.dashboard.dashViewsAnchorPane.getChildren().setAll(root);
                 }
             }
-        } catch (NullPointerException nullException){
-            // No models were selected for upload
         } catch (Exception exception){
-            // Show other errors
-            exception.printStackTrace();
+            // No models selected for upload
         }
     }
 }

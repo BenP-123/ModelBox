@@ -12,6 +12,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
+/**
+ * Provides a JavaFX controller implementation for the forgotPassword.fxml view
+ */
 public class forgotPasswordController {
 
     @FXML public TextField emailField;
@@ -27,8 +30,7 @@ public class forgotPasswordController {
 
     /**
      * Handles resetting the user's password when the reset password button is clicked
-     *
-     * @param  event a JavaFX Event
+     * @param event a JavaFX Event
      */
     @FXML
     private void resetPassBtnClicked(Event event) {
@@ -37,8 +39,7 @@ public class forgotPasswordController {
 
     /**
      * Handles resetting the user's password when the enter key is pressed on the last field
-     *
-     * @param  event  a JavaFX KeyEvent
+     * @param event a JavaFX KeyEvent
      */
     @FXML
     private void resetPassEnterKeyPressed(KeyEvent event) {
@@ -48,23 +49,19 @@ public class forgotPasswordController {
     }
 
     /**
-     * Attempts to reset the user's password using the information provided in the forgotPassword view
-     * and modifies the view accordingly to handle errors
-     *
+     * Reset the user's password using the information provided and modifies the view accordingly
      */
     private void resetUserPassword() {
         try {
             String functionCall = String.format("ModelBox.Auth.sendPasswordResetEmail('%s');", emailField.getText());
             app.mongoApp.eval(functionCall);
         } catch(Exception exception){
-            // Handle errors
             exception.printStackTrace();
         }
     }
 
     /**
-     * Handles the UI redirect to the log in view
-     *
+     * Handles the UI redirect to the 'Log In' view
      * @param event a JavaFX Event
      */
     @FXML
@@ -75,7 +72,6 @@ public class forgotPasswordController {
             app.loginView = app.viewLoader.getController();
             loginBtn.getScene().setRoot(root);
         } catch (Exception exception){
-            // Handle errors
             exception.printStackTrace();
         }
     }
