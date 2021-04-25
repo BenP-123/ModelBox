@@ -177,10 +177,10 @@ public class authBridge {
             app.dashboard.dashboardLine.endXProperty().bind(app.dashboard.dashboardAnchorPane.widthProperty());
 
             if (app.isDarkModeActive) {
-                app.dashboard.dashboardAnchorPane.getStylesheets().add("@../../css/dark-mode.css");
+                app.dashboard.dashboardAnchorPane.getStylesheets().add(getClass().getResource("/css/dark-mode.css").toString());
                 app.dashboard.darkModeToggleSwitch.setSwitchedOnProperty(true);
             } else {
-                app.dashboard.dashboardAnchorPane.getStylesheets().add("@../../css/light-mode.css");
+                app.dashboard.dashboardAnchorPane.getStylesheets().add(getClass().getResource("/css/light-mode.css").toString());
                 app.dashboard.darkModeToggleSwitch.setSwitchedOnProperty(false);
             }
             app.loginView.emailField.getScene().setRoot(root);

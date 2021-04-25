@@ -1,5 +1,3 @@
-com/modelbox/init.java
- com.modelbox.init
 com/modelbox/controllers/dashboardController.java
  com.modelbox.controllers.dashboardController
 com/modelbox/controllers/myModels/myModelsController.java
@@ -15,6 +13,8 @@ com/modelbox/controllers/auth/forgotPasswordController.java
  com.modelbox.controllers.auth.forgotPasswordController
 com/modelbox/controllers/account/settingsController.java
  com.modelbox.controllers.account.settingsController
+com/modelbox/init.java
+ com.modelbox.init
 com/modelbox/mongo/authBridge.java
  com.modelbox.mongo.authBridge
 com/modelbox/controllers/account/profileController.java
