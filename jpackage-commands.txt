@@ -1,0 +1,15 @@
+macOS command executed from build/libs:
+
+jpackage --input ./ \
+  --name ModelBox \
+  --main-jar ModelBox-1.0-all.jar \
+  --main-class com.modelbox.init \
+  --type dmg \
+  --icon "../../src/main/resources/app.icns" \
+  --app-version "1.0" \
+  --mac-package-name "ModelBox" \
+  --verbose
+
+Windows build (executed on Windows machine):
+-> Create EXE with launch4j Windows desktop app and jre 1.8
+-> Build installer with bundled jre using Inno Setup

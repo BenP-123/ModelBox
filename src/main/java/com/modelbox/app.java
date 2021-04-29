@@ -67,6 +67,7 @@ public class app extends Application{
      */
     @Override
     public void start(Stage stage) {
+        System.setProperty("sun.net.http.allowRestrictedHeaders", "true");
         mongoEngine.getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue == Worker.State.SUCCEEDED) {
                 try {
